@@ -1,6 +1,5 @@
 *-debug.log
 *-error.log
-.editorconfig
 /.nyc_output
 /coverage
 /dist
