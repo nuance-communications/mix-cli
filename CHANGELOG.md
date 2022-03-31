@@ -1,0 +1,6 @@
+# [1.2.0](https://github.com/nuance-communications/mix-cli/compare/v1.1.0...v1.2.0) (2022-03-31)
+
+
+### Features
+
+* initial release ([9093b05](https://github.com/nuance-communications/mix-cli/commit/9093b05c1e858cf974ac079d3424d5f0e1a78e40))

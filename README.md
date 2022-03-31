@@ -233,6 +233,8 @@ EXAMPLES
   $ mix app-configs:create -M 233 -D 32 -T AC_20211028 -P 1922 --use-project-data-hosts
 ```
 
+_See code: [src/commands/app-configs/create.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/app-configs/create.ts)_
+
 ## `mix app-configs:deploy`
 
 deploy an application configuration
@@ -264,6 +266,8 @@ EXAMPLES
   $ mix app-configs:deploy -C 88 --env-geo 233
 ```
 
+_See code: [src/commands/app-configs/deploy.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/app-configs/deploy.ts)_
+
 ## `mix app-configs:destroy`
 
 destroy an application configuration
@@ -283,6 +287,8 @@ DESCRIPTION
   The deletion needs to be confirmed by re-typing the application configuration
   ID when prompted. It can also be pre-confirmed by using the --confirm flag.
 ```
+
+_See code: [src/commands/app-configs/destroy.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/app-configs/destroy.ts)_
 
 ## `mix app-configs:export`
 
@@ -310,6 +316,8 @@ EXAMPLES
   Export an application configuration
   $ mix app-configs:export -C 2269 -R NMDPTRIAL_alex_smith_company_com_20190919T190532 -f app-config.zip
 ```
+
+_See code: [src/commands/app-configs/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/app-configs/export.ts)_
 
 ## `mix app-configs:get`
 
@@ -339,6 +347,8 @@ DESCRIPTION
 EXAMPLE
   $ mix app-configs:get -C 3404
 ```
+
+_See code: [src/commands/app-configs/get.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/app-configs/get.ts)_
 
 ## `mix app-configs:list`
 
@@ -373,6 +383,8 @@ EXAMPLE
   $ mix app-configs:list -M 164 --with-runtime-app NMDPTRIAL_alex_smith_company_com_20190919T190532
 ```
 
+_See code: [src/commands/app-configs/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/app-configs/list.ts)_
+
 ## `mix app-configs:undeploy`
 
 undeploy an application configuration
@@ -401,6 +413,8 @@ EXAMPLES
   $ mix app-configs:undeploy -C 88 --env-geo 233
 ```
 
+_See code: [src/commands/app-configs/undeploy.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/app-configs/undeploy.ts)_
+
 ## `mix app-configs:upgrade`
 
 update an application configuration to latest build versions
@@ -426,6 +440,8 @@ EXAMPLES
   Upgrade an application configuration using latest builds from project including data hosts defined in project
   $ mix app-configs:upgrade -C 334 --use-project-data-hosts
 ```
+
+_See code: [src/commands/app-configs/upgrade.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/app-configs/upgrade.ts)_
 
 ## `mix app-credentials:list`
 
@@ -454,6 +470,8 @@ EXAMPLES
   List application credentials for a Mix application that match a specific environment-geography
   $ mix app-credentials:list -M 22 --with-geo-name "Production US"
 ```
+
+_See code: [src/commands/app-credentials/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/app-credentials/list.ts)_
 
 ## `mix applications:list`
 
@@ -485,6 +503,8 @@ EXAMPLE
   $ mix applications:list -O 64
 ```
 
+_See code: [src/commands/applications/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/applications/list.ts)_
+
 ## `mix auth`
 
 obtain Mix access token
@@ -503,6 +523,8 @@ DESCRIPTION
 EXAMPLE
   mix auth
 ```
+
+_See code: [src/commands/auth.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/auth.ts)_
 
 ## `mix autocomplete [SHELL]`
 
@@ -563,6 +585,8 @@ EXAMPLES
   $ mix builds:destroy --build-label ASR_1922_11 --confirm ASR_1922_11
 ```
 
+_See code: [src/commands/builds/destroy.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/builds/destroy.ts)_
+
 ## `mix builds:export`
 
 export a project build
@@ -594,6 +618,8 @@ EXAMPLES
   $ mix builds:export -P 29050 --build-type asr --build-version 11 -f build.zip --overwrite
 ```
 
+_See code: [src/commands/builds/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/builds/export.ts)_
+
 ## `mix builds:get`
 
 get details about a build
@@ -622,6 +648,8 @@ EXAMPLE
   mix builds:get -P 1922 --build-type nlu --build-version 1
 ```
 
+_See code: [src/commands/builds/get.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/builds/get.ts)_
+
 ## `mix builds:latest`
 
 list latest build of each type
@@ -648,6 +676,8 @@ EXAMPLES
   List latest builds
   $ mix builds:latest -P 1922
 ```
+
+_See code: [src/commands/builds/latest.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/builds/latest.ts)_
 
 ## `mix builds:list`
 
@@ -677,6 +707,8 @@ DESCRIPTION
 EXAMPLE
   mix builds:list -P 1922 --build-type nlu
 ```
+
+_See code: [src/commands/builds/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/builds/list.ts)_
 
 ## `mix data-hosts:list`
 
@@ -711,6 +743,8 @@ EXAMPLE
   mix data-hosts:list -D 66 -M 62 -P 14990 --build-version 1
 ```
 
+_See code: [src/commands/data-hosts/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/data-hosts/list.ts)_
+
 ## `mix deployment-flows:list`
 
 list deployment flows
@@ -738,6 +772,8 @@ EXAMPLE
   mix deployment-flows:list -O 64
 ```
 
+_See code: [src/commands/deployment-flows/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/deployment-flows/list.ts)_
+
 ## `mix engine-packs:list`
 
 list engine packs
@@ -757,6 +793,8 @@ DESCRIPTION
 EXAMPLE
   mix engine-packs:list -O 64
 ```
+
+_See code: [src/commands/engine-packs/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/engine-packs/list.ts)_
 
 ## `mix environments:list`
 
@@ -786,6 +824,8 @@ EXAMPLE
   mix environments:list -O 64
 ```
 
+_See code: [src/commands/environments/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/environments/list.ts)_
+
 ## `mix geographies:list`
 
 list geographies
@@ -812,6 +852,8 @@ DESCRIPTION
 EXAMPLE
   mix geographies:list
 ```
+
+_See code: [src/commands/geographies/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/geographies/list.ts)_
 
 ## `mix help [COMMAND]`
 
@@ -846,6 +888,8 @@ EXAMPLE
   mix init
 ```
 
+_See code: [src/commands/init.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/init.ts)_
+
 ## `mix jobs:cancel`
 
 cancel a job
@@ -869,6 +913,8 @@ DESCRIPTION
 EXAMPLE
   mix jobs:cancel -P 1922 -J 15d4d4ce-7cc3-45f6-ab38-aad326e6fc20
 ```
+
+_See code: [src/commands/jobs/cancel.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/jobs/cancel.ts)_
 
 ## `mix jobs:get`
 
@@ -895,6 +941,8 @@ DESCRIPTION
 EXAMPLE
   mix jobs:get -P 1922 -J 25a08872-c635-43f1-b459-5bd98a1c2576
 ```
+
+_See code: [src/commands/jobs/get.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/jobs/get.ts)_
 
 ## `mix jobs:list`
 
@@ -924,6 +972,8 @@ EXAMPLE
   mix jobs:list -P 1922
 ```
 
+_See code: [src/commands/jobs/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/jobs/list.ts)_
+
 ## `mix language-topics:list`
 
 list language topics for an organization
@@ -948,6 +998,8 @@ DESCRIPTION
 EXAMPLE
   mix language-topics:list -O 64
 ```
+
+_See code: [src/commands/language-topics/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/language-topics/list.ts)_
 
 ## `mix literals:export`
 
@@ -974,6 +1026,8 @@ DESCRIPTION
 EXAMPLE
   $ mix literals:export -P 29050 -E DrinkSize -L en-US -f literals.zip --overwrite
 ```
+
+_See code: [src/commands/literals/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/literals/export.ts)_
 
 ## `mix literals:import`
 
@@ -1016,6 +1070,8 @@ EXAMPLES
   $ mix literals:import -P 29050 -E DrinkSize -L en-US -f literals.trsx -c DrinkSize --replace
 ```
 
+_See code: [src/commands/literals/import.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/literals/import.ts)_
+
 ## `mix ontology:export`
 
 export ontology
@@ -1039,6 +1095,8 @@ DESCRIPTION
 EXAMPLE
   $ mix ontology:export -P 29050 -L en-US -f ontology.zip --overwrite
 ```
+
+_See code: [src/commands/ontology/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/ontology/export.ts)_
 
 ## `mix ontology:import`
 
@@ -1070,6 +1128,8 @@ EXAMPLES
   $ mix ontology:import -P 29050 -f ontology.zip -c 29050
 ```
 
+_See code: [src/commands/ontology/import.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/ontology/import.ts)_
+
 ## `mix organizations:list`
 
 list available Mix organizations
@@ -1100,6 +1160,8 @@ EXAMPLE
   mix organizations:list
 ```
 
+_See code: [src/commands/organizations/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/organizations/list.ts)_
+
 ## `mix projects:build`
 
 build a project
@@ -1126,6 +1188,8 @@ EXAMPLES
   build"
 ```
 
+_See code: [src/commands/projects/build.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/projects/build.ts)_
+
 ## `mix projects:configure`
 
 configure a project
@@ -1151,6 +1215,8 @@ DESCRIPTION
 EXAMPLE
   $ mix projects:configure -P 1922 --data-pack en-US@4.7.0
 ```
+
+_See code: [src/commands/projects/configure.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/projects/configure.ts)_
 
 ## `mix projects:create`
 
@@ -1217,6 +1283,8 @@ EXAMPLES
     -n "ACME Project" --engine-pack 995f6e23-07ff-4f89-9e42-97d0398da7fc
 ```
 
+_See code: [src/commands/projects/create.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/projects/create.ts)_
+
 ## `mix projects:destroy`
 
 destroy a project
@@ -1246,6 +1314,8 @@ EXAMPLES
   Destroy a project and provide automatic confirmation
   $ mix projects:destroy -P 1922 -c 1922
 ```
+
+_See code: [src/commands/projects/destroy.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/projects/destroy.ts)_
 
 ## `mix projects:export`
 
@@ -1280,6 +1350,8 @@ EXAMPLES
   $ mix projects:export -P 29050 -f metadata.json --metadata-only --overwrite
 ```
 
+_See code: [src/commands/projects/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/projects/export.ts)_
+
 ## `mix projects:get`
 
 get details about a project
@@ -1309,6 +1381,8 @@ EXAMPLE
   mix projects:get -P 1922
 ```
 
+_See code: [src/commands/projects/get.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/projects/get.ts)_
+
 ## `mix projects:list`
 
 list projects
@@ -1335,6 +1409,8 @@ EXAMPLE
   mix projects:list -O 64
 ```
 
+_See code: [src/commands/projects/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/projects/list.ts)_
+
 ## `mix projects:rename`
 
 rename a project
@@ -1355,6 +1431,8 @@ DESCRIPTION
 EXAMPLE
   $ mix projects:rename -P 1922 -n ACME
 ```
+
+_See code: [src/commands/projects/rename.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/projects/rename.ts)_
 
 ## `mix projects:replace`
 
@@ -1391,6 +1469,8 @@ EXAMPLES
   $ mix projects:replace -P 29050 -f myProject.zip -c 29050
 ```
 
+_See code: [src/commands/projects/replace.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/projects/replace.ts)_
+
 ## `mix samples:export`
 
 export sample sentences
@@ -1412,6 +1492,8 @@ DESCRIPTION
 EXAMPLE
   $ mix samples:export -P 29050 -I ORDER_DRINK -L en-US -f samples.zip --overwrite
 ```
+
+_See code: [src/commands/samples/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/samples/export.ts)_
 
 ## `mix samples:import`
 
@@ -1455,6 +1537,8 @@ EXAMPLES
   $mix samples:import -P 29050 -I ORDER_DRINK -L en-US -f samples.trsx --replace -c ORDER_DRINK
 ```
 
+_See code: [src/commands/samples/import.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/samples/import.ts)_
+
 ## `mix system:version`
 
 list Mix API version and environment
@@ -1477,6 +1561,8 @@ DESCRIPTION
 EXAMPLE
   mix system:version
 ```
+
+_See code: [src/commands/system/version.ts](https://github.com/nuance-communications/mix-cli/blob/v1.2.0/src/commands/system/version.ts)_
 <!-- commandsstop -->
 
 .
