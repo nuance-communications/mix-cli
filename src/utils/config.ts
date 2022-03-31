@@ -99,7 +99,10 @@ export const Config = {
 
     if (!fs.existsSync(configDir)) {
       try {
-        fs.mkdirSync(configDir, {mode: '0700'}) // rwx mode for user only
+        fs.mkdirSync(configDir, {
+          recursive: true,
+          mode: '0700',
+        }) // rwx mode for user only
       } catch (error) {
         const errMessage = error.message ? `: ${error.message}` : ''
         errorMessage = `Failed to create directory ${configDir}: ${errMessage}`
