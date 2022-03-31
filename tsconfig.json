@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "module": "commonjs",
+    "outDir": "lib",
+    "rootDir": "src",
+    "sourceMap": true,
+    "strict": true,
+    "useUnknownInCatchVariables": false,
+    "target": "es2017"
+  },
+  "include": [
+    "src/**/*"
+, "src/commands/geographies/.list.ts", "src/commands/environments/.list.ts", "src/commands/applications/.list.ts", "src/commands/applications/.list.ts"  ]
+}

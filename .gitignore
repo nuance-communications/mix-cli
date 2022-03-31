@@ -1,0 +1,13 @@
+*-debug.log
+*-error.log
+.editorconfig
+/.nyc_output
+/coverage
+/dist
+/lib
+/tmp
+/yarn.lock
+node_modules
+/.vscode
+/.prettierrc
+TODO

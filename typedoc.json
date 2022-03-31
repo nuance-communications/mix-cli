@@ -1,0 +1,8 @@
+{
+  "entryPoints": [
+    "./src/mix/api/index.ts",
+    "./src/mix/client.ts",
+    "./src/mix/types.ts"
+  ],
+  "out": "docs/api"
+}

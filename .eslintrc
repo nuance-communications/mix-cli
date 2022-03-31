@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "oclif",
+    "oclif-typescript"
+  ],
+  "rules": {
+    "indent": "off",
+    "no-warning-comments": "off",
+    "@typescript-eslint/indent": ["error", 2],
+    "valid-jsdoc": "off"
+  }
+}
