@@ -46,8 +46,8 @@ The `init` command asks for a few pieces of configuration data. Defaults
 are provided for the Mix production system in the US geography. Service
 credentials are requested last.
 
-The `mix-cli` configuration is stored under `~/.config/mix.cli/` on Unix and
-macOS systems and under `%LOCALAPPDATA%\mix.cli\` on Windows systems. The
+The `mix-cli` configuration is stored under `~/.config/@nuance-mix/mix-cli/` on Unix and
+macOS systems and under `%LOCALAPPDATA%\@nuance-mix\mix-cli\` on Windows systems. The
 configuration is stored in a file named "config.json" that is accessible only to
 the user who executed the `init` command.
 
@@ -108,7 +108,7 @@ when "csv" output is chosen.
 Some commands offer the ability to filter and/or sort the output data. The
 filtering and sorting are done by the remote server when the functionality is
 supported by the endpoint. Otherwise, filtering and sorting are performed
-locally in mix.cli.
+locally in mix-cli.
 
 # Autocompleting commands
 Thanks to the [oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete)
