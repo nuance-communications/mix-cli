@@ -4,9 +4,9 @@ mix-cli
 `mix-cli` is a command line tool that provides access to the Mix V4 API.
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/mixcli.svg)](https://npmjs.org/package/mixcli)
-[![Downloads/week](https://img.shields.io/npm/dw/mixcli.svg)](https://npmjs.org/package/mixcli)
-[![License](https://img.shields.io/npm/l/mixcli.svg)](https://github.com/mix/mixcli/blob/master/package.json)
+[![Version](https://img.shields.io/npm/v/@nuance-mix/mix-cli.svg)](https://npmjs.org/package/@nuance-mix/mix-cli)
+[![Downloads/week](https://img.shields.io/npm/dw/@nuance-mix/mix-cli.svg)](https://npmjs.org/package/@nuance-mix/mix-cli)
+[![License](https://img.shields.io/npm/l/@nuance-mix/mix-cli.svg)](https://github.com/nuance-communications/mix-cli/blob/main/LICENSE)
 
 <!-- toc -->
 * [Installing mix-cli](#installing-mix-cli)
