@@ -1,9 +1,9 @@
 # Architecture
 mix-cli provides users with an easy way to use the Mix V4 authoring API. It
-offers atomic commands that can be scripted in sequence to implement workflows
-that would be tedious to repeat manually using the Mix.dashboard tool. All
-commands offer endpoint outputs in json format which can then be processed with
-tools like [jq](https://stedolan.github.io/jq/).
+offers atomic commands that can be scripted in sequence to enable automation of
+common tasks or custom workflows. All commands offer endpoint outputs in json
+format which can then be processed with tools like
+[jq](https://stedolan.github.io/jq/).
 
 ## Foundations
 mix-cli is built with the [oclif](https://oclif.io) framework and requires an
@@ -74,7 +74,7 @@ descriptions consistent across commands. New command flags should be added to
 this module for the same reason.
 
 ### Authentication
-mix.cli retrieves the access token from file storage or renews it if
+mix-cli retrieves the access token from file storage or renews it if
 possible. This is required for any command and is handled by default.
 
 ### Watchable commands
