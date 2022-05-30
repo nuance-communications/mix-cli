@@ -10,6 +10,7 @@ import makeDebug from 'debug'
 import chalk from 'chalk'
 import {cli} from 'cli-ux'
 import {flags} from '@oclif/command'
+import Parser from '@oclif/parser'
 import {table} from 'cli-ux/lib/styled/table'
 import YAML from 'yaml'
 
@@ -118,9 +119,26 @@ that configuration file swiftly.`)
   }
 
   // ------------------------------------------------------------------------
-  // Options treatment
-  //
-  abstract captureOptions(): void
+  /** Options treatment
+   * Explanation:
+   * When creating an oclif command that needs to
+   * parse/validate its flag inputs, you normally need to pass in
+   * the name of the command class as an argument to `this.parse`
+   * (e.g., `const {flags} = this.parse(SampleCommand)`).
+   * In JS, this classname is little more than a reference to a
+   * constructor, a function which also possesses an attribute
+   * called `name`, which can be accessed generically using
+   * `this.constructor` in a superclass. This behaviour is
+   * guaranteed on all non-null objects.
+   */
+
+   captureOptions(): void {
+    debug('captureOptions()')
+    const options = this.constructor as Parser.Input<MixCommand>
+    const {flags} = this.parse(options)
+
+    this.options = flags
+  }
 
   captureOutputFormat(options: Partial<flags.Output>): void {
     debug('captureOutputFormat()')
