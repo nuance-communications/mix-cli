@@ -132,7 +132,7 @@ that configuration file swiftly.`)
    * guaranteed on all non-null objects.
    */
 
-   captureOptions(): void {
+  captureOptions(): void {
     debug('captureOptions()')
     const options = this.constructor as Parser.Input<MixCommand>
     const {flags} = this.parse(options)
