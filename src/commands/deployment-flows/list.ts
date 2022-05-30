@@ -80,12 +80,6 @@ The organization ID can be retrieved by using the organizations:list command.`
     }
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(DeploymentFlowsList)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: DeploymentFlowsListParams): Promise<MixResponse> {
     debug('doRequest()')
     return DeploymentFlowsAPI.listDeploymentFlows(client, params)

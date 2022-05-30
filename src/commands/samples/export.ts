@@ -51,9 +51,7 @@ Use this command to export samples for an intent in the project.`
   }
 
   captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(SamplesExport)
-    this.options = flags
+    super.captureOptions()
     this.options.locale = asArray(this.options.locale)
   }
 

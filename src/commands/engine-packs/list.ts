@@ -44,12 +44,6 @@ Use this command to list the engine packs available to a specific organization.`
     return {orgId}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(EnginePacksList)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: EnginePacksListParams): Promise<MixResponse> {
     debug('doRequest()')
     return EnginePacksAPI.listEnginePacks(client, params)

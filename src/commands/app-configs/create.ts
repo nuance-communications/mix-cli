@@ -83,9 +83,7 @@ should be unique.`
   }
 
   captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(AppConfigsCreate)
-    this.options = flags
+    super.captureOptions()
     debug('flags: %O', flags)
     debug('this.options: %O', flags)
   }

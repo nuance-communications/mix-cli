@@ -42,12 +42,6 @@ Use this command to rename a project.`
     return {displayName, projectId}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(ProjectsRename)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: ProjectsRenameParams): Promise<MixResponse> {
     debug('doRequest()')
     return ProjectsAPI.renameProject(client, params)

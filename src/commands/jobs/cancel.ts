@@ -48,12 +48,6 @@ of the original one.`
     return ['job', 'project']
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(JobsCancel)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: JobsGetParams): Promise<MixResponse> {
     debug('doRequest()')
     return JobsAPI.deleteJob(client, params)
