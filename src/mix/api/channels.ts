@@ -7,7 +7,7 @@
  */
 
 import makeDebug from 'debug'
-import { MixClient } from '../types'
+import { MixClient, MixResponse } from '../types'
 import { ChannelsRenameParams } from './channels-types'
 import buildURL from './utils/build-url'
 
