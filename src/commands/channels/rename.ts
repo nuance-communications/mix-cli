@@ -26,7 +26,10 @@ export default class ChannelsRename extends MixCommand {
     
     Use this command to change the name of a channel in a project.`
 
-    static examples = ['mix channels:rename -P 1922 --channel ivr --new-name voice']
+    static examples = [
+    'mix channels:rename -P 1922 \\',
+    '  --channel bc40667c-e0f6-11ec-9d64-0242ac120003 \\',
+    '  --new-name "voice channel"']
 
     static flags = {
         project: MixFlags.projectWithDefaultFlag,
