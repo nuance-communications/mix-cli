@@ -135,6 +135,9 @@
       "builds": {
         "description": "manage builds"
       },
+      "channels": {
+        "description": "manage channels"
+      },
       "data-hosts": {
         "description": "manage data hosts"
       },
