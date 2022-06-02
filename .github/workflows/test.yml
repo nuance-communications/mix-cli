@@ -29,3 +29,23 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+  
+  static_analysis:
+    name: Static Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out main branch
+        uses: actions/checkout@v2
+        
+      - name: Build with Maven # Compiling the .war binary from the checked out repo source code to upload to the scanner in the next step
+        run: zip targetUpload.zip `find ./ -name "*.js" -o -name "*.json" -o -name "*.ts"`
+          
+      - name: Veracode Upload And Scan
+        uses: veracode/veracode-uploadandscan-action@0.2.1
+        with:
+          appname: 'VeraDemo'
+          createprofile: false
+          filepath: 'targetUpload.zip'
+          vid: '${{ secrets.VERACODE_API_ID }}'
+          vkey: '${{ secrets.VERAOCDE_API_KEY }}'
