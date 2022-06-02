@@ -38,7 +38,7 @@ jobs:
       - name: Check out main branch
         uses: actions/checkout@v2
         
-      - name: Build with Maven # Compiling the .war binary from the checked out repo source code to upload to the scanner in the next step
+      - name: Generate scan zip
         run: zip targetUpload.zip `find ./ -name "*.js" -o -name "*.json" -o -name "*.ts"`
           
       - name: Veracode Upload And Scan
