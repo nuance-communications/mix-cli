@@ -44,8 +44,12 @@ jobs:
       - name: Veracode Upload And Scan
         uses: veracode/veracode-uploadandscan-action@0.2.1
         with:
-          appname: 'VeraDemo'
-          createprofile: false
+          appname: 'Mix.cli'
+          createprofile: true
+          createsandbox: 'true'
+          sandboxname: 'CI_Sandbox'
           filepath: 'targetUpload.zip'
           vid: '${{ secrets.VERACODE_API_ID }}'
           vkey: '${{ secrets.VERAOCDE_API_KEY }}'
+          criticality: 'Low'
+          deleteIncompleteScan: true
