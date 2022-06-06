@@ -83,7 +83,7 @@ export default class ChannelsCreate extends MixCommand {
 
     // Check for valid color
     const color = _color?.toUpperCase()
-    if (color && !channelColors.slice(1).includes(color.toUpperCase())) {
+    if (color && !channelColors.slice(1).includes(color)) {
       this.error(`Unknown color ${chalk.red(_color)}.`,
         {suggestions: ['check values supplied to --color flag and try again.']})
     }
