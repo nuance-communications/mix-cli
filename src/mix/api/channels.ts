@@ -7,27 +7,48 @@
  */
 
 import makeDebug from 'debug'
-import { MixClient, MixResponse } from '../types'
-import { ChannelsRenameParams } from './channels-types'
+import {MixClient, MixResponse} from '../types'
+import {ChannelsCreateParams, ChannelsRenameParams} from './channels-types'
 import buildURL from './utils/build-url'
 
 const debug = makeDebug('mix:api:channels')
 
-
 /**
  * Change the display name of a channel in a project.
- * 
+ *
  * @category channels
  */
 export async function renameChannel(client: MixClient, requestParams: ChannelsRenameParams): Promise<MixResponse> {
-    debug('renameChannel()')
-    const {projectId, channelId, displayName, ...searchParams} = requestParams
+  debug('renameChannel()')
+  const {projectId, channelId, displayName, ...searchParams} = requestParams
 
-    const body = {displayName}
+  const body = {displayName}
 
-    return client.request({
-        method: 'put',
-        url: buildURL(client.getServer(), `/v4/projects/${projectId}/channels/${channelId}/.rename`, searchParams),
-        data: body
-    })
+  return client.request({
+    method: 'put',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/channels/${channelId}/.rename`, searchParams),
+    data: body,
+  })
+}
+
+/**
+ * Create a new channel in a project.
+ *
+ * @category channels
+ */
+export async function createChannel(client: MixClient, requestParams: ChannelsCreateParams): Promise<MixResponse> {
+  debug('createChannel()')
+  const {projectId, displayName, modes = ['MODE_UNSPECIFIED'], color = 'COLOR_UNSPECIFIED'} = requestParams
+
+  const body = {
+    displayName,
+    modes,
+    color,
+  }
+
+  return client.request({
+    method: 'post',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/channels`),
+    data: body,
+  })
 }
