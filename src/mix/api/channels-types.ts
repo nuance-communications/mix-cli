@@ -8,17 +8,17 @@
 
 /** @hidden */
 export type ChannelsPathParams = {
-    /** ID of the relevant project. */
-    projectId: string;
+  /** ID of the relevant project. */
+  projectId: string;
 
-    /** ID of the relevant channel. */
-    channelId: string;
+  /** ID of the relevant channel. */
+  channelId: string;
 }
 
 /** @hidden */
 export type ChannelsRenameBodyParams = {
-    /** Updated channel display name */
-    displayName: string;
+  /** Updated channel display name */
+  displayName: string;
 }
 
 export type ChannelsRenameParams = ChannelsPathParams & ChannelsRenameBodyParams
