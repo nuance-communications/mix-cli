@@ -28,6 +28,19 @@ jobs:
 
       - name: Test and lint
         run: npm test
+      
+      - name: Generate scan zip
+        run: zip targetUpload.zip `find ./ -name "*.js" -o -name "*.json" -o -name "*.ts"`
+  
+      - name: Veracode Upload And Scan
+        uses: veracode/veracode-uploadandscan-action@0.2.2
+        with:
+          appname: 'Mix.cli'
+          filepath: 'targetUpload.zip'
+          vid: '${{ secrets.VERACODE_API_ID }}'
+          vkey: '${{ secrets.VERAOCDE_API_KEY }}'
+          criticality: 'Low'
+
 
       - name: Release
         env:
