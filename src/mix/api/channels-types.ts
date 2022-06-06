@@ -30,13 +30,16 @@ export type ChannelsCreatePathParams = {
 }
 
 // REVIEW: this should almost certainly be put in its own file
-type ChannelModality =
-    'MODE_UNSPECIFIED' |
-    'RICH_TEXT' |
-    'TTS' |
-    'INTERACTIVITY' |
-    'AUDIO_SCRIPT' |
-    'DTMF'
+export const ChannelModalities = [
+  'MODE_UNSPECIFIED',
+  'RICH_TEXT',
+  'TTS',
+  'INTERACTIVITY',
+  'AUDIO_SCRIPT',
+  'DTMF',
+] as const
+
+export type ChannelModality = typeof ChannelModalities[number]
 
 type ChannelColor = typeof channelColors[number];
 
