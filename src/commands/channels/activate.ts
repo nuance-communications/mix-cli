@@ -7,15 +7,15 @@
   */
 
 import chalk from 'chalk'
-import { flags } from '@oclif/command'
+import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
 import * as ChannelsAPI from '../../mix/api/channels'
-import { DomainOption } from '../../utils/validations'
-import { MixClient, MixResponse } from '../../mix/types'
+import {DomainOption} from '../../utils/validations'
+import {MixClient, MixResponse} from '../../mix/types'
 import MixCommand from '../../utils/base/mix-command'
-import { ChannelsActivateParams } from '../../mix/api/channels-types'
+import {ChannelsActivateParams} from '../../mix/api/channels-types'
 
 const debug = makeDebug('mix:commands:channels:activate')
 
@@ -26,16 +26,16 @@ export default class ChannelsActivate extends MixCommand {
 
   static examples = [
     'mix channels:activate -P 1922 \\',
-    '  --channel bc40667c-e0f6-11ec-9d64-0242ac120003'
+    '  --channel bc40667c-e0f6-11ec-9d64-0242ac120003',
   ]
 
   static flags = {
     project: MixFlags.projectWithDefaultFlag,
     channel: {
       ...MixFlags.channelMultipleFlag, // REVIEW: same as other command
-      multiple: false
+      multiple: false,
     },
-    ...MixFlags.machineOutputFlags
+    ...MixFlags.machineOutputFlags,
   }
 
   get domainOptions(): DomainOption[] {
@@ -45,14 +45,14 @@ export default class ChannelsActivate extends MixCommand {
 
   async buildRequestParameters(options: flags.Output): Promise<ChannelsActivateParams> {
     debug('buildRequestParameters()')
-    const { project: projectId, channel: channelId } = options
+    const {project: projectId, channel: channelId} = options
 
-    return { projectId, channelId }
+    return {projectId, channelId}
   }
 
   captureOptions() {
     debug('captureOptions()')
-    const { flags } = this.parse(ChannelsActivate)
+    const {flags} = this.parse(ChannelsActivate)
     this.options = flags
   }
 
@@ -63,7 +63,6 @@ export default class ChannelsActivate extends MixCommand {
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    this.log(`Channel activated successfully.`)
+    this.log('Channel activated successfully.')
   }
-
 }
