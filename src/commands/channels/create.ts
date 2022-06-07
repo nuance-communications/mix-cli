@@ -46,47 +46,50 @@ export default class ChannelsCreate extends MixCommand {
     return ['project']
   }
 
+  tryDomainOptionsValidation(options: any, domainOptions: DomainOption[]) {
+    debug('tryDomainOptionsValidation()')
+    super.tryDomainOptionsValidation(options, domainOptions)
+
+    // Check if all modes are valid and appear exactly once
+    const modes: ChannelModality[] = options.mode?.map((mode: string) =>
+      mode.toUpperCase() as ChannelModality)
+    const seen = new Set<ChannelModality>()
+
+    for (const [i, mode] of modes.entries()) {
+      // Check for unknown modalities.
+      if (!ChannelModalities.includes(mode)) {
+        this.error(`Unknown channel modality ${chalk.red(options.mode[i])}.
+  Modalities must be one of:
+  ${ChannelModalities.slice(1).join(', ')}.`,
+        {suggestions: ['check value(s) supplied to --mode flag(s) and try again.']})
+      }
+
+      // Ensure number of unique modes increased by 1.
+      // Otherwise, a duplicate mode was found.
+      seen.add(mode)
+      if (seen.size !== i + 1) {
+        this.error(`Duplicate modality: ${chalk.red(options.mode[i])} appears twice.`,
+          {suggestions: ['check values supplied to --mode flags and try again.']})
+      }
+    }
+
+    // Check for valid color
+    const color = options.color?.toUpperCase()
+    if (color && !channelColors.slice(1).includes(color)) {
+      this.error(`Unknown color ${chalk.red(options.color)}.`,
+        {suggestions: ['check value supplied to --color flag and try again.']})
+    }
+  }
+
   async buildRequestParameters(options: Partial<flags.Output>): Promise<ChannelsCreateParams> {
     debug('buildRequestParameters()')
 
     const {
       project: projectId,
       name: displayName,
-      mode: _modes,
-      color: _color,
+      mode: modes,
+      color,
     } = options
-
-    // Check if all modes are valid and appear exactly once
-    const modes = _modes?.map((mode: string) => mode.toUpperCase() as ChannelModality)
-    const seen = new Set<ChannelModality>()
-
-    for (const [i, mode] of modes.entries()) {
-      if (!ChannelModalities.includes(mode)) {
-        this.error(`Unknown channel modality ${chalk.red(_modes[i])}.
-  Modalities must be one of:
-  ${ChannelModalities.slice(1).join(', ')}.`,
-        {suggestions: ['check value(s) supplied to --mode flag(s) and try again.']})
-      }
-
-      seen.add(mode)
-      if (seen.size !== i + 1) {
-        this.error(`Duplicate modality: ${chalk.red(_modes[i])} appears twice.`,
-          {suggestions: ['check values supplied to --mode flags and try again.']})
-      }
-    }
-
-    // Check for duplicate modes
-    if (modes.length !== new Set(modes).size) {
-      this.error('Duplicate modality found.',
-        {suggestions: ['check values supplied to --mode flags and try again.']})
-    }
-
-    // Check for valid color
-    const color = _color?.toUpperCase()
-    if (color && !channelColors.slice(1).includes(color)) {
-      this.error(`Unknown color ${chalk.red(_color)}.`,
-        {suggestions: ['check values supplied to --color flag and try again.']})
-    }
 
     return {
       projectId,
