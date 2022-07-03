@@ -84,8 +84,6 @@ should be unique.`
 
   captureOptions() {
     super.captureOptions()
-    debug('flags: %O', flags)
-    debug('this.options: %O', flags)
   }
 
   doRequest(client: MixClient, params: AppConfigsCreateParams): Promise<MixResponse> {
