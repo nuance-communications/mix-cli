@@ -54,12 +54,6 @@ Note that you cannot add a new locale with this command.
     return {locale, projectId, version}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(ProjectsConfigure)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: ProjectsConfigureParams): Promise<MixResponse> {
     debug('doRequest()')
     return ProjectsAPI.configureProject(client, params)

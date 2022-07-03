@@ -63,12 +63,6 @@ Use this command to list all jobs related to a particular project.`
     }
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(JobsList)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: JobsListParams): Promise<MixResponse> {
     debug('doRequest()')
     return JobsAPI.listJobs(client, params)

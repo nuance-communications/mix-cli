@@ -63,8 +63,7 @@ It can also be pre-confirmed by using the --confirm flag.`
   }
 
   captureOptions() {
-    debug('captureOptions()')
-    this.options = this.parse(LiteralsImport).flags
+    super.captureOptions()
     this.action = this.options.replace ? 'import by replacing' : 'import by appending'
   }
 

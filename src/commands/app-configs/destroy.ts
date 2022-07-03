@@ -46,12 +46,6 @@ ID when prompted. It can also be pre-confirmed by using the --confirm flag.`
     return {configId: config}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(AppConfigsDestroy)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: AppConfigsDeleteParams): Promise<MixResponse> {
     debug('doRequest()')
     return AppConfigsAPI.deleteAppConfig(client, params)

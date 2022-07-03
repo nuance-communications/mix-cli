@@ -61,12 +61,6 @@ Use this command to list language topics available to a specific organization.`
     return {orgId}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(LanguageTopicsList)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: LanguageTopicsListParams): Promise<MixResponse> {
     debug('doRequest()')
     return LanguageTopicsAPI.listLanguageTopics(client, params)
