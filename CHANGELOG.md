@@ -1,3 +1,17 @@
+## [1.2.3](https://github.com/nuance-communications/mix-cli/compare/v1.2.2...v1.2.3) (2022-05-31)
+
+
+### Bug Fixes
+
+* fix minor typo ([#14](https://github.com/nuance-communications/mix-cli/issues/14)) ([0cc483f](https://github.com/nuance-communications/mix-cli/commit/0cc483fb39e0d8c9685cd297e91b8f47cb5792cf))
+
+## [1.2.2](https://github.com/nuance-communications/mix-cli/compare/v1.2.1...v1.2.2) (2022-05-27)
+
+
+### Bug Fixes
+
+* bump @oclif/plugin-autocomplete version ([#10](https://github.com/nuance-communications/mix-cli/issues/10)) ([31e60aa](https://github.com/nuance-communications/mix-cli/commit/31e60aadb46cbae71cae76db96d988ce8c13b40a))
+
 ## [1.2.1](https://github.com/nuance-communications/mix-cli/compare/v1.2.0...v1.2.1) (2022-04-01)
 
 
