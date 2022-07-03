@@ -107,12 +107,6 @@ It can also be pre-confirmed by using the --confirm flag.`
     return {buildLabel: buildLabelValue}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(BuildsDestroy)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: BuildsGetParams): Promise<MixResponse> {
     debug('doRequest()')
     return BuildsAPI.deleteBuild(client, params)

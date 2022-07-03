@@ -48,11 +48,6 @@ access token, it takes care of refreshing it automatically.`
     makeDebug.enable(`${debugSpace},-follow-redirects,-simple-oauth2*`)
   }
 
-  captureOptions() {
-    const {flags} = this.parse(Auth)
-    this.options = flags
-  }
-
   async runWithClientCredentialsGrant() {
     debug('runWithClientCredentialsGrant()')
     const {authServer, clientId, clientSecret, scope} = this.mixCLIConfig!

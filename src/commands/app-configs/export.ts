@@ -53,12 +53,6 @@ on the Mix platform.`
     return {appId, configId}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(AppConfigsExport)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: AppConfigsExportParams): Promise<MixResponse> {
     debug('doRequest()')
     return AppConfigsAPI.exportAppConfig(client, params)

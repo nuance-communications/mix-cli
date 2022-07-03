@@ -53,12 +53,6 @@ versions. The configuration ID can be retrieved using the app-configs:list comma
     return {configId, useProjectDefault}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(AppConfigsUpgrade)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: AppConfigsUpgradeParams): Promise<MixResponse> {
     debug('doRequest()')
     return AppConfigsAPI.ugpradeAppConfig(client, params)

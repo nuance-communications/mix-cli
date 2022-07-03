@@ -95,12 +95,6 @@ retrieved using the applications:list command.`
     }
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(DataHostsList)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: DataHostsListParams): Promise<MixResponse> {
     debug('doRequest()')
     return DataHostsAPI.listDataHosts(client, params)

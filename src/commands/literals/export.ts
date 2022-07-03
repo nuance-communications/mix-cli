@@ -55,9 +55,7 @@ on the Mix platform.`
   }
 
   captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(LiteralsExport)
-    this.options = flags
+    super.captureOptions()
     this.options.locale = asArray(this.options.locale)
   }
 
