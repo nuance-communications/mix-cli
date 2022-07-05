@@ -55,7 +55,7 @@ describe('entities:get', () => {
       '--project', td.request.project,
     ])
     .catch(ctx => {
-      expect(ctx.message).to.contain('Unrecognized node')
+      expect(ctx.message).to.contain('No entity found')
     })
     .it('errors out when given unknown entity name')
 
