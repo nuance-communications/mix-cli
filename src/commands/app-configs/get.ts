@@ -61,12 +61,6 @@ output is brief.`
     return {configId}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(AppConfigsGet)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: AppConfigsGetParams): Promise<MixResponse> {
     debug('doRequest()')
     return AppConfigsAPI.getAppConfig(client, params)

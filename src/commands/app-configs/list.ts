@@ -76,12 +76,6 @@ application IDs can be retrieved using the app-credentials:list command.`
     }
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(AppConfigsList)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: AppConfigsListParams): Promise<MixResponse> {
     debug('doRequest()')
     return AppConfigsAPI.listAppConfigs(client, params)

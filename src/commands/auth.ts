@@ -19,7 +19,7 @@ import {configurationProblemExitCode, tokenFileName} from '../utils/constants'
 const SUCCESS = 'Token was retrieved and stored successfully.\n' +
   'You are now ready to use mix.cli! 🚀\n\n' +
   'If you are a first time user, you can start by looking\n' +
-   'at the organizations you are part of by typing:\n\n' +
+  'at the organizations you are part of by typing:\n\n' +
   'mix organizations:list\n\n' +
   'Your organization ID is needed for a number of mix commands.'
 
@@ -46,11 +46,6 @@ access token, it takes care of refreshing it automatically.`
     // turn off debugging in underlying dependencies so tokens don't get displayed
     const debugSpace = makeDebug.disable()
     makeDebug.enable(`${debugSpace},-follow-redirects,-simple-oauth2*`)
-  }
-
-  captureOptions() {
-    const {flags} = this.parse(Auth)
-    this.options = flags
   }
 
   async runWithClientCredentialsGrant() {

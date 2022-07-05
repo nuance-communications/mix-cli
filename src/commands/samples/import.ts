@@ -69,9 +69,7 @@ a project backup before using this command.`
   }
 
   captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(SamplesImport)
-    this.options = flags
+    super.captureOptions()
     this.action = this.options.replace ? 'import by replacing' : 'import by appending'
   }
 

@@ -56,12 +56,6 @@ Use this command to list the geographies available on the platform.`
     }
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(GeographiesList)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: GeographiesListParams): Promise<MixResponse> {
     debug('doRequest()')
     return GeographiesAPI.listGeographies(client, params)

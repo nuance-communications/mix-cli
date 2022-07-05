@@ -83,11 +83,7 @@ should be unique.`
   }
 
   captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(AppConfigsCreate)
-    this.options = flags
-    debug('flags: %O', flags)
-    debug('this.options: %O', flags)
+    super.captureOptions()
   }
 
   doRequest(client: MixClient, params: AppConfigsCreateParams): Promise<MixResponse> {

@@ -59,12 +59,6 @@ Use the --metadata-only flag to export the project metadata JSON file only.`
     return {projectId}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(ProjectsExport)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: ProjectsGetParams): Promise<MixResponse> {
     debug('doRequest()')
 

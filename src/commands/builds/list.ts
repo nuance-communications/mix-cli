@@ -93,12 +93,6 @@ Use this command to list all versions of a build type for a particular project.`
     }
   }
 
-  captureOptions() {
-    debug('caputureOptions()')
-    const {flags} = this.parse(BuildsList)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: BuildsListParams): Promise<MixResponse> {
     debug('doRequest()')
     return BuildsAPI.listBuilds(client, params)

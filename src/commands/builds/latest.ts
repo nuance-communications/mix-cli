@@ -49,12 +49,6 @@ project.`
     return {projectId: project}
   }
 
-  captureOptions() {
-    debug('caputureOptions()')
-    const {flags} = this.parse(BuildsLatest)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: BuildsLatestParams): Promise<MixResponse> {
     debug('doRequest()')
     return BuildsAPI.getBuildsLatest(client, params)
