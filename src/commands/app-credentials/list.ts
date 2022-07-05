@@ -56,13 +56,6 @@ commands.`
     }
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(AppCredentialsList)
-    debug('flags: %O', flags)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: AppCredentialsListParams): Promise<MixResponse> {
     debug('doRequest()')
     return AppCredentialsAPI.listAppCredentials(client, params)

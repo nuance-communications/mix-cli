@@ -53,9 +53,7 @@ on the Mix platform.`
   }
 
   captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(OntologyExport)
-    this.options = flags
+    super.captureOptions()
     this.options.locale = asArray(this.options.locale)
   }
 

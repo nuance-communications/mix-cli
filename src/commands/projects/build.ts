@@ -69,9 +69,7 @@ Use this command to build a project.`
   }
 
   captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(ProjectsBuild)
-    this.options = flags
+    super.captureOptions()
     this.options.locale = asArray(this.options.locale)
   }
 

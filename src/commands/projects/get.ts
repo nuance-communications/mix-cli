@@ -83,12 +83,6 @@ information at a time. The chosen section is specifed using the --table flag.`
     return {projectId}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(ProjectGet)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: ProjectsGetParams): Promise<MixResponse> {
     debug('doRequest()')
     return ProjectsAPI.getProject(client, params)

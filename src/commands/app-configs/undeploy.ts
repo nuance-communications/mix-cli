@@ -56,12 +56,6 @@ found in the JSON output of the app-configs:get command.`
     }
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(AppConfigsUndeploy)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: AppConfigsDeployParams): Promise<MixResponse> {
     debug('doRequest()')
     return AppConfigsAPI.undeployAppConfig(client, params)

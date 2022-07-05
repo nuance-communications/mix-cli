@@ -62,12 +62,6 @@ Use this command to list projects that are part of a particular organization.`
     return {orgId}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(ProjectsList)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: ProjectsListParams): Promise<MixResponse> {
     debug('doRequest()')
     return ProjectsAPI.listProjects(client, params)
