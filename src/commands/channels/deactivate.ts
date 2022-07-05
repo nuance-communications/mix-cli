@@ -52,12 +52,6 @@ export default class ChannelsDeactivate extends MixCommand {
     return {projectId, channelId}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(ChannelsDeactivate)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: ChannelsDeactivateParams): Promise<MixResponse> {
     debug('doRequest()')
     return ChannelsAPI.deactivateChannel(client, params)
