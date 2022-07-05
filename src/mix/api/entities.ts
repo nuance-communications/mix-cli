@@ -13,6 +13,7 @@ import {
   EntitiesDeleteParams,
   EntitiesGetParams,
   EntitiesListParams,
+  EntitiesRenameParams,
 } from './entities-types'
 
 import {MixClient, MixResponse} from '../types'
@@ -61,5 +62,22 @@ export async function listEntities(client: MixClient, params: EntitiesListParams
   return client.request({
     method: 'get',
     url: buildURL(client.getServer(), `/v4/projects/${projectId}/entities`, requestParams),
+  })
+}
+
+/**
+ * Rename an entity in a project.
+ *
+ * @category entities
+ */
+export async function renameEntity(client: MixClient, params: EntitiesRenameParams): Promise<MixResponse> {
+  debug('renameEntity()')
+  const {entityName, projectId, newEntityName} = params
+  const body = {newEntityName}
+
+  return client.request({
+    method: 'put',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/entities/${entityName}/.rename`),
+    data: body,
   })
 }

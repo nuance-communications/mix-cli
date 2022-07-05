@@ -71,4 +71,18 @@ module.exports = {
       },
     ],
   },
+  renameEntityResponse: {
+    entity: {
+      listEntity: {
+        id: 'some-long-uuid',
+        name: 'DrinkSize',
+        isDynamic: false,
+        numLiterals: 0,
+        settings: {
+          isSensitive: true,
+          canonicalize: true
+        }
+      }
+    }
+  },
 }

@@ -52,12 +52,6 @@ Use this command to permanently delete an entity from a project.`
     return {entityName, projectId}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(EntitiesDestroy)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: EntitiesDeleteParams): Promise<MixResponse> {
     debug('doRequest()')
     return EntitiesAPI.deleteEntity(client, params)
