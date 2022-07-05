@@ -377,6 +377,11 @@ export const withDeploymentFlowFlag = flags.integer({
   description: 'deployment flow ID',
 })
 
+export const withEntityTypeFlag = flags.string({
+  description: 'entity type',
+  options: ['base', 'freeform', 'list', 'regex', 'relational', 'rule-based'],
+})
+
 export const withLocaleMultipleFlag = flags.string({
   description: localeDesc,
   multiple: true,

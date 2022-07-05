@@ -28,9 +28,25 @@ export type EntitiesGetPathParams = {
 }
 
 /** @hidden */
+export type EntitiesListPathParams = {
+  /** ID of the project the intents belong to. */
+  projectId: string
+}
+
+/** @hidden */
+export type EntitiesListSearchParams = {
+  /** Entity type to filter the results */
+  type: string
+}
+
+/** @hidden */
 export type EntitiesGetParams = Expand<EntitiesGetPathParams>
+export type EntitiesListParams = Expand<EntitiesListPathParams & EntitiesListSearchParams>
 
 /** @hidden */
 export type EntitiesParams =
   | EntitiesGetParams
+  | EntitiesListParams
 
+/** @hidden */
+export type EntitiesSearchParams = EntitiesListSearchParams
