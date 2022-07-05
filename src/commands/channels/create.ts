@@ -100,12 +100,8 @@ export default class ChannelsCreate extends MixCommand {
   }
 
   captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(ChannelsCreate)
-    this.options = {
-      ...flags,
-      mode: asArray(flags.mode),
-    }
+    super.captureOptions()
+    this.options.mode = asArray(this.options.mode)
   }
 
   doRequest(client: MixClient, params: ChannelsCreateParams): Promise<MixResponse> {
