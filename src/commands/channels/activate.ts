@@ -50,12 +50,6 @@ export default class ChannelsActivate extends MixCommand {
     return {projectId, channelId}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(ChannelsActivate)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: ChannelsActivateParams): Promise<MixResponse> {
     debug('doRequest()')
     return ChannelsAPI.activateChannel(client, params)
