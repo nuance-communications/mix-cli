@@ -59,12 +59,6 @@ the application configuration was created.
     }
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(AppConfigsDeploy)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: AppConfigsDeployParams): Promise<MixResponse> {
     debug('doRequest(')
     return AppConfigsAPI.deployAppConfig(client, params)

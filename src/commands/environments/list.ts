@@ -65,12 +65,6 @@ Use this command to list all environments available to a specific organization.`
     }
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(EnvironmentsList)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: EnvironmentsListParams): Promise<MixResponse> {
     debug('doRequest()')
     return EnvironmentsAPI.listEnvironments(client, params)

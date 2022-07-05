@@ -118,9 +118,7 @@ provide a description of your project using the --description flag.`
   }
 
   captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(ProjectsCreate)
-    this.options = flags
+    super.captureOptions()
     this.options.locale = asArray(this.options.locale)
   }
 

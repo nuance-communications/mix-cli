@@ -57,12 +57,6 @@ It can also be pre-confirmed by using the --confirm flag.`
     return {projectId}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(ProjectsDestroy)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: ProjectsGetParams): Promise<MixResponse> {
     debug('doRequest()')
     return ProjectsAPI.deleteProject(client, params)
