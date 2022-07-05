@@ -51,12 +51,6 @@ export default class SystemVersion extends MixCommand {
     return {}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(SystemVersion)
-    this.options = flags
-  }
-
   doRequest(client: MixClient): Promise<MixResponse> {
     debug('doRequest(')
     return SystemAPI.getSystemVersion(client)

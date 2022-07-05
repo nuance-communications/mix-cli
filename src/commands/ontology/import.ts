@@ -51,12 +51,6 @@ It can also be pre-confirmed by using the --confirm flag.`
     return {filePath, projectId}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(OntologyImport)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: OntologyImportParams): Promise<MixResponse> {
     debug('doRequest()')
     return OntologyAPI.appendOntology(client, params)

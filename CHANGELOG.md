@@ -1,3 +1,17 @@
+## [1.3.1-beta.1](https://github.com/nuance-communications/mix-cli/compare/v1.3.0...v1.3.1-beta.1) (2022-07-03)
+
+
+### Bug Fixes
+
+* amend minor auth message typo ([#8](https://github.com/nuance-communications/mix-cli/issues/8)) ([#9](https://github.com/nuance-communications/mix-cli/issues/9)) ([7513003](https://github.com/nuance-communications/mix-cli/commit/7513003259799127f5cb81272b1493cd44a5bd9d))
+
+# [1.3.0](https://github.com/nuance-communications/mix-cli/compare/v1.2.3...v1.3.0) (2022-07-03)
+
+
+### Features
+
+* abstract captureOptions() to MixCommand superclass ([#12](https://github.com/nuance-communications/mix-cli/issues/12)) ([467a151](https://github.com/nuance-communications/mix-cli/commit/467a151431ea8d13e5f7de5d6fdce230bf269d56))
+
 ## [1.2.3](https://github.com/nuance-communications/mix-cli/compare/v1.2.2...v1.2.3) (2022-05-31)
 
 

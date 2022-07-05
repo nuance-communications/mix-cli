@@ -92,12 +92,6 @@ A number of flags can be used to constrain the returned results.`
     }
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(ApplicationsList)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: ApplicationsListParams): Promise<MixResponse> {
     debug('doRequest()')
     return ApplicationsAPI.listApplications(client, params)

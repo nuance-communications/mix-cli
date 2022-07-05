@@ -88,12 +88,6 @@ on the Mix platform.`
     return {buildLabel: buildLabelValue}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(BuildsExport)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: BuildsGetParams): Promise<MixResponse> {
     debug('doRequest()')
     return BuildsAPI.exportBuild(client, params)

@@ -73,12 +73,6 @@ Use this command to get details about a particular job.`
     return {jobId, projectId}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(JobsGet)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: JobsGetParams): Promise<MixResponse> {
     debug('doRequest()')
     return JobsAPI.getJob(client, params)

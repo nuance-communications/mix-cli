@@ -108,12 +108,6 @@ and build version.`
     return {buildLabel: buildLabelValue}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(BuildsGet)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: BuildsGetParams): Promise<MixResponse> {
     debug('doRequest()')
     return BuildsAPI.getBuild(client, params)

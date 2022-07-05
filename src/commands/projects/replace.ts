@@ -56,12 +56,6 @@ in an incomplete project.`
     return {filePath, projectId}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(ProjectsReplace)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: ProjectsReplaceParams): Promise<MixResponse> {
     debug('doRequest()')
     return ProjectsAPI.replaceProject(client, params)
