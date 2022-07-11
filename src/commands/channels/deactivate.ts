@@ -16,6 +16,8 @@ import {DomainOption} from '../../utils/validations'
 import {MixClient, MixResponse} from '../../mix/types'
 import MixCommand from '../../utils/base/mix-command'
 import {ChannelsDeactivateParams} from '../../mix/api/channels-types'
+import {cli} from 'cli-ux'
+import {eNotConfirmed} from '../../utils/errors'
 
 const debug = makeDebug('mix:commands:channels:deactivate')
 
@@ -32,13 +34,19 @@ export default class ChannelsDeactivate extends MixCommand {
 
   static flags = {
     project: MixFlags.projectWithDefaultFlag,
-    channel: {
-      ...MixFlags.channelMultipleFlag, // REVIEW: same as other command
-      multiple: false,
-    },
-    // TODO: confirmation?
+    channel: flags.string({
+      description: 'channel id',
+      required: true,
+    }),
+    confirm: flags.boolean({
+      description: 'pre-confirm deactivation',
+      default: false,
+    }),
     ...MixFlags.machineOutputFlags,
   }
+
+  action = 'deactivate'
+  shouldConfirmCommand = true
 
   get domainOptions(): DomainOption[] {
     debug('get domainOptions()')
@@ -57,7 +65,43 @@ export default class ChannelsDeactivate extends MixCommand {
     return ChannelsAPI.deactivateChannel(client, params)
   }
 
-  outputHumanReadable(transformedData: any) {
+  get expectedConfirmationValue() {
+    // NOTE: doInteractiveConfirmation is overridden.
+    // This literal value is supplied to avoid runtime error.
+    return 'YES_TYPE'
+  }
+
+  warnBeforeConfirmation() {
+    debug('warnBeforeConfirmation()')
+    this.warn(chalk.yellow('This command will disable functionality in your Mix app until you reactivate the channel.'))
+  }
+
+  checkPreConfirmation() {
+    if (!this.options.confirm) {
+      throw eNotConfirmed(this.options.confirm, 'true')
+    }
+  }
+
+  async doInteractiveConfirmation(): Promise<boolean> {
+    debug('doInteractiveConfirmation()')
+
+    this.log()
+    this.warnBeforeConfirmation()
+    this.log()
+
+    const answer = await cli.prompt(
+      `Confirm channel deactivate?
+This channel will be inactive until reactivated with ${chalk.yellow('mix channels:rename')}. (Y/yes to confirm)`,
+    ) as string
+
+    if (!/y(es)?/i.test(answer)) {
+      return false
+    }
+
+    return true
+  }
+
+  outputHumanReadable() {
     debug('outputHumanReadable()')
     this.log('Channel deactivated successfully.')
   }
