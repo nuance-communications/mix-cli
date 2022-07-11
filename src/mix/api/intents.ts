@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/no-empty-file */
 /*
  * Copyright 2022, Nuance, Inc. and its contributors.
  * All rights reserved.
@@ -7,10 +6,29 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-// import makeDebug from 'debug'
+import makeDebug from 'debug'
 
-// import buildURL from './utils/build-url'
+import buildURL from './utils/build-url'
 
-// import {MixClient, MixResponse} from '../types'
+import {
+  IntentsListParams,
+} from './intents-types'
 
-// const debug = makeDebug('mix:api:intents')
+import {MixClient, MixResponse} from '../types'
+
+const debug = makeDebug('mix:api:intents')
+
+/**
+ * Retrieve the list of available intents in a project.
+ *
+ * @category intents
+ */
+export async function listIntents(client: MixClient, params: IntentsListParams): Promise<MixResponse> {
+  debug('listIntents()')
+  const {projectId, ...requestParams} = params
+
+  return client.request({
+    method: 'get',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/intents`, requestParams),
+  })
+}
