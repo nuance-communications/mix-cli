@@ -33,13 +33,13 @@ export default class ChannelsRename extends MixCommand {
 
   static flags = {
     project: MixFlags.projectWithDefaultFlag,
-    channel: {
-      ...MixFlags.channelMultipleFlag, // REVIEW: not too happy with this
-      multiple: false,
-    },
+    channel: flags.string({
+      description: 'channel id',
+      required: true,
+    }),
     'new-name': flags.string({
       required: true,
-      description: 'New channel name',
+      description: 'new channel name',
     }),
     ...MixFlags.machineOutputFlags,
   }
