@@ -62,12 +62,6 @@ Use this command to list all entities available in a specific project.`
     return {projectId, type}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(EntitiesList)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: EntitiesListParams): Promise<MixResponse> {
     debug('doRequest()')
     return EntitiesAPI.listEntities(client, params)
@@ -91,10 +85,10 @@ Use this command to list all entities available in a specific project.`
     debug('transformResponse()')
     const data = result.data as any
 
-    const entities = data?.entities.map((entity: any) => {
+    const entities = data?.entities?.map((entity: any) => {
       const [type] = Object.keys(entity)
       const {id, name} = entity[type]
-      return {name, type, id}
+      return {id, name, type}
     })
 
     return entities
