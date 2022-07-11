@@ -35,11 +35,8 @@ export async function deactivateChannel(client: MixClient, requestParams: Channe
   debug('deactivateChannel()')
   const {projectId, channelId} = requestParams
 
-  const body = {}
-
   return client.request({
     method: 'put',
     url: buildURL(client.getServer(), `/v4/projects/${projectId}/channels/${channelId}/.deactivate`),
-    data: body,
   })
 }
