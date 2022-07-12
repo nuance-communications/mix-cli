@@ -1,3 +1,10 @@
+# [1.4.0-beta.2](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.1...v1.4.0-beta.2) (2022-07-12)
+
+
+### Features
+
+* add entities:list command ([#21](https://github.com/nuance-communications/mix-cli/issues/21)) ([6ea0280](https://github.com/nuance-communications/mix-cli/commit/6ea0280d1c56799f3a23f8da7e12ab91a7374de1))
+
 # [1.4.0-beta.1](https://github.com/nuance-communications/mix-cli/compare/v1.3.1-beta.1...v1.4.0-beta.1) (2022-07-11)
 
 
