@@ -145,8 +145,8 @@
       "deployment-flows": {
         "description": "manage deployment flows"
       },
-      "intents": {
-        "description": "manage intents"
+      "entities": {
+        "description": "manage entities"
       },
       "jobs": {
         "description": "manage jobs"
