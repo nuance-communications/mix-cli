@@ -11,6 +11,7 @@ import makeDebug from 'debug'
 import buildURL from './utils/build-url'
 import {
   EntitiesGetParams,
+  EntitiesListParams,
 } from './entities-types'
 
 import {MixClient, MixResponse} from '../types'
@@ -29,5 +30,20 @@ export async function getEntity(client: MixClient, params: EntitiesGetParams): P
   return client.request({
     method: 'get',
     url: buildURL(client.getServer(), `/v4/projects/${projectId}/entities/${entityName}`),
+  })
+}
+
+/**
+ * Retrieve the list of available intents in a project.
+ *
+ * @category entities
+ */
+export async function listEntities(client: MixClient, params: EntitiesListParams): Promise<MixResponse> {
+  debug('listEntities()')
+  const {projectId, ...requestParams} = params
+
+  return client.request({
+    method: 'get',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/entities`, requestParams),
   })
 }
