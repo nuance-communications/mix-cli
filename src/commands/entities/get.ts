@@ -93,25 +93,45 @@ Use this command to get details about a particular entity in a project.`
     debug('transformResponse()')
     const data = result.data as any
     const [type] = Object.keys(data?.entity)
-    const entity = data?.entity[type]
+    const entity = data?.entity[type] ?? {}
+
+    const {
+      name,
+      id: entityId,
+      anaphora,
+      settings: {
+        canonicalize,
+        isSensitive,
+      },
+      dataSource,
+      dataType,
+      hasA,
+      isA,
+      isDynamic,
+      localeBasedGrammars,
+      numLiterals,
+      pattern,
+    } = entity
 
     return {
-      name: entity?.name,
-      entityId: entity?.id,
+      name,
+      entityId,
       type,
-      anaphora: entity?.anaphora,
-      canonicalize: entity?.settings?.canonicalize,
-      dataSource: entity?.dataSource,
-      dataType: entity?.dataType,
-      hasA: (entity.hasA ? entity.hasA.entities.join(',') : undefined),
-      isA: entity.isA,
-      isDynamic: entity?.isDynamic,
-      isSensitive: entity?.settings?.isSensitive,
-      localeBasedGrammars: (entity.localeBasedGrammars ?
-        Object.keys(entity.localeBasedGrammars).sort().map(k => `${k}:${entity.localeBasedGrammars[k]}`) :
-        undefined),
-      numLiterals: entity?.numLiterals,
-      pattern: entity?.pattern,
+      anaphora,
+      canonicalize,
+      dataSource,
+      dataType,
+      hasA: hasA?.entities.join(','),
+      isA,
+      isDynamic,
+      isSensitive,
+      localeBasedGrammars: localeBasedGrammars ?
+        Object.entries(localeBasedGrammars)
+          .map(([k, v]) => `${k}:${v}`)
+          .sort(([a, b]) => a.localeCompare(b))  :
+        undefined,
+      numLiterals,
+      pattern,
     }
   }
 }
