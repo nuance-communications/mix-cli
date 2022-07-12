@@ -40,15 +40,23 @@ export type EntitiesListSearchParams = {
 }
 
 /** @hidden */
+export type EntitiesRenameBodyParams = {
+  /** New entity name */
+  newEntityName: string
+}
+
+/** @hidden */
 export type EntitiesDeleteParams = Expand<EntitiesGetPathParams>
 export type EntitiesGetParams = Expand<EntitiesGetPathParams>
 export type EntitiesListParams = Expand<EntitiesListPathParams & EntitiesListSearchParams>
+export type EntitiesRenameParams = Expand<EntitiesGetPathParams & EntitiesRenameBodyParams>
 
 /** @hidden */
 export type EntitiesParams =
   | EntitiesDeleteParams
   | EntitiesGetParams
   | EntitiesListParams
+  | EntitiesRenameParams
 
 /** @hidden */
 export type EntitiesSearchParams = EntitiesListSearchParams

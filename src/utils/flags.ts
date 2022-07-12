@@ -118,6 +118,12 @@ export const entityFlag = flags.string({
   required: true,
 })
 
+export const entityNameFlag = flags.string({
+  char: 'n',
+  description: 'new entity name',
+  required: true,
+})
+
 export const excludeOverridesFlag = flags.boolean({
   description: 'exclude application configurations that are overridden',
   default: false,

@@ -62,12 +62,6 @@ Use this command to list all entities available in a specific project.`
     return {projectId, type}
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(EntitiesList)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: EntitiesListParams): Promise<MixResponse> {
     debug('doRequest()')
     return EntitiesAPI.listEntities(client, params)
