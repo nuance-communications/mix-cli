@@ -24,11 +24,13 @@ export type IntentsListPathParams = {
 
 /** @hidden */
 export type IntentsCreateParams = Expand<IntentsGetPathParams>
+export type IntentsDeleteParams = Expand<IntentsGetPathParams>
 export type IntentsGetParams = Expand<IntentsGetPathParams>
 export type IntentsListParams = Expand<IntentsListPathParams>
 
 /** @hidden */
 export type IntentsParams =
   | IntentsCreateParams
+  | IntentsDeleteParams
   | IntentsGetParams
   | IntentsListParams

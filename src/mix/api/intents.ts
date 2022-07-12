@@ -12,6 +12,7 @@ import buildURL from './utils/build-url'
 
 import {
   IntentsCreateParams,
+  IntentsDeleteParams,
   IntentsGetParams,
   IntentsListParams,
 } from './intents-types'
@@ -34,6 +35,21 @@ export async function createIntent(client: MixClient, params: IntentsCreateParam
     method: 'post',
     url: buildURL(client.getServer(), `/v4/projects/${projectId}/intents`),
     data: body,
+  })
+}
+
+/**
+ * Delete an intent from a project.
+ *
+ * @category intents
+ */
+export async function deleteIntent(client: MixClient, params: IntentsDeleteParams): Promise<MixResponse> {
+  debug('deleteIntent()')
+  const {projectId, intentName} = params
+
+  return client.request({
+    method: 'delete',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/intents/${intentName}`),
   })
 }
 
