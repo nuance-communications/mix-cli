@@ -16,8 +16,8 @@ module.exports = {
     unknownProject: '99999',
   },
   entityNotFoundResponse: { 
-    code: 3,
-    message: `400 Bad Request: "["Illegal Argument -> Bad Request Exception","Caused by: Unrecognized node 'DrinkSizeeeee'"]"`,
+    code: 5,
+    message: 'No entity found.',
     details: [],
   },
   projectInvalidResponse: { code: 3, message: 'Project 99999 is not available.', details: [] } ,

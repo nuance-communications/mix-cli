@@ -40,11 +40,13 @@ export type EntitiesListSearchParams = {
 }
 
 /** @hidden */
+export type EntitiesDeleteParams = Expand<EntitiesGetPathParams>
 export type EntitiesGetParams = Expand<EntitiesGetPathParams>
 export type EntitiesListParams = Expand<EntitiesListPathParams & EntitiesListSearchParams>
 
 /** @hidden */
 export type EntitiesParams =
+  | EntitiesDeleteParams
   | EntitiesGetParams
   | EntitiesListParams
 

@@ -10,6 +10,7 @@ import makeDebug from 'debug'
 
 import buildURL from './utils/build-url'
 import {
+  EntitiesDeleteParams,
   EntitiesGetParams,
   EntitiesListParams,
 } from './entities-types'
@@ -17,6 +18,21 @@ import {
 import {MixClient, MixResponse} from '../types'
 
 const debug = makeDebug('mix:api:entities')
+
+/**
+ * Delete an entity from a project.
+ *
+ * @category entities
+ */
+export async function deleteEntity(client: MixClient, params: EntitiesDeleteParams): Promise<MixResponse> {
+  debug('deleteEntity()')
+  const {projectId, entityName} = params
+
+  return client.request({
+    method: 'delete',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/entities/${entityName}`),
+  })
+}
 
 /**
  * Retrieve the details of an entity in a project.
@@ -34,7 +50,7 @@ export async function getEntity(client: MixClient, params: EntitiesGetParams): P
 }
 
 /**
- * Retrieve the list of available intents in a project.
+ * Retrieve the list of available entities in a project.
  *
  * @category entities
  */
