@@ -17,6 +17,14 @@ module.exports = {
   },
   intentNotFoundResponse: { code: 5, message: 'No intent found.', details: [] },
   projectInvalidResponse: { code: 3, message: 'Project 99999 is not available.', details: [] } ,
+  createIntentResponse: {
+    intent: {
+      id: 'some-long-uuid',
+      name: 'ORDER_DRINK',
+      isInBaseOntology: false,
+      links: []
+    }
+  },
   getIntentResponse: {
     intent: {
       id: 'some-long-uuid',
