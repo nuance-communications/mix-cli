@@ -139,6 +139,12 @@ export const intentFlag = flags.string({
   required: true,
 })
 
+export const intentNameFlag = flags.string({
+  char: 'n',
+  description: 'new intent name',
+  required: true,
+})
+
 export const jobFlag = flags.string({
   char: jobIDShortcut,
   description: 'job ID',
