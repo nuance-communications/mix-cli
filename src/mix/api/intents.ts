@@ -15,6 +15,7 @@ import {
   IntentsDeleteParams,
   IntentsGetParams,
   IntentsListParams,
+  IntentsRenameParams,
 } from './intents-types'
 
 import {MixClient, MixResponse} from '../types'
@@ -80,5 +81,22 @@ export async function listIntents(client: MixClient, params: IntentsListParams):
   return client.request({
     method: 'get',
     url: buildURL(client.getServer(), `/v4/projects/${projectId}/intents`, requestParams),
+  })
+}
+
+/**
+ * Rename an intent in a project.
+ *
+ * @category intents
+ */
+export async function renameIntent(client: MixClient, params: IntentsRenameParams): Promise<MixResponse> {
+  debug('renameIntent()')
+  const {intentName, projectId, newIntentName} = params
+  const body = {newIntentName}
+
+  return client.request({
+    method: 'put',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/intents/${intentName}/.rename`),
+    data: body,
   })
 }

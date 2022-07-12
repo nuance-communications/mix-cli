@@ -85,5 +85,13 @@ module.exports = {
         "dataSource": "nuance_weather"
       }
     ]
+  },
+  renameIntentResponse: {
+    intent: {
+      id: 'be567689-7948-45db-ae9a-8c18f5dc4634',
+      name: 'ORDER_COFFEE',
+      isInBaseOntology: false,
+      links: []
+    }
   }
 }

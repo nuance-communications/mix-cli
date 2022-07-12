@@ -23,10 +23,17 @@ export type IntentsListPathParams = {
 }
 
 /** @hidden */
+export type IntentsRenameBodyParams = {
+  /** New intent name */
+  newIntentName: string
+}
+
+/** @hidden */
 export type IntentsCreateParams = Expand<IntentsGetPathParams>
 export type IntentsDeleteParams = Expand<IntentsGetPathParams>
 export type IntentsGetParams = Expand<IntentsGetPathParams>
 export type IntentsListParams = Expand<IntentsListPathParams>
+export type IntentsRenameParams = Expand<IntentsGetPathParams & IntentsRenameBodyParams>
 
 /** @hidden */
 export type IntentsParams =
@@ -34,3 +41,4 @@ export type IntentsParams =
   | IntentsDeleteParams
   | IntentsGetParams
   | IntentsListParams
+  | IntentsRenameParams
