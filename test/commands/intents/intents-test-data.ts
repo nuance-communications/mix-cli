@@ -32,4 +32,50 @@ module.exports = {
       ]
     }
   },
+  listIntentsResponse: {
+    "intents": [
+      {
+        "id": "some-long-uuid-1",
+        "name": "NO_INTENT",
+        "isInBaseOntology": true,
+        "links": []
+      },
+      {
+        "id": "some-long-uuid-2",
+        "name": "ORDER_DRINK",
+        "isInBaseOntology": false,
+        "links": [
+          {
+            "entityRef": "CoffeeType"
+          },
+          {
+            "entityRef": "DrinkSize"
+          },
+        ]
+      },
+      {
+        "id": "some-long-uuid-3",
+        "name": "ORDER_FOOD",
+        "isInBaseOntology": false,
+        "links": []
+      },
+      {
+        "id": "some-long-uuid-4",
+        "name": "REFILL_CARD",
+        "isInBaseOntology": false,
+        "links": []
+      },
+      {
+        "id": "some-long-uuid-5",
+        "name": "nuance_weather_query",
+        "isInBaseOntology": false,
+        "links": [
+          {
+            "entityRef": "nuance_weather_condition"
+          }
+        ],
+        "dataSource": "nuance_weather"
+      }
+    ]
+  }
 }

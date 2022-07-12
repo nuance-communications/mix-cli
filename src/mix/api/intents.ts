@@ -12,6 +12,7 @@ import buildURL from './utils/build-url'
 
 import {
   IntentsGetParams,
+  IntentsListParams,
 } from './intents-types'
 
 import {MixClient, MixResponse} from '../types'
@@ -30,5 +31,20 @@ export async function getIntent(client: MixClient, params: IntentsGetParams): Pr
   return client.request({
     method: 'get',
     url: buildURL(client.getServer(), `/v4/projects/${projectId}/intents/${intentName}`, requestParams),
+  })
+}
+
+/**
+ * Retrieve the list of available intents in a project.
+ *
+ * @category intents
+ */
+export async function listIntents(client: MixClient, params: IntentsListParams): Promise<MixResponse> {
+  debug('listIntents()')
+  const {projectId, ...requestParams} = params
+
+  return client.request({
+    method: 'get',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/intents`, requestParams),
   })
 }

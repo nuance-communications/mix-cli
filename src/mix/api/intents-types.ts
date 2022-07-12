@@ -17,9 +17,17 @@ export type IntentsGetPathParams = {
   projectId: string
 }
 
+export type IntentsListPathParams = {
+  /** ID of the project the intents belong to. */
+  projectId: string
+}
+
 /** @hidden */
 export type IntentsGetParams = Expand<IntentsGetPathParams>
+export type IntentsListParams = Expand<IntentsListPathParams>
 
 /** @hidden */
 export type IntentsParams =
   | IntentsGetParams
+  | IntentsListParams
+
