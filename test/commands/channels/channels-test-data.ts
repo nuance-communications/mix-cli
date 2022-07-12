@@ -11,7 +11,7 @@ module.exports = {
       flags: {
           project: '123',
           channel: 'very-long-uuid',
-          'new-name': 'renamed channel'
+          name: 'renamed channel'
       },
       response: {
           data: {

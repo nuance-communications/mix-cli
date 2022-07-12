@@ -18,7 +18,7 @@ const endpoint = `/v4/projects/${projectId}/channels/${channelId}/.rename`
 
 
 describe('channels:rename', () => {
-  const { project, channel, 'new-name': newName } = td.rename.flags
+  const { project, channel, name: newName } = td.rename.flags
 
   test
     .env(testEnvData.env)
@@ -33,7 +33,7 @@ describe('channels:rename', () => {
     .command(['channels:rename',
       '--project=' + project,
       '--channel=' + channel,
-      '--new-name=' + newName,
+      '--name=' + newName,
       '--json'])
     .it('receives JSON confirmation of renamed channel', ctx => {
       const response = JSON.parse(ctx.stdout)

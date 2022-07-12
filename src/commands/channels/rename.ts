@@ -28,7 +28,7 @@ export default class ChannelsRename extends MixCommand {
   static examples = [
     'mix channels:rename -P 1922 \\',
     '  --channel bc40667c-e0f6-11ec-9d64-0242ac120003 \\',
-    '  --new-name "voice channel"',
+    '  --name "voice channel"',
   ]
 
   static flags = {
@@ -37,7 +37,7 @@ export default class ChannelsRename extends MixCommand {
       description: 'channel id',
       required: true,
     }),
-    'new-name': flags.string({
+    name: flags.string({
       required: true,
       description: 'new channel name',
     }),
@@ -51,7 +51,7 @@ export default class ChannelsRename extends MixCommand {
 
   async buildRequestParameters(options: Partial<Output>): Promise<ChannelsRenameParams> {
     debug('buildRequestParameters()')
-    const {'new-name': displayName, project: projectId, channel: channelId} = options
+    const {name: displayName, project: projectId, channel: channelId} = options
 
     return {projectId, channelId, displayName}
   }
