@@ -8,8 +8,10 @@
 
 import makeDebug from 'debug'
 
+import {buildEntitiesCreateBody} from './utils/entities-helpers'
 import buildURL from './utils/build-url'
 import {
+  EntitiesCreateParams,
   EntitiesDeleteParams,
   EntitiesGetParams,
   EntitiesListParams,
@@ -19,6 +21,23 @@ import {
 import {MixClient, MixResponse} from '../types'
 
 const debug = makeDebug('mix:api:entities')
+
+/**
+ * Create a new entity in a project.
+ *
+ * @category entities
+ */
+export async function createEntity(client: MixClient, params: EntitiesCreateParams): Promise<MixResponse> {
+  debug('createEntity()')
+  const {projectId, ...bodyParams} = params
+  const body = buildEntitiesCreateBody(bodyParams)
+
+  return client.request({
+    method: 'post',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/entities`),
+    data: body,
+  })
+}
 
 /**
  * Delete an entity from a project.

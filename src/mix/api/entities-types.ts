@@ -8,15 +8,65 @@
 
 import {Expand} from './shared-types'
 
+type DataType =
+  | 'ALPHANUM'
+  | 'AMOUNT'
+  | 'BOOLEAN'
+  | 'DATE'
+  | 'DIGITS'
+  | 'DISTANCE'
+  | 'NOT_SET'
+  | 'NO_FORMAT'
+  | 'NUMBER'
+  | 'TEMPERATURE'
+  | 'TIME'
+  | 'YES_NO'
+
 /** Entity type */
 export type Entity =
-  | 'UNSPECIFIED'
   | 'BASE'
-  | 'RELATIONAL'
-  | 'LIST'
   | 'FREEFORM'
+  | 'LIST'
   | 'REGEX'
+  | 'RELATIONAL'
   | 'RULE_BASED'
+  | 'UNSPECIFIED'
+
+/** @hidden */
+export type EntitiesCreateBodyParams = {
+  /** New entity name */
+  name: string,
+
+  /** Name of the entity that this entity has an `isA` relationship with */
+  isA?: string,
+
+  /** Names of the entities that this entity has a `hasA` relationship with */
+  hasA?: string[],
+
+  /** Specifies the referrer for this entityi */
+  anaphora?: string
+
+  /** Data type for the entity */
+  dataType?: DataType
+
+  /** Data type for the entity */
+  entityType?: Entity
+
+  /** When set to true, indicates that the entity is dynamic */
+  isDynamic?: boolean
+
+  /** When set to true, indicates that the entity is sensitive */
+  isSensitive?: boolean
+
+  /** When set to true, indicates that the entity is canonicalized */
+  canonicalize?: boolean
+
+  /** Locale for the pattern */
+  locale?: string
+
+  /** Regular expression pattern for this entity */
+  pattern?: string
+}
 
 /** @hidden */
 export type EntitiesGetPathParams = {
@@ -46,6 +96,7 @@ export type EntitiesRenameBodyParams = {
 }
 
 /** @hidden */
+export type EntitiesCreateParams = Expand<EntitiesListPathParams & EntitiesCreateBodyParams>
 export type EntitiesDeleteParams = Expand<EntitiesGetPathParams>
 export type EntitiesGetParams = Expand<EntitiesGetPathParams>
 export type EntitiesListParams = Expand<EntitiesListPathParams & EntitiesListSearchParams>
@@ -53,6 +104,7 @@ export type EntitiesRenameParams = Expand<EntitiesGetPathParams & EntitiesRename
 
 /** @hidden */
 export type EntitiesParams =
+  | EntitiesCreateParams
   | EntitiesDeleteParams
   | EntitiesGetParams
   | EntitiesListParams

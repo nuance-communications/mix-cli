@@ -10,14 +10,30 @@ module.exports = {
   request: {
     project: '1922',
     entity: 'DrinkSize',
+    entityType: 'list',
     invalidEntity: '1234',
     newName: 'DrinkFormat',
     unknownEntity: 'NONE',
     unknownProject: '99999',
   },
+  createListEntityBody: {
+    listEntity: {
+      anaphora: 'ANAPHORA_NOT_SET',
+        isDynamic: false,
+        name: '1234',
+        settings: { canonicalize: true, isSensitive: false },
+        data: {},
+        dataType: 'NOT_SET' 
+    }
+  },
   entityNotFoundResponse: { 
     code: 5,
     message: 'No entity found.',
+    details: [],
+  },
+  invalidEntityResponse: { 
+    code: 3,
+    message: '400 Bad Request: "["Illegal Argument -> Bad Request Exception","Caused by: Name with value: 1234, does not conform to javascript variable name syntax: http://mothereff.in/js-variables"]"',
     details: [],
   },
   projectInvalidResponse: { code: 3, message: 'Project 99999 is not available.', details: [] } ,
