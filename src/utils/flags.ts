@@ -118,6 +118,12 @@ export const entityFlag = flags.string({
   required: true,
 })
 
+export const entityNameFlag = flags.string({
+  char: 'n',
+  description: 'new entity name',
+  required: true,
+})
+
 export const excludeOverridesFlag = flags.boolean({
   description: 'exclude application configurations that are overridden',
   default: false,
@@ -375,6 +381,11 @@ export const withBuildTypeMultipleFlag = flags.string({
 export const withDeploymentFlowFlag = flags.integer({
   char: deploymentFlowIDShortcut,
   description: 'deployment flow ID',
+})
+
+export const withEntityTypeFlag = flags.string({
+  description: 'entity type',
+  options: ['base', 'freeform', 'list', 'regex', 'relational', 'rule-based'],
 })
 
 export const withLocaleMultipleFlag = flags.string({

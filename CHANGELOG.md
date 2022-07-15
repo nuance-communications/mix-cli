@@ -1,3 +1,17 @@
+# [1.4.0-beta.3](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.2...v1.4.0-beta.3) (2022-07-12)
+
+
+### Features
+
+* add entities:destroy command ([#23](https://github.com/nuance-communications/mix-cli/issues/23)) ([a87860a](https://github.com/nuance-communications/mix-cli/commit/a87860a9cc3a6fc0565b942792e83be2b7fb0c17))
+
+# [1.4.0-beta.2](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.1...v1.4.0-beta.2) (2022-07-12)
+
+
+### Features
+
+* add entities:list command ([#21](https://github.com/nuance-communications/mix-cli/issues/21)) ([6ea0280](https://github.com/nuance-communications/mix-cli/commit/6ea0280d1c56799f3a23f8da7e12ab91a7374de1))
+
 # [1.4.0-beta.1](https://github.com/nuance-communications/mix-cli/compare/v1.3.1-beta.1...v1.4.0-beta.1) (2022-07-11)
 
 

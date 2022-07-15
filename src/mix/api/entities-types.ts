@@ -28,9 +28,35 @@ export type EntitiesGetPathParams = {
 }
 
 /** @hidden */
+export type EntitiesListPathParams = {
+  /** ID of the project the intents belong to. */
+  projectId: string
+}
+
+/** @hidden */
+export type EntitiesListSearchParams = {
+  /** Entity type to filter the results */
+  type: string
+}
+
+/** @hidden */
+export type EntitiesRenameBodyParams = {
+  /** New entity name */
+  newEntityName: string
+}
+
+/** @hidden */
+export type EntitiesDeleteParams = Expand<EntitiesGetPathParams>
 export type EntitiesGetParams = Expand<EntitiesGetPathParams>
+export type EntitiesListParams = Expand<EntitiesListPathParams & EntitiesListSearchParams>
+export type EntitiesRenameParams = Expand<EntitiesGetPathParams & EntitiesRenameBodyParams>
 
 /** @hidden */
 export type EntitiesParams =
+  | EntitiesDeleteParams
   | EntitiesGetParams
+  | EntitiesListParams
+  | EntitiesRenameParams
 
+/** @hidden */
+export type EntitiesSearchParams = EntitiesListSearchParams
