@@ -38,7 +38,7 @@ Relationial entities can have zero or one isA relation and
 zero or many hasA relations. One --is-A or --has-A flag must be
 set at a minimum when creating an entity of type "relational".
 
-The --entity-type, --name and --project flags are mandator for
+The --entity-type, --name and --project flags are mandatory for
 the creation of any entity type.
 
 The examples below show how to create each type of entity.
