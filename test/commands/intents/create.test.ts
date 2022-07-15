@@ -50,7 +50,6 @@ describe('intents:create', () => {
       '--project', td.request.project,
       '--name', td.request.invalidIntent])
     .catch(ctx => {
-      console.error(ctx.message)
       expect(ctx.message).to.contain('One or more flags have invalid values')
     })
     .it('errors out when given an invalid intent name')

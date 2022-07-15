@@ -28,9 +28,10 @@ Use this command to create a new intent in a project.`
   ]
 
   static flags = {
-    json: MixFlags.jsonFlag,
     name: MixFlags.intentNameFlag,
     project: MixFlags.projectFlag,
+    // output flags
+    json: MixFlags.jsonFlag,
     yaml: MixFlags.yamlFlag,
   }
 

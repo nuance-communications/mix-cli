@@ -29,9 +29,10 @@ Use this command to rename an intent in a project.`
 
   static flags = {
     intent: MixFlags.intentFlag,
-    json: MixFlags.jsonFlag,
     name: MixFlags.intentNameFlag,
     project: MixFlags.projectFlag,
+    // output flags
+    json: MixFlags.jsonFlag,
     yaml: MixFlags.yamlFlag,
   }
 

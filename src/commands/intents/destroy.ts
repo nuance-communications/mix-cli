@@ -30,8 +30,9 @@ Use this command to permanently delete an intent from a project.`
   static flags = {
     confirm: MixFlags.confirmFlag,
     intent: MixFlags.intentFlag,
-    json: MixFlags.jsonFlag,
     project: MixFlags.projectFlag,
+    // output flags
+    json: MixFlags.jsonFlag,
     yaml: MixFlags.yamlFlag,
   }
 

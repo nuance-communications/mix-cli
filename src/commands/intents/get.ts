@@ -28,8 +28,9 @@ Use this command to get details about a particular intent in a project.`
 
   static flags = {
     intent: MixFlags.intentFlag,
-    json: MixFlags.jsonFlag,
     project: MixFlags.projectFlag,
+    // output flags
+    json: MixFlags.jsonFlag,
     ...MixFlags.tableFlags({
       except: ['extended', 'no-header', 'filter', 'sort'],
       useColumnsWithCSVOnly: true,

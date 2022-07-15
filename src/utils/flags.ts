@@ -140,7 +140,6 @@ export const intentFlag = flags.string({
 })
 
 export const intentNameFlag = flags.string({
-  char: 'n',
   description: 'new intent name',
   required: true,
 })
