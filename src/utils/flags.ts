@@ -149,7 +149,6 @@ export const entityFlag = flags.string({
 })
 
 export const entityNameFlag = flags.string({
-  char: 'n',
   description: 'new entity name',
   required: true,
 })
