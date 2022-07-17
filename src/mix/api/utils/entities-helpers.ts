@@ -11,7 +11,7 @@ import makeDebug from 'debug'
 const debug = makeDebug.debug('mix:utils:entities-helpers')
 
 const buildEntityPayload = (params: any) => {
-  debug('buildCreateOrUpdateEntityBody()')
+  debug('buildEntityPayload()')
 
   const {
     anaphora,
