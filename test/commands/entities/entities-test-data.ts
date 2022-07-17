@@ -19,11 +19,11 @@ module.exports = {
   createListEntityBody: {
     listEntity: {
       anaphora: 'ANAPHORA_NOT_SET',
-        isDynamic: false,
-        name: '1234',
-        settings: { canonicalize: true, isSensitive: false },
-        data: {},
-        dataType: 'NOT_SET' 
+      data: {},
+      dataType: 'NOT_SET',
+      isDynamic: false,
+      name: '1234',
+      settings: { canonicalize: true, isSensitive: false },
     }
   },
   entityNotFoundResponse: { 

@@ -8,7 +8,7 @@
 
 import makeDebug from 'debug'
 
-import {buildEntitiesCreateBody} from './utils/entities-helpers'
+import {buildEntityBody} from './utils/entities-helpers'
 import buildURL from './utils/build-url'
 import {
   EntitiesCreateParams,
@@ -30,7 +30,9 @@ const debug = makeDebug('mix:api:entities')
 export async function createEntity(client: MixClient, params: EntitiesCreateParams): Promise<MixResponse> {
   debug('createEntity()')
   const {projectId, ...bodyParams} = params
-  const body = buildEntitiesCreateBody(bodyParams)
+  const body = buildEntityBody(bodyParams)
+
+  debug('body: %O', body)
 
   return client.request({
     method: 'post',

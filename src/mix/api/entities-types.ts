@@ -33,10 +33,7 @@ export type Entity =
   | 'UNSPECIFIED'
 
 /** @hidden */
-export type EntitiesCreateBodyParams = {
-  /** New entity name */
-  name: string,
-
+export type EntitiesConfigureBodyParams = {
   /** Name of the entity that this entity has an `isA` relationship with */
   isA?: string,
 
@@ -69,6 +66,12 @@ export type EntitiesCreateBodyParams = {
 }
 
 /** @hidden */
+export type EntitiesCreateBodyParams = EntitiesConfigureBodyParams & {
+  /** New entity name */
+  name: string,
+}
+
+/** @hidden */
 export type EntitiesGetPathParams = {
   /** Name of the entity to retrieve. */
   entityName: string,
@@ -96,6 +99,7 @@ export type EntitiesRenameBodyParams = {
 }
 
 /** @hidden */
+export type EntitiesConfigureParams = Expand<EntitiesGetPathParams & EntitiesConfigureBodyParams>
 export type EntitiesCreateParams = Expand<EntitiesListPathParams & EntitiesCreateBodyParams>
 export type EntitiesDeleteParams = Expand<EntitiesGetPathParams>
 export type EntitiesGetParams = Expand<EntitiesGetPathParams>
@@ -104,6 +108,7 @@ export type EntitiesRenameParams = Expand<EntitiesGetPathParams & EntitiesRename
 
 /** @hidden */
 export type EntitiesParams =
+  | EntitiesConfigureParams
   | EntitiesCreateParams
   | EntitiesDeleteParams
   | EntitiesGetParams
