@@ -80,7 +80,7 @@ describe('entities:create', () => {
     .catch(ctx => {
       expect(ctx.message).to.contain('400 Bad Request')
     })
-    .it('errors out when given unknown entity name create')
+    .it('errors out when given unknown entity name')
 
   test
     .env(testEnvData.env)
