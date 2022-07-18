@@ -168,6 +168,11 @@ export const inputFilePathFlag = flags.string({
   required: true,
 })
 
+export const intentNameFlag = flags.string({
+  description: 'new intent name',
+  required: true,
+})
+
 export const intentFlag = flags.string({
   char: intentNameShortcut,
   description: 'intent name',
