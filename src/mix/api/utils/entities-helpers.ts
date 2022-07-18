@@ -10,8 +10,8 @@ import makeDebug from 'debug'
 
 const debug = makeDebug.debug('mix:utils:entities-helpers')
 
-export const buildEntityBody = (params: any) => {
-  debug('buildFreefromEntityCreateBody()')
+export const buildCreateOrUpdateEntityBody = (params: any) => {
+  debug('buildCreateOrUpdateEntityBody()')
 
   const {
     anaphora,
@@ -33,18 +33,18 @@ export const buildEntityBody = (params: any) => {
 
   return {
     [entityTypeKey]: {
-      ...(anaphora === undefined ? {} : {anaphora}),
-      ...(entityType === 'list') ? {data: {}} : {},
-      ...(dataType === undefined ? {} : {dataType}),
-      ...(hasA === undefined ? {} : {hasA: {entities: hasA}}),
-      ...(isA === undefined ? {} : {isA}),
-      ...(isDynamic === undefined ? {} : {isDynamic}),
-      ...(locale === undefined ? {} : {locale}),
-      ...(name === undefined ? {} : {name}),
-      ...(pattern === undefined ? {} : {pattern}),
+      ...(anaphora !== undefined && {anaphora}),
+      ...(entityType === 'list') && {data: {}},
+      ...(dataType !== undefined && {dataType}),
+      ...(hasA !== undefined && {hasA: {entities: hasA}}),
+      ...(isA !== undefined && {isA}),
+      ...(isDynamic !== undefined && {isDynamic}),
+      ...(locale !== undefined && {locale}),
+      ...(name !== undefined && {name}),
+      ...(pattern !== undefined && {pattern}),
       settings: {
-        ...(canonicalize === undefined ? {} : {canonicalize}),
-        ...(isSensitive === undefined ? {} : {isSensitive}),
+        ...(canonicalize !== undefined && {canonicalize}),
+        ...(isSensitive !== undefined && {isSensitive}),
       },
     },
   }

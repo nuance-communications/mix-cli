@@ -40,7 +40,7 @@ export type EntitiesConfigureBodyParams = {
   /** Names of the entities that this entity has a `hasA` relationship with */
   hasA?: string[],
 
-  /** Specifies the referrer for this entityi */
+  /** Specifies the referrer for this entity */
   anaphora?: string
 
   /** Data type for the entity */

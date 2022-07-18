@@ -340,7 +340,7 @@ export const runtimeApplicationFlag = flags.string({
   required: true,
 })
 
-export const sensitiveFlag = flags.boolean({
+export const sensitiveUserDataFlag = flags.boolean({
   default: false,
   description: 'mask user sentitive data in logs',
 })

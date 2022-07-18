@@ -6,16 +6,16 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
 import * as EntitiesAPI from '../../mix/api/entities'
 import * as MixFlags from '../../utils/flags'
-import {eMissingParameter} from '../../utils/errors'
+import {DomainOption} from '../../utils/validations'
 import {EntitiesCreateParams, MixClient, MixResponse, MixResult} from '../../mix/types'
 import MixCommand from '../../utils/base/mix-command'
-import {DomainOption} from '../../utils/validations'
-import chalk from 'chalk'
+import {validateRegexEntityParams, validateRuleBasedEntityParams} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:entities:create')
 
@@ -84,7 +84,7 @@ explicitly provided.
     'no-canonicalize': MixFlags.noCanonicalizeFlag,
     pattern: MixFlags.patternFlag,
     project: MixFlags.projectFlag,
-    sensitive: MixFlags.sensitiveFlag,
+    sensitive: MixFlags.sensitiveUserDataFlag,
     // output flags
     json: MixFlags.jsonFlag,
     yaml: MixFlags.yamlFlag,
@@ -165,39 +165,23 @@ explicitly provided.
     debug('tryDomainOptionsValidation()')
     super.tryDomainOptionsValidation(options, domainOptions)
 
-    const {'entity-type': entityType} = options
+    const {
+      'entity-type': entityType,
+      'has-a': hasA,
+      'is-a': isA,
+      locale,
+      pattern,
+    } = options
 
+    // Entity types 'regex' and 'relational' require mandatory flags.
     // Command bails out if mandatory parameters are missing.
     // Extraneous parameters are ignored.
-    switch (entityType) {
-      case 'regex':
-        this.validateRegexEntityParams(options)
-        break
-
-      case 'relational':
-        this.validateRuleBasedEntityParams(options)
-        break
+    if (entityType === 'regex') {
+      validateRegexEntityParams(locale, pattern)
     }
-  }
 
-  validateRegexEntityParams(options: Partial<flags.Output>) {
-    debug('validateRegexEntityParams()')
-
-    if (options.pattern === undefined || options.locale === undefined) {
-      throw (eMissingParameter('Regex entities require a pattern and a locale.', [
-        'Use --pattern to provide the required regular expression.',
-        'Use --locale to provide the locale for which the regular expression applies.',
-      ]))
-    }
-  }
-
-  validateRuleBasedEntityParams(options: Partial<flags.Output>) {
-    debug('validateRuleBasedEntityParams()')
-
-    if (options['is-a'] === undefined && options['has-a'] === undefined) {
-      throw (eMissingParameter('Relational entities require has-a and/or is-a relation.', [
-        'use the --has-a and/or --is-a flags to provide the required relation.',
-      ]))
+    if (entityType === 'relational') {
+      validateRuleBasedEntityParams(hasA, isA)
     }
   }
 }
