@@ -11,6 +11,7 @@ import makeDebug from 'debug'
 import {buildCreateOrUpdateEntityBody} from './utils/entities-helpers'
 import buildURL from './utils/build-url'
 import {
+  EntitiesConfigureParams,
   EntitiesCreateParams,
   EntitiesDeleteParams,
   EntitiesGetParams,
@@ -21,6 +22,23 @@ import {
 import {MixClient, MixResponse} from '../types'
 
 const debug = makeDebug('mix:api:entities')
+
+/**
+ * Configure a new entity in a project.
+ *
+ * @category entities
+ */
+export async function configureEntity(client: MixClient, params: EntitiesConfigureParams): Promise<MixResponse> {
+  debug('configureEntity()')
+  const {entityName, projectId, ...bodyParams} = params
+  const body = buildEntityBody(bodyParams)
+
+  return client.request({
+    method: 'put',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/entities/${entityName}`),
+    data: body,
+  })
+}
 
 /**
  * Create a new entity in a project.
