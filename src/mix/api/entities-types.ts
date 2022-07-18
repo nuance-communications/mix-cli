@@ -8,15 +8,85 @@
 
 import {Expand} from './shared-types'
 
+export const AnaphoraDefault = 'not-set'
+export const Anaphoras = {
+  [AnaphoraDefault]: 'ANAPHORA_NOT_SET',
+  'ref-moment': 'ANAPHORA_REF_MOMENT',
+  'ref-person': 'ANAPHONRA_REF_PERSON',
+  'ref-place': 'ANAPHORA_REF_PLACE',
+  'ref-thing': 'ANAPHORA_REF_THING',
+}
+
+export type Anaphora = typeof Anaphoras[keyof typeof Anaphoras]
+
+export const DataTypeDefault = 'not-set'
+export const DataTypes = {
+  alphanum: 'ALPHANUM',
+  amount: 'AMOUNT',
+  boolean: 'BOOLEAN',
+  date: 'DATE',
+  digits: 'DIGITS',
+  distance: 'DISTANCE',
+  'no-format': 'NO_FORMAT',
+  [DataTypeDefault]: 'NOT_SET',
+  number: 'NUMBER',
+  temperature: 'TEMPERATURE',
+  time: 'TIME',
+  'yes-no': 'YES_NO',
+}
+
+export type DataType = typeof DataTypes[keyof typeof DataTypes]
+
 /** Entity type */
-export type Entity =
-  | 'UNSPECIFIED'
-  | 'BASE'
-  | 'RELATIONAL'
-  | 'LIST'
-  | 'FREEFORM'
-  | 'REGEX'
-  | 'RULE_BASED'
+export const Entities = {
+  base: 'BASE',
+  freeform: 'FREEFORM',
+  list: 'LIST',
+  regex: 'REGEX',
+  relational: 'RELATIONAL',
+  'rule-based': 'RULE_BASED',
+}
+
+export type Entity = typeof Entities[keyof typeof Entities]
+
+/** @hidden */
+export type EntitiesConfigureBodyParams = {
+  /** Name of the entity that this entity has an `isA` relationship with */
+  isA?: string,
+
+  /** Names of the entities that this entity has a `hasA` relationship with */
+  hasA?: string[],
+
+  /** Specifies the referrer for this entity */
+  anaphora?: Anaphora
+
+  /** Data type for the entity */
+  dataType?: DataType
+
+  /** Data type for the entity */
+  entityType?: Entity
+
+  /** When set to true, indicates that the entity is dynamic */
+  isDynamic?: boolean
+
+  /** When set to true, indicates that the entity is sensitive */
+  isSensitive?: boolean
+
+  /** When set to true, indicates that the entity is canonicalized */
+  canonicalize?: boolean
+
+  /** Locale for the pattern */
+  locale?: string
+
+  /** Regular expression pattern for this entity */
+  pattern?: string
+}
+
+/** @hidden */
+export type EntitiesCreateBodyParams = EntitiesConfigureBodyParams & {
+  /** New entity name */
+  name: string,
+}
 
 /** @hidden */
 export type EntitiesGetPathParams = {
@@ -46,6 +116,8 @@ export type EntitiesRenameBodyParams = {
 }
 
 /** @hidden */
+export type EntitiesConfigureParams = Expand<EntitiesGetPathParams & EntitiesConfigureBodyParams>
+export type EntitiesCreateParams = Expand<EntitiesListPathParams & EntitiesCreateBodyParams>
 export type EntitiesDeleteParams = Expand<EntitiesGetPathParams>
 export type EntitiesGetParams = Expand<EntitiesGetPathParams>
 export type EntitiesListParams = Expand<EntitiesListPathParams & EntitiesListSearchParams>
@@ -53,6 +125,8 @@ export type EntitiesRenameParams = Expand<EntitiesGetPathParams & EntitiesRename
 
 /** @hidden */
 export type EntitiesParams =
+  | EntitiesConfigureParams
+  | EntitiesCreateParams
   | EntitiesDeleteParams
   | EntitiesGetParams
   | EntitiesListParams
