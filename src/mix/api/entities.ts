@@ -33,6 +33,8 @@ export async function configureEntity(client: MixClient, params: EntitiesConfigu
   const {entityName, projectId, ...bodyParams} = params
   const body = buildEntityBody(bodyParams)
 
+  debug('body: %O', body)
+
   return client.request({
     method: 'put',
     url: buildURL(client.getServer(), `/v4/projects/${projectId}/entities/${entityName}`),
