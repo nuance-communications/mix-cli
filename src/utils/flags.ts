@@ -8,6 +8,14 @@
 
 import {flags} from '@oclif/command'
 
+import {
+  AnaphoraDefault,
+  Anaphoras,
+  DataTypeDefault,
+  DataTypes,
+  Entities,
+} from '../mix/types'
+
 // We keep all flag descriptions in a single place to encourage consistency of
 // flags across commands.
 // Readability in the commands code is not affected if flags are named properly.
@@ -54,9 +62,9 @@ export const projectDescWithDefault = `project ID (defaults to ${projectEnvVarDe
 export const buildTypeOptions = ['asr', 'dialog', 'nlu']
 
 export const anaphoraTypeFlag = flags.string({
-  default: 'not-set',
+  default: AnaphoraDefault,
   description: 'anaphora type',
-  options: ['not-set', 'ref-moment', 'ref-person', 'ref-place', 'ref-thing'],
+  options: Object.keys(Anaphoras).sort(),
 })
 
 // Flag objects
@@ -89,22 +97,9 @@ export const confirmFlag = flags.string({
 })
 
 export const dataTypeFlag = flags.string({
-  default: 'not-set',
+  default: DataTypeDefault,
   description: 'data type of entity',
-  options: [
-    'alphanum',
-    'amount',
-    'boolean',
-    'date',
-    'digits',
-    'distance',
-    'no-format',
-    'not-set',
-    'number',
-    'temperature',
-    'time',
-    'yes-no',
-  ],
+  options: Object.keys(DataTypes).sort(),
 })
 
 export const deploymentFlowFlag = flags.integer({
@@ -442,7 +437,7 @@ export const withDeploymentFlowFlag = flags.integer({
 
 export const withEntityTypeFlag = flags.string({
   description: 'entity type',
-  options: ['base', 'freeform', 'list', 'regex', 'relational', 'rule-based'],
+  options: Object.keys(Entities).sort(),
 })
 
 export const withLocaleMultipleFlag = flags.string({

@@ -8,29 +8,46 @@
 
 import {Expand} from './shared-types'
 
-type DataType =
-  | 'ALPHANUM'
-  | 'AMOUNT'
-  | 'BOOLEAN'
-  | 'DATE'
-  | 'DIGITS'
-  | 'DISTANCE'
-  | 'NOT_SET'
-  | 'NO_FORMAT'
-  | 'NUMBER'
-  | 'TEMPERATURE'
-  | 'TIME'
-  | 'YES_NO'
+export const AnaphoraDefault = 'not-set'
+export const Anaphoras = {
+  [AnaphoraDefault]: 'ANAPHORA_NOT_SET',
+  'ref-moment': 'ANAPHORA_REF_MOMENT',
+  'ref-person': 'ANAPHONRA_REF_PERSON',
+  'ref-place': 'ANAPHORA_REF_PLACE',
+  'ref-thing': 'ANAPHORA_REF_THING',
+}
+
+export type Anaphora = typeof Anaphoras[keyof typeof Anaphoras]
+
+export const DataTypeDefault = 'not-set'
+export const DataTypes = {
+  alphanum: 'ALPHANUM',
+  amount: 'AMOUNT',
+  boolean: 'BOOLEAN',
+  date: 'DATE',
+  digits: 'DIGITS',
+  distance: 'DISTANCE',
+  'no-format': 'NO_FORMAT',
+  [DataTypeDefault]: 'NOT_SET',
+  number: 'NUMBER',
+  temperature: 'TEMPERATURE',
+  time: 'TIME',
+  'yes-no': 'YES_NO',
+}
+
+export type DataType = typeof DataTypes[keyof typeof DataTypes]
 
 /** Entity type */
-export type Entity =
-  | 'BASE'
-  | 'FREEFORM'
-  | 'LIST'
-  | 'REGEX'
-  | 'RELATIONAL'
-  | 'RULE_BASED'
-  | 'UNSPECIFIED'
+export const Entities = {
+  base: 'BASE',
+  freeform: 'FREEFORM',
+  list: 'LIST',
+  regex: 'REGEX',
+  relational: 'RELATIONAL',
+  'rule-based': 'RULE_BASED',
+}
+
+export type Entity = typeof Entities[keyof typeof Entities]
 
 /** @hidden */
 export type EntitiesConfigureBodyParams = {
@@ -41,7 +58,7 @@ export type EntitiesConfigureBodyParams = {
   hasA?: string[],
 
   /** Specifies the referrer for this entity */
-  anaphora?: string
+  anaphora?: Anaphora
 
   /** Data type for the entity */
   dataType?: DataType
