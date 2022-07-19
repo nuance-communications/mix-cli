@@ -84,7 +84,7 @@ the current value of the flag is preserved.
     'no-canonicalize': MixFlags.noCanonicalizeFlag,
     pattern: MixFlags.patternFlag,
     project: MixFlags.projectFlag,
-    sensitive: MixFlags.sensitiveFlag,
+    sensitive: MixFlags.sensitiveUserDataFlag,
     // output flags
     json: MixFlags.jsonFlag,
     yaml: MixFlags.yamlFlag,

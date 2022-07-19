@@ -31,7 +31,7 @@ const debug = makeDebug('mix:api:entities')
 export async function configureEntity(client: MixClient, params: EntitiesConfigureParams): Promise<MixResponse> {
   debug('configureEntity()')
   const {entityName, projectId, ...bodyParams} = params
-  const body = buildEntityBody(bodyParams)
+  const body = buildCreateOrUpdateEntityBody(bodyParams)
 
   debug('body: %O', body)
 
