@@ -148,6 +148,9 @@
       "entities": {
         "description": "manage entities"
       },
+      "intents": {
+        "description": "manage intents"
+      },
       "jobs": {
         "description": "manage jobs"
       },

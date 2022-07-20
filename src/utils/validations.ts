@@ -9,6 +9,8 @@
 import makeDebug from 'debug'
 import {z} from 'zod'
 
+import {eMissingParameter} from './errors'
+
 export type DomainOption =
   | 'build-label'
   | 'build-version'
@@ -89,5 +91,26 @@ export function validateDomainOptions(options: any, validations: Array<DomainOpt
     if (!scheme) continue
 
     scheme.parse(value)
+  }
+}
+
+export function validateRegexEntityParams(locale: string|undefined, pattern: string|undefined) {
+  debug('validateRegexEntityParams()')
+
+  if (pattern === undefined || locale === undefined) {
+    throw (eMissingParameter('Regex entities require a pattern and a locale.', [
+      'Use --pattern to provide the required regular expression.',
+      'Use --locale to provide the locale for which the regular expression applies.',
+    ]))
+  }
+}
+
+export function validateRuleBasedEntityParams(hasA: string[]|undefined, isA: string|undefined) {
+  debug('validateRuleBasedEntityParams()')
+
+  if (hasA === undefined && isA === undefined) {
+    throw (eMissingParameter('Relational entities require has-a and/or is-a relation.', [
+      'use the --has-a and/or --is-a flags to provide the required relation.',
+    ]))
   }
 }
