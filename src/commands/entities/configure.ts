@@ -45,8 +45,8 @@ set at a minimum for an entity of type "relational".
 
 The examples below show how to configure each type of entity.
 In each example, every allowed flag is used.
-Note that if a value is not provided for a particular flag,
-the current value of the flag is preserved.
+Note that when a value is not provided for a particular flag,
+the corresponding property in the entity is not modified.
 `
 
   static examples = [
