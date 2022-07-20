@@ -1,3 +1,18 @@
+# [1.4.0-beta.5](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.4...v1.4.0-beta.5) (2022-07-18)
+
+
+### Features
+
+* add entities:create command ([#28](https://github.com/nuance-communications/mix-cli/issues/28)) ([8a31f40](https://github.com/nuance-communications/mix-cli/commit/8a31f404723aa56d8ad631ab1fc0f7c5194d8ad7))
+
+# [1.4.0-beta.4](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.3...v1.4.0-beta.4) (2022-07-15)
+
+
+### Features
+
+* add entities:rename command ([#24](https://github.com/nuance-communications/mix-cli/issues/24)) ([6ae3287](https://github.com/nuance-communications/mix-cli/commit/6ae32875bbe1def133cb78f54d3f564a964d2a3e))
+* add intents commands ([#25](https://github.com/nuance-communications/mix-cli/issues/25)) ([c92b6af](https://github.com/nuance-communications/mix-cli/commit/c92b6af71155e17e9f7bcae5fe86d5db13878c5e))
+
 # [1.4.0-beta.3](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.2...v1.4.0-beta.3) (2022-07-12)
 
 
