@@ -16,6 +16,15 @@ module.exports = {
     unknownEntity: 'NONE',
     unknownProject: '99999',
   },
+  configureListEntityBody: {
+    listEntity: {
+      anaphora: 'ANAPHORA_NOT_SET',
+      data: {},
+      dataType: 'NOT_SET',
+      isDynamic: false,
+      settings: { canonicalize: true, isSensitive: false },
+    }
+  },
   createListEntityBody: {
     listEntity: {
       anaphora: 'ANAPHORA_NOT_SET',
