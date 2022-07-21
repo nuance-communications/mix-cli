@@ -10,6 +10,27 @@ import makeDebug from 'debug'
 
 const debug = makeDebug.debug('mix:utils:entities-helpers')
 
+export const buildConvertEntityBody = (params: any) => {
+  debug('buildConvertEntityBody()')
+
+  const {
+    hasA,
+    isA,
+    newType,
+    pattern,
+  } = params
+
+  const adjustedNewtype = newType.toUpperCase().replace('-', '_')
+
+  return {
+    ...(hasA === undefined ? {} : {hasA}),
+    ...(isA === undefined ? {} : {entities: {isA}}),
+    ...(newType === 'list') ? {data: {}} : {},
+    newType: adjustedNewtype,
+    ...(pattern === undefined ? {} : {pattern}),
+  }
+}
+
 const buildEntityPayload = (params: any) => {
   debug('buildEntityPayload()')
 

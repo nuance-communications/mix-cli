@@ -83,6 +83,21 @@ export type EntitiesConfigureBodyParams = {
 }
 
 /** @hidden */
+export type EntitiesConvertBodyParams = {
+  /** Name of the entity that this entity has an `isA` relationship with */
+  isA?: string,
+
+  /** Names of the entities that this entity has a `hasA` relationship with */
+  hasA?: string[],
+
+  /** Data type for the entity */
+  newType?: Entity
+
+  /** Regular expression pattern for this entity */
+  pattern?: string
+}
+
+/** @hidden */
 export type EntitiesCreateBodyParams = EntitiesConfigureBodyParams & {
   /** New entity name */
   name: string,
@@ -117,6 +132,7 @@ export type EntitiesRenameBodyParams = {
 
 /** @hidden */
 export type EntitiesConfigureParams = Expand<EntitiesGetPathParams & EntitiesConfigureBodyParams>
+export type EntitiesConvertParams = Expand<EntitiesGetPathParams & EntitiesConvertBodyParams>
 export type EntitiesCreateParams = Expand<EntitiesListPathParams & EntitiesCreateBodyParams>
 export type EntitiesDeleteParams = Expand<EntitiesGetPathParams>
 export type EntitiesGetParams = Expand<EntitiesGetPathParams>
@@ -126,6 +142,7 @@ export type EntitiesRenameParams = Expand<EntitiesGetPathParams & EntitiesRename
 /** @hidden */
 export type EntitiesParams =
   | EntitiesConfigureParams
+  | EntitiesConvertParams
   | EntitiesCreateParams
   | EntitiesDeleteParams
   | EntitiesGetParams
