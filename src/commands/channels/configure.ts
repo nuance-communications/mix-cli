@@ -19,15 +19,15 @@ import chalk from 'chalk'
 import {channelColors} from '../../mix/api/utils/channel-colors'
 import {DomainOption} from '../../utils/validations'
 
-const debug = makeDebug('mix:commands:channels:config')
+const debug = makeDebug('mix:commands:channels:configure')
 
-export default class ChannelsConfig extends MixCommand {
+export default class ChannelsConfigure extends MixCommand {
   static description = `update channel details in a project
   Configure the modalities and color of an existing channel in a Mix project.
   `
 
   static examples = [
-    'mix channels:config -P 1922  \\',
+    'mix channels:configure -P 1922  \\',
     '  --channel bc40667c-e0f6-11ec-9d64-0242ac120003 \\',
     '  --mode DTMF --mode TTS \\',
     '  --color SALMON',
