@@ -6,16 +6,16 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
 import * as EntitiesAPI from '../../mix/api/entities'
 import * as MixFlags from '../../utils/flags'
-import {eMissingParameter} from '../../utils/errors'
+import {DomainOption} from '../../utils/validations'
 import {EntitiesConvertParams, MixClient, MixResponse, MixResult} from '../../mix/types'
 import MixCommand from '../../utils/base/mix-command'
-import {DomainOption} from '../../utils/validations'
-import chalk from 'chalk'
+import {validateRegexEntityParams, validateRuleBasedEntityParams} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:entities:convert')
 
@@ -36,7 +36,7 @@ applied to all locales in the project. Use the entities:configure
 command to update the regular expression on a per locale basis
 if needed.
 
-Relationial entities can have zero or one isA relation and
+Relational entities can have zero or one isA relation and
 zero or many hasA relations. One --is-A or --has-A flag must be
 set at a minimum whent converting an entity to the "relational" type.
 
@@ -114,7 +114,7 @@ type of entity.
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Converting entity ${options.name} in project ${options.project}`
+    this.requestActionMessage = `Converting entity ${options.entity} in project ${options.project}`
   }
 
   transformResponse(result: MixResult) {
@@ -138,39 +138,23 @@ type of entity.
     debug('tryDomainOptionsValidation()')
     super.tryDomainOptionsValidation(options, domainOptions)
 
-    const {'to-entity-type': newType} = options
+    const {
+      'has-a': hasA,
+      'is-a': isA,
+      pattern,
+      'to-entity-type': newType,
+    } = options
 
     // Command bails out if mandatory parameters are missing.
     // Extraneous parameters are ignored.
     switch (newType) {
       case 'regex':
-        this.validateRegexEntityParams(options)
+        validateRegexEntityParams(undefined, pattern, true /* ignore locale */)
         break
 
       case 'relational':
-        this.validateRuleBasedEntityParams(options)
+        validateRuleBasedEntityParams(hasA, isA)
         break
-    }
-  }
-
-  validateRegexEntityParams(options: Partial<flags.Output>) {
-    debug('validateRegexEntityParams()')
-
-    if (options.pattern === undefined || options.locale === undefined) {
-      throw (eMissingParameter('Regex entities require a pattern and a locale.', [
-        'Use --pattern to provide the required regular expression.',
-        'Use --locale to provide the locale for which the regular expression applies.',
-      ]))
-    }
-  }
-
-  validateRuleBasedEntityParams(options: Partial<flags.Output>) {
-    debug('validateRuleBasedEntityParams()')
-
-    if (options['is-a'] === undefined && options['has-a'] === undefined) {
-      throw (eMissingParameter('Relational entities require has-a and/or is-a relation.', [
-        'use the --has-a and/or --is-a flags to provide the required relation.',
-      ]))
     }
   }
 }
