@@ -145,16 +145,15 @@ type of entity.
       'to-entity-type': newType,
     } = options
 
+    // Entity types 'regex' and 'relational' require mandatory flags.
     // Command bails out if mandatory parameters are missing.
     // Extraneous parameters are ignored.
-    switch (newType) {
-      case 'regex':
-        validateRegexEntityParams(undefined, pattern, true /* ignore locale */)
-        break
+    if (newType === 'regex') {
+      validateRegexEntityParams(undefined, pattern, true /* ignore locale */)
+    }
 
-      case 'relational':
-        validateRuleBasedEntityParams(hasA, isA)
-        break
+    if (newType === 'relational') {
+      validateRuleBasedEntityParams(hasA, isA)
     }
   }
 }

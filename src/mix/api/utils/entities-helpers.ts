@@ -23,11 +23,11 @@ export const buildConvertEntityBody = (params: any) => {
   const adjustedNewtype = newType.toUpperCase().replace('-', '_')
 
   return {
-    ...(hasA === undefined ? {} : {entities: {hasA}}),
-    ...(isA === undefined ? {} : {isA}),
-    ...(newType === 'list') ? {data: {}} : {},
+    ...(hasA !== undefined && {entities: {hasA}}),
+    ...(isA !== undefined && {isA}),
+    ...(newType === 'list') && {data: {}},
     newType: adjustedNewtype,
-    ...(pattern === undefined ? {} : {pattern}),
+    ...(pattern !== undefined && {pattern}),
   }
 }
 
