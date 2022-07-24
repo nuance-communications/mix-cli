@@ -12,6 +12,7 @@ module.exports = {
     entity: 'DrinkSize',
     entityType: 'list',
     invalidEntity: '1234',
+    newEntityType: 'freeform',
     newName: 'DrinkFormat',
     unknownEntity: 'NONE',
     unknownProject: '99999',
@@ -24,6 +25,9 @@ module.exports = {
       isDynamic: false,
       settings: { canonicalize: true, isSensitive: false },
     }
+  },
+  convertEntityBody: {
+    newType: 'FREEFORM'
   },
   createListEntityBody: {
     listEntity: {
@@ -46,6 +50,32 @@ module.exports = {
     details: [],
   },
   projectInvalidResponse: { code: 3, message: 'Project 99999 is not available.', details: [] } ,
+  convertEntityResponse: {
+    entity: {
+      freeformEntity: {
+        id: 'some-long-uuid',
+        name: 'DrinkSize',
+        isDynamic: false,
+        settings: {
+          isSensitive: false,
+          canonicalize: true
+        }
+      }
+    }
+  },
+  convertEntityToRegexResponse: {
+    entity: {
+      regexEntity: {
+        id: 'some-long-uuid',
+        name: 'DrinkSize',
+        pattern: '\d{10}',
+        settings: {
+          isSensitive: false,
+          canonicalize: true
+        }
+      }
+    }
+  },
   getEntityResponse: {
     entity: {
       listEntity: {

@@ -94,13 +94,22 @@ export function validateDomainOptions(options: any, validations: Array<DomainOpt
   }
 }
 
-export function validateRegexEntityParams(locale: string|undefined, pattern: string|undefined) {
+export function validateRegexEntityParams(
+  locale: string|undefined,
+  pattern: string|undefined,
+  isLocaleIgnored = false) {
   debug('validateRegexEntityParams()')
 
-  if (pattern === undefined || locale === undefined) {
+  if (!isLocaleIgnored && (pattern === undefined || locale === undefined)) {
     throw (eMissingParameter('Regex entities require a pattern and a locale.', [
       'Use --pattern to provide the required regular expression.',
       'Use --locale to provide the locale for which the regular expression applies.',
+    ]))
+  }
+
+  if (isLocaleIgnored && pattern === undefined) {
+    throw (eMissingParameter('Converting to a Regex entity requires a pattern.', [
+      'use --pattern to provide the required regular expression.',
     ]))
   }
 }

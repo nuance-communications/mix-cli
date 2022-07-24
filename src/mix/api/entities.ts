@@ -8,10 +8,17 @@
 
 import makeDebug from 'debug'
 
-import {buildCreateEntityBody, buildUpdateEntityBody} from './utils/entities-helpers'
+import {
+  buildConvertEntityBody,
+  buildCreateEntityBody,
+  buildUpdateEntityBody,
+} from './utils/entities-helpers'
+
 import buildURL from './utils/build-url'
+
 import {
   EntitiesConfigureParams,
+  EntitiesConvertParams,
   EntitiesCreateParams,
   EntitiesDeleteParams,
   EntitiesGetParams,
@@ -38,6 +45,25 @@ export async function configureEntity(client: MixClient, params: EntitiesConfigu
   return client.request({
     method: 'put',
     url: buildURL(client.getServer(), `/v4/projects/${projectId}/entities/${entityName}`),
+    data: body,
+  })
+}
+
+/**
+ * Convert an entity in a project to a different entity type.
+ *
+ * @category entities
+ */
+export async function convertEntity(client: MixClient, params: EntitiesConvertParams): Promise<MixResponse> {
+  debug('convertEntity()')
+  const {entityName, projectId, ...bodyParams} = params
+  const body = buildConvertEntityBody(bodyParams)
+
+  debug('body: %O', body)
+
+  return client.request({
+    method: 'put',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/entities/${entityName}/.type`),
     data: body,
   })
 }
