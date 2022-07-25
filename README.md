@@ -170,11 +170,21 @@ See our [Contribution Guidelines](CONTRIBUTING.md).
 * [`mix data-hosts:list`](#mix-data-hostslist)
 * [`mix deployment-flows:list`](#mix-deployment-flowslist)
 * [`mix engine-packs:list`](#mix-engine-packslist)
+* [`mix entities:configure`](#mix-entitiesconfigure)
+* [`mix entities:create`](#mix-entitiescreate)
+* [`mix entities:destroy`](#mix-entitiesdestroy)
 * [`mix entities:get`](#mix-entitiesget)
+* [`mix entities:list`](#mix-entitieslist)
+* [`mix entities:rename`](#mix-entitiesrename)
 * [`mix environments:list`](#mix-environmentslist)
 * [`mix geographies:list`](#mix-geographieslist)
 * [`mix help [COMMAND]`](#mix-help-command)
 * [`mix init`](#mix-init)
+* [`mix intents:create`](#mix-intentscreate)
+* [`mix intents:destroy`](#mix-intentsdestroy)
+* [`mix intents:get`](#mix-intentsget)
+* [`mix intents:list`](#mix-intentslist)
+* [`mix intents:rename`](#mix-intentsrename)
 * [`mix jobs:cancel`](#mix-jobscancel)
 * [`mix jobs:get`](#mix-jobsget)
 * [`mix jobs:list`](#mix-jobslist)
@@ -234,7 +244,7 @@ EXAMPLES
   $ mix app-configs:create -M 233 -D 32 -T AC_20211028 -P 1922 --use-project-data-hosts
 ```
 
-_See code: [src/commands/app-configs/create.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/app-configs/create.ts)_
+_See code: [src/commands/app-configs/create.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/app-configs/create.ts)_
 
 ## `mix app-configs:deploy`
 
@@ -267,7 +277,7 @@ EXAMPLES
   $ mix app-configs:deploy -C 88 --env-geo 233
 ```
 
-_See code: [src/commands/app-configs/deploy.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/app-configs/deploy.ts)_
+_See code: [src/commands/app-configs/deploy.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/app-configs/deploy.ts)_
 
 ## `mix app-configs:destroy`
 
@@ -289,7 +299,7 @@ DESCRIPTION
   ID when prompted. It can also be pre-confirmed by using the --confirm flag.
 ```
 
-_See code: [src/commands/app-configs/destroy.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/app-configs/destroy.ts)_
+_See code: [src/commands/app-configs/destroy.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/app-configs/destroy.ts)_
 
 ## `mix app-configs:export`
 
@@ -318,7 +328,7 @@ EXAMPLES
   $ mix app-configs:export -C 2269 -R NMDPTRIAL_alex_smith_company_com_20190919T190532 -f app-config.zip
 ```
 
-_See code: [src/commands/app-configs/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/app-configs/export.ts)_
+_See code: [src/commands/app-configs/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/app-configs/export.ts)_
 
 ## `mix app-configs:get`
 
@@ -349,7 +359,7 @@ EXAMPLE
   $ mix app-configs:get -C 3404
 ```
 
-_See code: [src/commands/app-configs/get.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/app-configs/get.ts)_
+_See code: [src/commands/app-configs/get.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/app-configs/get.ts)_
 
 ## `mix app-configs:list`
 
@@ -384,7 +394,7 @@ EXAMPLE
   $ mix app-configs:list -M 164 --with-runtime-app NMDPTRIAL_alex_smith_company_com_20190919T190532
 ```
 
-_See code: [src/commands/app-configs/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/app-configs/list.ts)_
+_See code: [src/commands/app-configs/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/app-configs/list.ts)_
 
 ## `mix app-configs:undeploy`
 
@@ -414,7 +424,7 @@ EXAMPLES
   $ mix app-configs:undeploy -C 88 --env-geo 233
 ```
 
-_See code: [src/commands/app-configs/undeploy.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/app-configs/undeploy.ts)_
+_See code: [src/commands/app-configs/undeploy.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/app-configs/undeploy.ts)_
 
 ## `mix app-configs:upgrade`
 
@@ -442,7 +452,7 @@ EXAMPLES
   $ mix app-configs:upgrade -C 334 --use-project-data-hosts
 ```
 
-_See code: [src/commands/app-configs/upgrade.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/app-configs/upgrade.ts)_
+_See code: [src/commands/app-configs/upgrade.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/app-configs/upgrade.ts)_
 
 ## `mix app-credentials:list`
 
@@ -472,7 +482,7 @@ EXAMPLES
   $ mix app-credentials:list -M 22 --with-geo-name "Production US"
 ```
 
-_See code: [src/commands/app-credentials/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/app-credentials/list.ts)_
+_See code: [src/commands/app-credentials/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/app-credentials/list.ts)_
 
 ## `mix applications:list`
 
@@ -504,7 +514,7 @@ EXAMPLE
   $ mix applications:list -O 64
 ```
 
-_See code: [src/commands/applications/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/applications/list.ts)_
+_See code: [src/commands/applications/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/applications/list.ts)_
 
 ## `mix auth`
 
@@ -525,7 +535,7 @@ EXAMPLE
   mix auth
 ```
 
-_See code: [src/commands/auth.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/auth.ts)_
+_See code: [src/commands/auth.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/auth.ts)_
 
 ## `mix autocomplete [SHELL]`
 
@@ -586,7 +596,7 @@ EXAMPLES
   $ mix builds:destroy --build-label ASR_1922_11 --confirm ASR_1922_11
 ```
 
-_See code: [src/commands/builds/destroy.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/builds/destroy.ts)_
+_See code: [src/commands/builds/destroy.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/builds/destroy.ts)_
 
 ## `mix builds:export`
 
@@ -619,7 +629,7 @@ EXAMPLES
   $ mix builds:export -P 29050 --build-type asr --build-version 11 -f build.zip --overwrite
 ```
 
-_See code: [src/commands/builds/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/builds/export.ts)_
+_See code: [src/commands/builds/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/builds/export.ts)_
 
 ## `mix builds:get`
 
@@ -649,7 +659,7 @@ EXAMPLE
   mix builds:get -P 1922 --build-type nlu --build-version 1
 ```
 
-_See code: [src/commands/builds/get.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/builds/get.ts)_
+_See code: [src/commands/builds/get.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/builds/get.ts)_
 
 ## `mix builds:latest`
 
@@ -678,7 +688,7 @@ EXAMPLES
   $ mix builds:latest -P 1922
 ```
 
-_See code: [src/commands/builds/latest.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/builds/latest.ts)_
+_See code: [src/commands/builds/latest.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/builds/latest.ts)_
 
 ## `mix builds:list`
 
@@ -709,7 +719,7 @@ EXAMPLE
   mix builds:list -P 1922 --build-type nlu
 ```
 
-_See code: [src/commands/builds/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/builds/list.ts)_
+_See code: [src/commands/builds/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/builds/list.ts)_
 
 ## `mix data-hosts:list`
 
@@ -744,7 +754,7 @@ EXAMPLE
   mix data-hosts:list -D 66 -M 62 -P 14990 --build-version 1
 ```
 
-_See code: [src/commands/data-hosts/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/data-hosts/list.ts)_
+_See code: [src/commands/data-hosts/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/data-hosts/list.ts)_
 
 ## `mix deployment-flows:list`
 
@@ -773,7 +783,7 @@ EXAMPLE
   mix deployment-flows:list -O 64
 ```
 
-_See code: [src/commands/deployment-flows/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/deployment-flows/list.ts)_
+_See code: [src/commands/deployment-flows/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/deployment-flows/list.ts)_
 
 ## `mix engine-packs:list`
 
@@ -795,7 +805,274 @@ EXAMPLE
   mix engine-packs:list -O 64
 ```
 
-_See code: [src/commands/engine-packs/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/engine-packs/list.ts)_
+_See code: [src/commands/engine-packs/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/engine-packs/list.ts)_
+
+## `mix entities:configure`
+
+configure an entity
+
+```
+USAGE
+  $ mix entities:configure
+
+OPTIONS
+  -E, --entity=entity                                                                                        (required)
+                                                                                                             entity name
+
+  -L, --locale=locale                                                                                        locale for
+                                                                                                             regex
+                                                                                                             entity
+
+  -P, --project=project                                                                                      (required)
+                                                                                                             project ID
+
+  --anaphora-type=not-set|ref-moment|ref-person|ref-place|ref-thing                                          [default:
+                                                                                                             not-set]
+                                                                                                             anaphora
+                                                                                                             type
+
+  --data-type=alphanum|amount|boolean|date|digits|distance|no-format|not-set|number|temperature|time|yes-no  [default:
+                                                                                                             not-set]
+                                                                                                             data type
+                                                                                                             of entity
+
+  --dynamic                                                                                                  make list
+                                                                                                             entity
+                                                                                                             dynamic
+
+  --entity-type=base|freeform|list|regex|relational|rule-based                                               entity type
+
+  --has-a=has-a                                                                                              define hasA
+                                                                                                             relationshi
+                                                                                                             p for
+                                                                                                             relational
+                                                                                                             entity
+
+  --is-a=is-a                                                                                                define isA
+                                                                                                             relationshi
+                                                                                                             p for
+                                                                                                             relational
+                                                                                                             entity
+
+  --json                                                                                                     output raw
+                                                                                                             data in
+                                                                                                             JSON format
+
+  --no-canonicalize                                                                                          prevent
+                                                                                                             canonicaliz
+                                                                                                             ation
+
+  --pattern=pattern                                                                                          regular
+                                                                                                             expression
+                                                                                                             for regex
+                                                                                                             entity
+
+  --sensitive                                                                                                mask user
+                                                                                                             sentitive
+                                                                                                             data in
+                                                                                                             logs
+
+  --yaml                                                                                                     output raw
+                                                                                                             data in
+                                                                                                             YAML format
+
+DESCRIPTION
+  Use this command to configure an entity in a project.
+
+  NOTE: This command cannot change the type of an entity.
+  When using this command, you must provide the current type
+  of the entity. Use command entities:convert to change the
+  type of an entity.
+
+  Mix supports several types of entities: freeform, list, regex,
+  relational and rule-based. There are many attributes that can
+  be configured for an entity and a good number of these attributes
+  are common to all entity types. However, certain attributes apply
+  to specific entity types only.
+
+  Regex entities make use of regular expressions specific to a single
+  locale. The --pattern and --locale flags matter only to entities
+  of type "regex".
+
+  Relationial entities can have zero or one isA relation and
+  zero or many hasA relations. One --is-A or --has-A flag must be
+  set at a minimum for an entity of type "relational".
+
+  The examples below show how to configure each type of entity.
+  In each example, every allowed flag is used.
+  Note that when a value is not provided for a particular flag,
+  the corresponding property in the entity is not modified.
+
+EXAMPLES
+  Configure a freeform entity
+  $ mix entities:configure -P 1922 -E MESSAGE \
+    --sensitive --no-canonicalize --data-type not-set
+
+  Configure a list entity
+  $ mix entities:configure -P 1922 -E DRINK_SIZE --dynamic --sensitive \
+    --no-canonicalize --anaphora-type not-set --data-type not-set
+
+  Configure a regex entity
+  $ mix entities:configure -P 1922 -E PHONE_NUMBER --locale en-US \
+    --pattern \d{10} --sensitive --no-canonicalize --anaphora-type not-set \
+    --data-type digits
+
+  Configure a relational entity
+  $ mix entities:configure -P 1922 --E ARRIVAL_CITY --is-a CITY \
+    --sensitive --no-canonicalize --anaphora-type not-set --data-type not-set
+
+  Configure a rule-based entity
+  $ mix entities:configure -P 1922 -E CARD_TYPE --sensitive \
+     --no-canonicalize --anaphora-type not-set --data-type not-set
+```
+
+_See code: [src/commands/entities/configure.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/entities/configure.ts)_
+
+## `mix entities:create`
+
+create a new entity
+
+```
+USAGE
+  $ mix entities:create
+
+OPTIONS
+  -L, --locale=locale                                                                                        locale for
+                                                                                                             regex
+                                                                                                             entity
+
+  -P, --project=project                                                                                      (required)
+                                                                                                             project ID
+
+  --anaphora-type=not-set|ref-moment|ref-person|ref-place|ref-thing                                          [default:
+                                                                                                             not-set]
+                                                                                                             anaphora
+                                                                                                             type
+
+  --data-type=alphanum|amount|boolean|date|digits|distance|no-format|not-set|number|temperature|time|yes-no  [default:
+                                                                                                             not-set]
+                                                                                                             data type
+                                                                                                             of entity
+
+  --dynamic                                                                                                  make list
+                                                                                                             entity
+                                                                                                             dynamic
+
+  --entity-type=base|freeform|list|regex|relational|rule-based                                               entity type
+
+  --has-a=has-a                                                                                              define hasA
+                                                                                                             relationshi
+                                                                                                             p for
+                                                                                                             relational
+                                                                                                             entity
+
+  --is-a=is-a                                                                                                define isA
+                                                                                                             relationshi
+                                                                                                             p for
+                                                                                                             relational
+                                                                                                             entity
+
+  --json                                                                                                     output raw
+                                                                                                             data in
+                                                                                                             JSON format
+
+  --name=name                                                                                                (required)
+                                                                                                             new entity
+                                                                                                             name
+
+  --no-canonicalize                                                                                          prevent
+                                                                                                             canonicaliz
+                                                                                                             ation
+
+  --pattern=pattern                                                                                          regular
+                                                                                                             expression
+                                                                                                             for regex
+                                                                                                             entity
+
+  --sensitive                                                                                                mask user
+                                                                                                             sentitive
+                                                                                                             data in
+                                                                                                             logs
+
+  --yaml                                                                                                     output raw
+                                                                                                             data in
+                                                                                                             YAML format
+
+DESCRIPTION
+  Use this command to create a new entity in a project.
+
+  Mix supports several types of entities: freeform, list, regex,
+  relational and rule-based. There are many attributes that can
+  be passed for the creation of an entity and a good number of
+  these attributes are common to all entity types. However, certain
+  attributes are mandatory and apply to specific entity types only.
+
+  Regex entities make use of regular expressions specific to a single
+  locale. The --pattern and --locale flags must be set when creating
+  an entity of type "regex".
+
+  Relationial entities can have zero or one isA relation and
+  zero or many hasA relations. One --is-A or --has-A flag must be
+  set at a minimum when creating an entity of type "relational".
+
+  The --entity-type, --name and --project flags are mandatory for
+  the creation of any entity type.
+
+  The examples below show how to create each type of entity.
+  In each example, every allowed or mandatory flag is used.
+  Note that many flags have default values and do not need to be
+  explicitly provided.
+
+EXAMPLES
+  Create a freeform entity
+  $ mix entities:create -P 1922 --entity-type=freeform --name MESSAGE \
+    --sensitive --no-canonicalize --data-type not-set
+
+  Create a list entity
+  $ mix entities:create -P 1922 --entity-type=list --name DRINK_SIZE \
+    --dynamic --sensitive --no-canonicalize --anaphora-type not-set \
+    --data-type not-set
+
+  Create a regex entity
+  $ mix entities:create -P 1922 --entity-type=regex --name PHONE_NUMBER \
+    --locale en-US --pattern \d{10} --sensitive --no-canonicalize \
+    --anaphora-type not-set --data-type digits
+
+  Create a relational entity
+  $ mix entities:create -P 1922 --entity-type=relational --name ARRIVAL_CITY \
+    --is-a CITY --sensitive --no-canonicalize --anaphora-type not-set \
+    --data-type not-set
+
+  Create a rule-based entity
+  $ mix entities:create -P 1922 --entity-type=rule-based --name CARD_TYPE \
+    --sensitive --no-canonicalize --anaphora-type not-set --data-type not-set
+```
+
+_See code: [src/commands/entities/create.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/entities/create.ts)_
+
+## `mix entities:destroy`
+
+destroy an entity
+
+```
+USAGE
+  $ mix entities:destroy
+
+OPTIONS
+  -E, --entity=entity    (required) entity name
+  -P, --project=project  (required) project ID
+  -c, --confirm=confirm  skip confirmation prompt by pre-supplying value
+  --json                 output raw data in JSON format
+  --yaml                 output raw data in YAML format
+
+DESCRIPTION
+  Use this command to permanently delete an entity from a project.
+
+EXAMPLE
+  $ mix entities:destroy -P 1922 -E CoffeeSize
+```
+
+_See code: [src/commands/entities/destroy.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/entities/destroy.ts)_
 
 ## `mix entities:get`
 
@@ -821,7 +1098,70 @@ EXAMPLE
   mix entities:get -P 1922 -E DrinkSize
 ```
 
-_See code: [src/commands/entities/get.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/entities/get.ts)_
+_See code: [src/commands/entities/get.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/entities/get.ts)_
+
+## `mix entities:list`
+
+list entities
+
+```
+USAGE
+  $ mix entities:list
+
+OPTIONS
+  -P, --project=project                                              (required) project ID
+  --columns=columns                                                  only show provided columns (comma-separated)
+  --csv                                                              output to csv format
+
+  --filter=filter                                                    filter property by partial string matching, ex:
+                                                                     name=foo
+
+  --json                                                             output raw data in JSON format
+
+  --no-header                                                        hide table header from output
+
+  --no-truncate                                                      do not truncate output to fit screen
+
+  --with-entity-type=base|freeform|list|regex|relational|rule-based  entity type
+
+  --yaml                                                             output raw data in YAML format
+
+DESCRIPTION
+  Use this command to list all entities available in a specific project.
+
+EXAMPLES
+  List all entities
+  $ mix entities:list -P 1922
+
+  List all list-type entities
+  $ mix entities:list -P 1922 --with-entity-type list
+```
+
+_See code: [src/commands/entities/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/entities/list.ts)_
+
+## `mix entities:rename`
+
+rename an entity
+
+```
+USAGE
+  $ mix entities:rename
+
+OPTIONS
+  -E, --entity=entity    (required) entity name
+  -P, --project=project  (required) project ID
+  --json                 output raw data in JSON format
+  --name=name            (required) new entity name
+  --yaml                 output raw data in YAML format
+
+DESCRIPTION
+  Use this command to rename an entity in a project.
+
+EXAMPLE
+  $ mix entities:rename -P 1922 -E DrinkSize --name DrinkFormat
+```
+
+_See code: [src/commands/entities/rename.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/entities/rename.ts)_
 
 ## `mix environments:list`
 
@@ -851,7 +1191,7 @@ EXAMPLE
   mix environments:list -O 64
 ```
 
-_See code: [src/commands/environments/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/environments/list.ts)_
+_See code: [src/commands/environments/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/environments/list.ts)_
 
 ## `mix geographies:list`
 
@@ -880,7 +1220,7 @@ EXAMPLE
   mix geographies:list
 ```
 
-_See code: [src/commands/geographies/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/geographies/list.ts)_
+_See code: [src/commands/geographies/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/geographies/list.ts)_
 
 ## `mix help [COMMAND]`
 
@@ -915,7 +1255,132 @@ EXAMPLE
   mix init
 ```
 
-_See code: [src/commands/init.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/init.ts)_
+_See code: [src/commands/init.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/init.ts)_
+
+## `mix intents:create`
+
+create a new intent
+
+```
+USAGE
+  $ mix intents:create
+
+OPTIONS
+  -P, --project=project  (required) project ID
+  --json                 output raw data in JSON format
+  --name=name            (required) new intent name
+  --yaml                 output raw data in YAML format
+
+DESCRIPTION
+  Use this command to create a new intent in a project.
+
+EXAMPLE
+  $ mix intents:create -P 1922 --name ORDER_DRINK
+```
+
+_See code: [src/commands/intents/create.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/intents/create.ts)_
+
+## `mix intents:destroy`
+
+destroy an intent
+
+```
+USAGE
+  $ mix intents:destroy
+
+OPTIONS
+  -I, --intent=intent    (required) intent name
+  -P, --project=project  (required) project ID
+  -c, --confirm=confirm  skip confirmation prompt by pre-supplying value
+  --json                 output raw data in JSON format
+  --yaml                 output raw data in YAML format
+
+DESCRIPTION
+  Use this command to permanently delete an intent from a project.
+
+EXAMPLE
+  $ mix intents:destroy -P 1922 -I ORDER_DRINK
+```
+
+_See code: [src/commands/intents/destroy.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/intents/destroy.ts)_
+
+## `mix intents:get`
+
+get details about an intent
+
+```
+USAGE
+  $ mix intents:get
+
+OPTIONS
+  -I, --intent=intent    (required) intent name
+  -P, --project=project  (required) project ID
+  --columns=columns      only show provided columns (comma-separated) (with --csv only)
+  --csv                  output to csv format
+  --json                 output raw data in JSON format
+  --no-truncate          do not truncate output to fit screen
+  --yaml                 output raw data in YAML format
+
+DESCRIPTION
+  Use this command to get details about a particular intent in a project.
+
+EXAMPLE
+  $ mix intents:get -P 1922 -I ORDER_DRINK
+```
+
+_See code: [src/commands/intents/get.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/intents/get.ts)_
+
+## `mix intents:list`
+
+list intents
+
+```
+USAGE
+  $ mix intents:list
+
+OPTIONS
+  -P, --project=project  (required) project ID
+  --columns=columns      only show provided columns (comma-separated)
+  --csv                  output to csv format
+  --filter=filter        filter property by partial string matching, ex: name=foo
+  --json                 output raw data in JSON format
+  --no-header            hide table header from output
+  --no-truncate          do not truncate output to fit screen
+  --sort=sort            property to sort by (prepend '-' for descending)
+  --yaml                 output raw data in YAML format
+
+DESCRIPTION
+  Use this command to list all intents available in a specific project.
+
+EXAMPLE
+  $ mix intents:list -P 1922
+```
+
+_See code: [src/commands/intents/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/intents/list.ts)_
+
+## `mix intents:rename`
+
+rename an intent
+
+```
+USAGE
+  $ mix intents:rename
+
+OPTIONS
+  -I, --intent=intent    (required) intent name
+  -P, --project=project  (required) project ID
+  --json                 output raw data in JSON format
+  --name=name            (required) new intent name
+  --yaml                 output raw data in YAML format
+
+DESCRIPTION
+  Use this command to rename an intent in a project.
+
+EXAMPLE
+  $ mix intents:rename -P 1922 -I ORDER_DRINK --name ORDER_COFFEE
+```
+
+_See code: [src/commands/intents/rename.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/intents/rename.ts)_
 
 ## `mix jobs:cancel`
 
@@ -941,7 +1406,7 @@ EXAMPLE
   mix jobs:cancel -P 1922 -J 15d4d4ce-7cc3-45f6-ab38-aad326e6fc20
 ```
 
-_See code: [src/commands/jobs/cancel.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/jobs/cancel.ts)_
+_See code: [src/commands/jobs/cancel.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/jobs/cancel.ts)_
 
 ## `mix jobs:get`
 
@@ -969,7 +1434,7 @@ EXAMPLE
   mix jobs:get -P 1922 -J 25a08872-c635-43f1-b459-5bd98a1c2576
 ```
 
-_See code: [src/commands/jobs/get.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/jobs/get.ts)_
+_See code: [src/commands/jobs/get.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/jobs/get.ts)_
 
 ## `mix jobs:list`
 
@@ -999,7 +1464,7 @@ EXAMPLE
   mix jobs:list -P 1922
 ```
 
-_See code: [src/commands/jobs/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/jobs/list.ts)_
+_See code: [src/commands/jobs/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/jobs/list.ts)_
 
 ## `mix language-topics:list`
 
@@ -1026,7 +1491,7 @@ EXAMPLE
   mix language-topics:list -O 64
 ```
 
-_See code: [src/commands/language-topics/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/language-topics/list.ts)_
+_See code: [src/commands/language-topics/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/language-topics/list.ts)_
 
 ## `mix literals:export`
 
@@ -1054,7 +1519,7 @@ EXAMPLE
   $ mix literals:export -P 29050 -E DrinkSize -L en-US -f literals.zip --overwrite
 ```
 
-_See code: [src/commands/literals/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/literals/export.ts)_
+_See code: [src/commands/literals/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/literals/export.ts)_
 
 ## `mix literals:import`
 
@@ -1097,7 +1562,7 @@ EXAMPLES
   $ mix literals:import -P 29050 -E DrinkSize -L en-US -f literals.trsx -c DrinkSize --replace
 ```
 
-_See code: [src/commands/literals/import.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/literals/import.ts)_
+_See code: [src/commands/literals/import.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/literals/import.ts)_
 
 ## `mix ontology:export`
 
@@ -1123,7 +1588,7 @@ EXAMPLE
   $ mix ontology:export -P 29050 -L en-US -f ontology.zip --overwrite
 ```
 
-_See code: [src/commands/ontology/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/ontology/export.ts)_
+_See code: [src/commands/ontology/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/ontology/export.ts)_
 
 ## `mix ontology:import`
 
@@ -1155,7 +1620,7 @@ EXAMPLES
   $ mix ontology:import -P 29050 -f ontology.zip -c 29050
 ```
 
-_See code: [src/commands/ontology/import.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/ontology/import.ts)_
+_See code: [src/commands/ontology/import.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/ontology/import.ts)_
 
 ## `mix organizations:list`
 
@@ -1187,7 +1652,7 @@ EXAMPLE
   mix organizations:list
 ```
 
-_See code: [src/commands/organizations/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/organizations/list.ts)_
+_See code: [src/commands/organizations/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/organizations/list.ts)_
 
 ## `mix projects:build`
 
@@ -1215,7 +1680,7 @@ EXAMPLES
   build"
 ```
 
-_See code: [src/commands/projects/build.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/projects/build.ts)_
+_See code: [src/commands/projects/build.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/projects/build.ts)_
 
 ## `mix projects:configure`
 
@@ -1243,7 +1708,7 @@ EXAMPLE
   $ mix projects:configure -P 1922 --data-pack en-US@4.7.0
 ```
 
-_See code: [src/commands/projects/configure.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/projects/configure.ts)_
+_See code: [src/commands/projects/configure.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/projects/configure.ts)_
 
 ## `mix projects:create`
 
@@ -1310,7 +1775,7 @@ EXAMPLES
     -n "ACME Project" --engine-pack 995f6e23-07ff-4f89-9e42-97d0398da7fc
 ```
 
-_See code: [src/commands/projects/create.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/projects/create.ts)_
+_See code: [src/commands/projects/create.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/projects/create.ts)_
 
 ## `mix projects:destroy`
 
@@ -1342,7 +1807,7 @@ EXAMPLES
   $ mix projects:destroy -P 1922 -c 1922
 ```
 
-_See code: [src/commands/projects/destroy.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/projects/destroy.ts)_
+_See code: [src/commands/projects/destroy.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/projects/destroy.ts)_
 
 ## `mix projects:export`
 
@@ -1377,7 +1842,7 @@ EXAMPLES
   $ mix projects:export -P 29050 -f metadata.json --metadata-only --overwrite
 ```
 
-_See code: [src/commands/projects/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/projects/export.ts)_
+_See code: [src/commands/projects/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/projects/export.ts)_
 
 ## `mix projects:get`
 
@@ -1408,7 +1873,7 @@ EXAMPLE
   mix projects:get -P 1922
 ```
 
-_See code: [src/commands/projects/get.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/projects/get.ts)_
+_See code: [src/commands/projects/get.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/projects/get.ts)_
 
 ## `mix projects:list`
 
@@ -1436,7 +1901,7 @@ EXAMPLE
   mix projects:list -O 64
 ```
 
-_See code: [src/commands/projects/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/projects/list.ts)_
+_See code: [src/commands/projects/list.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/projects/list.ts)_
 
 ## `mix projects:rename`
 
@@ -1459,7 +1924,7 @@ EXAMPLE
   $ mix projects:rename -P 1922 -n ACME
 ```
 
-_See code: [src/commands/projects/rename.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/projects/rename.ts)_
+_See code: [src/commands/projects/rename.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/projects/rename.ts)_
 
 ## `mix projects:replace`
 
@@ -1496,7 +1961,7 @@ EXAMPLES
   $ mix projects:replace -P 29050 -f myProject.zip -c 29050
 ```
 
-_See code: [src/commands/projects/replace.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/projects/replace.ts)_
+_See code: [src/commands/projects/replace.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/projects/replace.ts)_
 
 ## `mix samples:export`
 
@@ -1520,7 +1985,7 @@ EXAMPLE
   $ mix samples:export -P 29050 -I ORDER_DRINK -L en-US -f samples.zip --overwrite
 ```
 
-_See code: [src/commands/samples/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/samples/export.ts)_
+_See code: [src/commands/samples/export.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/samples/export.ts)_
 
 ## `mix samples:import`
 
@@ -1564,7 +2029,7 @@ EXAMPLES
   $mix samples:import -P 29050 -I ORDER_DRINK -L en-US -f samples.trsx --replace -c ORDER_DRINK
 ```
 
-_See code: [src/commands/samples/import.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/samples/import.ts)_
+_See code: [src/commands/samples/import.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/samples/import.ts)_
 
 ## `mix system:version`
 
@@ -1589,7 +2054,7 @@ EXAMPLE
   mix system:version
 ```
 
-_See code: [src/commands/system/version.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.1/src/commands/system/version.ts)_
+_See code: [src/commands/system/version.ts](https://github.com/nuance-communications/mix-cli/blob/v1.4.0-beta.6/src/commands/system/version.ts)_
 <!-- commandsstop -->
 
 .

@@ -8,6 +8,14 @@
 
 import {flags} from '@oclif/command'
 
+import {
+  AnaphoraDefault,
+  Anaphoras,
+  DataTypeDefault,
+  DataTypes,
+  Entities,
+} from '../mix/types'
+
 // We keep all flag descriptions in a single place to encourage consistency of
 // flags across commands.
 // Readability in the commands code is not affected if flags are named properly.
@@ -53,6 +61,12 @@ export const projectDescWithDefault = `project ID (defaults to ${projectEnvVarDe
 // Flag options
 export const buildTypeOptions = ['asr', 'dialog', 'nlu']
 
+export const anaphoraTypeFlag = flags.string({
+  default: AnaphoraDefault,
+  description: 'anaphora type',
+  options: Object.keys(Anaphoras).sort(),
+})
+
 // Flag objects
 export const appConfigurationFlag = flags.integer({
   char: appConfigurationShortcut,
@@ -82,6 +96,12 @@ export const confirmFlag = flags.string({
   description: 'skip confirmation prompt by pre-supplying value',
 })
 
+export const dataTypeFlag = flags.string({
+  default: DataTypeDefault,
+  description: 'data type of entity',
+  options: Object.keys(DataTypes).sort(),
+})
+
 export const deploymentFlowFlag = flags.integer({
   char: deploymentFlowIDShortcut,
   description: 'deployment flow ID',
@@ -97,6 +117,11 @@ export const dataPackTopicFlag = flags.string({
   char: 't',
   description: "data pack topic, e.g. 'gen'",
   required: true,
+})
+
+export const dynamicFlag = flags.boolean({
+  description: 'make list entity dynamic',
+  default: false,
 })
 
 export const enginePackFlag = flags.string({
@@ -118,6 +143,11 @@ export const entityFlag = flags.string({
   required: true,
 })
 
+export const entityNameFlag = flags.string({
+  description: 'new entity name',
+  required: true,
+})
+
 export const excludeOverridesFlag = flags.boolean({
   description: 'exclude application configurations that are overridden',
   default: false,
@@ -127,9 +157,19 @@ export const geoNameFlag = flags.string({
   description: geoNameDesc,
 })
 
+export const hasAFlag = flags.string({
+  description: 'define hasA relationship for relational entity',
+  multiple: true,
+})
+
 export const inputFilePathFlag = flags.string({
   char: filePathShortucut,
   description: 'input file path',
+  required: true,
+})
+
+export const intentNameFlag = flags.string({
+  description: 'new intent name',
   required: true,
 })
 
@@ -137,6 +177,10 @@ export const intentFlag = flags.string({
   char: intentNameShortcut,
   description: 'intent name',
   required: true,
+})
+
+export const isAFlag = flags.string({
+  description: 'define isA relationship for relational entity',
 })
 
 export const jobFlag = flags.string({
@@ -218,6 +262,11 @@ export const nluModelTypeFlag = flags.string({
   options: ['accurate', 'fast'],
 })
 
+export const noCanonicalizeFlag = flags.boolean({
+  default: false,
+  description: 'prevent canonicalization',
+})
+
 export const offsetFlag = flags.integer({
   description: 'to exclude e.g., the first 10 (sorted) results, set --offset=10',
 })
@@ -246,6 +295,10 @@ export const overwriteFileFlag = flags.boolean({
   description: 'overwrite output file if it exists',
 })
 
+export const patternFlag = flags.string({
+  description: 'regular expression for regex entity',
+})
+
 export const projectFlag = flags.integer({
   char: projectShortcut,
   description: projectDesc,
@@ -266,6 +319,11 @@ export const projectTableFlag = flags.string({
   options: ['channels', 'data-packs', 'project'],
 })
 
+export const regexLocaleFlag = flags.string({
+  char: localeShortcut,
+  description: 'locale for regex entity',
+})
+
 export const replaceEntityFlag = flags.boolean({
   default: false,
   description: 'replace, rather than append, existing entity literals',
@@ -280,6 +338,11 @@ export const runtimeApplicationFlag = flags.string({
   char: runtimeApplicationIDShortcut,
   description: 'fully-qualified runtime application ID',
   required: true,
+})
+
+export const sensitiveUserDataFlag = flags.boolean({
+  default: false,
+  description: 'mask user sentitive data in logs',
 })
 
 export const showAllOrganizationsFlag = flags.boolean({
@@ -375,6 +438,11 @@ export const withBuildTypeMultipleFlag = flags.string({
 export const withDeploymentFlowFlag = flags.integer({
   char: deploymentFlowIDShortcut,
   description: 'deployment flow ID',
+})
+
+export const withEntityTypeFlag = flags.string({
+  description: 'entity type',
+  options: Object.keys(Entities).sort(),
 })
 
 export const withLocaleMultipleFlag = flags.string({
