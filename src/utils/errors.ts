@@ -43,6 +43,7 @@ export enum Codes {
   InvalidColumnError = 'EINVALIDCOLUMNERROR',
   MiscNotFound = 'ENOTFOUND',
   MismatchedValues = 'EMISMATCHEDVALUES',
+  MissingParameter = 'EMISSINGPARAMETER',
   NoBuildInfo = 'ENOBUILDINFO',
   NotConfirmed = 'ENOTCONFIRMED',
   TokenFileFormat = 'ETOKENFILEFORMAT',
@@ -124,6 +125,16 @@ export const eMismatchedValues = (message?: string, suggestions?: string[]) => {
     message ?? 'one or more flags have mismatched values.',
     {
       code: Codes.MismatchedValues,
+      exit: 1,
+      suggestions: suggestions ?? ['verify the values passed to the command flags.'], // default
+    })
+}
+
+export const eMissingParameter = (message?: string, suggestions?: string[]) => {
+  return new MixCLIError(
+    message ?? 'one or more flags are missing.',
+    {
+      code: Codes.MissingParameter,
       exit: 1,
       suggestions: suggestions ?? ['verify the values passed to the command flags.'], // default
     })

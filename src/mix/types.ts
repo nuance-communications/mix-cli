@@ -17,7 +17,9 @@ import {BuildsParams, BuildsSearchParams} from './api/builds-types'
 import {DataHostsParams, DataHostsSearchParams} from './api/data-hosts-types'
 import {DeploymentFlowsParams, DeploymentFlowsSearchParams} from './api/deployment-flows-types'
 import {EnginePacksParams} from './api/engine-packs-types'
+import {EntitiesParams, EntitiesSearchParams} from './api/entities-types'
 import {EnvironmentsParams, EnvironmentsSearchParams} from './api/environments-types'
+import {IntentsParams} from './api/intents-types'
 import {GeographiesParams, GeographiesSearchParams} from './api/geographies-types'
 import {JobsParams, JobsSearchParams} from './api/jobs-types'
 import {LanguageTopicsParams} from './api/language-topics-types'
@@ -34,8 +36,10 @@ export * from './api/builds-types'
 export * from './api/data-hosts-types'
 export * from './api/deployment-flows-types'
 export * from './api/engine-packs-types'
+export * from './api/entities-types'
 export * from './api/environments-types'
 export * from './api/geographies-types'
+export * from './api/intents-types'
 export * from './api/jobs-types'
 export * from './api/language-topics-types'
 export * from './api/literals-types'
@@ -54,8 +58,10 @@ export type MixRequestParams =
   | DataHostsParams
   | DeploymentFlowsParams
   | EnginePacksParams
+  | EntitiesParams
   | EnvironmentsParams
   | GeographiesParams
+  | IntentsParams
   | JobsParams
   | LanguageTopicsParams
   | LiteralsParams
@@ -72,6 +78,7 @@ export type MixRequestSearchParams =
   | BuildsSearchParams
   | DataHostsSearchParams
   | DeploymentFlowsSearchParams
+  | EntitiesSearchParams
   | EnvironmentsSearchParams
   | GeographiesSearchParams
   | JobsSearchParams
