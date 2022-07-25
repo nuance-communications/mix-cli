@@ -55,7 +55,9 @@ describe('builds:list', () => {
     .command(['builds:list',
       `-P=${td.request.projectId}`,
       '--build-type=asr',
-      '--offset=2'])
+      '--offset=2',
+      '--no-truncate', // so that ellipses don't break test in narrow shell window
+      ])
     .it('lists builds data with an offset', ctx => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
       const firstRow = lines[2].split(/\s+/)
@@ -80,7 +82,9 @@ describe('builds:list', () => {
     .command(['builds:list',
       `-P=${td.request.projectId}`,
       '--build-type=asr',
-      '--limit=2'])
+      '--limit=2',
+      '--no-truncate', // so that ellipses don't break test in narrow shell window
+    ])
     .it('lists builds data with a limit', ctx => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
       const firstRow = lines[2].split(/\s+/)
