@@ -10,7 +10,7 @@ import makeDebug from 'debug'
 
 const debug = makeDebug.debug('mix:utils:entities-helpers')
 
-export const buildCreateOrUpdateEntityBody = (params: any) => {
+const buildEntityPayload = (params: any) => {
   debug('buildCreateOrUpdateEntityBody()')
 
   const {
@@ -48,4 +48,12 @@ export const buildCreateOrUpdateEntityBody = (params: any) => {
       },
     },
   }
+}
+
+export const buildCreateEntityBody = (params: any) => {
+  return buildEntityPayload(params)
+}
+
+export const buildUpdateEntityBody = (params: any) => {
+  return buildEntityPayload(params)
 }
