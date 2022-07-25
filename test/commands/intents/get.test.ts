@@ -8,36 +8,34 @@
 
 import {expect, test} from '@oclif/test'
 
-const td = require('./entities-test-data')
+const td = require('./intents-test-data')
 
 const testEnvData = require('../../test-data')
 const serverURL = `https://${testEnvData.server}`
 
-describe('entities:get', () => {
+describe('intents:get', () => {
   test
     .env(testEnvData.env)
     .nock(serverURL, api => api
-      .get(`/v4/projects/${td.request.project}/entities/${td.request.entity}`)
-      .reply(200, td.getEntityResponse)
+      .get(`/v4/projects/${td.request.project}/intents/${td.request.intent}`)
+      .reply(200, td.getIntentResponse)
     )
     .stdout()
-    .command(['entities:get',
-      '--entity', td.request.entity,
+    .command(['intents:get',
       '--project', td.request.project,
+      '--intent', td.request.intent,
     ])
-    .it('gets entity details', ctx => {
-      expect(ctx.stdout).to.contain('EntityId: some-long-uuid')
-      expect(ctx.stdout).to.contain('Name: DrinkSize')
-      expect(ctx.stdout).to.contain('IsDynamic: false')
-      expect(ctx.stdout).to.contain('NumLiterals: 9')
-      expect(ctx.stdout).to.contain('IsSensitive: false')
-      expect(ctx.stdout).to.contain('Canonicalize: true')
+    .it('gets intent details', ctx => {
+      expect(ctx.stdout).to.contain('IntentId: some-long-uuid')
+      expect(ctx.stdout).to.contain('Name: ORDER_DRINK')
+      expect(ctx.stdout).to.contain('IsInBaseOntology: false')
+      expect(ctx.stdout).to.contain('EntityLinks: CoffeeType,DrinkSize')
     })
 
   test
     .env(testEnvData.env)
     .stderr()
-    .command(['entities:get'])
+    .command(['intents:get'])
     .catch(ctx => {
       expect(ctx.message).to.contain('Missing required flag')
     })
@@ -46,29 +44,29 @@ describe('entities:get', () => {
   test
     .env(testEnvData.env)
     .nock(serverURL, api => api
-      .get(`/v4/projects/${td.request.project}/entities/${td.request.unknownEntity}`)
-      .reply(404, td.entityNotFoundResponse)
+      .get(`/v4/projects/${td.request.project}/intents/${td.request.unknownIntent}`)
+      .reply(404, td.intentNotFoundResponse)
     )
     .stdout()
-    .command(['entities:get',
-      '--entity', td.request.unknownEntity,
+    .command(['intents:get',
       '--project', td.request.project,
+      '--intent', td.request.unknownIntent
     ])
     .catch(ctx => {
-      expect(ctx.message).to.contain('No entity found')
+      expect(ctx.message).to.contain('No intent found')
     })
-    .it('errors out when given unknown entity name')
+    .it('errors out when given unknown intent name')
 
   test
     .env(testEnvData.env)
     .nock(serverURL, api => api
-      .get(`/v4/projects/${td.request.unknownProject}/entities/${td.request.entity}`)
+      .get(`/v4/projects/${td.request.unknownProject}/intents/${td.request.intent}`)
       .reply(400, td.projectInvalidResponse)
     )
     .stdout()
-    .command(['entities:get',
-      '--entity', td.request.entity,
+    .command(['intents:get',
       '--project', td.request.unknownProject,
+      '--intent', td.request.intent
     ])
     .catch(ctx => {
       expect(ctx.message).to.contain(`Project ${td.request.unknownProject} is not available`)

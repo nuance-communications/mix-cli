@@ -8,36 +8,32 @@
 
 import {expect, test} from '@oclif/test'
 
-const td = require('./entities-test-data')
+const td = require('./intents-test-data')
 
 const testEnvData = require('../../test-data')
 const serverURL = `https://${testEnvData.server}`
 
-describe('entities:get', () => {
+const response = td.createIntentResponse
+
+describe('intents:create', () => {
   test
     .env(testEnvData.env)
     .nock(serverURL, api => api
-      .get(`/v4/projects/${td.request.project}/entities/${td.request.entity}`)
-      .reply(200, td.getEntityResponse)
+      .post(`/v4/projects/${td.request.project}/intents`)
+      .reply(200, response)
     )
     .stdout()
-    .command(['entities:get',
-      '--entity', td.request.entity,
+    .command(['intents:create',
       '--project', td.request.project,
-    ])
-    .it('gets entity details', ctx => {
-      expect(ctx.stdout).to.contain('EntityId: some-long-uuid')
-      expect(ctx.stdout).to.contain('Name: DrinkSize')
-      expect(ctx.stdout).to.contain('IsDynamic: false')
-      expect(ctx.stdout).to.contain('NumLiterals: 9')
-      expect(ctx.stdout).to.contain('IsSensitive: false')
-      expect(ctx.stdout).to.contain('Canonicalize: true')
+      '--name', td.request.intent])
+    .it('creates a new intent', ctx => {
+      expect(ctx.stdout).to.contain(`Intent ${response.intent.name} with ID ${response.intent.id} created`)
     })
 
   test
     .env(testEnvData.env)
     .stderr()
-    .command(['entities:get'])
+    .command(['intents:create'])
     .catch(ctx => {
       expect(ctx.message).to.contain('Missing required flag')
     })
@@ -46,30 +42,28 @@ describe('entities:get', () => {
   test
     .env(testEnvData.env)
     .nock(serverURL, api => api
-      .get(`/v4/projects/${td.request.project}/entities/${td.request.unknownEntity}`)
-      .reply(404, td.entityNotFoundResponse)
+      .post(`/v4/projects/${td.request.project}/intents`, {intentName: '1234'})
+      .reply(400, td.intentImpossibleNodeResponse)
     )
     .stdout()
-    .command(['entities:get',
-      '--entity', td.request.unknownEntity,
+    .command(['intents:create',
       '--project', td.request.project,
-    ])
+      '--name', td.request.invalidIntent])
     .catch(ctx => {
-      expect(ctx.message).to.contain('No entity found')
+      expect(ctx.message).to.contain('One or more flags have invalid values')
     })
-    .it('errors out when given unknown entity name')
+    .it('errors out when given an invalid intent name')
 
   test
     .env(testEnvData.env)
     .nock(serverURL, api => api
-      .get(`/v4/projects/${td.request.unknownProject}/entities/${td.request.entity}`)
+      .post(`/v4/projects/${td.request.unknownProject}/intents`)
       .reply(400, td.projectInvalidResponse)
     )
     .stdout()
-    .command(['entities:get',
-      '--entity', td.request.entity,
+    .command(['intents:create',
       '--project', td.request.unknownProject,
-    ])
+      '--name', td.request.intent])
     .catch(ctx => {
       expect(ctx.message).to.contain(`Project ${td.request.unknownProject} is not available`)
     })

@@ -1,3 +1,39 @@
+# [1.4.0-beta.6](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.5...v1.4.0-beta.6) (2022-07-20)
+
+
+### Features
+
+* add entities:configure command ([#29](https://github.com/nuance-communications/mix-cli/issues/29)) ([ba64bb1](https://github.com/nuance-communications/mix-cli/commit/ba64bb1ed6c95730efe8e6849162a99a781df1cc))
+
+# [1.4.0-beta.5](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.4...v1.4.0-beta.5) (2022-07-18)
+
+
+### Features
+
+* add entities:create command ([#28](https://github.com/nuance-communications/mix-cli/issues/28)) ([8a31f40](https://github.com/nuance-communications/mix-cli/commit/8a31f404723aa56d8ad631ab1fc0f7c5194d8ad7))
+
+# [1.4.0-beta.4](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.3...v1.4.0-beta.4) (2022-07-15)
+
+
+### Features
+
+* add entities:rename command ([#24](https://github.com/nuance-communications/mix-cli/issues/24)) ([6ae3287](https://github.com/nuance-communications/mix-cli/commit/6ae32875bbe1def133cb78f54d3f564a964d2a3e))
+* add intents commands ([#25](https://github.com/nuance-communications/mix-cli/issues/25)) ([c92b6af](https://github.com/nuance-communications/mix-cli/commit/c92b6af71155e17e9f7bcae5fe86d5db13878c5e))
+
+# [1.4.0-beta.3](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.2...v1.4.0-beta.3) (2022-07-12)
+
+
+### Features
+
+* add entities:destroy command ([#23](https://github.com/nuance-communications/mix-cli/issues/23)) ([a87860a](https://github.com/nuance-communications/mix-cli/commit/a87860a9cc3a6fc0565b942792e83be2b7fb0c17))
+
+# [1.4.0-beta.2](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.1...v1.4.0-beta.2) (2022-07-12)
+
+
+### Features
+
+* add entities:list command ([#21](https://github.com/nuance-communications/mix-cli/issues/21)) ([6ea0280](https://github.com/nuance-communications/mix-cli/commit/6ea0280d1c56799f3a23f8da7e12ab91a7374de1))
+
 # [1.4.0-beta.1](https://github.com/nuance-communications/mix-cli/compare/v1.3.1-beta.1...v1.4.0-beta.1) (2022-07-11)
 
 
