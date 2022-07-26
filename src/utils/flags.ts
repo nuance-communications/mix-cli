@@ -424,6 +424,11 @@ export const tagFlag = flags.string({
   required: true,
 })
 
+export const toEntityTypeFlag = flags.string({
+  description: 'new entity type',
+  options: ['base', 'freeform', 'list', 'regex', 'relational', 'rule-based'],
+})
+
 export const watchFlag = flags.boolean({
   default: false,
   description: 'poll status of job every minute',
