@@ -61,9 +61,9 @@ export const projectDescWithDefault = `project ID (defaults to ${projectEnvVarDe
 // Flag options
 export const buildTypeOptions = ['asr', 'dialog', 'nlu']
 
-export const anaphoraTypeFlag = flags.string({
-  default: AnaphoraDefault,
+export const anaphoraTypeFlag = ({isDefaultIgnored = false} = {}) => flags.string({
   description: 'anaphora type',
+  ...(!isDefaultIgnored && {default: AnaphoraDefault}),
   options: Object.keys(Anaphoras).sort(),
 })
 
@@ -96,9 +96,9 @@ export const confirmFlag = flags.string({
   description: 'skip confirmation prompt by pre-supplying value',
 })
 
-export const dataTypeFlag = flags.string({
-  default: DataTypeDefault,
+export const dataTypeFlag = ({isDefaultIgnored = false} = {}) => flags.string({
   description: 'data type of entity',
+  ...(!isDefaultIgnored && {default: DataTypeDefault}),
   options: Object.keys(DataTypes).sort(),
 })
 
@@ -119,13 +119,19 @@ export const dataPackTopicFlag = flags.string({
   required: true,
 })
 
-export const dynamicFlag = flags.boolean({
+export const dynamicFlag = ({isDefaultIgnored = false} = {}) => flags.boolean({
   description: 'make list entity dynamic',
-  default: false,
+  ...(!isDefaultIgnored && {default: false}),
 })
 
 export const enginePackFlag = flags.string({
   description: 'engine pack ID (UUID format)',
+})
+
+export const entityTypeFlag = flags.string({
+  description: 'entity type',
+  options: Object.keys(Entities).sort(),
+  required: true,
 })
 
 export const envGeoIDFlag = flags.integer({
@@ -262,9 +268,9 @@ export const nluModelTypeFlag = flags.string({
   options: ['accurate', 'fast'],
 })
 
-export const noCanonicalizeFlag = flags.boolean({
-  default: false,
+export const noCanonicalizeFlag = ({isDefaultIgnored = false} = {}) => flags.boolean({
   description: 'prevent canonicalization',
+  ...(!isDefaultIgnored && {default: false}),
 })
 
 export const offsetFlag = flags.integer({
@@ -340,9 +346,9 @@ export const runtimeApplicationFlag = flags.string({
   required: true,
 })
 
-export const sensitiveUserDataFlag = flags.boolean({
-  default: false,
+export const sensitiveUserDataFlag = ({isDefaultIgnored = false} = {}) => flags.boolean({
   description: 'mask user sentitive data in logs',
+  ...(!isDefaultIgnored && {default: false}),
 })
 
 export const showAllOrganizationsFlag = flags.boolean({
