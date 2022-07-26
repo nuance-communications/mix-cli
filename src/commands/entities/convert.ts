@@ -114,7 +114,7 @@ type of entity.
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Converting entity ${options.entity} in project ${options.project}`
+    this.requestActionMessage = `Converting entity ${chalk.cyan(options.entity)} in project ${chalk.cyan(options.project)}`
   }
 
   transformResponse(result: MixResult) {
