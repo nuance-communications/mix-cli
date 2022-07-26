@@ -1,3 +1,10 @@
+# [1.4.0-beta.7](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.6...v1.4.0-beta.7) (2022-07-26)
+
+
+### Features
+
+* add entities:convert command ([#31](https://github.com/nuance-communications/mix-cli/issues/31)) ([e9dd567](https://github.com/nuance-communications/mix-cli/commit/e9dd567f7b7b828d11887b714efc0d29a17982b5))
+
 # [1.4.0-beta.6](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.5...v1.4.0-beta.6) (2022-07-20)
 
 
