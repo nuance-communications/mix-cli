@@ -61,9 +61,9 @@ export const projectDescWithDefault = `project ID (defaults to ${projectEnvVarDe
 // Flag options
 export const buildTypeOptions = ['asr', 'dialog', 'nlu']
 
-export const anaphoraTypeFlag = ({isDefaultIgnored = false} = {}) => flags.string({
+export const anaphoraTypeFlag = flags.string({
+  default: AnaphoraDefault,
   description: 'anaphora type',
-  ...(!isDefaultIgnored && {default: AnaphoraDefault}),
   options: Object.keys(Anaphoras).sort(),
 })
 
@@ -96,9 +96,9 @@ export const confirmFlag = flags.string({
   description: 'skip confirmation prompt by pre-supplying value',
 })
 
-export const dataTypeFlag = ({isDefaultIgnored = false} = {}) => flags.string({
+export const dataTypeFlag = flags.string({
+  default: DataTypeDefault,
   description: 'data type of entity',
-  ...(!isDefaultIgnored && {default: DataTypeDefault}),
   options: Object.keys(DataTypes).sort(),
 })
 
@@ -119,9 +119,9 @@ export const dataPackTopicFlag = flags.string({
   required: true,
 })
 
-export const dynamicFlag = ({isDefaultIgnored = false} = {}) => flags.boolean({
+export const dynamicFlag = flags.boolean({
+  default: false,
   description: 'make list entity dynamic',
-  ...(!isDefaultIgnored && {default: false}),
 })
 
 export const enginePackFlag = flags.string({
@@ -268,9 +268,9 @@ export const nluModelTypeFlag = flags.string({
   options: ['accurate', 'fast'],
 })
 
-export const noCanonicalizeFlag = ({isDefaultIgnored = false} = {}) => flags.boolean({
+export const noCanonicalizeFlag = flags.boolean({
+  default: false,
   description: 'prevent canonicalization',
-  ...(!isDefaultIgnored && {default: false}),
 })
 
 export const offsetFlag = flags.integer({
@@ -346,9 +346,9 @@ export const runtimeApplicationFlag = flags.string({
   required: true,
 })
 
-export const sensitiveUserDataFlag = ({isDefaultIgnored = false} = {}) => flags.boolean({
+export const sensitiveUserDataFlag = flags.boolean({
+  default: false,
   description: 'mask user sentitive data in logs',
-  ...(!isDefaultIgnored && {default: false}),
 })
 
 export const showAllOrganizationsFlag = flags.boolean({

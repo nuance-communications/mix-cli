@@ -73,18 +73,18 @@ explicitly provided.
   ]
 
   static flags = {
-    'anaphora-type': MixFlags.anaphoraTypeFlag(),
-    'data-type': MixFlags.dataTypeFlag(),
-    dynamic: MixFlags.dynamicFlag(),
+    'anaphora-type': MixFlags.anaphoraTypeFlag,
+    'data-type': MixFlags.dataTypeFlag,
+    dynamic: MixFlags.dynamicFlag,
     'entity-type': MixFlags.entityTypeFlag,
     'has-a': MixFlags.hasAFlag,
     'is-a': MixFlags.isAFlag,
     locale: MixFlags.regexLocaleFlag,
     name: MixFlags.entityNameFlag,
-    'no-canonicalize': MixFlags.noCanonicalizeFlag(),
+    'no-canonicalize': MixFlags.noCanonicalizeFlag,
     pattern: MixFlags.patternFlag,
     project: MixFlags.projectFlag,
-    sensitive: MixFlags.sensitiveUserDataFlag(),
+    sensitive: MixFlags.sensitiveUserDataFlag,
     // output flags
     json: MixFlags.jsonFlag,
     yaml: MixFlags.yamlFlag,
@@ -113,9 +113,9 @@ explicitly provided.
     } = options
 
     return {
-      anaphora: `ANAPHORA_${anaphora.toUpperCase().replace('-', '_')}`,
+      anaphora,
       canonicalize: !noCanonicalize,
-      dataType: dataType.toUpperCase().replace('-', '_'),
+      dataType,
       entityType: entityType,
       hasA,
       isA,

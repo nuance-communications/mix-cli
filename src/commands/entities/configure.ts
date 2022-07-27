@@ -73,18 +73,33 @@ the corresponding property in the entity is not modified.
   ]
 
   static flags = {
-    'anaphora-type': MixFlags.anaphoraTypeFlag({isDefaultIgnored: true}),
-    'data-type': MixFlags.dataTypeFlag({isDefaultIgnored: true}),
-    dynamic: MixFlags.dynamicFlag({isDefaultIgnored: true}),
+    'anaphora-type': {
+      ...MixFlags.anaphoraTypeFlag,
+      default: undefined,
+    },
+    'data-type': {
+      ...MixFlags.dataTypeFlag,
+      default: undefined,
+    },
+    dynamic: {
+      ...MixFlags.dynamicFlag,
+      default: undefined,
+    },
     entity: MixFlags.entityFlag,
     'entity-type': MixFlags.entityTypeFlag,
     'has-a': MixFlags.hasAFlag,
     'is-a': MixFlags.isAFlag,
     locale: MixFlags.regexLocaleFlag,
-    'no-canonicalize': MixFlags.noCanonicalizeFlag({isDefaultIgnored: true}),
+    'no-canonicalize': {
+      ...MixFlags.noCanonicalizeFlag,
+      default: undefined,
+    },
     pattern: MixFlags.patternFlag,
     project: MixFlags.projectFlag,
-    sensitive: MixFlags.sensitiveUserDataFlag({isDefaultIgnored: true}),
+    sensitive: {
+      ...MixFlags.sensitiveUserDataFlag,
+      default: undefined,
+    },
     // output flags
     json: MixFlags.jsonFlag,
     yaml: MixFlags.yamlFlag,
@@ -113,14 +128,14 @@ the corresponding property in the entity is not modified.
     } = options
 
     return {
-      ...(anaphora !== undefined && {anaphora: `ANAPHORA_${anaphora.toUpperCase().replace('-', '_')}`}),
-      ...(dataType !== undefined && {dataType: dataType.toUpperCase().replace('-', '_')}),
+      anaphora,
+      dataType,
       entityName,
       entityType,
       hasA,
       isA,
-      ...(isDynamic !== undefined && {isDynamic}),
-      ...(isSensitive !== undefined && {isSensitive}),
+      isDynamic,
+      isSensitive,
       locale,
       ...(noCanonicalize !== undefined && {canonicalize: !noCanonicalize}),
       pattern,
@@ -171,7 +186,7 @@ the corresponding property in the entity is not modified.
       pattern,
     } = options
 
-    // Entity types 'relational' require mandatory flags upon creation or
+    // Entity type 'relational' requires mandatory flags upon creation or
     // conversion but not for updates. However, for regex entities, locale and
     // pattern must be provided together for updates.
     // Command bails out if mandatory parameters are missing.
