@@ -61,13 +61,19 @@ export const projectDescWithDefault = `project ID (defaults to ${projectEnvVarDe
 // Flag options
 export const buildTypeOptions = ['asr', 'dialog', 'nlu']
 
+// Flag helpers
+export const ignoreDefault = <T>(flag: T): T => ({
+  ...flag,
+  default: undefined,
+})
+
+// Flag objects
 export const anaphoraTypeFlag = flags.string({
   default: AnaphoraDefault,
   description: 'anaphora type',
   options: Object.keys(Anaphoras).sort(),
 })
 
-// Flag objects
 export const appConfigurationFlag = flags.integer({
   char: appConfigurationShortcut,
   description: 'application configuration ID',

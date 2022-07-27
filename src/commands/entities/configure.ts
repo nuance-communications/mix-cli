@@ -73,33 +73,18 @@ the corresponding property in the entity is not modified.
   ]
 
   static flags = {
-    'anaphora-type': {
-      ...MixFlags.anaphoraTypeFlag,
-      default: undefined,
-    },
-    'data-type': {
-      ...MixFlags.dataTypeFlag,
-      default: undefined,
-    },
-    dynamic: {
-      ...MixFlags.dynamicFlag,
-      default: undefined,
-    },
+    'anaphora-type': MixFlags.ignoreDefault(MixFlags.anaphoraTypeFlag),
+    'data-type': MixFlags.ignoreDefault(MixFlags.dataTypeFlag),
+    dynamic: MixFlags.ignoreDefault(MixFlags.dynamicFlag),
     entity: MixFlags.entityFlag,
     'entity-type': MixFlags.entityTypeFlag,
     'has-a': MixFlags.hasAFlag,
     'is-a': MixFlags.isAFlag,
     locale: MixFlags.regexLocaleFlag,
-    'no-canonicalize': {
-      ...MixFlags.noCanonicalizeFlag,
-      default: undefined,
-    },
+    'no-canonicalize': MixFlags.ignoreDefault(MixFlags.noCanonicalizeFlag),
     pattern: MixFlags.patternFlag,
     project: MixFlags.projectFlag,
-    sensitive: {
-      ...MixFlags.sensitiveUserDataFlag,
-      default: undefined,
-    },
+    sensitive: MixFlags.ignoreDefault(MixFlags.sensitiveUserDataFlag),
     // output flags
     json: MixFlags.jsonFlag,
     yaml: MixFlags.yamlFlag,
