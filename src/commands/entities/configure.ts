@@ -15,7 +15,7 @@ import * as MixFlags from '../../utils/flags'
 import {EntitiesConfigureParams, MixClient, MixResponse, MixResult} from '../../mix/types'
 import MixCommand from '../../utils/base/mix-command'
 import {DomainOption} from '../../utils/validations'
-import {validateRegexEntityParams, validateRuleBasedEntityParams} from '../../utils/validations'
+import {validateRegexEntityParams} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:entities:configure')
 
@@ -73,18 +73,18 @@ the corresponding property in the entity is not modified.
   ]
 
   static flags = {
-    'anaphora-type': MixFlags.anaphoraTypeFlag,
-    'data-type': MixFlags.dataTypeFlag,
-    dynamic: MixFlags.dynamicFlag,
+    'anaphora-type': MixFlags.ignoreDefault(MixFlags.anaphoraTypeFlag),
+    'data-type': MixFlags.ignoreDefault(MixFlags.dataTypeFlag),
+    dynamic: MixFlags.ignoreDefault(MixFlags.dynamicFlag),
     entity: MixFlags.entityFlag,
-    'entity-type': MixFlags.withEntityTypeFlag,
+    'entity-type': MixFlags.entityTypeFlag,
     'has-a': MixFlags.hasAFlag,
     'is-a': MixFlags.isAFlag,
     locale: MixFlags.regexLocaleFlag,
-    'no-canonicalize': MixFlags.noCanonicalizeFlag,
+    'no-canonicalize': MixFlags.ignoreDefault(MixFlags.noCanonicalizeFlag),
     pattern: MixFlags.patternFlag,
     project: MixFlags.projectFlag,
-    sensitive: MixFlags.sensitiveUserDataFlag,
+    sensitive: MixFlags.ignoreDefault(MixFlags.sensitiveUserDataFlag),
     // output flags
     json: MixFlags.jsonFlag,
     yaml: MixFlags.yamlFlag,
@@ -113,9 +113,8 @@ the corresponding property in the entity is not modified.
     } = options
 
     return {
-      anaphora: `ANAPHORA_${anaphora.toUpperCase().replace('-', '_')}`,
-      canonicalize: !noCanonicalize,
-      dataType: dataType.toUpperCase().replace('-', '_'),
+      anaphora,
+      dataType,
       entityName,
       entityType,
       hasA,
@@ -123,6 +122,7 @@ the corresponding property in the entity is not modified.
       isDynamic,
       isSensitive,
       locale,
+      ...(noCanonicalize !== undefined && {canonicalize: !noCanonicalize}),
       pattern,
       projectId,
     }
@@ -141,7 +141,7 @@ the corresponding property in the entity is not modified.
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Configuring entity ${options.name} in project ${options.project}`
+    this.requestActionMessage = `Configuring entity ${chalk.cyan(options.entity)} in project ${chalk.cyan(options.project)}`
   }
 
   transformResponse(result: MixResult) {
@@ -167,21 +167,17 @@ the corresponding property in the entity is not modified.
 
     const {
       'entity-type': entityType,
-      'has-a': hasA,
-      'is-a': isA,
       locale,
       pattern,
     } = options
 
-    // Entity types 'regex' and 'relational' require mandatory flags.
+    // Entity type 'relational' requires mandatory flags upon creation or
+    // conversion but not for updates. However, for regex entities, locale and
+    // pattern must be provided together for updates.
     // Command bails out if mandatory parameters are missing.
     // Extraneous parameters are ignored.
     if (entityType === 'regex') {
       validateRegexEntityParams(locale, pattern)
-    }
-
-    if (entityType === 'relational') {
-      validateRuleBasedEntityParams(hasA, isA)
     }
   }
 }
