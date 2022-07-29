@@ -52,11 +52,17 @@ const buildEntityPayload = (params: any) => {
   entityTypeKey = entityType === 'rule-based' ? 'ruleBased' : entityType
   entityTypeKey = `${entityTypeKey}Entity`
 
+  const adjustedAnaphora = anaphora !== undefined &&
+    `ANAPHORA_${anaphora.toUpperCase().replace('-', '_')}`
+
+  const adjustedDataType = dataType !== undefined &&
+    dataType.toUpperCase().replace('-', '_')
+
   return {
     [entityTypeKey]: {
-      ...(anaphora !== undefined && {anaphora}),
+      ...(anaphora !== undefined && {anaphora: adjustedAnaphora}),
       ...(entityType === 'list') && {data: {}},
-      ...(dataType !== undefined && {dataType}),
+      ...(dataType !== undefined && {dataType: adjustedDataType}),
       ...(hasA !== undefined && {hasA: {entities: hasA}}),
       ...(isA !== undefined && {isA}),
       ...(isDynamic !== undefined && {isDynamic}),

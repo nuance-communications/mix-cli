@@ -19,11 +19,15 @@ module.exports = {
   },
   configureListEntityBody: {
     listEntity: {
-      anaphora: 'ANAPHORA_NOT_SET',
-      data: {},
       dataType: 'NOT_SET',
-      isDynamic: false,
-      settings: { canonicalize: true, isSensitive: false },
+      data: {},
+      settings: {},
+    }
+  },
+  configureRelationalEntityBody: {
+    relationalEntity: {
+      dataType: "NOT_SET",
+      settings: {},
     }
   },
   convertEntityBody: {
