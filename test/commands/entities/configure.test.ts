@@ -22,6 +22,7 @@ describe('entities:configure', () => {
     )
     .stdout()
     .command(['entities:configure',
+      '--data-type', 'not-set',
       '--entity', td.request.entity,
       '--entity-type', td.request.entityType,
       '--project', td.request.project,
@@ -54,16 +55,20 @@ describe('entities:configure', () => {
 
   test
     .env(testEnvData.env)
-    .stderr()
+    .nock(serverURL, api => api
+      .put(`/v4/projects/${td.request.project}/entities/${td.request.entity}`, td.configureRelationalEntityBody)
+      .reply(200, td.getEntityResponse)
+    )
+    .stdout()
     .command(['entities:configure',
+      '--data-type', 'not-set',
       '--entity', td.request.entity,
       '--entity-type', 'relational',
       '--project', td.request.project,
     ])
-    .catch(ctx => {
-      expect(ctx.message).to.contain('Relational entities require has-a and/or is-a relation')
+    .it('configures a relational entity', ctx => {
+      expect(ctx.stdout).to.contain(`Entity ${td.request.entity} with ID ${td.getEntityResponse.entity.listEntity.id} was updated`)
     })
-    .it('errors out when mandatory parameters are missing to configure a relational entity')
 
   test
     .env(testEnvData.env)
@@ -73,6 +78,7 @@ describe('entities:configure', () => {
     )
     .stdout()
     .command(['entities:configure',
+      '--data-type', 'not-set',
       '--entity', td.request.invalidEntity,
       '--entity-type', td.request.entityType,
       '--project', td.request.project,
@@ -90,6 +96,7 @@ describe('entities:configure', () => {
     )
     .stdout()
     .command(['entities:configure',
+      '--data-type', 'not-set',
       '--entity', td.request.entity,
       '--entity-type', td.request.entityType,
       '--project', td.request.unknownProject,
