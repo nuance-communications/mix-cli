@@ -61,13 +61,19 @@ export const projectDescWithDefault = `project ID (defaults to ${projectEnvVarDe
 // Flag options
 export const buildTypeOptions = ['asr', 'dialog', 'nlu']
 
+// Flag helpers
+export const ignoreDefault = <T>(flag: T): T => ({
+  ...flag,
+  default: undefined,
+})
+
+// Flag objects
 export const anaphoraTypeFlag = flags.string({
   default: AnaphoraDefault,
   description: 'anaphora type',
   options: Object.keys(Anaphoras).sort(),
 })
 
-// Flag objects
 export const appConfigurationFlag = flags.integer({
   char: appConfigurationShortcut,
   description: 'application configuration ID',
@@ -120,12 +126,18 @@ export const dataPackTopicFlag = flags.string({
 })
 
 export const dynamicFlag = flags.boolean({
-  description: 'make list entity dynamic',
   default: false,
+  description: 'make list entity dynamic',
 })
 
 export const enginePackFlag = flags.string({
   description: 'engine pack ID (UUID format)',
+})
+
+export const entityTypeFlag = flags.string({
+  description: 'entity type',
+  options: Object.keys(Entities).sort(),
+  required: true,
 })
 
 export const envGeoIDFlag = flags.integer({

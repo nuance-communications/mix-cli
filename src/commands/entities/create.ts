@@ -76,7 +76,7 @@ explicitly provided.
     'anaphora-type': MixFlags.anaphoraTypeFlag,
     'data-type': MixFlags.dataTypeFlag,
     dynamic: MixFlags.dynamicFlag,
-    'entity-type': MixFlags.withEntityTypeFlag,
+    'entity-type': MixFlags.entityTypeFlag,
     'has-a': MixFlags.hasAFlag,
     'is-a': MixFlags.isAFlag,
     locale: MixFlags.regexLocaleFlag,
@@ -113,9 +113,9 @@ explicitly provided.
     } = options
 
     return {
-      anaphora: `ANAPHORA_${anaphora.toUpperCase().replace('-', '_')}`,
+      anaphora,
       canonicalize: !noCanonicalize,
-      dataType: dataType.toUpperCase().replace('-', '_'),
+      dataType,
       entityType: entityType,
       hasA,
       isA,
