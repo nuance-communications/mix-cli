@@ -1,3 +1,10 @@
+# [1.4.0-beta.8](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.7...v1.4.0-beta.8) (2022-07-27)
+
+
+### Bug Fixes
+
+* correct set of issues with entities:configure ([#32](https://github.com/nuance-communications/mix-cli/issues/32)) ([8a958d2](https://github.com/nuance-communications/mix-cli/commit/8a958d221849a4a81b58a1633bbe62240d4a6a9a))
+
 # [1.4.0-beta.7](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.6...v1.4.0-beta.7) (2022-07-26)
 
 
