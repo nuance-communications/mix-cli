@@ -23,8 +23,6 @@ export type ChannelsRenameBodyParams = {
   displayName: string;
 }
 
-
-
 /** @hidden */
 export type ChannelsCreatePathParams = {
   /** ID of the relevant project. */

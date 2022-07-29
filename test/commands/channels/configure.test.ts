@@ -1,10 +1,10 @@
 /*
-  * Copyright 2022, Nuance, Inc. and its contributors.
-  * All rights reserved.
-  *
-  * This source code is licensed under the Apache-2.0 license found in
-  * the LICENSE file in the root directory of this source tree.
-  */
+ * Copyright 2022, Nuance, Inc. and its contributors.
+ * All rights reserved.
+ *
+ * This source code is licensed under the Apache-2.0 license found in
+ * the LICENSE file in the root directory of this source tree.
+ */
 
 import { expect, test } from '@oclif/test'
 const strip = require("strip-ansi")
@@ -78,7 +78,7 @@ describe('channels:configure', () => {
       '--project', td.configure.flags.project,
       '--channel', td.configure.flags.channel,
       '--mode', td.configure.flags.modes[0],
-      '--color', 'GARBAGE'
+      '--color', 'INVALID_COLOR'
     ])
     .catch(ctx => {
       expect(strip(ctx.message)).to.contain('Unknown color GARBAGE')

@@ -1,28 +1,29 @@
 /*
-  * Copyright 2022, Nuance, Inc. and its contributors.
-  * All rights reserved.
-  *
-  * This source code is licensed under the Apache-2.0 license found in
-  * the LICENSE file in the root directory of this source tree.
-  */
+* Copyright 2022, Nuance, Inc. and its contributors.
+* All rights reserved.
+*
+* This source code is licensed under the Apache-2.0 license found in
+* the LICENSE file in the root directory of this source tree.
+*/
 
 import {flags} from '@oclif/command'
+import chalk from 'chalk'
 import makeDebug from 'debug'
 
-import * as MixFlags from '../../utils/flags'
 import * as ChannelsAPI from '../../mix/api/channels'
-import MixCommand from '../../utils/base/mix-command'
 import {ChannelModalities, ChannelsConfigParams} from '../../mix/api/channels-types'
-import {asArray} from '../../utils/as-array'
-import {MixClient, MixResponse, MixResult} from '../../mix/types'
-import chalk from 'chalk'
 import {channelColors} from '../../mix/api/utils/channel-colors'
+import {MixClient, MixResponse, MixResult} from '../../mix/types'
+import {asArray} from '../../utils/as-array'
+import MixCommand from '../../utils/base/mix-command'
+import * as MixFlags from '../../utils/flags'
 import {DomainOption} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:channels:configure')
 
 export default class ChannelsConfigure extends MixCommand {
   static description = `update channel details in a project
+
   Configure the modalities and color of an existing channel in a Mix project.
   `
 
