@@ -11,13 +11,13 @@ import chalk from 'chalk'
 import makeDebug from 'debug'
 
 import * as ChannelsAPI from '../../mix/api/channels'
-import {ChannelModalities, ChannelsConfigParams} from '../../mix/api/channels-types'
+import {ChannelModalities, ChannelModality, ChannelsConfigParams} from '../../mix/api/channels-types'
 import {channelColors} from '../../mix/api/utils/channel-colors'
 import {MixClient, MixResponse, MixResult} from '../../mix/types'
 import {asArray} from '../../utils/as-array'
 import MixCommand from '../../utils/base/mix-command'
 import * as MixFlags from '../../utils/flags'
-import {DomainOption} from '../../utils/validations'
+import {DomainOption, validateChannelColor, validateChannelModeOptions} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:channels:configure')
 
@@ -63,34 +63,16 @@ Configure the modalities and color of an existing channel in a Mix project.
     super.tryDomainOptionsValidation(options, domainOptions)
 
     // At least one flag must be set
-    if (!options.mode && !options.color) {
+    if (options.mode === undefined && options.color === undefined) {
       this.error('At least one of --mode and --color must be set.')
     }
 
-    const color = options.color?.toUpperCase()
-
-    if (color && !channelColors.slice(1).includes(color)) {
-      this.error(`Unknown color ${chalk.red(options.color)}.`,
-        {suggestions: ['check value supplied to --color flag and try again.']})
+    if (options.color !== undefined) {
+      validateChannelColor(options.color)
     }
 
-    const modesSeen = Object.fromEntries(
-      ChannelModalities
-        .slice(1)
-        .map((mode: string) => [mode, false]))
-
-    const modesOptions = options.mode?.map((mode: string) => mode.toUpperCase())
-
-    for (const mode of modesOptions ?? []) {
-      if (!(mode in modesSeen)) {
-        this.error(`Unknown mode ${chalk.red(mode)}`,
-          {suggestions: ['check value(s) supplied to --mode flag and try again.']})
-      } else if (modesSeen[mode]) {
-        this.error(`Mode ${chalk.red(mode)} appears more than once.`,
-          {suggestions: ['check value(s) supplied to --mode flag and try again.']})
-      }
-
-      modesSeen[mode] = true
+    if (options.mode !== undefined) {
+      validateChannelModeOptions(options.mode)
     }
   }
 
@@ -100,15 +82,18 @@ Configure the modalities and color of an existing channel in a Mix project.
     const {
       project: projectId,
       channel: channelId,
-      mode: modes,
-      color,
+      mode,
+      color: _color,
     } = options
+
+    const modes: ChannelModality[] | undefined = mode?.map((mode: string) => mode.toUpperCase())
+    const color: string | undefined = _color?.toUpperCase().replace('-', '_')
 
     return {
       projectId,
       channelId,
-      modes: modes?.map((mode: string) => mode.toUpperCase()),
-      color: color?.toUpperCase(),
+      ...(modes !== undefined && {modes}),
+      ...(color !== undefined && {color}),
     }
   }
 

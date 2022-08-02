@@ -50,10 +50,10 @@ export type ChannelsConfigBodyParams = {
   channelId: string;
 
   /** Channel modalities. */
-  modes: ChannelModality[];
+  modes?: ChannelModality[];
 
   /** Channel color. */
-  color: ChannelColor;
+  color?: ChannelColor;
 }
 
 /** @hidden */
