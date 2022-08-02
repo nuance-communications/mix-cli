@@ -29,7 +29,7 @@ describe('channels:configure', () => {
       '--color', td.configure.flags.color,
     ])
     .it('configures a project channel', ctx => {
-      expect(ctx.stdout).to.contain(`Channel ${td.configure.expectedResult.channel.displayName} (id: ${td.configure.expectedResult.channel.id}) updated successfully.`)
+      expect(ctx.stdout).to.contain(`Channel ${td.configure.expectedResult.channel.displayName} with ID ${td.configure.expectedResult.channel.id} was updated successfully.`)
     })
 
   test
@@ -38,10 +38,10 @@ describe('channels:configure', () => {
     .command(['channels:configure',
       '--project', td.configure.flags.project,
       '--channel', td.configure.flags.channel,
-      '--mode', 'GARBAGE',
+      '--mode', 'INVALID_MODE',
     ])
     .catch(ctx => {
-      expect(strip(ctx.message)).to.contain('Unknown mode GARBAGE')
+      expect(strip(ctx.message)).to.contain('Unknown channel mode supplied to command')
     })
     .it('errors out when given an unknown mode')
 
@@ -67,7 +67,7 @@ describe('channels:configure', () => {
       '--mode', 'dtmf',
     ])
     .catch(ctx => {
-      expect(strip(ctx.message)).to.contain('Duplicate mode DTMF appears twice')
+      expect(strip(ctx.message)).to.contain('Mode DTMF was supplied more than once')
     })
     .it('errors out when a mode is supplied twice')
 
@@ -81,7 +81,7 @@ describe('channels:configure', () => {
       '--color', 'INVALID_COLOR'
     ])
     .catch(ctx => {
-      expect(strip(ctx.message)).to.contain('Unknown color GARBAGE')
+      expect(strip(ctx.message)).to.contain('Unknown channel color')
     })
     .it('errors out when given an unknown color')
 })

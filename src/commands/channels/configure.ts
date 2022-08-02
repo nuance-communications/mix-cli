@@ -99,9 +99,9 @@ Configure the modalities and color of an existing channel in a Mix project.
 
   captureOptions() {
     super.captureOptions()
-    this.options.mode = this.options.mode ?
-      asArray(this.options.mode) :
-      undefined
+    // this.options.mode = this.options.mode ?
+    //   asArray(this.options.mode) :
+    //   undefined
   }
 
   doRequest(client: MixClient, params: ChannelsConfigParams): Promise<MixResponse> {
