@@ -8,8 +8,10 @@
 
 import makeDebug from 'debug'
 import {z} from 'zod'
+import {ChannelModalities} from '../mix/api/channels-types'
+import { channelColors } from '../mix/api/utils/channel-colors'
 
-import {eMissingParameter} from './errors'
+import {eInvalidValue, eMissingParameter} from './errors'
 
 export type DomainOption =
   | 'build-label'
@@ -68,6 +70,47 @@ const validationSchemes = {
     message: "Expected flag 'project' to have a value greater than 0"}),
   'with-locale': z.string().regex(localeRegEx, {
     message: `Expected each locale in flag 'with-locale' to match ${localeRegEx}`}).array(),
+}
+
+export function validateChannelModeOptions(modes: string[]): void {
+  debug('validateChannelModeOptions()')
+
+  const adjustedModes: string[] = modes?.map((mode: string) =>
+    mode.toUpperCase().replace('-', '_'))
+
+  // Check if all modes are valid and appear exactly once
+  const modesSeen = Object.fromEntries(adjustedModes?.map((mode: string) => [mode, false]))
+
+  for (const mode of adjustedModes) {
+    if (!(mode in modesSeen)) {
+      // mode name is not valid
+      throw (eInvalidValue('Unknown channel mode supplied to command.', [
+        `Ensure all --mode flags are one of ${Object.keys(ChannelModalities).sort().join('|')}.`,
+      ]))
+    } else if (modesSeen[mode]) {
+      // mode name is duplicate (already seen)
+      throw (eInvalidValue(`Mode ${mode} was supplied more than once.`, [
+        'Ensure all values of --mode flags are unique.',
+      ]))
+    }
+
+    modesSeen[mode] = true
+  }
+}
+
+export function validateChannelColor(color: string): void {
+  debug('validateChannelColor()')
+
+  // excluding COLOR_UNSPECIFIED
+  const allColors = channelColors.slice(1).sort()
+
+  const adjustedColor = color?.toUpperCase().replace('-', '_')
+
+  if (allColors.includes(adjustedColor)) {
+    throw (eInvalidValue('Unknown channel color supplied to command.', [
+      `Ensure value of --color flag is one of:\n${allColors.join('\n')}`,
+    ]))
+  }
 }
 
 export function validateDomainOptions(options: any, validations: Array<DomainOption>): void {
