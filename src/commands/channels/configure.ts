@@ -24,7 +24,7 @@ const debug = makeDebug('mix:commands:channels:configure')
 export default class ChannelsConfigure extends MixCommand {
   static description = `update channel details in a project
 
-  Configure the modalities and color of an existing channel in a Mix project.
+Configure the modalities and color of an existing channel in a Mix project.
   `
 
   static examples = [
@@ -38,7 +38,7 @@ export default class ChannelsConfigure extends MixCommand {
     project: MixFlags.projectFlag,
     channel: flags.string({
       char: 'C',
-      description: 'channel id',
+      description: 'channel ID',
       required: true,
     }),
     mode: {
@@ -48,6 +48,7 @@ export default class ChannelsConfigure extends MixCommand {
     color: flags.string({
       description: 'channel color',
     }),
+    // output flags
     json: MixFlags.jsonFlag,
     yaml: MixFlags.yamlFlag,
   }
@@ -82,11 +83,11 @@ export default class ChannelsConfigure extends MixCommand {
 
     for (const mode of modesOptions ?? []) {
       if (!(mode in modesSeen)) {
-        // TODO
-        this.error(`Unknown mode ${chalk.red(mode)}`)
+        this.error(`Unknown mode ${chalk.red(mode)}`,
+          {suggestions: ['check value(s) supplied to --mode flag and try again.']})
       } else if (modesSeen[mode]) {
-        // TODO
-        this.error(`Duplicate mode ${chalk.red(mode)} appears twice.`)
+        this.error(`Mode ${chalk.red(mode)} appears more than once.`,
+          {suggestions: ['check value(s) supplied to --mode flag and try again.']})
       }
 
       modesSeen[mode] = true
@@ -134,7 +135,7 @@ export default class ChannelsConfigure extends MixCommand {
     debug('outputHumanReadable()')
 
     const {displayName, id} = transformedData.channel
-    this.log(`Channel ${chalk.cyan(displayName)} (id: ${chalk.cyan(id)}) updated successfully.
+    this.log(`Channel ${chalk.cyan(displayName)} with ID ${chalk.cyan(id)} was updated successfully.
     `)
   }
 }
