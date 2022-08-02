@@ -67,7 +67,7 @@ describe('channels:configure', () => {
       '--mode', 'dtmf',
     ])
     .catch(ctx => {
-      expect(strip(ctx.message)).to.contain('Mode DTMF was supplied more than once')
+      expect(strip(ctx.message)).to.contain('Mode dtmf was supplied more than once')
     })
     .it('errors out when a mode is supplied twice')
 

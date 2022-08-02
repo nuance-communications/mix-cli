@@ -23,8 +23,8 @@ module.exports = {
     flags: {
       project: '123',
       channel: 'very-long-uuid',
-      modes: ['dtmf', 'tts', 'rich_text'],
-      color: 'light_pink'
+      modes: ['dtmf', 'tts', 'richtext'],
+      color: 'light-pink'
     },
     expectedBody: {
       channelId: 'very-long-uuid',

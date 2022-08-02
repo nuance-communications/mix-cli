@@ -42,6 +42,8 @@ export const ChannelModalities = {
 
 export type ChannelModality = keyof typeof ChannelModalities
 
+export type ChannelBodyModality = typeof ChannelModalities[ChannelModality]
+
 type ChannelColor = typeof channelColors[number];
 
 /** @hidden */
@@ -50,7 +52,7 @@ export type ChannelsConfigBodyParams = {
   channelId: string;
 
   /** Channel modalities. */
-  modes?: ChannelModality[];
+  modes?: ChannelBodyModality[];
 
   /** Channel color. */
   color?: ChannelColor;
@@ -62,7 +64,7 @@ export type ChannelsCreateBodyParams = {
   displayName: string;
 
   /** Modes available for the channel. */
-  modes: ChannelModality[];
+  modes: ChannelBodyModality[];
 
   /** Channel color. */
   color: ChannelColor;

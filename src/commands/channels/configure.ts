@@ -11,10 +11,8 @@ import chalk from 'chalk'
 import makeDebug from 'debug'
 
 import * as ChannelsAPI from '../../mix/api/channels'
-import {ChannelModalities, ChannelModality, ChannelsConfigParams} from '../../mix/api/channels-types'
-import {channelColors} from '../../mix/api/utils/channel-colors'
+import {ChannelBodyModality, ChannelModalities, ChannelModality, ChannelsConfigParams} from '../../mix/api/channels-types'
 import {MixClient, MixResponse, MixResult} from '../../mix/types'
-import {asArray} from '../../utils/as-array'
 import MixCommand from '../../utils/base/mix-command'
 import * as MixFlags from '../../utils/flags'
 import {DomainOption, validateChannelColor, validateChannelModeOptions} from '../../utils/validations'
@@ -25,6 +23,44 @@ export default class ChannelsConfigure extends MixCommand {
   static description = `update channel details in a project
 
 Configure the modalities and color of an existing channel in a Mix project.
+If either value is not supplied, the existing property on the channel will be unmodified.
+
+A note on channel modes and colors:
+For your convenience, you may enter modes and colors case-insensitively.
+In particular, you can spell any given mode/color with lowercase or capital letters,
+and with dashes ('-') in place of underscores ('_'). The value will be internally converted
+into the format the Mix API expects before the request is made. As an example, the values
+'light-pink', 'light_Pink', and 'LIGHT-PINK' are all equivalent to Mix's 'LIGHT_PINK'.
+
+Acceptable channel modes are:
+audioscript
+dtmf
+interactivity
+richtext
+tts
+
+Acceptable channel colors are:
+blue
+brown
+corn-flower
+cyan
+green
+grey
+indigo
+light-green
+light-grey
+light-orange
+light-pink
+light-purple
+orange
+pink
+purple
+ruby
+salmon
+sky
+teal
+yellow
+
   `
 
   static examples = [
@@ -86,7 +122,7 @@ Configure the modalities and color of an existing channel in a Mix project.
       color: _color,
     } = options
 
-    const modes: ChannelModality[] | undefined = mode?.map((mode: string) => mode.toUpperCase())
+    const modes: ChannelBodyModality[] | undefined = mode?.map((mode: ChannelModality) => ChannelModalities[mode])
     const color: string | undefined = _color?.toUpperCase().replace('-', '_')
 
     return {
@@ -95,13 +131,6 @@ Configure the modalities and color of an existing channel in a Mix project.
       ...(modes !== undefined && {modes}),
       ...(color !== undefined && {color}),
     }
-  }
-
-  captureOptions() {
-    super.captureOptions()
-    // this.options.mode = this.options.mode ?
-    //   asArray(this.options.mode) :
-    //   undefined
   }
 
   doRequest(client: MixClient, params: ChannelsConfigParams): Promise<MixResponse> {
