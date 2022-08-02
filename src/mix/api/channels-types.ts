@@ -22,4 +22,15 @@ export type ChannelsRenameBodyParams = {
 }
 
 export type ChannelsDeactivateParams = ChannelsPathParams
+
+export const ChannelModalities = {
+  audioscript: 'AUDIO_SCRIPT',
+  dtmf: 'DTMF',
+  interactivity: 'INTERACTIVITY',
+  richtext: 'RICH_TEXT',
+  tts: 'TTS',
+}
+
+export type ChannelModality = keyof typeof ChannelModalities
+
 export type ChannelsRenameParams = ChannelsPathParams & ChannelsRenameBodyParams
