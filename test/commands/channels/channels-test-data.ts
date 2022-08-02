@@ -8,15 +8,15 @@
 
 module.exports = {
   rename: {
-      flags: {
-          project: '123',
-          channel: 'very-long-uuid',
-          name: 'renamed channel'
-      },
-      response: {
-          data: {
-              displayName: 'renamed channel'
-          }
+    flags: {
+      project: '123',
+      channel: 'very-long-uuid',
+      name: 'renamed channel'
+    },
+    response: {
+      data: {
+        displayName: 'renamed channel'
       }
+    }
   }
 }

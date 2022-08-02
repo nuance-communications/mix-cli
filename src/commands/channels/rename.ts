@@ -6,24 +6,24 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import chalk from 'chalk'
 import {flags} from '@oclif/command'
+import chalk from 'chalk'
 import makeDebug from 'debug'
 
-import * as MixFlags from '../../utils/flags'
+import {Output} from '@oclif/parser/lib/flags'
 import * as ChannelsAPI from '../../mix/api/channels'
-import {DomainOption} from '../../utils/validations'
+import {ChannelsRenameParams} from '../../mix/api/channels-types'
 import {MixClient, MixResponse} from '../../mix/types'
 import MixCommand from '../../utils/base/mix-command'
-import {Output} from '@oclif/parser/lib/flags'
-import {ChannelsRenameParams} from '../../mix/api/channels-types'
+import * as MixFlags from '../../utils/flags'
+import {DomainOption} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:channels:rename')
 
 export default class ChannelsRename extends MixCommand {
-  static description = `rename a channel in Mix project
+  static description = `rename a channel
     
-    Use this command to change the name of a channel in a project.`
+Use this command to change the name of a channel in a project.`
 
   static examples = [
     'mix channels:rename -P 1922 \\',
@@ -34,14 +34,17 @@ export default class ChannelsRename extends MixCommand {
   static flags = {
     project: MixFlags.projectWithDefaultFlag,
     channel: flags.string({
-      description: 'channel id',
+      char: 'C',
+      description: 'channel ID',
       required: true,
     }),
     name: flags.string({
       required: true,
       description: 'new channel name',
     }),
-    ...MixFlags.machineOutputFlags,
+    // output flags
+    json: MixFlags.jsonFlag,
+    yaml: MixFlags.yamlFlag,
   }
 
   get domainOptions(): DomainOption[] {

@@ -20,13 +20,13 @@ const debug = makeDebug('mix:api:channels')
  */
 export async function renameChannel(client: MixClient, requestParams: ChannelsRenameParams): Promise<MixResponse> {
   debug('renameChannel()')
-  const {projectId, channelId, displayName, ...searchParams} = requestParams
+  const {projectId, channelId, displayName} = requestParams
 
   const body = {displayName}
 
   return client.request({
     method: 'put',
-    url: buildURL(client.getServer(), `/v4/projects/${projectId}/channels/${channelId}/.rename`, searchParams),
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/channels/${channelId}/.rename`),
     data: body,
   })
 }
