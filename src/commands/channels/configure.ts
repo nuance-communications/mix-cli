@@ -7,7 +7,9 @@
 */
 
 import {flags} from '@oclif/command'
+import {option} from '@oclif/parser/lib/flags'
 import chalk from 'chalk'
+import {cli} from 'cli-ux'
 import makeDebug from 'debug'
 
 import * as ChannelsAPI from '../../mix/api/channels'
@@ -94,7 +96,7 @@ yellow
     return ['project']
   }
 
-  tryDomainOptionsValidation(options: any, domainOptions: DomainOption[]) {
+  async tryDomainOptionsValidation(options: any, domainOptions: DomainOption[]) {
     debug('tryDomainOptionsValidation()')
     super.tryDomainOptionsValidation(options, domainOptions)
 
@@ -110,6 +112,12 @@ yellow
     if (options.mode !== undefined) {
       validateChannelModeOptions(options.mode)
     }
+
+    if (!(options.mode && options.color)) {
+      this.warn(chalk.yellow(`The V4 API currently requires both the --color and --mode flags to be set.
+This is due to a server-side error in which the default values for these flags (i.e., when not modified)
+are not recognized as valid.)`))
+    }
   }
 
   async buildRequestParameters(options: Partial<flags.Output>): Promise<ChannelsConfigParams> {
@@ -122,8 +130,16 @@ yellow
       color: _color,
     } = options
 
-    const modes: ChannelBodyModality[] | undefined = mode?.map((mode: ChannelModality) => ChannelModalities[mode])
+    debug("raw --mode: %s", mode)
+
+    const modes: ChannelBodyModality[] | undefined =
+      mode?.map((mode: string) => mode.toLowerCase().replace(/[_-]/g, ''))
+        .map((mode: ChannelModality) => ChannelModalities[mode])
+
     const color: string | undefined = _color?.toUpperCase().replace('-', '_')
+
+    modes && debug("converted modes: %s", modes)
+    color && debug("converted color: %s", color)
 
     return {
       projectId,

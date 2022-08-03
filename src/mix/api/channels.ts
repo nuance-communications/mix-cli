@@ -33,13 +33,9 @@ export async function renameChannel(client: MixClient, requestParams: ChannelsRe
 
 export async function updateChannel(client: MixClient, requestParams: ChannelsConfigParams): Promise<MixResponse> {
   debug('updateChannel()')
-  const {projectId, channelId, modes, color} = requestParams
+  const {projectId, ...body} = requestParams
 
-  const body = {
-    channelId,
-    modes,
-    color,
-  }
+  debug(body)
 
   return client.request({
     method: 'put',
