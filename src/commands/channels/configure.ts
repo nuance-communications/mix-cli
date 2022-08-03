@@ -14,6 +14,7 @@ import * as ChannelsAPI from '../../mix/api/channels'
 import {ChannelBodyModality, ChannelModalities, ChannelModality, ChannelsConfigParams} from '../../mix/api/channels-types'
 import {MixClient, MixResponse, MixResult} from '../../mix/types'
 import MixCommand from '../../utils/base/mix-command'
+import {eInvalidValue} from '../../utils/errors'
 import * as MixFlags from '../../utils/flags'
 import {DomainOption, validateChannelColor, validateChannelModeOptions} from '../../utils/validations'
 
@@ -94,7 +95,7 @@ yellow
     return ['project']
   }
 
-  async tryDomainOptionsValidation(options: any, domainOptions: DomainOption[]) {
+  tryDomainOptionsValidation(options: any, domainOptions: DomainOption[]) {
     debug('tryDomainOptionsValidation()')
     super.tryDomainOptionsValidation(options, domainOptions)
 
@@ -104,7 +105,15 @@ yellow
     }
 
     if (options.color !== undefined) {
-      validateChannelColor(options.color)
+      try {
+        validateChannelColor(options.color)
+      } catch {
+        throw (eInvalidValue(`Invalid color ${chalk.red(options.color)} supplied.`,
+          [
+            'Check value of --color flag and try again.',
+            `Enter ${chalk.green('mix channels:configure help')} to review valid color options.`,
+          ]))
+      }
     }
 
     if (options.mode !== undefined) {

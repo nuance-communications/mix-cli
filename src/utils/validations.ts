@@ -81,11 +81,11 @@ export function validateChannelModeOptions(modes: string[]): void {
   // Check if all modes are valid and appear exactly once
   const modesSeen = Object.fromEntries(Object.keys(ChannelModalities).map((mode: string) => [mode, false]))
 
-  for (const mode of adjustedModes) {
+  for (const [i, mode] of adjustedModes.entries()) {
     debug('mode: %s', mode)
     if (!(mode in modesSeen)) {
       debug('mode name is not valid')
-      throw (eInvalidValue('Unknown channel mode supplied to command.', [
+      throw (eInvalidValue(`Unknown channel mode ${modes[i]} supplied to command.`, [
         `Ensure all --mode flags are one of ${Object.keys(ChannelModalities).sort().join('|')}.`,
       ]))
     } else if (modesSeen[mode]) {

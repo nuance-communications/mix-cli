@@ -41,7 +41,7 @@ describe('channels:configure', () => {
       '--mode', 'INVALID_MODE',
     ])
     .catch(ctx => {
-      expect(strip(ctx.message)).to.contain('Unknown channel mode supplied to command')
+      expect(strip(ctx.message)).to.contain('Unknown channel mode INVALID_MODE supplied to command')
     })
     .it('errors out when given an unknown mode')
 
@@ -81,7 +81,7 @@ describe('channels:configure', () => {
       '--color', 'INVALID_COLOR'
     ])
     .catch(ctx => {
-      expect(strip(ctx.message)).to.contain('Unknown channel color')
+      expect(strip(ctx.message)).to.contain('Invalid color INVALID_COLOR supplied')
     })
     .it('errors out when given an unknown color')
 })
