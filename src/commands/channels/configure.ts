@@ -7,9 +7,7 @@
 */
 
 import {flags} from '@oclif/command'
-import {option} from '@oclif/parser/lib/flags'
 import chalk from 'chalk'
-import {cli} from 'cli-ux'
 import makeDebug from 'debug'
 
 import * as ChannelsAPI from '../../mix/api/channels'
@@ -130,7 +128,7 @@ are not recognized as valid.)`))
       color: _color,
     } = options
 
-    debug("raw --mode: %s", mode)
+    debug('raw --mode: %s', mode)
 
     const modes: ChannelBodyModality[] | undefined =
       mode?.map((mode: string) => mode.toLowerCase().replace(/[_-]/g, ''))
@@ -138,8 +136,8 @@ are not recognized as valid.)`))
 
     const color: string | undefined = _color?.toUpperCase().replace('-', '_')
 
-    modes && debug("converted modes: %s", modes)
-    color && debug("converted color: %s", color)
+    modes && debug('converted modes: %s', modes)
+    color && debug('converted color: %s', color)
 
     return {
       projectId,
