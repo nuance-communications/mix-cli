@@ -41,26 +41,13 @@ richtext
 tts
 
 Acceptable channel colors are:
-blue
-brown
-corn-flower
-cyan
-green
-grey
-indigo
-light-green
-light-grey
-light-orange
-light-pink
-light-purple
-orange
-pink
-purple
-ruby
-salmon
-sky
-teal
-yellow
+blue          brown         corn-flower
+cyan          green         grey
+indigo        light-green   light-grey  
+light-orange  light-pink    light-purple
+orange        pink          purple
+ruby          salmon        sky
+teal          yellow
 
   `
 
@@ -160,6 +147,11 @@ are not recognized as valid.)`))
     debug('doRequest()')
 
     return ChannelsAPI.updateChannel(client, params)
+  }
+
+  setRequestActionMessage(options: any): void {
+    debug('setRequestActionMessage()')
+    this.requestActionMessage = `Configuring channel ${chalk.cyan(options.channel)} in project ${chalk.cyan(options.project)}`
   }
 
   transformResponse(result: MixResult) {
