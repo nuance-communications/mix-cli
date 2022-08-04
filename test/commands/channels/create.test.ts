@@ -19,10 +19,11 @@ chai.use(sinonChai)
 const td = require('./channels-test-data')
 const testEnvData = require('../../test-data')
 const serverURL = `https://${testEnvData.server}`
-const endpoint = `/v4/projects/${td.request.projectId}/channels/${td.request.channelId}/.create`
+const endpoint = `/v4/projects/${td.request.projectId}/channels`
 
 describe('channels:create', () => {
-
+  // suppress "color not supplied" warnings
+  before(() => {sinon.stub(console, 'error')})
   test
     .env(testEnvData.env)
     .stdout()
@@ -32,7 +33,7 @@ describe('channels:create', () => {
     '--mode', 'BROKEN_MODE'
   ])
   .catch(ctx => {
-    expect(ctx.message).to.contain('Unknown channel modality')
+    expect(ctx.message).to.contain('Unknown channel mode supplied to command')
   })
   .it('errors out when an unknown channel mode is supplied')
 
@@ -47,16 +48,31 @@ describe('channels:create', () => {
     '--mode', 'dtmf'
   ])
   .catch(ctx => {
-    expect(ctx.message).to.contain('Duplicate modality')
+    expect(ctx.message).to.contain('Mode dtmf was supplied more than once')
   })
   .it('errors out when a channel mode is supplied twice')
 
-    // .nock(serverURL, api =>
-    //   api
-    //     .post(endpoint)
-    //     .query({
-    //       displayName: td.request.displayName
-    //     })
-    //     .reply(200, {/* TODO */})
-    //   )
+
+  test
+    .env(testEnvData.env)
+    .stdout()
+    .nock(serverURL, api =>
+      api
+        .post(endpoint, {
+          displayName: td.request.displayName,
+          modes: ['DTMF'],
+          color: 'LIGHT_PINK',
+        })
+        .reply(200, td.response)
+      )
+    .command(['channels:create',
+    '--project', td.request.projectId,
+    '--name', td.request.displayName,
+    '--mode', 'dtmf',
+    '--color', 'LIGHT_PINK',
+    '--json'
+  ])
+  .it('successfully creates a channel and outputs JSON', ctx => {
+    expect(JSON.parse(ctx.stdout).channel).to.deep.equal(td.response.channel)
+  })
 })

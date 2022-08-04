@@ -38,13 +38,7 @@ export async function renameChannel(client: MixClient, requestParams: ChannelsRe
  */
 export async function createChannel(client: MixClient, requestParams: ChannelsCreateParams): Promise<MixResponse> {
   debug('createChannel()')
-  const {projectId, displayName, modes = ['MODE_UNSPECIFIED'], color = 'COLOR_UNSPECIFIED'} = requestParams
-
-  const body = {
-    displayName,
-    modes,
-    color,
-  }
+  const {projectId, ...body} = requestParams
 
   return client.request({
     method: 'post',

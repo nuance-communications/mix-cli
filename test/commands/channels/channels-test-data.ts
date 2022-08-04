@@ -12,6 +12,20 @@ module.exports = {
     displayName: 'New test channel'
   },
   response: {
-    channelId: '8f3e480e-f8e2-4274-8daf-ae8a304f11e4',
+    channel: {
+      id: '8f3e480e-f8e2-4274-8daf-ae8a304f11e4',
+      displayName: 'New test channel',
+      codeName: 'custom',
+      modes: ['DTMF', 'AUDIO_SCRIPT'],
+      color: 'LIGHT_PINK'
+    },
+    isActive: true,
+    extendedChannel: {
+      id: '8f3e480e-f8e2-4274-8daf-ae8a304f11e4',
+      displayName: 'New test channel',
+      codeName: 'custom',
+      modes: ['DTMF', 'AUDIO_SCRIPT'], // should actually be objects
+      color: 'LIGHT_PINK'
+    }
   }
 }

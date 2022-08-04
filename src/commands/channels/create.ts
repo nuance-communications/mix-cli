@@ -7,38 +7,41 @@
  */
 
 import {flags} from '@oclif/command'
+import chalk from 'chalk'
 import makeDebug from 'debug'
 
-import * as MixFlags from '../../utils/flags'
 import * as ChannelsAPI from '../../mix/api/channels'
-import MixCommand from '../../utils/base/mix-command'
-import {DomainOption} from '../../utils/validations'
 import {ChannelModalities, ChannelModality, ChannelsCreateParams} from '../../mix/api/channels-types'
-import {asArray} from '../../utils/as-array'
 import {MixClient, MixResponse, MixResult} from '../../mix/types'
-import chalk from 'chalk'
-import {channelColors} from '../../mix/api/utils/channel-colors'
+import MixCommand from '../../utils/base/mix-command'
+import {eInvalidValue} from '../../utils/errors'
+import * as MixFlags from '../../utils/flags'
+import {DomainOption, validateChannelColor, validateChannelModeOptions} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:channels:create')
 
 export default class ChannelsCreate extends MixCommand {
-  // TODO: longer description here
-  static description = 'create a new channel in a project'
+  static description = `create a new channel in a project
+
+`
 
   static examples = [
     'mix channels:create -P 1922 --name "New IVR channel" --mode ivr',
   ]
 
   static flags = {
-    project: MixFlags.projectFlag,
+    color: flags.string({
+      description: 'channel color',
+    }),
+    mode: MixFlags.modesFlag,
     name: flags.string({
       description: 'channel name',
       required: true,
     }),
-    mode: MixFlags.modesFlag,
-    color: flags.string({
-      description: 'channel color',
-    }),
+    project: MixFlags.projectFlag,
+    // output flags
+    json: MixFlags.jsonFlag,
+    yaml: MixFlags.yamlFlag,
   }
 
   get domainOptions(): DomainOption[] {
@@ -50,35 +53,24 @@ export default class ChannelsCreate extends MixCommand {
     debug('tryDomainOptionsValidation()')
     super.tryDomainOptionsValidation(options, domainOptions)
 
-    // Check if all modes are valid and appear exactly once
-    const modes: ChannelModality[] = options.mode?.map((mode: string) =>
-      mode.toUpperCase() as ChannelModality)
-    const seen = new Set<ChannelModality>()
-
-    for (const [i, mode] of modes.entries()) {
-      // Check for unknown modalities.
-      if (!ChannelModalities.includes(mode)) {
-        this.error(`Unknown channel modality ${chalk.red(options.mode[i])}.
-  Modalities must be one of:
-  ${ChannelModalities.slice(1).join(', ')}.`,
-        {suggestions: ['check value(s) supplied to --mode flag(s) and try again.']})
-      }
-
-      // Ensure number of unique modes increased by 1.
-      // Otherwise, a duplicate mode was found.
-      seen.add(mode)
-      if (seen.size !== i + 1) {
-        this.error(`Duplicate modality: ${chalk.red(options.mode[i])} appears twice.`,
-          {suggestions: ['check values supplied to --mode flags and try again.']})
+    if (options.color === undefined) {
+      this.warn(chalk.yellow(`The V4 API currently requires the --color flag to be set.
+This is due to a server-side error in which the default values for these flags are not recognized as valid.
+This invocation of the command will likely fail. If it does not fail, kindly submit an issue on GitHub 
+to let us know.`))
+    } else {
+      try {
+        validateChannelColor(options.color)
+      } catch {
+        throw (eInvalidValue(`Invalid color ${chalk.red(options.color)} supplied.`,
+          [
+            'Check value of --color flag and try again.',
+            `Enter ${chalk.green('mix channels:create help')} to review valid color options.`,
+          ]))
       }
     }
 
-    // Check for valid color
-    const color = options.color?.toUpperCase()
-    if (color && !channelColors.slice(1).includes(color)) {
-      this.error(`Unknown color ${chalk.red(options.color)}.`,
-        {suggestions: ['check value supplied to --color flag and try again.']})
-    }
+    validateChannelModeOptions(options.mode)
   }
 
   async buildRequestParameters(options: Partial<flags.Output>): Promise<ChannelsCreateParams> {
@@ -87,21 +79,24 @@ export default class ChannelsCreate extends MixCommand {
     const {
       project: projectId,
       name: displayName,
-      mode: modes,
-      color,
+      mode,
+      color: _color,
     } = options
+
+    const modes = mode?.map((mode: string) => mode.toLowerCase().replace(/[_-]/g, ''))
+      .map((mode: ChannelModality) => ChannelModalities[mode])
+
+    const color: string = _color?.toUpperCase().replace('-', '_')
+
+    modes && debug('converted modes: %s', modes)
+    color && debug('converted color: %s', color)
 
     return {
       projectId,
       displayName,
-      modes,
-      color,
+      ...(modes !== undefined && {modes}),
+      ...(color !== undefined && {color}),
     }
-  }
-
-  captureOptions() {
-    super.captureOptions()
-    this.options.mode = asArray(this.options.mode)
   }
 
   doRequest(client: MixClient, params: ChannelsCreateParams): Promise<MixResponse> {
