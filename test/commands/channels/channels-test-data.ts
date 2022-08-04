@@ -18,5 +18,35 @@ module.exports = {
         displayName: 'renamed channel'
       }
     }
+  },
+  request: {
+    projectId: '1922',
+    displayName: 'New test channel'
+  },
+  response: {
+    channel: {
+      id: '8f3e480e-f8e2-4274-8daf-ae8a304f11e4',
+      displayName: 'New test channel',
+      codeName: 'custom',
+      modes: ['DTMF', 'AUDIO_SCRIPT'],
+      color: 'LIGHT_PINK'
+    },
+    isActive: true,
+    extendedChannel: {
+      id: '8f3e480e-f8e2-4274-8daf-ae8a304f11e4',
+      displayName: 'New test channel',
+      codeName: 'custom',
+      modes: [
+        {
+          mode: 'DTMF',
+          isActive: true,
+        },
+        {
+          mode: 'AUDIO_SCRIPT',
+          isActive: true,
+        },
+      ],
+      color: 'LIGHT_PINK'
+    }
   }
 }
