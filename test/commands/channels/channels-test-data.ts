@@ -24,7 +24,16 @@ module.exports = {
       id: '8f3e480e-f8e2-4274-8daf-ae8a304f11e4',
       displayName: 'New test channel',
       codeName: 'custom',
-      modes: ['DTMF', 'AUDIO_SCRIPT'], // should actually be objects
+      modes: [
+        {
+          mode: 'DTMF',
+          isActive: true,
+        },
+        {
+          mode: 'AUDIO_SCRIPT',
+          isActive: true,
+        },
+      ],
       color: 'LIGHT_PINK'
     }
   }
