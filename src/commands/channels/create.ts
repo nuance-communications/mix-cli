@@ -21,8 +21,50 @@ import {DomainOption, validateChannelColor, validateChannelModeOptions} from '..
 const debug = makeDebug('mix:commands:channels:create')
 
 export default class ChannelsCreate extends MixCommand {
-  static description = `create a new channel in a project
+  static description = `create a new channel
 
+Use this command to create a new channel in your Mix project.
+A channel defines a collection of different modalities through
+which users interact with your application. The currently available
+modalities are:
+
+audioscript
+dtmf
+interactivity
+richtext
+tts
+
+Note that, for your convenience, this command will automatically convert
+inputs to the --mode flag as close to the format of the above modes as possible,
+by converting upper-case letters to lower-case and removing deliminating punctuation
+('-' and '_'). So, the modes 'audioscript', 'AUDIO-SCRIPT', and 'a_u-d_i-o----scriPT'
+are all equivalent to the server-side value of 'AUDIO_SCRIPT'. 
+
+The same conversion is done for colours, except that dashes ('-') are replaced 
+with ('_') rather than being deleted. So, 'light-pink', 'light____pink', and 
+'LIGHT_PINK' are also equivalent.
+
+Acceptable channel colors are:
+blue
+brown
+corn-flower
+cyan
+green
+grey
+indigo
+light-green
+light-grey
+light-orange
+light-pink
+light-purple
+orange
+pink
+purple
+ruby
+salmon
+sky
+teal
+yellow
 `
 
   static examples = [
@@ -115,6 +157,6 @@ to let us know.`))
     debug('outputHumanReadable()')
 
     const {displayName, id} = transformedData
-    this.log(`Channel ${chalk.cyan(displayName)} created sucessfully (id: ${chalk.cyan(id)}).`)
+    this.log(`Channel ${chalk.cyan(displayName)} with ID ${chalk.cyan(id)} created.`)
   }
 }
