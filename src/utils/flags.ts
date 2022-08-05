@@ -67,6 +67,11 @@ export const ignoreDefault = <T>(flag: T): T => ({
   default: undefined,
 })
 
+export const required = <T>(flag: T): T => ({
+  ...flag,
+  required: true,
+})
+
 // Flag objects
 export const anaphoraTypeFlag = flags.string({
   default: AnaphoraDefault,
@@ -88,6 +93,10 @@ export const buildTypeFlag = flags.string({
   description: buildTypeDesc,
   options: buildTypeOptions,
   required: true,
+})
+
+export const channelColorFlag = flags.string({
+  description: 'channel color',
 })
 
 export const channelMultipleFlag = flags.string({
