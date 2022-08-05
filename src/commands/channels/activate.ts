@@ -6,21 +6,21 @@
   * the LICENSE file in the root directory of this source tree.
   */
 
-import chalk from 'chalk'
 import {flags} from '@oclif/command'
+import chalk from 'chalk'
 import makeDebug from 'debug'
 
-import * as MixFlags from '../../utils/flags'
 import * as ChannelsAPI from '../../mix/api/channels'
-import {DomainOption} from '../../utils/validations'
+import * as MixFlags from '../../utils/flags'
+import {ChannelsActivateParams} from '../../mix/api/channels-types'
 import {MixClient, MixResponse} from '../../mix/types'
 import MixCommand from '../../utils/base/mix-command'
-import {ChannelsActivateParams} from '../../mix/api/channels-types'
+import {DomainOption} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:channels:activate')
 
 export default class ChannelsActivate extends MixCommand {
-  static description = `activate a channel in Mix project
+  static description = `activate a channel
   
   Use this command to activate a channel in a project.`
 
@@ -31,11 +31,13 @@ export default class ChannelsActivate extends MixCommand {
 
   static flags = {
     project: MixFlags.projectWithDefaultFlag,
-    channel: {
-      ...MixFlags.channelMultipleFlag, // REVIEW: same as other command
-      multiple: false,
-    },
-    ...MixFlags.machineOutputFlags,
+    channel: flags.string({
+      description: 'channel ID',
+      required: true,
+    }),
+    // output flags
+    json: MixFlags.jsonFlag,
+    yaml: MixFlags.yamlFlag,
   }
 
   get domainOptions(): DomainOption[] {
@@ -55,8 +57,8 @@ export default class ChannelsActivate extends MixCommand {
     return ChannelsAPI.activateChannel(client, params)
   }
 
-  outputHumanReadable(transformedData: any) {
+  outputHumanReadable(_transformedData: any) {
     debug('outputHumanReadable()')
-    this.log('Channel activated successfully.')
+    this.log(`Channel with ID ${chalk.cyan(this.options.channel)} activated successfully.`)
   }
 }

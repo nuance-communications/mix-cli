@@ -33,18 +33,18 @@ export async function renameChannel(client: MixClient, requestParams: ChannelsRe
 
 /**
  * Activate a channel in a project.
- * 
+ *
  * @category channels
  */
 export async function activateChannel(client: MixClient, requestParams: ChannelsActivateParams): Promise<MixResponse> {
-    debug('activateChannel()')
-    const {projectId, channelId} = requestParams
+  debug('activateChannel()')
+  const {projectId, channelId} = requestParams
 
-    const body = {}
+  const body = {}
 
-    return client.request({
-        method: 'put',
-        url: buildURL(client.getServer(), `/v4/projects/${projectId}/channels/${channelId}/.activate`),
-        data: body
-    })
+  return client.request({
+    method: 'put',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/channels/${channelId}/.activate`),
+    data: body,
+  })
 }
