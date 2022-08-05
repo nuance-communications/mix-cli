@@ -8,7 +8,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-const MIN_NODE_VERSION = 12
+const MIN_NODE_VERSION = 14
 
 if (process && process.versions && process.versions.node) {
   const nodeVersion = process.versions.node
