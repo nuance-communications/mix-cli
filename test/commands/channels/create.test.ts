@@ -7,7 +7,7 @@
  */
 
 import {expect, test} from '@oclif/test'
-
+import strip from 'strip-ansi'
 
 const chai = require('chai')
 const sinon = require('sinon')
@@ -30,10 +30,11 @@ describe('channels:create', () => {
     .command(['channels:create',
     '--project', td.request.projectId,
     '--name', td.request.displayName,
-    '--mode', 'BROKEN_MODE'
+    '--color', td.request.color,
+    '--mode', 'INVALID_MODE'
   ])
   .catch(ctx => {
-    expect(ctx.message).to.contain('Unknown channel mode supplied to command')
+    expect(strip(ctx.message)).to.contain('Unknown channel mode INVALID_MODE supplied to command')
   })
   .it('errors out when an unknown channel mode is supplied')
 
@@ -43,12 +44,13 @@ describe('channels:create', () => {
     .command(['channels:create',
     '--project', td.request.projectId,
     '--name', td.request.displayName,
+    '--color', td.request.color,
     '--mode', 'dtmf',
     '--mode', 'rich_text',
     '--mode', 'dtmf'
   ])
   .catch(ctx => {
-    expect(ctx.message).to.contain('Mode dtmf was supplied more than once')
+    expect(strip(ctx.message)).to.contain('Mode dtmf was supplied more than once')
   })
   .it('errors out when a channel mode is supplied twice')
 
@@ -68,8 +70,8 @@ describe('channels:create', () => {
     .command(['channels:create',
     '--project', td.request.projectId,
     '--name', td.request.displayName,
+    '--color', td.request.color,
     '--mode', 'dtmf',
-    '--color', 'LIGHT_PINK',
     '--json'
   ])
   .it('successfully creates a channel and outputs JSON', ctx => {

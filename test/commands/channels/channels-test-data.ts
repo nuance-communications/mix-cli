@@ -9,7 +9,8 @@
 module.exports = {
   request: {
     projectId: '1922',
-    displayName: 'New test channel'
+    displayName: 'New test channel',
+    color: 'light-pink'
   },
   response: {
     channel: {
