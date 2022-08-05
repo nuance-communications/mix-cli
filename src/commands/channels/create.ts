@@ -94,7 +94,7 @@ until the limitation is resolved.
     try {
       validateChannelColor(options.color)
     } catch {
-      throw (eInvalidValue(`Invalid color ${chalk.red(options.color)} supplied.`,
+      throw (eInvalidValue(`Invalid color ${chalk.red(options.color)} supplied to command.`,
         [
           'Check value of --color flag and try again.',
           `Enter ${chalk.green('mix channels:create help')} to review valid color options.`,

@@ -44,6 +44,20 @@ describe('channels:create', () => {
     .command(['channels:create',
     '--project', td.request.projectId,
     '--name', td.request.displayName,
+    '--color', 'INVALID_COLOR',
+    '--mode', 'dtmf'
+  ])
+  .catch(ctx => {
+    expect(strip(ctx.message)).to.contain('Invalid color INVALID_COLOR supplied to command')
+  })
+  .it('errors out when an unknown channel color is supplied')
+
+  test
+    .env(testEnvData.env)
+    .stdout()
+    .command(['channels:create',
+    '--project', td.request.projectId,
+    '--name', td.request.displayName,
     '--color', td.request.color,
     '--mode', 'dtmf',
     '--mode', 'rich_text',
