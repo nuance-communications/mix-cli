@@ -67,7 +67,7 @@ For convenience, the overriding environment variables can be stored in a `.env`
 file. `mix-cli` looks for the `.env` file in the current working directory when it
 starts up.
 
-Configuration values found in the `.env` file have precedence those
+Configuration values found in the `.env` file have precedence over those
 provided in the central configuration. Configuration values provided using actual
 environment variables have precedence over both those in the `.env` file and those
 in the central configuration.
@@ -80,7 +80,7 @@ token before using any of the other cli commands. Simply type:
 mix auth
 ```
 
-`mix-cli` stores the access token in file named "access-token" in the same
+`mix-cli` stores the access token in a file named "access-token" in the same
 directory it stores its central configuration. Like the configuration file,
 the access token file is only accessible to the user who executed the `auth`
 command.
