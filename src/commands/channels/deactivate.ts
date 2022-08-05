@@ -6,28 +6,28 @@
   * the LICENSE file in the root directory of this source tree.
   */
 
-import chalk from 'chalk'
 import {flags} from '@oclif/command'
+import chalk from 'chalk'
+import {cli} from 'cli-ux'
 import makeDebug from 'debug'
 
-import * as MixFlags from '../../utils/flags'
 import * as ChannelsAPI from '../../mix/api/channels'
-import {DomainOption} from '../../utils/validations'
+import * as MixFlags from '../../utils/flags'
+import {ChannelsDeactivateParams} from '../../mix/api/channels-types'
 import {MixClient, MixResponse} from '../../mix/types'
 import MixCommand from '../../utils/base/mix-command'
-import {ChannelsDeactivateParams} from '../../mix/api/channels-types'
-import {cli} from 'cli-ux'
 import {eNotConfirmed} from '../../utils/errors'
+import {DomainOption} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:channels:deactivate')
 
 export default class ChannelsDeactivate extends MixCommand {
-  static description = `activate a channel in Mix project
+  static description = `deactivate a channel
   
   Use this command to deactivate a channel in a project.`
 
   static examples = [
-    'mix channels:activate -P 1922 \\',
+    'mix channels:deactivate -P 1922 \\',
     '  --channel bc40667c-e0f6-11ec-9d64-0242ac120003 \\',
     '  --confirm',
   ]
@@ -35,14 +35,13 @@ export default class ChannelsDeactivate extends MixCommand {
   static flags = {
     project: MixFlags.projectWithDefaultFlag,
     channel: flags.string({
-      description: 'channel id',
+      description: 'channel ID',
       required: true,
     }),
-    confirm: flags.boolean({
-      description: 'pre-confirm deactivation',
-      default: false,
-    }),
-    ...MixFlags.machineOutputFlags,
+    confirm: MixFlags.confirmFlag,
+    // output flags
+    json: MixFlags.jsonFlag,
+    yaml: MixFlags.yamlFlag,
   }
 
   action = 'deactivate'
