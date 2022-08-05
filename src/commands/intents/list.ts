@@ -27,7 +27,7 @@ Use this command to list all intents available in a specific project.`
   ]
 
   static flags = {
-    project: MixFlags.projectFlag,
+    project: MixFlags.projectWithDefaultFlag,
     // output flags
     json: MixFlags.jsonFlag,
     ...MixFlags.tableFlags({except: ['extended']}),
