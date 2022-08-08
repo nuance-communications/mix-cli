@@ -10,7 +10,7 @@ import { expect, test } from '@oclif/test'
 
 const td = require('./channels-test-data')
 // for endpoint construction
-const { project: projectId, channel: channelId } = td.rename.flags
+const { projectId, channel: channelId } = td.request
 
 const testEnvData = require('../../test-data')
 const serverURL = `https://${testEnvData.server}`
@@ -18,25 +18,25 @@ const endpoint = `/v4/projects/${projectId}/channels/${channelId}/.rename`
 
 
 describe('channels:rename', () => {
-  const { project, channel, name: newName } = td.rename.flags
+  const { projectId, channel, displayName} = td.request
 
   test
     .env(testEnvData.env)
     .nock(serverURL, (api) =>
       api
         .put(endpoint, {
-          displayName: newName
+          displayName
         })
-        .reply(200, td.rename.response.data)
+        .reply(200, { displayName })
     )
     .stdout()
     .command(['channels:rename',
-      '--project=' + project,
-      '--channel=' + channel,
-      '--name=' + newName,
+      '--project',  projectId,
+      '--channel', channel,
+      '--name', displayName,
       '--json'])
     .it('receives JSON confirmation of renamed channel', ctx => {
       const response = JSON.parse(ctx.stdout)
-      expect(response).to.deep.equal({ displayName: newName })
+      expect(response).to.deep.equal({ displayName })
     })
 })

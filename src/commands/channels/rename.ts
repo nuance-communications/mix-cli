@@ -59,6 +59,12 @@ Use this command to change the name of a channel in a project.`
     return {projectId, channelId, displayName}
   }
 
+  setRequestActionMessage(options: any) {
+    debug('setRequestActionMessage()')
+    const {channel, project} = options
+    this.requestActionMessage = `Renaming channel with ID ${chalk.cyan(channel)} in project ${chalk.cyan(project)}`
+  }
+
   doRequest(client: MixClient, params: ChannelsRenameParams): Promise<MixResponse> {
     debug('doRequest()')
     return ChannelsAPI.renameChannel(client, params)
@@ -66,7 +72,8 @@ Use this command to change the name of a channel in a project.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
+    const {channel: channelId} = this.options
     const {displayName} = transformedData
-    this.log(`Channel renamed to ${chalk.cyan(displayName)}.`)
+    this.log(`Channel with ID ${chalk.cyan(channelId)} successfully renamed to ${chalk.cyan(displayName)}.`)
   }
 }
