@@ -1,3 +1,10 @@
+# [1.4.0-beta.10](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.9...v1.4.0-beta.10) (2022-08-08)
+
+
+### Bug Fixes
+
+* add organizationId to projects:get output ([#34](https://github.com/nuance-communications/mix-cli/issues/34)) ([66e0cbd](https://github.com/nuance-communications/mix-cli/commit/66e0cbdb1bbfcc79b285dfd21e67b44234d01b3e))
+
 # [1.4.0-beta.9](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.8...v1.4.0-beta.9) (2022-08-08)
 
 
