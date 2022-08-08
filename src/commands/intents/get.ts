@@ -28,7 +28,7 @@ Use this command to get details about a particular intent in a project.`
 
   static flags = {
     intent: MixFlags.intentFlag,
-    project: MixFlags.projectFlag,
+    project: MixFlags.projectWithDefaultFlag,
     // output flags
     json: MixFlags.jsonFlag,
     ...MixFlags.tableFlags({
