@@ -28,7 +28,7 @@ Use this command to get details about a particular entity in a project.`
   static flags = {
     entity: MixFlags.entityFlag,
     json: MixFlags.jsonFlag,
-    project: MixFlags.projectFlag,
+    project: MixFlags.projectWithDefaultFlag,
     ...MixFlags.tableFlags({
       except: ['extended', 'no-header', 'filter', 'sort'],
       useColumnsWithCSVOnly: true,

@@ -31,7 +31,7 @@ Use this command to permanently delete an entity from a project.`
     confirm: MixFlags.confirmFlag,
     entity: MixFlags.entityFlag,
     json: MixFlags.jsonFlag,
-    project: MixFlags.projectFlag,
+    project: MixFlags.projectWithDefaultFlag,
     yaml: MixFlags.yamlFlag,
   }
 

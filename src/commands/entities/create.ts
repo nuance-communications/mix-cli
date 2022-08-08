@@ -83,7 +83,7 @@ explicitly provided.
     name: MixFlags.entityNameFlag,
     'no-canonicalize': MixFlags.noCanonicalizeFlag,
     pattern: MixFlags.patternFlag,
-    project: MixFlags.projectFlag,
+    project: MixFlags.projectWithDefaultFlag,
     sensitive: MixFlags.sensitiveUserDataFlag,
     // output flags
     json: MixFlags.jsonFlag,

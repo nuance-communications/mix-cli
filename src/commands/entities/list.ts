@@ -33,7 +33,7 @@ Use this command to list all entities available in a specific project.`
 
   static flags = {
     json: MixFlags.jsonFlag,
-    project: MixFlags.projectFlag,
+    project: MixFlags.projectWithDefaultFlag,
     ...MixFlags.tableFlags({except: ['extended', 'sort']}),
     'with-entity-type': MixFlags.withEntityTypeFlag,
     yaml: MixFlags.yamlFlag,
