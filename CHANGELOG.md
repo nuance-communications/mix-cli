@@ -1,3 +1,10 @@
+# [1.4.0-beta.9](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.8...v1.4.0-beta.9) (2022-08-08)
+
+
+### Bug Fixes
+
+* add MIX_PROJECT as default for project flag in all intents commands ([#33](https://github.com/nuance-communications/mix-cli/issues/33)) ([96e322e](https://github.com/nuance-communications/mix-cli/commit/96e322ec791cae86df9d36a8b15b47bed7b5aeaf))
+
 # [1.4.0-beta.8](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.7...v1.4.0-beta.8) (2022-07-27)
 
 
