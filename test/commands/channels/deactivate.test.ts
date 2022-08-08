@@ -8,6 +8,7 @@
 
 import {expect, test} from '@oclif/test'
 import cli from 'cli-ux'
+import strip from 'strip-ansi'
 
 const chai = require('chai')
 const sinon = require ('sinon')
@@ -42,7 +43,7 @@ describe('channels:deactivate', () => {
       '--channel', td.request.channel,
   ])
   .it('deactivates a channel with interactive confirmation', ctx => {
-    expect(ctx.stdout).to.contain("Channel deactivated successfully.")
+    expect(strip(ctx.stdout)).to.contain(`Channel with ID ${td.request.channel} deactivated successfully`)
   })
 
   test

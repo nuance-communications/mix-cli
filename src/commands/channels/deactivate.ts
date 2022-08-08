@@ -1,10 +1,10 @@
 /*
-  * Copyright 2022, Nuance, Inc. and its contributors.
-  * All rights reserved.
-  *
-  * This source code is licensed under the Apache-2.0 license found in
-  * the LICENSE file in the root directory of this source tree.
-  */
+ * Copyright 2022, Nuance, Inc. and its contributors.
+ * All rights reserved.
+ *
+ * This source code is licensed under the Apache-2.0 license found in
+ * the LICENSE file in the root directory of this source tree.
+ */
 
 import {flags} from '@oclif/command'
 import chalk from 'chalk'
@@ -27,12 +27,13 @@ export default class ChannelsDeactivate extends MixCommand {
   static examples = [
     'mix channels:deactivate -P 1922 \\',
     '  --channel bc40667c-e0f6-11ec-9d64-0242ac120003 \\',
-    '  --confirm',
+    '  --confirm bc40667c-e0f6-11ec-9d64-0242ac120003',
   ]
 
   static flags = {
     project: MixFlags.projectWithDefaultFlag,
     channel: flags.string({
+      char: 'C',
       description: 'channel ID',
       required: true,
     }),
@@ -57,6 +58,11 @@ export default class ChannelsDeactivate extends MixCommand {
     return {projectId, channelId}
   }
 
+  setRequestActionMessage(options: any) {
+    const {channel, project} = options
+    this.requestActionMessage = `Deactivating channel with ID ${chalk.cyan(channel)} in project ${chalk.cyan(project)}`
+  }
+
   doRequest(client: MixClient, params: ChannelsDeactivateParams): Promise<MixResponse> {
     debug('doRequest()')
     return ChannelsAPI.deactivateChannel(client, params)
@@ -64,7 +70,6 @@ export default class ChannelsDeactivate extends MixCommand {
 
   get expectedConfirmationValue() {
     debug('get expectedConfirmationValue()')
-
     return this.options.channel
   }
 
@@ -75,6 +80,7 @@ export default class ChannelsDeactivate extends MixCommand {
 
   outputHumanReadable() {
     debug('outputHumanReadable()')
-    this.log('Channel deactivated successfully.')
+    const {channel, project} = this.options
+    this.log(`Channel with ID ${chalk.cyan(channel)} deactivated successfully in project ${chalk.cyan(project)}.`)
   }
 }
