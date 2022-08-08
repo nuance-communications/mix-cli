@@ -26,20 +26,20 @@ describe('channels:deactivate', () => {
   test
     .env(testEnvData.env)
     .nock(serverURL, api => api
-        .put(`/v4/projects/${td.rename.flags.project}/channels/${td.rename.flags.channel}/.deactivate`,
+        .put(`/v4/projects/${td.request.projectId}/channels/${td.request.channel}/.deactivate`,
           {}
         )
         .reply(200)
       )
     .do(() => {
-      promptStub.onFirstCall().resolves('y')
+      promptStub.onFirstCall().resolves(td.request.channel)
     })
     .stub(cli, 'prompt', () => promptStub)
     .stdout()
     .stderr()
     .command(['channels:deactivate',
-      '--project', td.rename.flags.project,
-      '--channel', td.rename.flags.channel,
+      '--project', td.request.projectId,
+      '--channel', td.request.channel,
   ])
   .it('deactivates a channel with interactive confirmation', ctx => {
     expect(ctx.stdout).to.contain("Channel deactivated successfully.")
@@ -54,8 +54,8 @@ describe('channels:deactivate', () => {
     .stdout()
     .stderr()
     .command(['channels:deactivate',
-      '--project', td.rename.flags.project,
-      '--channel', td.rename.flags.channel,
+      '--project', td.request.projectId,
+      '--channel', td.request.channel,
   ])
   .it('aborts deactivating channel when confirmation fails', ctx => {
     expect(ctx.stdout).to.contain("Operation was not confirmed. Aborting...")
