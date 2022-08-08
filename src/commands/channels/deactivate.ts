@@ -8,7 +8,6 @@
 
 import {flags} from '@oclif/command'
 import chalk from 'chalk'
-import {cli} from 'cli-ux'
 import makeDebug from 'debug'
 
 import * as ChannelsAPI from '../../mix/api/channels'
@@ -16,7 +15,6 @@ import * as MixFlags from '../../utils/flags'
 import {ChannelsDeactivateParams} from '../../mix/api/channels-types'
 import {MixClient, MixResponse} from '../../mix/types'
 import MixCommand from '../../utils/base/mix-command'
-import {eNotConfirmed} from '../../utils/errors'
 import {DomainOption} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:channels:deactivate')
@@ -65,39 +63,14 @@ export default class ChannelsDeactivate extends MixCommand {
   }
 
   get expectedConfirmationValue() {
-    // NOTE: doInteractiveConfirmation is overridden.
-    // This literal value is supplied to avoid runtime error.
-    return 'YES_TYPE'
+    debug('get expectedConfirmationValue()')
+
+    return this.options.channel
   }
 
   warnBeforeConfirmation() {
     debug('warnBeforeConfirmation()')
     this.warn(chalk.yellow('This command will disable functionality in your Mix app until you reactivate the channel.'))
-  }
-
-  checkPreConfirmation() {
-    if (!this.options.confirm) {
-      throw eNotConfirmed(this.options.confirm, 'true')
-    }
-  }
-
-  async doInteractiveConfirmation(): Promise<boolean> {
-    debug('doInteractiveConfirmation()')
-
-    this.log()
-    this.warnBeforeConfirmation()
-    this.log()
-
-    const answer = await cli.prompt(
-      `Confirm channel deactivate?
-This channel will be inactive until reactivated with ${chalk.yellow('mix channels:rename')}. (Y/yes to confirm)`,
-    ) as string
-
-    if (!/y(es)?/i.test(answer)) {
-      return false
-    }
-
-    return true
   }
 
   outputHumanReadable() {
