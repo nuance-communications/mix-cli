@@ -67,12 +67,12 @@ It is also possible to configure these environment variables using a `.env` file
 `mix-cli` looks for the `.env` file in the current working directory when it
 starts up.
 
-Configuration values provided by environment variables defined in the `.env`
-file have precedence over values stored in the central configuration used by
-mix-cli. However, environment variables that are already defined in the
-environment have precedence over those in the `.env` file. Configuration values
-provided by already defined environment variables have precedence over both
-those in the `.env` file and those in the central configuration.
+Configuration values are read in the following order, where the last value
+assignment wins:
+
+ * central configuration file
+ * `.env` file in current working directory
+ * environment variables already set in the execution environment 
 
 # Retrieving the access token
 With the relevant configuration in place, you first need to retrieve an access
