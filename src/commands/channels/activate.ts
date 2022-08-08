@@ -32,6 +32,7 @@ export default class ChannelsActivate extends MixCommand {
   static flags = {
     project: MixFlags.projectWithDefaultFlag,
     channel: flags.string({
+      char: 'C',
       description: 'channel ID',
       required: true,
     }),
@@ -50,6 +51,11 @@ export default class ChannelsActivate extends MixCommand {
     const {project: projectId, channel: channelId} = options
 
     return {projectId, channelId}
+  }
+
+  setRequestActionMessage(options: any): void {
+    debug('setRequestActionMessage()')
+    this.requestActionMessage = `Activating channel with ID ${chalk.cyan(options.channel)}`
   }
 
   doRequest(client: MixClient, params: ChannelsActivateParams): Promise<MixResponse> {
