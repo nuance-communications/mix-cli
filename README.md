@@ -33,7 +33,7 @@ npm install -g @nuance-mix/mix-cli
 
 # Configuring mix-cli
 In order to configure `mix-cli`, you need _service credentials_ that give you
-access the Mix V4 API. These credentials can be found under your user profile
+access to the Mix V4 API. These credentials can be found under your user profile
 in the Mix.dashboard Tool.
 
 To configure `mix-cli`, simply type:
@@ -63,14 +63,16 @@ variables:
  *  **MIX_TENANT**: your Mix tenant
 
 
-For convenience, the overriding environment variables can be stored in a `.env`
-file. `mix-cli` looks for the `.env` file in the current working directory when it
+It is also possible to configure these environment variables using a `.env` file.
+`mix-cli` looks for the `.env` file in the current working directory when it
 starts up.
 
-Configuration values found in the `.env` file have precedence over those
-provided in the central configuration. Configuration values provided using actual
-environment variables have precedence over both those in the `.env` file and those
-in the central configuration.
+Configuration values provided by environment variables defined in the `.env`
+file have precedence over values stored in the central configuration used by
+mix-cli. However, environment variables that are already defined in the
+environment have precedence over those in the `.env` file. Configuration values
+provided by already defined environment variables have precedence over both
+those in the `.env` file and those in the central configuration.
 
 # Retrieving the access token
 With the relevant configuration in place, you first need to retrieve an access
@@ -112,10 +114,10 @@ locally in mix-cli.
 
 # Autocompleting commands
 Thanks to the [oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete)
-plugin, commands can be autocompleted when mix.cli is used with the bash or zsh
+plugin, commands can be autocompleted when mix-cli is used with the bash or zsh
 shell.  Type `mix autocomplete bash` or `mix autocomplete zsh`, follow the
 instructions and then launch a new shell. You will then get autocompletion of
-mix.cli commands by pressing the tab key.
+mix-cli commands by pressing the tab key.
 
 Type `mix autocomplete --refresh-cache` to rebuild the autocompletion cache, which
 is useful when upgrading to a version of mix.cli that introduces new commands.
