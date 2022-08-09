@@ -81,7 +81,7 @@ Use this command to get details about a particular entity in a project.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    this.outputAsKeyValuePairs(transformedData, this.columns)
+    this.outputAsKeyValuePairs(transformedData, this.columns, true /* skip NAs */)
   }
 
   setRequestActionMessage(options: any) {
