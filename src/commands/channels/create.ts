@@ -55,9 +55,9 @@ orange        pink          purple
 ruby          salmon        sky
 teal          yellow
 
-${chalk.bold('IMPORTANT:')} due to a current server-side limitation,
-the command currently requires that both the --mode and --color flags 
-are set.`
+${chalk.bold('IMPORTANT:')} Due to a current server-side limitation,
+the command currently requires that both the 
+--mode and --color flags are set.`
 
   static examples = [
     `mix channels:create -P 1922 --name "New IVR channel" \\
