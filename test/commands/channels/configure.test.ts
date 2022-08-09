@@ -71,7 +71,7 @@ describe('channels:configure', () => {
       '--color', 'INVALID_COLOR'
     ])
     .catch(ctx => {
-      expect(strip(ctx.message)).to.contain('Unknown channel color supplied to command')
+      expect(strip(ctx.message)).to.contain('Unknown channel color INVALID_COLOR supplied to command')
     })
     .it('errors out when given an unknown color')
 })

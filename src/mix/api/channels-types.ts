@@ -70,12 +70,14 @@ export type ChannelsCreateBodyParams = {
   displayName: string;
 
   /** Modes available for the channel. */
-  modes: ChannelBodyModality[];
+  modes?: ChannelModality[];
 
   /** Channel color. */
-  color: ChannelColor;
+  color?: ChannelColor;
 }
 
 export type ChannelsConfigParams = ChannelsConfigPathParams & ChannelsConfigBodyParams
+
 export type ChannelsCreateParams = {projectId: string} & ChannelsCreateBodyParams
+
 export type ChannelsRenameParams = ChannelsPathParams & ChannelsRenameBodyParams

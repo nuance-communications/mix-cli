@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import makeDebug from 'debug'
 import {z} from 'zod'
 import {ChannelModalities} from '../mix/api/channels-types'
@@ -85,12 +86,12 @@ export function validateChannelModeOptions(modes: string[]): void {
     debug('mode: %s', mode)
     if (!(mode in modesSeen)) {
       debug('mode name is not valid')
-      throw (eInvalidValue(`Unknown channel mode ${modes[i]} supplied to command.`, [
+      throw (eInvalidValue(`Unknown channel mode ${chalk.red(modes[i])} supplied to command.`, [
         `Ensure all --mode flags are one of ${Object.keys(ChannelModalities).sort().join('|')}.`,
       ]))
     } else if (modesSeen[mode]) {
       debug('mode name is duplicate (already seen)')
-      throw (eInvalidValue(`Mode ${mode} was supplied more than once.`, [
+      throw (eInvalidValue(`Mode ${chalk.red(modes[i])} was supplied more than once.`, [
         'Ensure all values of --mode flags are unique.',
       ]))
     }
@@ -109,7 +110,7 @@ export function validateChannelColor(color: string): void {
   const adjustedColor = color?.toUpperCase().replace('-', '_')
 
   if (!allColors.includes(adjustedColor)) {
-    throw (eInvalidValue('Unknown channel color supplied to command.', [
+    throw (eInvalidValue(`Unknown channel color ${chalk.red(color)} supplied to command.`, [
       `Ensure value of --color flag is one of:\n${allColors.join('\n')}`,
     ]))
   }
