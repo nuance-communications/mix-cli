@@ -25,8 +25,8 @@ describe('channels:configure', () => {
     .command(['channels:configure',
       '--project', td.configure.flags.project,
       '--channel', td.configure.flags.channel,
-      ...td.configure.flags.modes.map((mode: string) => `--mode=${mode}`),
       '--color', td.configure.flags.color,
+      ...td.configure.flags.modes.map((mode: string) => `--mode=${mode}`),
     ])
     .it('configures a project channel', ctx => {
       expect(ctx.stdout).to.contain(`Channel ${td.configure.expectedResult.channel.displayName} with ID ${td.configure.expectedResult.channel.id} was updated successfully.`)
@@ -38,6 +38,7 @@ describe('channels:configure', () => {
     .command(['channels:configure',
       '--project', td.configure.flags.project,
       '--channel', td.configure.flags.channel,
+      '--color', td.configure.flags.color,
       '--mode', 'INVALID_MODE',
     ])
     .catch(ctx => {
@@ -51,18 +52,7 @@ describe('channels:configure', () => {
     .command(['channels:configure',
       '--project', td.configure.flags.project,
       '--channel', td.configure.flags.channel,
-    ])
-    .catch(ctx => {
-      expect(strip(ctx.message)).to.contain('At least one of --mode and --color must be set')
-    })
-    .it('errors out when not given anything to configure')
-
-    test
-    .env(testEnvData.env)
-    .stderr()
-    .command(['channels:configure',
-      '--project', td.configure.flags.project,
-      '--channel', td.configure.flags.channel,
+      '--color', td.configure.flags.color,
       '--mode', 'dtmf',
       '--mode', 'dtmf',
     ])
@@ -81,7 +71,7 @@ describe('channels:configure', () => {
       '--color', 'INVALID_COLOR'
     ])
     .catch(ctx => {
-      expect(strip(ctx.message)).to.contain('Invalid color INVALID_COLOR supplied')
+      expect(strip(ctx.message)).to.contain('Unknown channel color supplied to command')
     })
     .it('errors out when given an unknown color')
 })

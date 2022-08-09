@@ -34,6 +34,7 @@ into the format the Mix API expects before the request is made. As an example, t
 'light-pink', 'light_Pink', and 'LIGHT-PINK' are all equivalent to Mix's 'LIGHT_PINK'.
 
 Acceptable channel modes are:
+
 audioscript
 dtmf
 interactivity
@@ -41,6 +42,7 @@ richtext
 tts
 
 Acceptable channel colors are:
+
 blue          brown         corn-flower
 cyan          green         grey
 indigo        light-green   light-grey  
@@ -49,7 +51,9 @@ orange        pink          purple
 ruby          salmon        sky
 teal          yellow
 
-  `
+${chalk.bold('IMPORTANT:')} due to a current server-side limitation,
+the command currently requires that both the --mode and --color flags 
+are set.`
 
   static examples = [
     'mix channels:configure -P 1922  \\',
@@ -59,18 +63,16 @@ teal          yellow
   ]
 
   static flags = {
-    project: MixFlags.projectFlag,
+    project: MixFlags.projectWithDefaultFlag,
     channel: flags.string({
       char: 'C',
       description: 'channel ID',
       required: true,
     }),
-    mode: {
-      ...MixFlags.modesFlag,
-      required: false,
-    },
+    mode: MixFlags.modesFlag,
     color: flags.string({
       description: 'channel color',
+      required: true,
     }),
     // output flags
     json: MixFlags.jsonFlag,
@@ -92,25 +94,11 @@ teal          yellow
     }
 
     if (options.color !== undefined) {
-      try {
-        validateChannelColor(options.color)
-      } catch {
-        throw (eInvalidValue(`Invalid color ${chalk.red(options.color)} supplied.`,
-          [
-            'Check value of --color flag and try again.',
-            `Enter ${chalk.green('mix channels:configure help')} to review valid color options.`,
-          ]))
-      }
+      validateChannelColor(options.color)
     }
 
     if (options.mode !== undefined) {
       validateChannelModeOptions(options.mode)
-    }
-
-    if (!(options.mode && options.color)) {
-      this.warn(chalk.yellow(`The V4 API currently requires both the --color and --mode flags to be set.
-This is due to a server-side error in which the default values for these flags (i.e., when not modified)
-are not recognized as valid.)`))
     }
   }
 
