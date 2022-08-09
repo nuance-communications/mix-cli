@@ -1,3 +1,10 @@
+# [1.4.0-beta.11](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.10...v1.4.0-beta.11) (2022-08-09)
+
+
+### Bug Fixes
+
+* correct typos and wording in README.md ([#35](https://github.com/nuance-communications/mix-cli/issues/35)) ([43fb599](https://github.com/nuance-communications/mix-cli/commit/43fb5995e01959e90b64d68a62def3222aeabd4b))
+
 # [1.4.0-beta.10](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.9...v1.4.0-beta.10) (2022-08-08)
 
 
