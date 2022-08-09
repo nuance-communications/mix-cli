@@ -48,7 +48,7 @@ describe('channels:create', () => {
     '--mode', 'dtmf'
   ])
   .catch(ctx => {
-    expect(strip(ctx.message)).to.contain('Invalid color INVALID_COLOR supplied to command')
+    expect(strip(ctx.message)).to.contain('Unknown channel color INVALID_COLOR supplied to command')
   })
   .it('errors out when an unknown channel color is supplied')
 
