@@ -1,3 +1,10 @@
+# [1.4.0-beta.12](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.11...v1.4.0-beta.12) (2022-08-09)
+
+
+### Bug Fixes
+
+* add MIX_PROJECT as default for entities commands ([3bf30cb](https://github.com/nuance-communications/mix-cli/commit/3bf30cb85e689045f19cd656f179c082161958d5))
+
 # [1.4.0-beta.11](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.10...v1.4.0-beta.11) (2022-08-09)
 
 
