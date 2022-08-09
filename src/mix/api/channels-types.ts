@@ -6,6 +6,8 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import {channelColors} from './utils/channel-colors'
+
 /** @hidden */
 export type ChannelsPathParams = {
   /** ID of the relevant project. */
@@ -21,6 +23,11 @@ export type ChannelsRenameBodyParams = {
   displayName: string;
 }
 
+/** @hidden */
+export type ChannelsCreatePathParams = {
+  /** ID of the relevant project. */
+  projectId: string;
+}
 export type ChannelsActivateParams = ChannelsPathParams
 
 export type ChannelsDeactivateParams = ChannelsPathParams
@@ -34,5 +41,21 @@ export const ChannelModalities = {
 }
 
 export type ChannelModality = keyof typeof ChannelModalities
+
+type ChannelColor = typeof channelColors[number];
+
+/** @hidden */
+export type ChannelsCreateBodyParams = {
+  /** Channel display name. */
+  displayName: string;
+
+  /** Modes available for the channel. */
+  modes?: ChannelModality[];
+
+  /** Channel color. */
+  color?: ChannelColor;
+}
+
+export type ChannelsCreateParams = {projectId: string} & ChannelsCreateBodyParams
 
 export type ChannelsRenameParams = ChannelsPathParams & ChannelsRenameBodyParams
