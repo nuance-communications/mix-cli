@@ -86,22 +86,12 @@ the command currently requires that both the
     debug('tryDomainOptionsValidation()')
     super.tryDomainOptionsValidation(options, domainOptions)
 
-    try {
+    if (options.color !== undefined) {
       validateChannelColor(options.color)
-    } catch {
-      throw (eInvalidValue(`Invalid color ${chalk.red(options.color)} supplied to command.`,
-        [
-          'Check value of --color flag and try again.',
-          `Enter ${chalk.green('mix channels:create help')} to review valid color options.`,
-        ]))
     }
 
-    try {
+    if (options.mode !== undefined) {
       validateChannelModeOptions(options.mode)
-    } catch (error) {
-      throw (eInvalidValue(
-        highlightModeNames(error.message, options),
-        error.suggestions))
     }
   }
 
