@@ -9,6 +9,7 @@
 module.exports = {
   request: {
     projectId: '1922',
+    channel: '8f3e480e-f8e2-4274-8daf-ae8a304f11e4',
     displayName: 'New test channel',
     color: 'light-pink'
   },
@@ -37,5 +38,8 @@ module.exports = {
       ],
       color: 'LIGHT_PINK'
     }
+  },
+  activate: {
+    response: { code: 0, message: 'Channel activated.', details: [] }
   }
 }

@@ -28,6 +28,9 @@ export type ChannelsCreatePathParams = {
   /** ID of the relevant project. */
   projectId: string;
 }
+export type ChannelsActivateParams = ChannelsPathParams
+
+export type ChannelsDeactivateParams = ChannelsPathParams
 
 export const ChannelModalities = {
   audioscript: 'AUDIO_SCRIPT',
