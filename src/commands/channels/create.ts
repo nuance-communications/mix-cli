@@ -46,6 +46,7 @@ with ('_') rather than being deleted. So, 'light-pink', 'light____pink', and
 'LIGHT_PINK' are also equivalent.
 
 Acceptable channel colors are:
+
 blue          brown         corn-flower
 cyan          green         grey
 indigo        light-green   light-grey  
@@ -54,15 +55,9 @@ orange        pink          purple
 ruby          salmon        sky
 teal          yellow
 
-${chalk.bold('IMPORTANT:')} due to a current limitation in the V4 API,
-both the --mode and --color flags ${chalk.bold('must be set.')}
-
-In theory, at least one of these flags should be allowed to be optional,
-with unset values resulting in the corresponding property on the channel
-not being modified. However, this is currently not the case and, to
-minimize unexpected behaviour, we have chosen to require both flags
-until the limitation is resolved.
-`
+${chalk.bold('IMPORTANT:')} due to a current server-side limitation,
+the command currently requires that both the --mode and --color flags 
+are set.`
 
   static examples = [
     `mix channels:create -P 1922 --name "New IVR channel" \\
@@ -76,7 +71,7 @@ until the limitation is resolved.
       description: 'channel name',
       required: true,
     }),
-    project: MixFlags.projectFlag,
+    project: MixFlags.projectWithDefaultFlag,
     // output flags
     json: MixFlags.jsonFlag,
     yaml: MixFlags.yamlFlag,
@@ -134,6 +129,11 @@ until the limitation is resolved.
       ...(modes !== undefined && {modes}),
       ...(color !== undefined && {color}),
     }
+  }
+
+  setRequestActionMessage(options: any) {
+    debug('setRequestActionMessage()')
+    this.requestActionMessage = `Creating channel ${chalk.cyan(options.name)} in project ${chalk.cyan(options.project)}`
   }
 
   doRequest(client: MixClient, params: ChannelsCreateParams): Promise<MixResponse> {
