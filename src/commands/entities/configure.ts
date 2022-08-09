@@ -83,7 +83,7 @@ the corresponding property in the entity is not modified.
     locale: MixFlags.regexLocaleFlag,
     'no-canonicalize': MixFlags.ignoreDefault(MixFlags.noCanonicalizeFlag),
     pattern: MixFlags.patternFlag,
-    project: MixFlags.projectFlag,
+    project: MixFlags.projectWithDefaultFlag,
     sensitive: MixFlags.ignoreDefault(MixFlags.sensitiveUserDataFlag),
     // output flags
     json: MixFlags.jsonFlag,

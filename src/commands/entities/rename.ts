@@ -31,7 +31,7 @@ Use this command to rename an entity in a project.`
     entity: MixFlags.entityFlag,
     json: MixFlags.jsonFlag,
     name: MixFlags.entityNameFlag,
-    project: MixFlags.projectFlag,
+    project: MixFlags.projectWithDefaultFlag,
     yaml: MixFlags.yamlFlag,
   }
 
