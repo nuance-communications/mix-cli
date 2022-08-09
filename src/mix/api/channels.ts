@@ -8,7 +8,7 @@
 
 import makeDebug from 'debug'
 import {MixClient, MixResponse} from '../types'
-import {ChannelsActivateParams, ChannelsRenameParams} from './channels-types'
+import {ChannelsActivateParams, ChannelsDeactivateParams, ChannelsRenameParams} from './channels-types'
 import buildURL from './utils/build-url'
 
 const debug = makeDebug('mix:api:channels')
@@ -20,13 +20,13 @@ const debug = makeDebug('mix:api:channels')
  */
 export async function renameChannel(client: MixClient, requestParams: ChannelsRenameParams): Promise<MixResponse> {
   debug('renameChannel()')
-  const {projectId, channelId, displayName, ...searchParams} = requestParams
+  const {projectId, channelId, displayName} = requestParams
 
   const body = {displayName}
 
   return client.request({
     method: 'put',
-    url: buildURL(client.getServer(), `/v4/projects/${projectId}/channels/${channelId}/.rename`, searchParams),
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/channels/${channelId}/.rename`),
     data: body,
   })
 }
@@ -46,5 +46,15 @@ export async function activateChannel(client: MixClient, requestParams: Channels
     method: 'put',
     url: buildURL(client.getServer(), `/v4/projects/${projectId}/channels/${channelId}/.activate`),
     data: body,
+  })
+}
+
+export async function deactivateChannel(client: MixClient, requestParams: ChannelsDeactivateParams): Promise<MixResponse> {
+  debug('deactivateChannel()')
+  const {projectId, channelId} = requestParams
+
+  return client.request({
+    method: 'put',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/channels/${channelId}/.deactivate`),
   })
 }
