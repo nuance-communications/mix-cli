@@ -21,6 +21,8 @@ export type ChannelsRenameBodyParams = {
   displayName: string;
 }
 
+export type ChannelsActivateParams = ChannelsPathParams
+
 export type ChannelsDeactivateParams = ChannelsPathParams
 
 export const ChannelModalities = {
