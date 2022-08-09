@@ -77,7 +77,7 @@ export function validateChannelModeOptions(modes: string[]): void {
   debug('validateChannelModeOptions()')
 
   const adjustedModes: string[] = modes?.map((mode: string) =>
-    mode.toLowerCase().replace(/[_-]/, ''))
+    mode.toLowerCase().replace(/[_-]/g, ''))
 
   // Check if all modes are valid and appear exactly once
   const modesSeen = Object.fromEntries(Object.keys(ChannelModalities).map((mode: string) => [mode, false]))

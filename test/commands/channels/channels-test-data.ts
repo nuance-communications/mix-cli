@@ -7,6 +7,41 @@
  */
 
 module.exports = {
+  rename: {
+    flags: {
+      project: '123',
+      channel: 'very-long-uuid',
+      name: 'renamed channel'
+    },
+    response: {
+      data: {
+        displayName: 'renamed channel'
+      }
+    }
+  },
+  configure: {
+    flags: {
+      project: '123',
+      channel: 'very-long-uuid',
+      modes: ['dtmf', 'tts', 'richtext'],
+      color: 'light-pink'
+    },
+    expectedBody: {
+      channelId: 'very-long-uuid',
+      modes: ['DTMF', 'TTS', 'RICH_TEXT'],
+      color: 'LIGHT_PINK',
+    },
+    expectedResult: {
+      channel: {
+        id: 'very-long-uid',
+        displayName: 'Test channel',
+        codeName: 'custom',
+        modes: ['DTMF', 'TTS', 'RICH_TEXT'],
+        color: 'LIGHT_PINK',
+      },
+      isActive: true,
+    }
+  },
   request: {
     projectId: '1922',
     channel: '8f3e480e-f8e2-4274-8daf-ae8a304f11e4',

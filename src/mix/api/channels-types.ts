@@ -28,8 +28,14 @@ export type ChannelsCreatePathParams = {
   /** ID of the relevant project. */
   projectId: string;
 }
+
+/** @hidden */
+export type ChannelsConfigPathParams = ChannelsCreatePathParams;
+
+/** @hidden */
 export type ChannelsActivateParams = ChannelsPathParams
 
+/** @hidden */
 export type ChannelsDeactivateParams = ChannelsPathParams
 
 export const ChannelModalities = {
@@ -38,11 +44,25 @@ export const ChannelModalities = {
   interactivity: 'INTERACTIVITY',
   richtext: 'RICH_TEXT',
   tts: 'TTS',
-}
+} as const
 
 export type ChannelModality = keyof typeof ChannelModalities
 
+export type ChannelBodyModality = typeof ChannelModalities[ChannelModality]
+
 type ChannelColor = typeof channelColors[number];
+
+/** @hidden */
+export type ChannelsConfigBodyParams = {
+  /** Channel ID. */
+  channelId: string;
+
+  /** Channel modalities. */
+  modes?: ChannelBodyModality[];
+
+  /** Channel color. */
+  color?: ChannelColor;
+}
 
 /** @hidden */
 export type ChannelsCreateBodyParams = {
@@ -55,6 +75,8 @@ export type ChannelsCreateBodyParams = {
   /** Channel color. */
   color?: ChannelColor;
 }
+
+export type ChannelsConfigParams = ChannelsConfigPathParams & ChannelsConfigBodyParams
 
 export type ChannelsCreateParams = {projectId: string} & ChannelsCreateBodyParams
 
