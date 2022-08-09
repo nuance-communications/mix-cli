@@ -8,7 +8,7 @@
 
 import makeDebug from 'debug'
 import {MixClient, MixResponse} from '../types'
-import {ChannelsConfigParams, ChannelsRenameParams} from './channels-types'
+import {ChannelsActivateParams, ChannelsConfigParams, ChannelsDeactivateParams, ChannelsRenameParams} from './channels-types'
 import buildURL from './utils/build-url'
 
 const debug = makeDebug('mix:api:channels')
@@ -20,17 +20,22 @@ const debug = makeDebug('mix:api:channels')
  */
 export async function renameChannel(client: MixClient, requestParams: ChannelsRenameParams): Promise<MixResponse> {
   debug('renameChannel()')
-  const {projectId, channelId, displayName, ...searchParams} = requestParams
+  const {projectId, channelId, displayName} = requestParams
 
   const body = {displayName}
 
   return client.request({
     method: 'put',
-    url: buildURL(client.getServer(), `/v4/projects/${projectId}/channels/${channelId}/.rename`, searchParams),
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/channels/${channelId}/.rename`),
     data: body,
   })
 }
 
+/**
+ * Configure a channel in a project.
+ *
+ * @category channels
+ */
 export async function updateChannel(client: MixClient, requestParams: ChannelsConfigParams): Promise<MixResponse> {
   debug('updateChannel()')
   const {projectId, ...body} = requestParams
@@ -41,5 +46,33 @@ export async function updateChannel(client: MixClient, requestParams: ChannelsCo
     method: 'put',
     url: buildURL(client.getServer(), `/v4/projects/${projectId}/.channel`),
     data: body,
+  })
+}
+
+/**
+ * Activate a channel in a project.
+ *
+ * @category channels
+ */
+export async function activateChannel(client: MixClient, requestParams: ChannelsActivateParams): Promise<MixResponse> {
+  debug('activateChannel()')
+  const {projectId, channelId} = requestParams
+
+  const body = {}
+
+  return client.request({
+    method: 'put',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/channels/${channelId}/.activate`),
+    data: body,
+  })
+}
+
+export async function deactivateChannel(client: MixClient, requestParams: ChannelsDeactivateParams): Promise<MixResponse> {
+  debug('deactivateChannel()')
+  const {projectId, channelId} = requestParams
+
+  return client.request({
+    method: 'put',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/channels/${channelId}/.deactivate`),
   })
 }

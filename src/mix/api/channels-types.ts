@@ -32,6 +32,12 @@ export type ChannelsCreatePathParams = {
 /** @hidden */
 export type ChannelsConfigPathParams = ChannelsCreatePathParams;
 
+/** @hidden */
+export type ChannelsActivateParams = ChannelsPathParams
+
+/** @hidden */
+export type ChannelsDeactivateParams = ChannelsPathParams
+
 export const ChannelModalities = {
   audioscript: 'AUDIO_SCRIPT',
   dtmf: 'DTMF',
