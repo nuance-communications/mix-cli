@@ -5,6 +5,7 @@
  * This source code is licensed under the Apache-2.0 license found in
  * the LICENSE file in the root directory of this source tree.  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -86,7 +87,7 @@ Use this command to get details about a particular entity in a project.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving details for entity ${options.entity}`
+    this.requestActionMessage = `Retrieving details for entity ${chalk.cyan(options.entity)} in ${chalk.cyan(options.project)}`
   }
 
   transformResponse(result: MixResult) {
