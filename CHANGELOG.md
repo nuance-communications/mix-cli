@@ -1,3 +1,10 @@
+# [1.4.0-beta.13](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.12...v1.4.0-beta.13) (2022-08-09)
+
+
+### Bug Fixes
+
+* add --entity-type flag to examples in entities:configure ([c993d5c](https://github.com/nuance-communications/mix-cli/commit/c993d5ca574accf3185b0ace11917e83b1a046f3))
+
 # [1.4.0-beta.12](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.11...v1.4.0-beta.12) (2022-08-09)
 
 
