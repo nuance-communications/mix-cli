@@ -28,7 +28,7 @@ Use this command to change the name of a channel in a project.`
   static examples = [
     'mix channels:rename -P 1922 \\',
     '  --channel bc40667c-e0f6-11ec-9d64-0242ac120003 \\',
-    '  --name "voice channel"',
+    '  --new-name "voice channel"',
   ]
 
   static flags = {
@@ -38,7 +38,7 @@ Use this command to change the name of a channel in a project.`
       description: 'channel ID',
       required: true,
     }),
-    name: flags.string({
+    'new-name': flags.string({
       required: true,
       description: 'new channel name',
     }),
@@ -54,7 +54,7 @@ Use this command to change the name of a channel in a project.`
 
   async buildRequestParameters(options: Partial<Output>): Promise<ChannelsRenameParams> {
     debug('buildRequestParameters()')
-    const {name: displayName, project: projectId, channel: channelId} = options
+    const {'new-name': displayName, project: projectId, channel: channelId} = options
 
     return {projectId, channelId, displayName}
   }

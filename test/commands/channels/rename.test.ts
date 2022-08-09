@@ -33,7 +33,7 @@ describe('channels:rename', () => {
     .command(['channels:rename',
       '--project',  projectId,
       '--channel', channel,
-      '--name', displayName,
+      '--new-name', displayName,
       '--json'])
     .it('receives JSON confirmation of renamed channel', ctx => {
       const response = JSON.parse(ctx.stdout)
