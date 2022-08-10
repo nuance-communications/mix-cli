@@ -1,10 +1,10 @@
 /*
-* Copyright 2022, Nuance, Inc. and its contributors.
-* All rights reserved.
-*
-* This source code is licensed under the Apache-2.0 license found in
-* the LICENSE file in the root directory of this source tree.
-*/
+ * Copyright 2022, Nuance, Inc. and its contributors.
+ * All rights reserved.
+ *
+ * This source code is licensed under the Apache-2.0 license found in
+ * the LICENSE file in the root directory of this source tree.
+ */
 
 import {flags} from '@oclif/command'
 import chalk from 'chalk'
@@ -20,7 +20,7 @@ import {DomainOption, validateChannelColor, validateChannelModeOptions} from '..
 const debug = makeDebug('mix:commands:channels:configure')
 
 export default class ChannelsConfigure extends MixCommand {
-  static description = `update channel details in a project
+  static description = `update channel details
 
 Configure the modalities and color of an existing channel in a Mix project.
 If either value is not supplied, the existing property on the channel will be unmodified.
