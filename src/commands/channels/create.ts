@@ -14,7 +14,6 @@ import * as ChannelsAPI from '../../mix/api/channels'
 import {ChannelModalities, ChannelModality, ChannelsCreateParams} from '../../mix/api/channels-types'
 import {MixClient, MixResponse, MixResult} from '../../mix/types'
 import MixCommand from '../../utils/base/mix-command'
-import {eInvalidValue} from '../../utils/errors'
 import * as MixFlags from '../../utils/flags'
 import {DomainOption, validateChannelColor, validateChannelModeOptions, validateChannelName} from '../../utils/validations'
 
