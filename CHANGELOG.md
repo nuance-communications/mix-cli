@@ -1,3 +1,10 @@
+# [1.4.0-beta.14](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.13...v1.4.0-beta.14) (2022-08-10)
+
+
+### Bug Fixes
+
+* make consistent use of color in entities commands output ([096a0cf](https://github.com/nuance-communications/mix-cli/commit/096a0cf4dbf080b575896340ded96804be17739e))
+
 # [1.4.0-beta.13](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.12...v1.4.0-beta.13) (2022-08-09)
 
 
