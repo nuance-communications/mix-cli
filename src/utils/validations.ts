@@ -6,14 +6,18 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import makeDebug from 'debug'
 import {z} from 'zod'
+import {ChannelModalities} from '../mix/api/channels-types'
+import {channelColors} from '../mix/api/utils/channel-colors'
 
-import {eMissingParameter} from './errors'
+import {eInvalidValue, eMissingParameter} from './errors'
 
 export type DomainOption =
   | 'build-label'
   | 'build-version'
+  | 'channel'
   | 'config'
   | 'data-pack'
   | 'deployment-flow'
@@ -42,6 +46,8 @@ const validationSchemes = {
     message: "Expected flag 'build-version' to have a value greater than 0"}),
   config: z.number().positive({
     message: "Expected flag 'config' to have a value greater than 0"}),
+  channel: z.string().uuid({
+    message: "Expected flag 'channel' to have UUID format"}),
   'data-pack': z.string().regex(dataPackRegEx, {
     message: `Expected flag 'data-pack' to match ${dataPackRegEx}`}),
   'deployment-flow': z.number().positive({
@@ -68,6 +74,58 @@ const validationSchemes = {
     message: "Expected flag 'project' to have a value greater than 0"}),
   'with-locale': z.string().regex(localeRegEx, {
     message: `Expected each locale in flag 'with-locale' to match ${localeRegEx}`}).array(),
+}
+
+export function validateChannelModeOptions(modes: string[]): void {
+  debug('validateChannelModeOptions()')
+
+  const adjustedModes: string[] = modes?.map((mode: string) =>
+    mode.toLowerCase().replace(/[_-]/g, ''))
+
+  // Check if all modes are valid and appear exactly once
+  const modesSeen = Object.fromEntries(Object.keys(ChannelModalities).map((mode: string) => [mode, false]))
+
+  for (const [i, mode] of adjustedModes.entries()) {
+    debug('mode: %s', mode)
+    if (!(mode in modesSeen)) {
+      debug('mode name is not valid')
+      throw (eInvalidValue(`Unknown channel mode ${chalk.red(modes[i])} supplied to command.`, [
+        `Ensure all --mode flags are one of ${Object.keys(ChannelModalities).sort().join('|')}.`,
+      ]))
+    } else if (modesSeen[mode]) {
+      debug('mode name is duplicate (already seen)')
+      throw (eInvalidValue(`Mode ${chalk.red(modes[i])} was supplied more than once.`, [
+        'Ensure all values of --mode flags are unique.',
+      ]))
+    }
+
+    modesSeen[mode] = true
+    debug('mode %s is good (%o)', mode, modesSeen)
+  }
+}
+
+export function validateChannelColor(color: string): void {
+  debug('validateChannelColor()')
+
+  // excluding COLOR_UNSPECIFIED
+  const allColors = channelColors.slice(1).sort()
+
+  const adjustedColor = color?.toUpperCase().replace('-', '_')
+
+  if (!allColors.includes(adjustedColor)) {
+    throw (eInvalidValue(`Unknown channel color ${chalk.red(color)} supplied to command.`, [
+      `Ensure value of --color flag is one of:\n${allColors.join('\n')}`,
+    ]))
+  }
+}
+
+export function validateChannelName(name: string) {
+  debug('validateChannelName()')
+  if (name.trim().length === 0) {
+    throw (eInvalidValue("Channel name can't be empty or consist only of whitespace.", [
+      'Supply a non-empty value to --name flag',
+    ]))
+  }
 }
 
 export function validateDomainOptions(options: any, validations: Array<DomainOption>): void {
