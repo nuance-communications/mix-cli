@@ -81,3 +81,11 @@ export type ChannelsConfigParams = ChannelsConfigPathParams & ChannelsConfigBody
 export type ChannelsCreateParams = {projectId: string} & ChannelsCreateBodyParams
 
 export type ChannelsRenameParams = ChannelsPathParams & ChannelsRenameBodyParams
+
+/** @hidden */
+export type ChannelsParams =
+  | ChannelsActivateParams
+  | ChannelsConfigParams
+  | ChannelsCreateParams
+  | ChannelsDeactivateParams
+  | ChannelsRenameParams

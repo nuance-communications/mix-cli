@@ -12,15 +12,16 @@ import {AllowedHTTPMethod} from './api/shared-types'
 
 import {AppConfigsParams, AppConfigsSearchParams} from './api/app-configs-types'
 import {AppCredentialsParams, AppCredentialsSearchParams} from './api/app-credentials-types'
-import {ApplicationsParams, ApplicationsListSearchParams} from './api/applications-types'
+import {ApplicationsListSearchParams, ApplicationsParams} from './api/applications-types'
 import {BuildsParams, BuildsSearchParams} from './api/builds-types'
+import {ChannelsParams} from './api/channels-types'
 import {DataHostsParams, DataHostsSearchParams} from './api/data-hosts-types'
 import {DeploymentFlowsParams, DeploymentFlowsSearchParams} from './api/deployment-flows-types'
 import {EnginePacksParams} from './api/engine-packs-types'
 import {EntitiesParams, EntitiesSearchParams} from './api/entities-types'
 import {EnvironmentsParams, EnvironmentsSearchParams} from './api/environments-types'
-import {IntentsParams} from './api/intents-types'
 import {GeographiesParams, GeographiesSearchParams} from './api/geographies-types'
+import {IntentsParams} from './api/intents-types'
 import {JobsParams, JobsSearchParams} from './api/jobs-types'
 import {LanguageTopicsParams} from './api/language-topics-types'
 import {LiteralsParams, LiteralsSearchParams} from './api/literals-types'
@@ -55,6 +56,7 @@ export type MixRequestParams =
   | AppCredentialsParams
   | ApplicationsParams
   | BuildsParams
+  | ChannelsParams
   | DataHostsParams
   | DeploymentFlowsParams
   | EnginePacksParams
