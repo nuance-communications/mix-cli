@@ -24,12 +24,15 @@ export default class IntentsRename extends MixCommand {
 Use this command to rename an intent in a project.`
 
   static examples = [
-    '$ mix intents:rename -P 1922 -I ORDER_DRINK --name ORDER_COFFEE',
+    '$ mix intents:rename -P 1922 -I ORDER_DRINK --new-name ORDER_COFFEE',
   ]
 
   static flags = {
     intent: MixFlags.intentFlag,
-    name: MixFlags.intentNameFlag,
+    'new-name': flags.string({
+      required: true,
+      description: 'new intent name',
+    }),
     project: MixFlags.projectWithDefaultFlag,
     // output flags
     json: MixFlags.jsonFlag,
@@ -45,7 +48,7 @@ Use this command to rename an intent in a project.`
     debug('buildRequestParameters()')
     const {
       intent: intentName,
-      name: newIntentName,
+      'new-name': newIntentName,
       project: projectId,
     } = options
 

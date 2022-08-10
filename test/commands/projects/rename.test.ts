@@ -24,7 +24,7 @@ describe('projects:rename command', () => {
     )
     .command(['projects:rename',
       `-P=${td.rename.flags.project}`,
-      `-n=${td.rename.flags.name}`]
+      `--new-name=${td.rename.flags.name}`]
     )
     .it('renames a project', ctx => {
       const [firstLine] = ctx.stdout.split('\n').map(ln => ln.trim())

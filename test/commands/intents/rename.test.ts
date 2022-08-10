@@ -23,7 +23,7 @@ describe('intents:rename', () => {
     .stdout()
     .command(['intents:rename',
       '--intent', td.request.intent,
-      '--name', td.request.newName,
+      '--new-name', td.request.newName,
       '--project', td.request.project,
     ])
     .it('renames an intent', ctx => {
@@ -63,7 +63,7 @@ describe('intents:rename', () => {
     .stdout()
     .command(['intents:rename',
       '--intent', td.request.intent,
-      '--name', td.request.newName,
+      '--new-name', td.request.newName,
       '--project', td.request.unknownProject,
     ])
     .catch(ctx => {

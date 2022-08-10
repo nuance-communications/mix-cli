@@ -23,7 +23,7 @@ describe('entities:rename', () => {
     .stdout()
     .command(['entities:rename',
       '--entity', td.request.entity,
-      '--name', td.request.newName,
+      '--new-name', td.request.newName,
       '--project', td.request.project,
     ])
     .it('renames an entity', ctx => {
@@ -63,7 +63,7 @@ describe('entities:rename', () => {
     .stdout()
     .command(['entities:rename',
       '--entity', td.request.entity,
-      '--name', td.request.newName,
+      '--new-name', td.request.newName,
       '--project', td.request.unknownProject,
     ])
     .catch(ctx => {
