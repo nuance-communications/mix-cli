@@ -439,6 +439,7 @@ export const tagFlag = flags.string({
 export const toEntityTypeFlag = flags.string({
   description: 'new entity type',
   options: ['base', 'freeform', 'list', 'regex', 'relational', 'rule-based'],
+  required: true,
 })
 
 export const watchFlag = flags.boolean({
