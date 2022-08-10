@@ -78,7 +78,7 @@ the command currently requires that both the
 
   get domainOptions(): DomainOption[] {
     debug('get domainOptions()')
-    return ['project', 'channel']
+    return ['project']
   }
 
   tryDomainOptionsValidation(options: any, domainOptions: DomainOption[]) {
