@@ -63,11 +63,7 @@ the command currently requires that both the
 
   static flags = {
     project: MixFlags.projectWithDefaultFlag,
-    channel: flags.string({
-      char: 'C',
-      description: 'channel ID',
-      required: true,
-    }),
+    channel: MixFlags.required(MixFlags.channelFlag),
     mode: MixFlags.modesFlag,
     color: flags.string({
       description: 'channel color',

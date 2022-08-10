@@ -31,11 +31,7 @@ export default class ChannelsActivate extends MixCommand {
 
   static flags = {
     project: MixFlags.projectWithDefaultFlag,
-    channel: flags.string({
-      char: 'C',
-      description: 'channel ID',
-      required: true,
-    }),
+    channel: MixFlags.required(MixFlags.channelFlag),
     // output flags
     json: MixFlags.jsonFlag,
     yaml: MixFlags.yamlFlag,

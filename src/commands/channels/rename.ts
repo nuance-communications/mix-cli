@@ -33,11 +33,7 @@ Use this command to change the name of a channel in a project.`
 
   static flags = {
     project: MixFlags.projectWithDefaultFlag,
-    channel: flags.string({
-      char: 'C',
-      description: 'channel ID',
-      required: true,
-    }),
+    channel: MixFlags.required(MixFlags.channelFlag),
     'new-name': flags.string({
       required: true,
       description: 'new channel name',

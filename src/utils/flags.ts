@@ -99,6 +99,11 @@ export const channelColorFlag = flags.string({
   description: 'channel color',
 })
 
+export const channelFlag = flags.string({
+  char: 'C',
+  description: 'channel ID',
+})
+
 export const channelMultipleFlag = flags.string({
   char: 'c',
   description: 'channel',

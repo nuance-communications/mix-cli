@@ -32,11 +32,7 @@ export default class ChannelsDeactivate extends MixCommand {
 
   static flags = {
     project: MixFlags.projectWithDefaultFlag,
-    channel: flags.string({
-      char: 'C',
-      description: 'channel ID',
-      required: true,
-    }),
+    channel: MixFlags.required(MixFlags.channelFlag),
     confirm: MixFlags.confirmFlag,
     // output flags
     json: MixFlags.jsonFlag,
