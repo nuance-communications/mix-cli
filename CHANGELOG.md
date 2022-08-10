@@ -1,3 +1,15 @@
+# [1.4.0-beta.15](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.14...v1.4.0-beta.15) (2022-08-10)
+
+
+### Bug Fixes
+
+* make --to-entity-type flag required in entities:convert ([056ee97](https://github.com/nuance-communications/mix-cli/commit/056ee97233e57b85486d8132d132fd249c4cf4ec))
+
+
+### Features
+
+* add channels topic and commands ([cda55a9](https://github.com/nuance-communications/mix-cli/commit/cda55a97bf22cc6538e0b622452a38907e209215))
+
 # [1.4.0-beta.14](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.13...v1.4.0-beta.14) (2022-08-10)
 
 
