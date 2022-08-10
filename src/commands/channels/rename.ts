@@ -16,7 +16,7 @@ import {ChannelsRenameParams} from '../../mix/api/channels-types'
 import {MixClient, MixResponse} from '../../mix/types'
 import MixCommand from '../../utils/base/mix-command'
 import * as MixFlags from '../../utils/flags'
-import {DomainOption} from '../../utils/validations'
+import {DomainOption, validateChannelName} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:channels:rename')
 
@@ -45,12 +45,20 @@ Use this command to change the name of a channel in a project.`
 
   get domainOptions(): DomainOption[] {
     debug('get domainOptions()')
-    return ['project']
+    return ['project', 'channel']
+  }
+
+  tryDomainOptionsValidation(options: any, domainOptions: DomainOption[]) {
+    super.tryDomainOptionsValidation(options, domainOptions)
+
+    validateChannelName(options['new-name'])
   }
 
   async buildRequestParameters(options: Partial<Output>): Promise<ChannelsRenameParams> {
     debug('buildRequestParameters()')
-    const {'new-name': displayName, project: projectId, channel: channelId} = options
+    const {'new-name': newName, project: projectId, channel: channelId} = options
+
+    const displayName = newName.trim()
 
     return {projectId, channelId, displayName}
   }

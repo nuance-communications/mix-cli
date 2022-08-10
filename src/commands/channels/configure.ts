@@ -76,11 +76,10 @@ the command currently requires that both the
 
   get domainOptions(): DomainOption[] {
     debug('get domainOptions()')
-    return ['project']
+    return ['project', 'channel']
   }
 
   tryDomainOptionsValidation(options: any, domainOptions: DomainOption[]) {
-    debug('tryDomainOptionsValidation()')
     super.tryDomainOptionsValidation(options, domainOptions)
 
     // At least one flag must be set

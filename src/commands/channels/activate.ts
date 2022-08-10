@@ -39,7 +39,7 @@ export default class ChannelsActivate extends MixCommand {
 
   get domainOptions(): DomainOption[] {
     debug('get domainOptions()')
-    return ['project']
+    return ['project', 'channel']
   }
 
   async buildRequestParameters(options: flags.Output): Promise<ChannelsActivateParams> {

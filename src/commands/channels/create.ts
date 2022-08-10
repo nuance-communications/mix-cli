@@ -14,8 +14,9 @@ import * as ChannelsAPI from '../../mix/api/channels'
 import {ChannelModalities, ChannelModality, ChannelsCreateParams} from '../../mix/api/channels-types'
 import {MixClient, MixResponse, MixResult} from '../../mix/types'
 import MixCommand from '../../utils/base/mix-command'
+import {eInvalidValue} from '../../utils/errors'
 import * as MixFlags from '../../utils/flags'
-import {DomainOption, validateChannelColor, validateChannelModeOptions} from '../../utils/validations'
+import {DomainOption, validateChannelColor, validateChannelModeOptions, validateChannelName} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:channels:create')
 
@@ -77,12 +78,13 @@ the command currently requires that both the
 
   get domainOptions(): DomainOption[] {
     debug('get domainOptions()')
-    return ['project']
+    return ['project', 'channel']
   }
 
   tryDomainOptionsValidation(options: any, domainOptions: DomainOption[]) {
-    debug('tryDomainOptionsValidation()')
     super.tryDomainOptionsValidation(options, domainOptions)
+
+    validateChannelName(options.name)
 
     if (options.color !== undefined) {
       validateChannelColor(options.color)
@@ -98,10 +100,12 @@ the command currently requires that both the
 
     const {
       project: projectId,
-      name: displayName,
+      name,
       mode,
       color: _color,
     } = options
+
+    const displayName = name.trim()
 
     const modes = mode?.map((mode: string) => mode.toLowerCase().replace(/[_-]/g, ''))
       .map((mode: ChannelModality) => ChannelModalities[mode])

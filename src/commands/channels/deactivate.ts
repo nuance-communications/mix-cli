@@ -44,7 +44,7 @@ export default class ChannelsDeactivate extends MixCommand {
 
   get domainOptions(): DomainOption[] {
     debug('get domainOptions()')
-    return ['project']
+    return ['project', 'channel']
   }
 
   async buildRequestParameters(options: flags.Output): Promise<ChannelsDeactivateParams> {

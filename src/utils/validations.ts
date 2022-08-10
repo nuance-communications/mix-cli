@@ -17,6 +17,7 @@ import {eInvalidValue, eMissingParameter} from './errors'
 export type DomainOption =
   | 'build-label'
   | 'build-version'
+  | 'channel'
   | 'config'
   | 'data-pack'
   | 'deployment-flow'
@@ -45,6 +46,8 @@ const validationSchemes = {
     message: "Expected flag 'build-version' to have a value greater than 0"}),
   config: z.number().positive({
     message: "Expected flag 'config' to have a value greater than 0"}),
+  channel: z.string().uuid({
+    message: "Expected flag 'channel' to have UUID format"}),
   'data-pack': z.string().regex(dataPackRegEx, {
     message: `Expected flag 'data-pack' to match ${dataPackRegEx}`}),
   'deployment-flow': z.number().positive({
@@ -112,6 +115,15 @@ export function validateChannelColor(color: string): void {
   if (!allColors.includes(adjustedColor)) {
     throw (eInvalidValue(`Unknown channel color ${chalk.red(color)} supplied to command.`, [
       `Ensure value of --color flag is one of:\n${allColors.join('\n')}`,
+    ]))
+  }
+}
+
+export function validateChannelName(name: string) {
+  debug('validateChannelName()')
+  if (name.trim().length === 0) {
+    throw (eInvalidValue("Channel name can't be empty or consist only of whitespace.", [
+      'Supply a non-empty value to --name flag',
     ]))
   }
 }

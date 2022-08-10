@@ -10,7 +10,7 @@ module.exports = {
   rename: {
     flags: {
       project: '123',
-      channel: 'very-long-uuid',
+      channel: 'af6345f8-18de-11ed-861d-0242ac120002',
       name: 'renamed channel'
     },
     response: {
@@ -22,12 +22,12 @@ module.exports = {
   configure: {
     flags: {
       project: '123',
-      channel: 'very-long-uuid',
+      channel: 'af6345f8-18de-11ed-861d-0242ac120002',
       modes: ['dtmf', 'tts', 'richtext'],
       color: 'light-pink'
     },
     expectedBody: {
-      channelId: 'very-long-uuid',
+      channelId: 'af6345f8-18de-11ed-861d-0242ac120002',
       modes: ['DTMF', 'TTS', 'RICH_TEXT'],
       color: 'LIGHT_PINK',
     },
