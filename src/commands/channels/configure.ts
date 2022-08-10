@@ -23,7 +23,6 @@ export default class ChannelsConfigure extends MixCommand {
   static description = `update channel details
 
 Configure the modalities and color of an existing channel in a Mix project.
-If either value is not supplied, the existing property on the channel will be unmodified.
 
 A note on channel modes and colors:
 For your convenience, you may enter modes and colors case-insensitively.
