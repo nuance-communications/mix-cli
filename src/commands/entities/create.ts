@@ -141,7 +141,7 @@ explicitly provided.
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Creating entity ${options.name} in project ${options.project}`
+    this.requestActionMessage = `Creating entity ${chalk.cyan(options.name)} in project ${chalk.cyan(options.project)}`
   }
 
   transformResponse(result: MixResult) {

@@ -65,12 +65,12 @@ Use this command to permanently delete an entity from a project.`
   outputHumanReadable(_transformedData: any) {
     debug('outputHumanReadable()')
     // Add entity name as endpoint response does not provide it
-    this.log(`Entity ${this.options.entity} was deleted.`)
+    this.log(`Entity ${chalk.cyan(this.options.entity)} was deleted.`)
   }
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Destroying entity ${options.entity}`
+    this.requestActionMessage = `Destroying entity ${chalk.cyan(options.entity)} in project ${chalk.cyan(options.project)}`
   }
 
   warnBeforeConfirmation() {
