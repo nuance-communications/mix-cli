@@ -373,9 +373,14 @@ that configuration file swiftly.`)
     }
   }
 
-  outputAsKeyValuePairs(transformedData: any, columns: Columns): void {
+  outputAsKeyValuePairs(transformedData: any, columns: Columns, skipNA = false): void {
     debug('outputAsKeyValuePairs()')
     for (const key of Object.keys(columns)) {
+      if (transformedData[key] === undefined && skipNA) {
+        // skip key-value pairs with undefined value to avoid cluttering the output
+        continue
+      }
+
       const col = columns[key]
 
       this.log(`${chalk.bold(col.header)}: ${asValueOrNA(key, transformedData[key])}`)

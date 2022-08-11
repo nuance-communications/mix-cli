@@ -20,7 +20,16 @@ const debug = makeDebug('mix:commands:entities:get')
 export default class EntitiesGet extends MixCommand {
   static description = `get details about an entity
 
-Use this command to get details about a particular entity in a project.`
+Use this command to get details about a particular entity in a project.
+
+The set of properties listed in the human-readable output of this command
+varies with the type of the entity queried. However, the CSV output provides a
+column for each of the properties present in the superset of all entity type
+properties. This way, a consistent set of columns is always presented.
+
+Use the --json or --yaml flag to see the original data returned by the
+server.
+`
 
   static examples = [
     'mix entities:get -P 1922 -E DrinkSize',
@@ -28,12 +37,13 @@ Use this command to get details about a particular entity in a project.`
 
   static flags = {
     entity: MixFlags.entityFlag,
-    json: MixFlags.jsonFlag,
     project: MixFlags.projectWithDefaultFlag,
     ...MixFlags.tableFlags({
       except: ['extended', 'no-header', 'filter', 'sort'],
       useColumnsWithCSVOnly: true,
     }),
+    // output flags
+    json: MixFlags.jsonFlag,
     yaml: MixFlags.yamlFlag,
   }
 
@@ -82,7 +92,7 @@ Use this command to get details about a particular entity in a project.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    this.outputAsKeyValuePairs(transformedData, this.columns)
+    this.outputAsKeyValuePairs(transformedData, this.columns, true /* skip NAs */)
   }
 
   setRequestActionMessage(options: any) {
