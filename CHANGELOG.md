@@ -1,3 +1,10 @@
+# [1.4.0-beta.18](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.17...v1.4.0-beta.18) (2022-08-11)
+
+
+### Features
+
+* update documentation for api client ([51c67fd](https://github.com/nuance-communications/mix-cli/commit/51c67fd0c10e4ae5914f09ca2e879aa208d67de3))
+
 # [1.4.0-beta.17](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.16...v1.4.0-beta.17) (2022-08-11)
 
 
