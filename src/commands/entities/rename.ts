@@ -24,13 +24,16 @@ export default class EntitiesRename extends MixCommand {
 Use this command to rename an entity in a project.`
 
   static examples = [
-    '$ mix entities:rename -P 1922 -E DrinkSize --name DrinkFormat',
+    '$ mix entities:rename -P 1922 -E DrinkSize --new-name DrinkFormat',
   ]
 
   static flags = {
     entity: MixFlags.entityFlag,
     json: MixFlags.jsonFlag,
-    name: MixFlags.entityNameFlag,
+    'new-name': flags.string({
+      required: true,
+      description: 'new entity name',
+    }),
     project: MixFlags.projectWithDefaultFlag,
     yaml: MixFlags.yamlFlag,
   }
@@ -44,7 +47,7 @@ Use this command to rename an entity in a project.`
     debug('buildRequestParameters()')
     const {
       entity: entityName,
-      name: newEntityName,
+      'new-name': newEntityName,
       project: projectId,
     } = options
 
