@@ -1,3 +1,10 @@
+# [1.4.0-beta.17](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.16...v1.4.0-beta.17) (2022-08-11)
+
+
+### Bug Fixes
+
+* remove N/As from entities:get output ([#40](https://github.com/nuance-communications/mix-cli/issues/40)) ([b308b52](https://github.com/nuance-communications/mix-cli/commit/b308b52395e8997050596fde731db402cc9bda64))
+
 # [1.4.0-beta.16](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.15...v1.4.0-beta.16) (2022-08-11)
 
 
