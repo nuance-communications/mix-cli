@@ -1,3 +1,10 @@
+# [1.4.0-beta.16](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.15...v1.4.0-beta.16) (2022-08-11)
+
+
+### Bug Fixes
+
+* change from --name to --new-name in rename commands ([72cd71f](https://github.com/nuance-communications/mix-cli/commit/72cd71f72c66aa32c95554eaa7e0e8abaf84d3ae))
+
 # [1.4.0-beta.15](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.14...v1.4.0-beta.15) (2022-08-10)
 
 
