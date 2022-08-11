@@ -1,3 +1,57 @@
+# [1.4.0-beta.15](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.14...v1.4.0-beta.15) (2022-08-10)
+
+
+### Bug Fixes
+
+* make --to-entity-type flag required in entities:convert ([056ee97](https://github.com/nuance-communications/mix-cli/commit/056ee97233e57b85486d8132d132fd249c4cf4ec))
+
+
+### Features
+
+* add channels topic and commands ([cda55a9](https://github.com/nuance-communications/mix-cli/commit/cda55a97bf22cc6538e0b622452a38907e209215))
+
+# [1.4.0-beta.14](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.13...v1.4.0-beta.14) (2022-08-10)
+
+
+### Bug Fixes
+
+* make consistent use of color in entities commands output ([096a0cf](https://github.com/nuance-communications/mix-cli/commit/096a0cf4dbf080b575896340ded96804be17739e))
+
+# [1.4.0-beta.13](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.12...v1.4.0-beta.13) (2022-08-09)
+
+
+### Bug Fixes
+
+* add --entity-type flag to examples in entities:configure ([c993d5c](https://github.com/nuance-communications/mix-cli/commit/c993d5ca574accf3185b0ace11917e83b1a046f3))
+
+# [1.4.0-beta.12](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.11...v1.4.0-beta.12) (2022-08-09)
+
+
+### Bug Fixes
+
+* add MIX_PROJECT as default for entities commands ([3bf30cb](https://github.com/nuance-communications/mix-cli/commit/3bf30cb85e689045f19cd656f179c082161958d5))
+
+# [1.4.0-beta.11](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.10...v1.4.0-beta.11) (2022-08-09)
+
+
+### Bug Fixes
+
+* correct typos and wording in README.md ([#35](https://github.com/nuance-communications/mix-cli/issues/35)) ([43fb599](https://github.com/nuance-communications/mix-cli/commit/43fb5995e01959e90b64d68a62def3222aeabd4b))
+
+# [1.4.0-beta.10](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.9...v1.4.0-beta.10) (2022-08-08)
+
+
+### Bug Fixes
+
+* add organizationId to projects:get output ([#34](https://github.com/nuance-communications/mix-cli/issues/34)) ([66e0cbd](https://github.com/nuance-communications/mix-cli/commit/66e0cbdb1bbfcc79b285dfd21e67b44234d01b3e))
+
+# [1.4.0-beta.9](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.8...v1.4.0-beta.9) (2022-08-08)
+
+
+### Bug Fixes
+
+* add MIX_PROJECT as default for project flag in all intents commands ([#33](https://github.com/nuance-communications/mix-cli/issues/33)) ([96e322e](https://github.com/nuance-communications/mix-cli/commit/96e322ec791cae86df9d36a8b15b47bed7b5aeaf))
+
 # [1.4.0-beta.8](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.7...v1.4.0-beta.8) (2022-07-27)
 
 

@@ -68,7 +68,7 @@ type of entity.
     'has-a': MixFlags.hasAFlag,
     'is-a': MixFlags.isAFlag,
     pattern: MixFlags.patternFlag,
-    project: MixFlags.projectFlag,
+    project: MixFlags.projectWithDefaultFlag,
     'to-entity-type': MixFlags.toEntityTypeFlag,
     // output flags
     json: MixFlags.jsonFlag,

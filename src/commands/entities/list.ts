@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -33,7 +34,7 @@ Use this command to list all entities available in a specific project.`
 
   static flags = {
     json: MixFlags.jsonFlag,
-    project: MixFlags.projectFlag,
+    project: MixFlags.projectWithDefaultFlag,
     ...MixFlags.tableFlags({except: ['extended', 'sort']}),
     'with-entity-type': MixFlags.withEntityTypeFlag,
     yaml: MixFlags.yamlFlag,
@@ -78,7 +79,7 @@ Use this command to list all entities available in a specific project.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving entities for project ID ${options.project}`
+    this.requestActionMessage = `Retrieving entities for project ID ${chalk.cyan(options.project)}`
   }
 
   transformResponse(result: MixResult) {

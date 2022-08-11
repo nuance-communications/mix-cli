@@ -31,7 +31,7 @@ Use this command to rename an entity in a project.`
     entity: MixFlags.entityFlag,
     json: MixFlags.jsonFlag,
     name: MixFlags.entityNameFlag,
-    project: MixFlags.projectFlag,
+    project: MixFlags.projectWithDefaultFlag,
     yaml: MixFlags.yamlFlag,
   }
 
@@ -68,7 +68,7 @@ Use this command to rename an entity in a project.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Renaming entity ${options.entity} in project ${options.project}`
+    this.requestActionMessage = `Renaming entity ${chalk.cyan(options.entity)} in project ${chalk.cyan(options.project)}`
   }
 
   transformResponse(result: MixResult) {
