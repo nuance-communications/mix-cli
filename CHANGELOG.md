@@ -1,3 +1,15 @@
+# [2.0.0-beta.1](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.18...v2.0.0-beta.1) (2022-08-11)
+
+
+### Features
+
+* drop Node.js 12 support ([#42](https://github.com/nuance-communications/mix-cli/issues/42)) ([f2d0e08](https://github.com/nuance-communications/mix-cli/commit/f2d0e083e7ed0868911c887232014f8b43464b02))
+
+
+### BREAKING CHANGES
+
+* Node.js >= 14 required
+
 # [1.4.0-beta.18](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.17...v1.4.0-beta.18) (2022-08-11)
 
 
