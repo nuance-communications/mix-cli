@@ -31,6 +31,10 @@ npm install -g @nuance-mix/mix-cli
 
 `mix-cli` requires Node.js version 14 or more recent.
 
+# Migrating to version 2 of mix-cli
+`mix-cli` introduces a few breaking changes. See the [migration documentation](docs/MIGRATING.md)
+as those changes could disrupt automated workflows.
+
 # Configuring mix-cli
 In order to configure `mix-cli`, you need _service credentials_ that give you
 access to the Mix V4 API. These credentials can be found under your user profile
