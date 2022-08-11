@@ -30,11 +30,12 @@ entity type, you will have to provide additional information as
 explained below.
 
 Regex entities make use of regular expressions specific to a single
-locale. Use the --pattern flag to provide the regular expression
-for the converted entity. The regular expression provided gets
-applied to all locales in the project. Use the entities:configure
-command to update the regular expression on a per locale basis
-if needed.
+locale. Use the --pattern flag to provide the regular expression for
+the converted entity. It is recommended to surround the pattern value
+with quotes, especially if the "\\" is used in the pattern. The regular
+expression provided gets applied to all locales in the project. Use the
+entities:configure command to update the regular expression on a per
+locale basis if needed.
 
 Relational entities can have zero or one isA relation and
 zero or many hasA relations. One --is-A or --has-A flag must be
@@ -53,7 +54,7 @@ type of entity.
     '',
     'Convert an entity to a regex entity',
     '$ mix entities:convert -P 1922 -E MY_ENTITY --to-entity-type regex \\',
-    '  --pattern \\d{10}',
+    '  --pattern "\\d{10}"',
     '',
     'Convert an entity to a relational entity',
     '$ mix entities:convert -P 1922 --E MY_ENTITY --to-entity-type relational',

@@ -37,7 +37,8 @@ to specific entity types only.
 
 Regex entities make use of regular expressions specific to a single
 locale. The --pattern and --locale flags matter only to entities
-of type "regex".
+of type "regex". It is recommended to surround the pattern
+value with quotes, especially if the "\\" is used in the pattern.
 
 Relationial entities can have zero or one isA relation and
 zero or many hasA relations. One --is-A or --has-A flag must be
@@ -61,7 +62,7 @@ the corresponding property in the entity is not modified.
     '',
     'Configure a regex entity',
     '$ mix entities:configure -P 1922 -E PHONE_NUMBER --entity-type regex \\',
-    '  --locale en-US --pattern \\d{10} --sensitive --no-canonicalize \\',
+    '  --locale en-US --pattern "\\d{10}" --sensitive --no-canonicalize \\',
     '  --anaphora-type not-set --data-type digits',
     '',
     'Configure a relational entity',
