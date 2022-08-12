@@ -22,10 +22,13 @@ export default class ProjectsRename extends MixCommand {
   
 Use this command to rename a project.`
 
-  static examples = ['$ mix projects:rename -P 1922 -n ACME']
+  static examples = ['$ mix projects:rename -P 1922 --new-name ACME']
 
   static flags = {
-    name: MixFlags.projectNameFlag,
+    'new-name': flags.string({
+      required: true,
+      description: 'new project name',
+    }),
     ...MixFlags.machineOutputFlags,
     project: MixFlags.projectWithDefaultFlag,
   }
@@ -37,7 +40,10 @@ Use this command to rename a project.`
 
   async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsRenameParams> {
     debug('buildRequestParameters()')
-    const {name: displayName, project: projectId} = options
+    const {
+      'new-name': displayName,
+      project: projectId,
+    } = options
 
     return {displayName, projectId}
   }

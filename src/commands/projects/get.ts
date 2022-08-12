@@ -25,6 +25,7 @@ const projectColumns = {
   enginePackId: {header: 'EnginePackId'},
   createTime: {header: 'CreateTime'},
   updateTime: {header: 'UpdateTime'},
+  orgId: {header: 'OrganizationId'},
 } as Columns
 
 const channelsColumns = {

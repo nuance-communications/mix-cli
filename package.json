@@ -136,11 +136,17 @@
       "builds": {
         "description": "manage builds"
       },
+      "channels": {
+        "description": "manage channels"
+      },
       "data-hosts": {
         "description": "manage data hosts"
       },
       "deployment-flows": {
         "description": "manage deployment flows"
+      },
+      "entities": {
+        "description": "manage entities"
       },
       "intents": {
         "description": "manage intents"

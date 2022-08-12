@@ -12,13 +12,16 @@ import {AllowedHTTPMethod} from './api/shared-types'
 
 import {AppConfigsParams, AppConfigsSearchParams} from './api/app-configs-types'
 import {AppCredentialsParams, AppCredentialsSearchParams} from './api/app-credentials-types'
-import {ApplicationsParams, ApplicationsListSearchParams} from './api/applications-types'
+import {ApplicationsListSearchParams, ApplicationsParams} from './api/applications-types'
 import {BuildsParams, BuildsSearchParams} from './api/builds-types'
+import {ChannelsParams} from './api/channels-types'
 import {DataHostsParams, DataHostsSearchParams} from './api/data-hosts-types'
 import {DeploymentFlowsParams, DeploymentFlowsSearchParams} from './api/deployment-flows-types'
 import {EnginePacksParams} from './api/engine-packs-types'
+import {EntitiesParams, EntitiesSearchParams} from './api/entities-types'
 import {EnvironmentsParams, EnvironmentsSearchParams} from './api/environments-types'
 import {GeographiesParams, GeographiesSearchParams} from './api/geographies-types'
+import {IntentsParams} from './api/intents-types'
 import {JobsParams, JobsSearchParams} from './api/jobs-types'
 import {LanguageTopicsParams} from './api/language-topics-types'
 import {LiteralsParams, LiteralsSearchParams} from './api/literals-types'
@@ -34,8 +37,10 @@ export * from './api/builds-types'
 export * from './api/data-hosts-types'
 export * from './api/deployment-flows-types'
 export * from './api/engine-packs-types'
+export * from './api/entities-types'
 export * from './api/environments-types'
 export * from './api/geographies-types'
+export * from './api/intents-types'
 export * from './api/jobs-types'
 export * from './api/language-topics-types'
 export * from './api/literals-types'
@@ -51,11 +56,14 @@ export type MixRequestParams =
   | AppCredentialsParams
   | ApplicationsParams
   | BuildsParams
+  | ChannelsParams
   | DataHostsParams
   | DeploymentFlowsParams
   | EnginePacksParams
+  | EntitiesParams
   | EnvironmentsParams
   | GeographiesParams
+  | IntentsParams
   | JobsParams
   | LanguageTopicsParams
   | LiteralsParams
@@ -72,6 +80,7 @@ export type MixRequestSearchParams =
   | BuildsSearchParams
   | DataHostsSearchParams
   | DeploymentFlowsSearchParams
+  | EntitiesSearchParams
   | EnvironmentsSearchParams
   | GeographiesSearchParams
   | JobsSearchParams
