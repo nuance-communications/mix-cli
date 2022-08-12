@@ -32,10 +32,11 @@ explained below.
 Regex entities make use of regular expressions specific to a single
 locale. Use the --pattern flag to provide the regular expression for
 the converted entity. It is recommended to surround the pattern value
-with quotes, especially if the "\\" is used in the pattern. The regular
-expression provided gets applied to all locales in the project. Use the
-entities:configure command to update the regular expression on a per
-locale basis if needed.
+with quotes, especially if the escape character "\\" is used in the
+pattern (see examples below). The regular expression provided gets
+applied to the entity across all locales in the project. If the regular
+expression for the entity is locale-dependent, then use the entities:configure
+command to update the regular expression for the relevant locales.
 
 Relational entities can have zero or one isA relation and
 zero or many hasA relations. One --is-A or --has-A flag must be
