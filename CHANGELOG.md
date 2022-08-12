@@ -1,3 +1,10 @@
+# [2.0.0-beta.2](https://github.com/nuance-communications/mix-cli/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2022-08-12)
+
+
+### Bug Fixes
+
+* add warning regarding pattern values ([#45](https://github.com/nuance-communications/mix-cli/issues/45)) ([50d7ff3](https://github.com/nuance-communications/mix-cli/commit/50d7ff355893fd48b4d027fa0d66ebef17d88a72))
+
 # [2.0.0-beta.1](https://github.com/nuance-communications/mix-cli/compare/v1.4.0-beta.18...v2.0.0-beta.1) (2022-08-11)
 
 
