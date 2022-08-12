@@ -1,10 +1,3 @@
-# [1.4.0](https://github.com/nuance-communications/mix-cli/compare/v1.3.0...v1.4.0) (2022-08-12)
-
-
-### Features
-
-* add channels, entities and intents commands ([#46](https://github.com/nuance-communications/mix-cli/issues/46)) ([cea2a51](https://github.com/nuance-communications/mix-cli/commit/cea2a514fcdb5149f464fdbac65c68cf5d0473b9))
-
 # [2.0.0-beta.2](https://github.com/nuance-communications/mix-cli/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2022-08-12)
 
 
