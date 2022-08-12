@@ -32,7 +32,9 @@ attributes are mandatory and apply to specific entity types only.
 
 Regex entities make use of regular expressions specific to a single
 locale. The --pattern and --locale flags must be set when creating
-an entity of type "regex".
+an entity of type "regex". It is recommended to surround the pattern
+value with quotes, especially if the escape character "\\" is used
+in the pattern. See examples below.
 
 Relationial entities can have zero or one isA relation and
 zero or many hasA relations. One --is-A or --has-A flag must be
@@ -59,7 +61,7 @@ explicitly provided.
     '',
     'Create a regex entity',
     '$ mix entities:create -P 1922 --entity-type=regex --name PHONE_NUMBER \\',
-    '  --locale en-US --pattern \\d{10} --sensitive --no-canonicalize \\',
+    '  --locale en-US --pattern "\\d{10}" --sensitive --no-canonicalize \\',
     '  --anaphora-type not-set --data-type digits',
     '',
     'Create a relational entity',
