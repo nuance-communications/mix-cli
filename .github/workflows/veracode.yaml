@@ -1,0 +1,36 @@
+name: Veracode scan
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  if_merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out main branch
+        uses: actions/checkout@v2
+
+      - name: Extract branch name
+        shell: bash
+        run: echo "::set-output name=branch::$(echo $GITHUB_BASE_REF)"
+        id: extract_branch
+
+        
+      - name: Generate scan zip
+        run: zip targetUpload.zip `find ./ -name "*.js" -o -name "*.json" -o -name "*.ts"`
+          
+      - name: Veracode Upload And Scan
+        uses: veracode/veracode-uploadandscan-action@0.2.1
+        with:
+          appname: 'Mix.cli'
+          createprofile: true
+          createsandbox: 'true'
+          sandboxname: "CI_Sandbox_${{ steps.extract_branch.outputs.branch }}"
+          filepath: 'targetUpload.zip'
+          vid: '${{ secrets.VERACODE_API_ID }}'
+          vkey: '${{ secrets.VERAOCDE_API_KEY }}'
+          criticality: 'Low'
+          deleteIncompleteScan: true
