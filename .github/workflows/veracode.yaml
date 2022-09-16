@@ -51,7 +51,10 @@ jobs:
 
       - name: Extract branch name
         shell: bash
-        run: echo "::set-output name=branch::$(echo $GITHUB_BASE_REF_$(( ( RANDOM % 10 )  + 1 )) )"
+
+        run: |
+          RANDOM_NUMBER=$(( ( RANDOM % 10 )  + 1 ))
+          echo "::set-output name=branch::$(echo ${GITHUB_BASE_REF}_${RANDOM_NUMBER} )"
         id: extract_branch
 
         
