@@ -1,9 +1,17 @@
 name: Veracode scan
 
+# on:
+#   pull_request:
+#     types:
+#       - closed
+#     branches: 
+#       - master
+#       - beta
 on:
+  push:
+    branches: [XCLI-894, main]
   pull_request:
-    types:
-      - closed
+    branches: [beta, main]
 
 jobs:
   if_merged:
