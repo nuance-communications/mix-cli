@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/nuance-communications/mix-cli/compare/v1.5.0...v2.0.0) (2022-08-12)
+
+
+### Features
+
+* bump to version 2.0.0 ([#48](https://github.com/nuance-communications/mix-cli/issues/48)) ([42eb92d](https://github.com/nuance-communications/mix-cli/commit/42eb92d15a983295fe8cc0cc604c6ecd1265ad7b))
+
+
+### BREAKING CHANGES
+
+* bump to version 2.0.0
+
 # [2.0.0-beta.2](https://github.com/nuance-communications/mix-cli/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2022-08-12)
 
 
