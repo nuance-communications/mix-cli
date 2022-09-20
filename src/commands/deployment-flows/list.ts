@@ -134,7 +134,7 @@ The organization ID can be retrieved by using the organizations:list command.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving deployment flows for organization ID ${options.organization}`
+    this.requestActionMessage = `Retrieving deployment flows for organization ID ${chalk.cyan(options.organization)}`
   }
 
   transformResponse(result: MixResult) {
