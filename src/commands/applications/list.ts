@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -113,7 +114,7 @@ use applications:get to get full details for a single app.
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving applications for organization ID ${options.organization}`
+    this.requestActionMessage = `Retrieving applications for organization ID ${chalk.cyan(options.organization)}`
   }
 
   transformResponse(result: MixResult) {
