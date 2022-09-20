@@ -59,7 +59,7 @@ ID when prompted. It can also be pre-confirmed by using the --confirm flag.`
   outputHumanReadable(_transformedData: any) {
     debug('outputHumanReadable()')
     // Add app config ID as endpoint response does not provide it
-    this.log(`Application configuration ${this.options.config} was deleted.`)
+    this.log(`Application configuration ${chalk.cyan(this.options.config)} was deleted.`)
   }
 
   setRequestActionMessage(_options: any) {
