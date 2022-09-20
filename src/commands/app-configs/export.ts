@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -60,7 +61,7 @@ on the Mix platform.`
 
   outputHumanReadable(_transformedData: any) {
     debug('outputHumanReadable()')
-    this.log(`Application configuration exported to file ${this.options.filepath}.`)
+    this.log(`Application configuration exported to file ${chalk.cyan(this.options.filepath)}.`)
   }
 
   setRequestActionMessage(_options: any) {
