@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -66,12 +67,12 @@ on the Mix platform.`
 
   outputHumanReadable(_transformedData: any) {
     debug('outputHumanReadable()')
-    this.log(`Entity literals exported to file ${this.options.filepath}`)
+    this.log(`Entity literals exported to file ${chalk.cyan(this.options.filepath)}`)
   }
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Exporting entity literals from project ID ${options.project}` +
-    ` for locale${s(options.locale.length)} ${options.locale}`
+    this.requestActionMessage = `Exporting entity literals from project ID ${chalk.cyan(options.project)}` +
+    ` for locale${s(options.locale.length)} ${chalk.cyan(options.locale)}`
   }
 }
