@@ -91,7 +91,7 @@ a project backup before using this command.`
     const {id} = transformedData
 
     if (id) {
-      this.log(`Samples ${jobType} job ${id} successfully queued.`)
+      this.log(`Samples ${chalk.cyan(jobType)} job ${chalk.cyan(id)} successfully queued.`)
       this.log(`Use 'mix jobs:get -P ${this.options.project} -J ${id} --watch' to monitor progress.`)
     }
   }
@@ -99,8 +99,8 @@ a project backup before using this command.`
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
     const importMode = options.replace ? 'replacing' : 'appending'
-    this.requestActionMessage = `Importing samples for locale ${options.locale} ` +
-      `by ${importMode} into project ${options.project}`
+    this.requestActionMessage = `Importing samples for locale ${chalk.cyan(options.locale)} ` +
+      `by ${chalk.cyan(importMode)} into project ${chalk.cyan(options.project)}`
   }
 
   warnBeforeConfirmation() {
