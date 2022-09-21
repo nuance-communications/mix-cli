@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -82,7 +83,7 @@ Use this command to list all jobs related to a particular project.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving jobs for ${options.project}`
+    this.requestActionMessage = `Retrieving jobs for ${chalk.cyan(options.project)}`
   }
 
   transformResponse(result: MixResult) {
