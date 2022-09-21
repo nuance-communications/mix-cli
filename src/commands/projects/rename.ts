@@ -61,6 +61,6 @@ Use this command to rename a project.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Renaming project ID ${options.project}`
+    this.requestActionMessage = `Renaming project ID ${chalk.cyan(options.project)}`
   }
 }
