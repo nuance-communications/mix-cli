@@ -1,11 +1,13 @@
 name: Veracode scan
 
+# This runs only when merged,
+# We can add this in manual section
 on:
   pull_request:
     types:
       - closed
     branches: 
-      - master
+      - main
       - beta
 
 jobs:
@@ -37,6 +39,6 @@ jobs:
           sandboxname: ${{ format('CI_Sandbox_{0}', steps.extract_branch.outputs.branch) }}
           filepath: 'targetUpload.zip'
           vid: '${{ secrets.VERACODE_API_ID }}'
-          vkey: '${{ secrets.VERAOCDE_API_KEY }}'
+          vkey: '${{ secrets.VERACODE_API_KEY }}'
           criticality: 'Low'
           deleteIncompleteScan: true
