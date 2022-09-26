@@ -391,6 +391,11 @@ export const showFullOrganizationDetailsFlag = flags.boolean({
   description: 'display all organization details, including members count',
 })
 
+export const showFullBotDetailsFlag = flags.boolean({
+  default: false,
+  description: 'show all bot details',
+})
+
 export const sortFlag = flags.string({
   description:
     'comma-separated properties to sort by (prepend \'+\'/\'-\' for ascending/descending)',
