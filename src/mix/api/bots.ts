@@ -9,7 +9,7 @@
 import makeDebug from 'debug'
 
 import buildURL from './utils/build-url'
-import {BotsListParams} from './bots-types'
+import {BotsListParams, BotCredentialsListParams} from './bots-types'
 import {MixClient, MixResponse} from '../types'
 
 const debug = makeDebug('mix:api:bots')
@@ -33,5 +33,19 @@ export async function listBots(client: MixClient, params: BotsListParams): Promi
   return client.request({
     method: 'get',
     url: buildURL(client.getServer(), `/v4/organizations/${orgId}/bots`, requestParams),
+  })
+}
+
+/**
+ * Retrieve the list of bots credentials that correspond to the query criteria specified.
+ * @category bots
+ */
+ export async function listBotCredentials(client: MixClient, params: BotCredentialsListParams): Promise<MixResponse> {
+  debug('listBotCredentials()')
+  const {botId, ...requestParams} = params
+
+  return client.request({
+    method: 'get',
+    url: buildURL(client.getServer(), `/v4/bots/${botId}/credentials`, requestParams),
   })
 }

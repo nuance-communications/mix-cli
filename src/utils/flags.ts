@@ -22,6 +22,7 @@ import {
 
 // Flag shortcuts that should not be reused
 export const appConfigurationShortcut = 'C'
+export const botShortcut = 'B'
 export const deploymentFlowIDShortcut = 'D'
 export const entityNameShortcut = 'E'
 export const intentNameShortcut = 'I'
@@ -40,6 +41,7 @@ export const organizationEnvVarDefault = 'MIX_ORGANIZATION'
 export const projectEnvVarDefault = 'MIX_PROJECT'
 
 // Flag descriptions
+export const botIDDesc = 'Bot ID'
 export const buildLabelDesc = 'build label (format is <buildType>_<projectId>_<buildVersion>'
 export const buildTypeDesc = 'build type'
 export const buildVersionDesc = 'build version'
@@ -269,6 +271,12 @@ export const mixApplicationFlag = flags.integer({
   required: true,
 })
 
+export const botFlag = flags.integer({
+  char: botShortcut,
+  description: 'Bot ID',
+  required: true,
+})
+
 export const modesFlag = flags.string({
   char: 'm',
   description: 'channel modes (audioscript|dtmf|interactivity|richtext|tts)',
@@ -394,6 +402,11 @@ export const showFullOrganizationDetailsFlag = flags.boolean({
 export const showFullBotDetailsFlag = flags.boolean({
   default: false,
   description: 'show all bot details',
+})
+
+export const showFullBotCredentialsDetailsFlag = flags.boolean({
+  default: false,
+  description: 'show all bot credentials details',
 })
 
 export const sortFlag = flags.string({
