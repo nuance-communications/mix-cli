@@ -11,6 +11,7 @@ import {AxiosRequestConfig, AxiosRequestHeaders} from 'axios'
 import {AllowedHTTPMethod} from './api/shared-types'
 
 import {AppConfigsParams, AppConfigsSearchParams} from './api/app-configs-types'
+import {BotConfigsParams, BotConfigsSearchParams} from './api/bot-configs-types'
 import {AppCredentialsParams, AppCredentialsSearchParams} from './api/app-credentials-types'
 import {ApplicationsListSearchParams, ApplicationsParams} from './api/applications-types'
 import {BotsParams, BotsSearchParams } from './api/bots-types'
@@ -32,6 +33,7 @@ import {ProjectsParams} from './api/projects-types'
 import {SamplesParams, SamplesSearchParams} from './api/samples-types'
 
 export * from './api/app-configs-types'
+export * from './api/bot-configs-types'
 export * from './api/app-credentials-types'
 export * from './api/applications-types'
 export * from './api/bots-types'
@@ -55,6 +57,7 @@ export * from './api/system-types'
 /** @hidden */
 export type MixRequestParams =
   | AppConfigsParams
+  | BotConfigsParams
   | AppCredentialsParams
   | ApplicationsParams
   | BotsParams
@@ -78,6 +81,7 @@ export type MixRequestParams =
 /** @hidden */
 export type MixRequestSearchParams =
   | AppConfigsSearchParams
+  | BotConfigsSearchParams
   | AppCredentialsSearchParams
   | ApplicationsListSearchParams
   | BotsSearchParams

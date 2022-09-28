@@ -66,7 +66,7 @@ export type BotCredentialsView = 'BCV_VIEW_UNSPECIFIED' | 'BCV_FULL'
 
 /** @hidden */
 type BotCredentialsListPathParams = {
-  /** ID of the Mix bot for which to get the list of credentials. */
+  /** ID of the bot for which to get the list of credentials. */
   botId: string
 }
 
