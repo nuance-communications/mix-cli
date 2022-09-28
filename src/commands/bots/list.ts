@@ -56,7 +56,7 @@ A number of flags can be used to constrain the returned results.`
         header: 'BotId',
         minWidth: 4,
       },
-      BotName: {
+      applicationName: {
         header: 'Name',
         minWidth: 8,
       },
