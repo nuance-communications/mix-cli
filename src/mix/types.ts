@@ -11,10 +11,11 @@ import {AxiosRequestConfig, AxiosRequestHeaders} from 'axios'
 import {AllowedHTTPMethod} from './api/shared-types'
 
 import {AppConfigsParams, AppConfigsSearchParams} from './api/app-configs-types'
-import {BotConfigsParams, BotConfigsSearchParams} from './api/bot-configs-types'
 import {AppCredentialsParams, AppCredentialsSearchParams} from './api/app-credentials-types'
 import {ApplicationsListSearchParams, ApplicationsParams} from './api/applications-types'
-import {BotsParams, BotsSearchParams } from './api/bots-types'
+import {BotsParams, BotsSearchParams} from './api/bots-types'
+import {BotConfigsParams, BotConfigsSearchParams} from './api/bot-configs-types'
+import {BotCredentialsParams, BotCredentialsSearchParams} from './api/bot-credentials-types'
 import {BuildsParams, BuildsSearchParams} from './api/builds-types'
 import {ChannelsParams} from './api/channels-types'
 import {DataHostsParams, DataHostsSearchParams} from './api/data-hosts-types'
@@ -33,10 +34,11 @@ import {ProjectsParams} from './api/projects-types'
 import {SamplesParams, SamplesSearchParams} from './api/samples-types'
 
 export * from './api/app-configs-types'
-export * from './api/bot-configs-types'
 export * from './api/app-credentials-types'
 export * from './api/applications-types'
 export * from './api/bots-types'
+export * from './api/bot-configs-types'
+export * from './api/bot-credentials-types'
 export * from './api/builds-types'
 export * from './api/data-hosts-types'
 export * from './api/deployment-flows-types'
@@ -61,6 +63,8 @@ export type MixRequestParams =
   | AppCredentialsParams
   | ApplicationsParams
   | BotsParams
+  | BotConfigsParams
+  | BotCredentialsParams
   | BuildsParams
   | ChannelsParams
   | DataHostsParams
@@ -85,6 +89,8 @@ export type MixRequestSearchParams =
   | AppCredentialsSearchParams
   | ApplicationsListSearchParams
   | BotsSearchParams
+  | BotConfigsSearchParams
+  | BotCredentialsSearchParams
   | BuildsSearchParams
   | DataHostsSearchParams
   | DeploymentFlowsSearchParams

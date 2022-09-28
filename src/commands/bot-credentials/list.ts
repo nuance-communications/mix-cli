@@ -10,13 +10,13 @@ import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
-import * as BotCredentialsAPI from '../../mix/api/bots'
+import * as BotCredentialsAPI from '../../mix/api/bot-credentials'
 import * as MixFlags from '../../utils/flags'
 import {BotCredentialsParams, MixClient, MixResponse, MixResult} from '../../mix/types'
 import {DomainOption} from '../../utils/validations'
 import MixCommand from '../../utils/base/mix-command'
 
-const debug = makeDebug.debug('mix:commands:bots:credential')
+const debug = makeDebug.debug('mix:commands:bot-credentials:list')
 
 export default class BotCredentialsList extends MixCommand {
   static description = `list bot credentials for a bot
@@ -27,10 +27,10 @@ commands.`
 
   static examples = [
     'List bot credentials for a bot',
-    '$ mix bots:credentials -B 12',
+    '$ mix bot-credentials:list -B 12',
     '',
     'List bot credentials for a bot that match a specific environment-geography',
-    '$ mix bots:credentials -B 12 --with-geo-name "Production US"',
+    '$ mix bot-credentials:list -B 12 --with-geo-name "Production US"',
   ]
 
   static flags = {

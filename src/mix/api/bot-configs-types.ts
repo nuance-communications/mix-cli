@@ -8,7 +8,10 @@
 
 import {Expand} from './shared-types'
 
-
+/**
+ * New Command
+ * bot-configs:list
+ */
 /** @hidden */
 export type BotConfigsListPathParams = {
   /** ID of the Mix application for which to list application configurations. */

@@ -9,7 +9,7 @@
 import {Expand} from './shared-types'
 
 
-/** bots:credential Cammand Implementation */
+/** bots:list Command*/
 
 /**
  * Bots view to return.
@@ -48,60 +48,11 @@ export type BotsListSearchParams = {
 /** @hidden */
 export type BotsListParams = Expand<BotsListPathParams & BotsListSearchParams>
 
-/**
- * New Command
- */
-
-/** bots:credential Cammand Implementation */
-
-/**
- * Bot credentials view to return.
- * - BCV_VIEW_UNSPECIFIED: Returns credentials details without including clients
- * - BCV_FULL: Returns all credentials details, including list of clients
- *
- * @defaultValue: BCV_VIEW_UNSPECIFIED
- */
-/** View to be used for the response. */
-export type BotCredentialsView = 'BCV_VIEW_UNSPECIFIED' | 'BCV_FULL'
-
-/** @hidden */
-type BotCredentialsListPathParams = {
-  /** ID of the bot for which to get the list of credentials. */
-  botId: string
-}
-
-
-/** @hidden */
-export type BotCredentialsListSearchParams = {
-  /** Name of the environment geography; for example, US. */
-  envGeographyName?: string,
-
-/**
- * Bot credentials view to return.
- * - BCV_VIEW_UNSPECIFIED: Returns credentials details without including clients
- * - BCV_FULL: Returns all credentials details, including list of clients
- *
- * @defaultValue: BCV_VIEW_UNSPECIFIED
- */
-  view?: BotCredentialsView
-}
-
-/** @hidden */
-export type BotCredentialsListParams = Expand<BotCredentialsListPathParams & BotCredentialsListSearchParams>
-
-/** @hidden */
-export type BotCredentialsParams = Expand<BotCredentialsListParams>
-
-/** @hidden */
-export type BotCredentialsSearchParams = BotCredentialsListSearchParams
-
 
 /** @hidden */
 export type BotsParams =
   | BotsListParams
-  | BotCredentialsParams
 
 /** @hidden */
 export type BotsSearchParams =
   | BotsListSearchParams
-  | BotCredentialsSearchParams
