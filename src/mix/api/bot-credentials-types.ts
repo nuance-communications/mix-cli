@@ -30,19 +30,19 @@ type BotCredentialsListPathParams = {
   botId: string
 }
 
-
 /** @hidden */
 export type BotCredentialsListSearchParams = {
   /** Name of the environment geography; for example, US. */
   envGeographyName?: string,
 
-/**
- * Bot credentials view to return.
- * - BCV_VIEW_UNSPECIFIED: Returns credentials details without including clients
- * - BCV_FULL: Returns all credentials details, including list of clients
- *
- * @defaultValue: BCV_VIEW_UNSPECIFIED
- */
+  /**
+   * Bot credentials view to return.
+   * - BCV_VIEW_UNSPECIFIED: Returns credentials details without including clients
+   * - BCV_FULL: Returns all credentials details, including list of clients
+   *
+   * @defaultValue: BCV_VIEW_UNSPECIFIED
+   */
+  /** View to be used for the response. */
   view?: BotCredentialsView
 }
 
@@ -51,7 +51,6 @@ export type BotCredsListParams = Expand<BotCredentialsListPathParams & BotCreden
 
 /** @hidden */
 export type BotCredentialsListParams = Expand<BotCredsListParams>
-
 
 /** @hidden */
 export type BotCredentialsParams =

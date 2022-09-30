@@ -36,7 +36,7 @@ commands.`
   static flags = {
     'with-geo-name': MixFlags.geoNameFlag,
     full: MixFlags.showFullBotCredentialsDetailsFlag,
-    'bot': MixFlags.botFlag,
+    bot: MixFlags.botFlag,
     ...MixFlags.machineOutputFlags,
   }
 
@@ -47,7 +47,7 @@ commands.`
 
   async buildRequestParameters(options: Partial<flags.Output>): Promise<BotCredentialsParams> {
     debug('buildRequestParameters()')
-    const {'with-geo-name': envGeographyName, full, 'bot': botId} = options
+    const {'with-geo-name': envGeographyName, full, bot: botId} = options
 
     return {
       botId,
@@ -81,7 +81,7 @@ commands.`
 
   outputHumanReadable(credentials: any, options: Partial<flags.Output>) {
     debug('outputHumanReadable()')
-    const {'with-geo-name': geographyName, full, 'bot': botId} = options
+    const {'with-geo-name': geographyName, full, bot: botId} = options
 
     if (credentials.length === 0) {
       const msg = `No credentials found for bot ID ${chalk.cyan(botId)}` +

@@ -8,9 +8,7 @@
 
 import {Expand} from './shared-types'
 
-
-/** bots:list Command*/
-
+/** bots:list Command */
 /**
  * Bots view to return.
  * - BV_VIEW_UNSPECIFIED: Returns bot details without including application configurations
@@ -31,23 +29,20 @@ export type BotsListPathParams = {
 /** @hidden */
 export type BotsListSearchParams = {
 
-/**
- * Bots view to return.
- * - BV_VIEW_UNSPECIFIED: Returns bot details without including application configurations
- * - BV_FULL: Returns all bot details, including the list of application configurations
- * - BV_FULL_AVAILABLE_CONFIGS: Returns all bot details, omitting configs that are overridden
- * - BV_FULL_LIVE_CONFIGS: Returns all bot configs that are deployed
- *
- * @defaultValue: BV_VIEW_UNSPECIFIED
- */
-
+  /**
+   * Bots view to return.
+   * - BV_VIEW_UNSPECIFIED: Returns bot details without including application configurations
+   * - BV_FULL: Returns all bot details, including the list of application configurations
+   * - BV_FULL_AVAILABLE_CONFIGS: Returns all bot details, omitting configs that are overridden
+   * - BV_FULL_LIVE_CONFIGS: Returns all bot configs that are deployed
+   *
+   * @defaultValue: BV_VIEW_UNSPECIFIED
+  */
   view?: BotsView
 }
 
-
 /** @hidden */
 export type BotsListParams = Expand<BotsListPathParams & BotsListSearchParams>
-
 
 /** @hidden */
 export type BotsParams =

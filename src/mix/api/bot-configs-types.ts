@@ -14,7 +14,7 @@ import {Expand} from './shared-types'
  */
 /** @hidden */
 export type BotConfigsListPathParams = {
-  /** ID of the Mix application for which to list application configurations. */
+  /** ID of the bot for which to list application configurations. */
   botId: string
 }
 
@@ -35,7 +35,6 @@ export type BotConfigsListSearchParams = {
 
 /** @hidden */
 export type BotConfigsListParams = Expand<BotConfigsListPathParams & BotConfigsListSearchParams>
-
 
 /** @hidden */
 export type BotConfigsParams =

@@ -17,8 +17,8 @@ const debug = makeDebug('mix:api:bot-credentials')
 /**
  * Retrieve the list of bots credentials that correspond to the query criteria specified.
  * @category bot-credentials
- */
- export async function listBotCredentials(client: MixClient, params: BotCredentialsListParams): Promise<MixResponse> {
+*/
+export async function listBotCredentials(client: MixClient, params: BotCredentialsListParams): Promise<MixResponse> {
   debug('listBotCredentials()')
   const {botId, ...requestParams} = params
 

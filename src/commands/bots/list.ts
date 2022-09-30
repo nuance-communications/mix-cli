@@ -99,6 +99,13 @@ A number of flags can be used to constrain the returned results.`
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
     const {columns, options} = this
+    if (transformedData.length === 0) {
+      const msg = 'No bots found.'
+      this.log(msg)
+
+      return
+    }
+
     if (options.full) {
       this.warn(`Full bot configuration objects are complex, so some data is not shown.
 If you want to see all bot configs, either:

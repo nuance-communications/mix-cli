@@ -31,7 +31,7 @@ bot IDs can be retrieved using the bots:credential command.`
 
   static flags = {
     json: MixFlags.jsonFlag,
-    'bot': MixFlags.botFlag,
+    bot: MixFlags.botFlag,
     'exclude-overrides': MixFlags.excludeOverridesFlag,
     'live-only': MixFlags.liveOnlyFlag,
     ...MixFlags.tableFlags({except: ['extended']}),
@@ -60,7 +60,7 @@ bot IDs can be retrieved using the bots:credential command.`
   async buildRequestParameters(options: Partial<flags.Output>): Promise<BotConfigsListParams> {
     debug('buildRequestParameters()')
     const {
-      'bot': botId,
+      bot: botId,
       'with-tag': tag,
       'with-runtime-app': appId,
       'live-only': liveOnly,
@@ -83,7 +83,7 @@ bot IDs can be retrieved using the bots:credential command.`
 
   setRequestActionMessage(_options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving application configurations for botId ${chalk.cyan(_options.botId)}`
+    this.requestActionMessage = `Retrieving application configurations for bot Id ${chalk.cyan(_options.bot)}`
   }
 
   transformResponse(result: MixResult) {
