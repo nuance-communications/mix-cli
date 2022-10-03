@@ -6,9 +6,9 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-/* eslint-disable unicorn/prefer-node-protocol */
+/** eslint-disable unicorn/prefer-node-protocol */
 import makeDebug from 'debug'
-import {createWriteStream} from 'fs'
+import {createWriteStream} from 'node:fs'
 
 const debug = makeDebug.debug('mix:utils:download-file')
 

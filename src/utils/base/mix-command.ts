@@ -39,12 +39,14 @@ import {
   eInvalidValue,
   eNotConfirmed,
   eNotFound,
+  eSaveFailed,
   eUnauthorized,
   eUnexpectedStatus,
   MixCLIError} from '../errors'
 
 import {createMixClient} from '../../mix/client'
 import {OutputFormat} from '../types'
+import {saveFile} from '../save-file'
 
 export type Columns = table.Columns<object>
 
@@ -62,6 +64,7 @@ export default abstract class MixCommand extends BaseCommand {
   selectedFormat: OutputFormat = 'human-readable'
   shouldConfirmCommand = false
   shouldDownloadFile = false
+  shouldSaveBody = false;
   shouldWatchJob = false
   tries = 0
 
@@ -334,6 +337,14 @@ that configuration file swiftly.`)
         await downloadFile(result, this.options.filepath, this.options.overwrite)
       } catch (error) {
         throw eDownloadFailed(error instanceof Error ? error.message : '')
+      }
+
+      cli.action.stop(this.requestCompleteMessage)
+    } else if (this.shouldSaveBody) {
+      try {
+        await saveFile(result, this.options.filepath)
+      } catch (error) {
+        throw eSaveFailed(error instanceof Error ? error.message : '')
       }
 
       cli.action.stop(this.requestCompleteMessage)

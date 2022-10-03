@@ -19,9 +19,9 @@ import MixCommand from '../../utils/base/mix-command'
 const debug = makeDebug.debug('mix:commands:bot-credentials:list')
 
 export default class BotCredentialsList extends MixCommand {
-  static description = `list bot credentials for a bot
+  static description = `list credentials for a bot
   
-Use this command to list the bot credentials for a bot.
+Use this command to list the credentials for a bot.
 This lets you retrieve the bot ID that is required in other
 commands.`
 
@@ -104,7 +104,7 @@ commands.`
         this.log() // leave blank line betweeen runtime bot blocks
       }
 
-      this.log(`${chalk.bold('Runtime Bot ID (BotID):')} ${chalk.cyan(cred.credential.appId)}`)
+      this.log(`${chalk.bold('Bot ID (BotID):')} ${chalk.cyan(cred.credential.appId)}`)
 
       for (const envGeo of cred.geographies) {
         const envType = envGeo.envType

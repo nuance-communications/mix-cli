@@ -15,6 +15,7 @@ import {AppCredentialsParams, AppCredentialsSearchParams} from './api/app-creden
 import {ApplicationsListSearchParams, ApplicationsParams} from './api/applications-types'
 import {BotConfigsParams, BotConfigsSearchParams} from './api/bot-configs-types'
 import {BotCredentialsParams, BotCredentialsSearchParams} from './api/bot-credentials-types'
+import {BotInterfacesParams} from './api/bot-interfaces-types'
 import {BotsParams, BotsSearchParams} from './api/bots-types'
 import {BuildsParams, BuildsSearchParams} from './api/builds-types'
 import {ChannelsParams} from './api/channels-types'
@@ -38,6 +39,7 @@ export * from './api/app-credentials-types'
 export * from './api/applications-types'
 export * from './api/bot-configs-types'
 export * from './api/bot-credentials-types'
+export * from './api/bot-interfaces-types'
 export * from './api/bots-types'
 export * from './api/builds-types'
 export * from './api/data-hosts-types'
@@ -63,6 +65,7 @@ export type MixRequestParams =
   | ApplicationsParams
   | BotConfigsParams
   | BotCredentialsParams
+  | BotInterfacesParams
   | BotsParams
   | BuildsParams
   | ChannelsParams

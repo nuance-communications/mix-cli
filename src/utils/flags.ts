@@ -324,6 +324,11 @@ export const outputFilePathFlag = flags.string({
   required: true,
 })
 
+export const saveFilePathFlag = flags.string({
+  char: filePathShortucut,
+  description: 'save file path',
+})
+
 export const overwriteFileFlag = flags.boolean({
   default: false,
   description: 'overwrite output file if it exists',
