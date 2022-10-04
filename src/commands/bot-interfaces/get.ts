@@ -19,13 +19,13 @@ import {DomainOption} from '../../utils/validations'
 const debug = makeDebug('mix:commands:bot-interfaces:get')
 
 export default class BotInterfacesGet extends MixCommand {
-  static description = `retrive an interface for bot
+  static description = `retrieve an interface for bot
  
 Use this command to get an interface for bot. The configuration ID
 can be retrieved using the bot-configs:list command.`
 
   static examples = [
-    'Retrive an interface for bot',
+    'Retrieve an interface for bot',
     '$ mix bot-interfaces:get -B 32 - C 54',
   ]
 
