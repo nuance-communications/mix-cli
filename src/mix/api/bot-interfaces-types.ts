@@ -24,6 +24,23 @@ export type BotInterfacesExportPathParams = {
 /** @hidden */
 export type BotInterfacesExportParams = Expand<BotInterfacesExportPathParams>
 
+/**
+ * New Command
+ * bot-interfaces:get
+ */
+/** @hidden */
+export type BotInterfacesGetPathParams = {
+  /** ID of the bot for which to get the configuration interface. */
+  botId: string,
+
+  /** ID of the application configuration for which to get the interface. */
+  configId: string
+}
+
+/** @hidden */
+export type BotInterfacesGetParams = Expand<BotInterfacesGetPathParams>
+
 /** @hidden */
 export type BotInterfacesParams =
   | BotInterfacesExportParams
+  | BotInterfacesGetParams

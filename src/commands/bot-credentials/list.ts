@@ -104,7 +104,7 @@ commands.`
         this.log() // leave blank line betweeen runtime bot blocks
       }
 
-      this.log(`${chalk.bold('Bot ID (BotID):')} ${chalk.cyan(cred.credential.appId)}`)
+      this.log(`${chalk.bold('Bot ID :')} ${chalk.cyan(cred.credential.appId)}`)
 
       for (const envGeo of cred.geographies) {
         const envType = envGeo.envType

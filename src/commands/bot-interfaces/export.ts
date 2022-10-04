@@ -18,14 +18,11 @@ import {DomainOption} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:bot-interfaces:export')
 
-export default class AppConfigsExport extends MixCommand {
+export default class BotInterfacesExport extends MixCommand {
   static description = `export an interface for bot
  
 Use this command to export an interface for bot. The configuration ID
-can be retrieved using the bot-configs:list command.
-
-The contents of the exported json file depend on the role you have been granted
-on the Mix platform.`
+can be retrieved using the bot-configs:list command.`
 
   static examples = [
     'Export an interface for bot',
