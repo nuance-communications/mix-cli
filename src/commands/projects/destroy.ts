@@ -70,7 +70,7 @@ It can also be pre-confirmed by using the --confirm flag.`
   outputHumanReadable(_transformedData: any) {
     debug('outputHumanReadable()')
     // Add project ID as endpoint response does not provide it
-    this.log(`Project ${this.options.project} was deleted.`)
+    this.log(`Project ${chalk.cyan(this.options.project)} was deleted.`)
   }
 
   setRequestActionMessage(_options: any) {
