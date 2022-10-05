@@ -22,8 +22,8 @@ export default class BotCredentialsList extends MixCommand {
   static description = `list credentials for a bot
   
 Use this command to list the credentials for a bot.
-This lets you retrieve the bot ID that is required in other
-commands.`
+This lets you retrieve the runtime application ID that is required
+in other commands.`
 
   static examples = [
     'List bot credentials for a bot',
