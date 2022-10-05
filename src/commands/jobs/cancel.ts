@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -63,9 +64,9 @@ of the original one.`
     const {message} = transformedData
     const {project, job} = this.options
     if (message === 'Job deleted.') {
-      this.log(`\nCancel request for job ${job} in project ${project} completed successfully.`)
+      this.log(`\nCancel request for job ${chalk.cyan(job)} in project ${chalk.cyan(project)} completed successfully.`)
     } else {
-      this.log(`\nCancel request failed for job ${job} in project ${project}.`)
+      this.log(`\nCancel request failed for job ${chalk.cyan(job)} in project ${chalk.cyan(project)}.`)
       this.debug(`Failed Response was ${JSON.stringify(transformedData)}`)
     }
 
@@ -78,3 +79,4 @@ to be launched before the completion of the original one.`)
     this.requestActionMessage = 'Attempting to cancel job'
   }
 }
+  
