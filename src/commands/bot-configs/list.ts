@@ -19,11 +19,11 @@ import {DomainOption} from '../../utils/validations'
 const debug = makeDebug('mix:commands:bot-configs:list')
 
 export default class BotConfigsList extends MixCommand {
-  static description = `list application configurations for available bot.
+  static description = `list application configurations for a bot
   
-Use this command to list the application configurations in a bot.
+Use this command to list the application configurations for a bot.
 A number of flags can be used to constrain the returned results. The runtime
-bot IDs can be retrieved using the bots:credential command.`
+bot IDs can be retrieved using the bot-credentials:list command.`
 
   static examples = [
     '$ mix bot-configs:list -B 164 --with-runtime-app NMDPTRIAL_alex_smith_company_com_20190919T190532',

@@ -108,7 +108,8 @@ A number of flags can be used to constrain the returned results.`
 
     if (options.full) {
       this.warn(`Full bot configuration objects are complex, so some data is not shown.
-      If you want to see the complete data then retry the command with the output format set to JSON or YAML.`)
+If you want to see the complete data then retry the command with the output format
+set to JSON or YAML.`)
     }
 
     super.outputCLITable(transformedData, columns)
