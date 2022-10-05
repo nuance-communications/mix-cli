@@ -66,7 +66,7 @@ Use this command to create a new intent in a project.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Creating intent ${options.name} in project ${options.project}`
+    this.requestActionMessage = `Creating intent ${chalk.cyan(options.name)} in project ${chalk.cyan(options.project)}`
   }
 
   transformResponse(result: MixResult) {
