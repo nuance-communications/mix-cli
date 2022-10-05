@@ -71,7 +71,7 @@ in an incomplete project.`
     const {id} = transformedData
 
     if (id) {
-      this.log(`Project replace job ${id} successfully queued.`)
+      this.log(`Project replace job ${chalk.cyan(id)} successfully queued.`)
       this.log(`Use 'mix jobs:get -P ${this.options.project} -J ${id} --watch' to monitor progress.`)
     }
   }
@@ -79,8 +79,8 @@ in an incomplete project.`
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
     this.requestActionMessage = (options.isWatching ?? false) ?
-      `Waiting for job to replace ${options.project} to complete` :
-      `Replacing project ${options.project}`
+      `Waiting for job to replace ${chalk.cyan(options.project)} to complete` :
+      `Replacing project ${chalk.cyan(options.project)}`
   }
 
   warnBeforeConfirmation() {
