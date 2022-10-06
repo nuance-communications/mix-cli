@@ -341,7 +341,8 @@ that configuration file swiftly.`)
       cli.action.stop(this.requestCompleteMessage)
     } else if (this.shouldSaveBody) {
       try {
-        await saveFile(result, this.options.filepath, this.options.overwrite)
+        const defaultFilePath = `./interface-bot-${this.options.bot}-config-${this.options.config}.json`
+        await saveFile(result, this.options.filepath? this.options.filepath: defaultFilePath, this.options.overwrite)
       } catch (error) {
         throw eDownloadFailed(error instanceof Error ? error.message : '')
       }

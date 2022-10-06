@@ -18,7 +18,7 @@ import {MixClient, MixResponse} from '../types'
 const debug = makeDebug('mix:api:bot-configs')
 
 /**
- * Retrieve the list of application configurations available for a bot.
+ * Retrieve the list of application configurations for a bot.
  * @category bot-configs
  */
 export async function listBotConfigs(client: MixClient, params: BotConfigsListParams): Promise<MixResponse> {

@@ -32,7 +32,10 @@ The configuration ID can be retrieved using the bot-configs:list command.`
   static flags = {
     bot: MixFlags.botFlag,
     config: MixFlags.appConfigurationFlag,
-    filepath: MixFlags.saveFilePathFlag,
+    filepath: {
+      ...MixFlags.outputFilePathFlag,
+      required: false,
+    },
     overwrite: MixFlags.overwriteFileFlag,
   }
 
@@ -57,6 +60,8 @@ The configuration ID can be retrieved using the bot-configs:list command.`
 
   outputHumanReadable(_transformedData: any) {
     debug('outputHumanReadable()')
+    const defaultFilePath = `./interface-bot-${this.options.bot}-config-${this.options.config}.json`
+    console.log(`Interface data saved to file ${this.options.filepath ? chalk.cyan(this.options.filepath) : chalk.cyan(defaultFilePath)}.`)
   }
 
   setRequestActionMessage(_options: any) {
