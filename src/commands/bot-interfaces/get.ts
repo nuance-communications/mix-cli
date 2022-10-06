@@ -15,18 +15,19 @@ import * as MixFlags from '../../utils/flags'
 import MixCommand from '../../utils/base/mix-command'
 import {BotInterfacesGetParams, MixClient, MixResponse, MixResult} from '../../mix/types'
 import {DomainOption} from '../../utils/validations'
+import {pluralize as s} from '../../utils/format'
 
 const debug = makeDebug('mix:commands:bot-interfaces:get')
 
 export default class BotInterfacesGet extends MixCommand {
-  static description = `retrieve an interface for bot
+  static description = `retrieve the interface of a bot
  
-Use this command to get an interface for bot. The configuration ID
-can be retrieved using the bot-configs:list command.`
+Use this command to get the interface of a bot.
+The configuration ID can be retrieved using the bot-configs:list command.`
 
   static examples = [
-    'Retrieve an interface for bot',
-    '$ mix bot-interfaces:get -B 32 - C 54',
+    'Retrieve the interface of a bot',
+    '$ mix bot-interfaces:get -B 32 -C 54',
   ]
 
   static flags = {
@@ -53,20 +54,20 @@ can be retrieved using the bot-configs:list command.`
     return BotInterfacesGetAPI.getBotInterfaces(client, params)
   }
 
-  outputHumanReadable(_transformedData: any) {
+  outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
 
-    this.log(`${chalk.bold('Bot interface ID:')} ${chalk.cyan(_transformedData.id)}`)
-    this.log(`${chalk.bold('Version:')} ${chalk.cyan(_transformedData.Version)}`)
-    this.log(`${chalk.bold('LanguageTopic:')} ${chalk.cyan(_transformedData.LanguageTopic)}`)
-    this.log(`${chalk.bold('Locales:')} ${chalk.cyan(_transformedData.locales)}`)
+    this.log(`${chalk.bold('Bot interface ID:')} ${chalk.cyan(transformedData.id)}`)
+    this.log(`${chalk.bold('Version:')} ${chalk.cyan(transformedData.version)}`)
+    this.log(`${chalk.bold('LanguageTopic:')} ${chalk.cyan(transformedData.languageTopic)}`)
+    this.log(`${chalk.bold('Locales:')} ${chalk.cyan(transformedData.locales)}`)
     this.log('\n This bot interface defines:')
-    this.log(Object.keys(_transformedData.channels).length + ' channels')
-    this.log(Object.keys(_transformedData.variables).length + ' variables')
-    this.log(Object.keys(_transformedData.transferNodes).length + ' transfer nodes')
-
-    this.log('\n Use this command with the `json` flag to get the complete interface.')
-    this.log('\n Use the bot-interfaces:export command to export the interface to a JSON file.')
+    this.log(`${s(transformedData.channel.length)} ${transformedData.channel} channels`)
+    this.log(`${s(transformedData.variables.length)} ${transformedData.variables} variables`)
+    this.log(`${s(transformedData.transferNodes.length)} ${transformedData.transferNodes} transfer nodes`)
+    this.log()
+    this.log('Use this command with the `json` flag to get the complete interface.')
+    this.log('Use the bot-interfaces:export command to export the interface to a JSON file.')
   }
 
   setRequestActionMessage(_options: any) {

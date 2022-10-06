@@ -8,7 +8,6 @@
 
 import {Expand} from './shared-types'
 
-/** bots:list Command */
 /**
  * Bots view to return.
  * - BV_VIEW_UNSPECIFIED: Returns bot details without including application configurations

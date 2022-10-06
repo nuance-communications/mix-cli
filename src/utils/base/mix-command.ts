@@ -39,7 +39,6 @@ import {
   eInvalidValue,
   eNotConfirmed,
   eNotFound,
-  eSaveFailed,
   eUnauthorized,
   eUnexpectedStatus,
   MixCLIError} from '../errors'
@@ -342,9 +341,9 @@ that configuration file swiftly.`)
       cli.action.stop(this.requestCompleteMessage)
     } else if (this.shouldSaveBody) {
       try {
-        await saveFile(result, this.options.filepath)
+        await saveFile(result, this.options.filepath, this.options.overwrite)
       } catch (error) {
-        throw eSaveFailed(error instanceof Error ? error.message : '')
+        throw eDownloadFailed(error instanceof Error ? error.message : '')
       }
 
       cli.action.stop(this.requestCompleteMessage)

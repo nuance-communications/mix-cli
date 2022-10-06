@@ -6,7 +6,6 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-/** eslint-disable unicorn/prefer-node-protocol */
 import makeDebug from 'debug'
 import {createWriteStream} from 'node:fs'
 

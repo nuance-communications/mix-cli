@@ -90,19 +90,6 @@ export const eDownloadFailed = (message: string) => {
     })
 }
 
-export const eSaveFailed = (message: string) => {
-  return new MixCLIError(
-    `File not saved: ${message}` ?? 'No details available.',
-    {
-      code: Codes.DownloadFailed,
-      exit: 1,
-      suggestions: [
-        'Verify provided file path exists.',
-        'Verify permissions on provided file path.',
-      ],
-    })
-}
-
 export const eException = (message: string, suggestions?: string[]) => {
   return new MixCLIError(
     `Exception: ${message ?? 'No details available.'}`,

@@ -8,10 +8,6 @@
 
 import {Expand} from './shared-types'
 
-/**
- * New Command
- * bot-configs:list
- */
 /** @hidden */
 export type BotConfigsListPathParams = {
   /** ID of the bot for which to list application configurations. */

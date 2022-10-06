@@ -19,20 +19,21 @@ import {DomainOption} from '../../utils/validations'
 const debug = makeDebug('mix:commands:bot-interfaces:export')
 
 export default class BotInterfacesExport extends MixCommand {
-  static description = `export an interface for bot
+  static description = `export the interface of a bot
  
-Use this command to export an interface for bot. The configuration ID
-can be retrieved using the bot-configs:list command.`
+Use this command to export the interface of a bot.
+The configuration ID can be retrieved using the bot-configs:list command.`
 
   static examples = [
-    'Export an interface for bot',
-    '$ mix bot-interfaces:export -B 32 - C 54',
+    'Export the interface of a bot',
+    '$ mix bot-interfaces:export -B 32 -C 54',
   ]
 
   static flags = {
     bot: MixFlags.botFlag,
     config: MixFlags.appConfigurationFlag,
     filepath: MixFlags.saveFilePathFlag,
+    overwrite: MixFlags.overwriteFileFlag,
   }
 
   shouldSaveBody = true
@@ -56,7 +57,6 @@ can be retrieved using the bot-configs:list command.`
 
   outputHumanReadable(_transformedData: any) {
     debug('outputHumanReadable()')
-    this.log(`Interface data saved to file (${this.options.filepath ? chalk.cyan(this.options.filepath) : chalk.cyan(`./interface-bot-${this.options.bot}-config-${this.options.config}.json`)}).`)
   }
 
   setRequestActionMessage(_options: any) {

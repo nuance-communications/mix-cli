@@ -8,10 +8,6 @@
 
 import {Expand} from './shared-types'
 
-/**
- * New Command
- * bot-interfaces:export
- */
 /** @hidden */
 export type BotInterfacesExportPathParams = {
   /** ID of the bot for which to get the configuration interface. */
@@ -24,21 +20,8 @@ export type BotInterfacesExportPathParams = {
 /** @hidden */
 export type BotInterfacesExportParams = Expand<BotInterfacesExportPathParams>
 
-/**
- * New Command
- * bot-interfaces:get
- */
 /** @hidden */
-export type BotInterfacesGetPathParams = {
-  /** ID of the bot for which to get the configuration interface. */
-  botId: string,
-
-  /** ID of the application configuration for which to get the interface. */
-  configId: string
-}
-
-/** @hidden */
-export type BotInterfacesGetParams = Expand<BotInterfacesGetPathParams>
+export type BotInterfacesGetParams = Expand<BotInterfacesExportPathParams>
 
 /** @hidden */
 export type BotInterfacesParams =

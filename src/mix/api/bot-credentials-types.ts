@@ -9,12 +9,6 @@
 import {Expand} from './shared-types'
 
 /**
- * New Command
- */
-
-/** bot-credentials:list Command */
-
-/**
  * Bot credentials view to return.
  * - BCV_VIEW_UNSPECIFIED: Returns credentials details without including clients
  * - BCV_FULL: Returns all credentials details, including list of clients
