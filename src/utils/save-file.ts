@@ -18,5 +18,4 @@ export function saveFile(response: any, filepath: string, shouldOverwrite: boole
   writeFileSync(filepath, JSON.stringify(response.data), {
     flag: flags,
   })
-
 }

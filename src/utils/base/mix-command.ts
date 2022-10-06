@@ -342,7 +342,7 @@ that configuration file swiftly.`)
     } else if (this.shouldSaveBody) {
       try {
         const defaultFilePath = `./interface-bot-${this.options.bot}-config-${this.options.config}.json`
-        await saveFile(result, this.options.filepath? this.options.filepath: defaultFilePath, this.options.overwrite)
+        await saveFile(result, this.options.filepath ? this.options.filepath : defaultFilePath, this.options.overwrite)
       } catch (error) {
         throw eDownloadFailed(error instanceof Error ? error.message : '')
       }
