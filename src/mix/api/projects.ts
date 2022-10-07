@@ -195,7 +195,7 @@ export async function lockProject(client: MixClient, params: ProjectsLockParams)
  *
  * @category projects
  */
- export async function unlockProject(client: MixClient, params: ProjectsUnlockParams): Promise<MixResponse> {
+export async function unlockProject(client: MixClient, params: ProjectsUnlockParams): Promise<MixResponse> {
   debug('unlockProject()')
   const {projectId} = params
 
