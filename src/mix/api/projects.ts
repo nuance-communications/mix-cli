@@ -19,7 +19,8 @@ import {
   ProjectsGetParams,
   ProjectsListParams,
   ProjectsRenameParams,
-  ProjectsReplaceParams} from './projects-types'
+  ProjectsReplaceParams,
+  ProjectsLockParams} from './projects-types'
 
 const debug = makeDebug('mix:api:projects')
 
@@ -168,6 +169,23 @@ export async function listProjects(client: MixClient, params: ProjectsListParams
   return client.request({
     method: 'get',
     url: buildURL(client.getServer(), `/v4/organizations/${orgId}/projects`),
+  })
+}
+
+/**
+ * Lock a project.
+ *
+ * @category projects
+ */
+export async function lockProject(client: MixClient, params: ProjectsLockParams): Promise<MixResponse> {
+  debug('lockProject()')
+  const {projectId, notes} = params
+  const body = {notes}
+
+  return client.request({
+    method: 'put',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/.lock`),
+    data: body,
   })
 }
 
