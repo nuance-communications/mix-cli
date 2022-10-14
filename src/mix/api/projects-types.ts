@@ -150,6 +150,21 @@ export type ProjectsReplaceBodyParams =  {
 export type ProjectsReplaceParams = Expand<ProjectsReplacePathParams & ProjectsReplaceBodyParams>
 
 /** @hidden */
+export type ProjectsLockPathParams = {
+  /** ID of the project to lock. */
+  projectId: string
+}
+
+/** @hidden */
+export type ProjectsLockBodyParams = {
+  /** Project lock notes. */
+  notes: string
+}
+
+/** @hidden */
+export type ProjectsLockParams = Expand<ProjectsLockPathParams & ProjectsLockBodyParams>
+
+/** @hidden */
 export type ProjectsParams =
   | ProjectsGetParams
   | ProjectsBuildParams
@@ -158,3 +173,4 @@ export type ProjectsParams =
   | ProjectsListParams
   | ProjectsRenameParams
   | ProjectsReplaceParams
+  | ProjectsLockParams
