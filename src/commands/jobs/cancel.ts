@@ -79,4 +79,3 @@ to be launched before the completion of the original one.`)
     this.requestActionMessage = 'Attempting to cancel job'
   }
 }
-  
