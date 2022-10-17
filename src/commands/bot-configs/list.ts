@@ -82,7 +82,7 @@ bot IDs can be retrieved using the bot-credentials:list command.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const {columns, options} = this
+    const {columns} = this
     if (transformedData.length === 0) {
       const msg = 'No configurations found.'
       this.log(msg)
