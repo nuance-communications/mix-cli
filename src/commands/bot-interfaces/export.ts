@@ -64,8 +64,8 @@ The configuration ID can be retrieved using the bot-configs:list command.`
     console.log(`Interface data saved to file ${this.options.filepath ? chalk.cyan(this.options.filepath) : chalk.cyan(defaultFilePath)}.`)
   }
 
-  setRequestActionMessage(_options: any) {
+  setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Exporting interface for bot ${chalk.cyan(this.options.bot)} with config ${chalk.cyan(this.options.config)}`
+    this.requestActionMessage = `Exporting interface for bot ${chalk.cyan(options.bot)} with config ${chalk.cyan(options.config)}`
   }
 }

@@ -70,9 +70,9 @@ The configuration ID can be retrieved using the bot-configs:list command.`
     this.log('Use the bot-interfaces:export command to export the interface to a JSON file.')
   }
 
-  setRequestActionMessage(_options: any) {
+  setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving interface for bot ${chalk.cyan(this.options.bot)} with config ${chalk.cyan(this.options.config)}`
+    this.requestActionMessage = `Retrieving interface for bot ${chalk.cyan(options.bot)} with config ${chalk.cyan(options.config)}`
   }
 
   transformResponse(result: MixResult) {

@@ -42,7 +42,6 @@ bot IDs can be retrieved using the bot-credentials:list command.`
 
   get columns() {
     debug('get columns()')
-
     return {
       id: {header: 'ConfigId'},
       tag: {header: 'ContextTag'},
@@ -81,9 +80,22 @@ bot IDs can be retrieved using the bot-credentials:list command.`
     return BotConfigsAPI.listBotConfigs(client, params)
   }
 
-  setRequestActionMessage(_options: any) {
+  outputHumanReadable(transformedData: any) {
+    debug('outputHumanReadable()')
+    const {columns, options} = this
+    if (transformedData.length === 0) {
+      const msg = 'No configurations found.'
+      this.log(msg)
+
+      return
+    }
+
+    super.outputCLITable(transformedData, columns)
+  }
+
+  setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving application configurations for bot ID ${chalk.cyan(_options.bot)}`
+    this.requestActionMessage = `Retrieving bot configurations for bot ID ${chalk.cyan(options.bot)}`
   }
 
   transformResponse(result: MixResult) {
