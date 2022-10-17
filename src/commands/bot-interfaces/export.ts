@@ -58,10 +58,10 @@ The configuration ID can be retrieved using the bot-configs:list command.`
     return BotInterfacesAPI.exportBotInterfaces(client, params)
   }
 
-  outputHumanReadable(_transformedData: any) {
+  outputHumanReadable(_transformedData: any, options: any) {
     debug('outputHumanReadable()')
-    const defaultFilePath = `./interface-bot-${this.options.bot}-config-${this.options.config}.json`
-    console.log(`Interface data saved to file ${this.options.filepath ? chalk.cyan(this.options.filepath) : chalk.cyan(defaultFilePath)}.`)
+    const defaultFilePath = `./interface-bot-${options.bot}-config-${options.config}.json`
+    console.log(`Interface data saved to file ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(defaultFilePath)}.`)
   }
 
   setRequestActionMessage(options: any) {

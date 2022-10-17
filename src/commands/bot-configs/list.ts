@@ -95,7 +95,7 @@ bot IDs can be retrieved using the bot-credentials:list command.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving bot configurations for bot ID ${chalk.cyan(options.bot)}`
+    this.requestActionMessage = `Retrieving application configurations for bot ID ${chalk.cyan(options.bot)}`
   }
 
   transformResponse(result: MixResult) {
