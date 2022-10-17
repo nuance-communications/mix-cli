@@ -21,7 +21,8 @@ import {
   ProjectsRenameParams,
   ProjectsReplaceParams,
   ProjectsLockParams,
-  ProjectsUnlockParams} from './projects-types'
+  ProjectsUnlockParams,
+  ProjectsLockGetParams} from './projects-types'
 
 const debug = makeDebug('mix:api:projects')
 
@@ -155,6 +156,21 @@ export async function getProject(client: MixClient, params: ProjectsGetParams): 
   return client.request({
     method: 'get',
     url: buildURL(client.getServer(), `/v4/projects/${projectId}`),
+  })
+}
+
+/**
+ * Retrieve details about a project lock.
+ *
+ * @category locks
+ */
+export async function getProjectLock(client: MixClient, params: ProjectsLockGetParams): Promise<MixResponse> {
+  debug('getProjectLock()')
+  const {projectId} = params
+
+  return client.request({
+    method: 'get',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/.lock`),
   })
 }
 

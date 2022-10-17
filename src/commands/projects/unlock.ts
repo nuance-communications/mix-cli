@@ -18,7 +18,7 @@ import MixCommand from '../../utils/base/mix-command'
 
 const debug = makeDebug('mix:commands:projects:unlock')
 
-export default class ProjectsLock extends MixCommand {
+export default class ProjectsUnlock extends MixCommand {
   static description = `unlock a project
 
 Use this command to unlock a project.

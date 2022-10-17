@@ -168,6 +168,9 @@ export type ProjectsLockParams = Expand<ProjectsLockPathParams & ProjectsLockBod
 export type ProjectsUnlockParams = Expand<ProjectsLockPathParams>
 
 /** @hidden */
+export type ProjectsLockGetParams = Expand<ProjectsLockPathParams>
+
+/** @hidden */
 export type ProjectsParams =
   | ProjectsGetParams
   | ProjectsBuildParams
@@ -178,3 +181,4 @@ export type ProjectsParams =
   | ProjectsReplaceParams
   | ProjectsLockParams
   | ProjectsUnlockParams
+  | ProjectsLockGetParams
