@@ -23,7 +23,12 @@ export default class BotConfigsList extends MixCommand {
   
 Use this command to list the application configurations for a bot.
 A number of flags can be used to constrain the returned results. The runtime
-bot IDs can be retrieved using the bot-credentials:list command.`
+bot IDs can be retrieved using the bot-credentials:list command.
+
+Bots are used in certain integration scenarios. A bot is a Mix application
+with configurations that include dialog builds.
+
+See https://docs.mix.nuance.com/mix-api/v4/#bots for details.`
 
   static examples = [
     '$ mix bot-configs:list -B 164 --with-runtime-app NMDPTRIAL_alex_smith_company_com_20190919T190532',
