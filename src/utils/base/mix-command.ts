@@ -354,6 +354,7 @@ that configuration file swiftly.`)
 
   // must be implemented in actual command
   get filepath(): string | undefined {
+    debug('get filepath()')
     return undefined
   }
 

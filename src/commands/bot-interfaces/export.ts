@@ -47,12 +47,13 @@ See https://docs.mix.nuance.com/mix-api/v4/#bots for details.`
   shouldSaveBody = true
 
   get filepath(): string {
-    debug('get getFilePath()')
-    const filePath = this.options.filePath ?? this.defaultFilepath
+    debug('get filepath()')
+    const filePath = this.options.filepath ?? this.defaultFilepath
     return filePath
   }
 
   get defaultFilepath(): string {
+    debug('get defaultFilepath()')
     const defaultFilePath = `interface-bot-${this.options.bot}-config-${this.options.config}.json`
     return defaultFilePath
   }
