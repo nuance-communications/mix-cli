@@ -353,7 +353,7 @@ that configuration file swiftly.`)
   }
 
   // must be implemented in actual command
-  get getFilePath(): any {
+  get getFilePath(): string | undefined {
     return undefined
   }
 
