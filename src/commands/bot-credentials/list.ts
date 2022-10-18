@@ -23,7 +23,12 @@ export default class BotCredentialsList extends MixCommand {
   
 Use this command to list the credentials for a bot.
 This lets you retrieve the runtime application ID that is required
-in other commands.`
+in other commands.
+
+Bots are used in certain integration scenarios. A bot is a Mix application
+with configurations that include dialog builds.
+
+See https://docs.mix.nuance.com/mix-api/v4/#bots for details.`
 
   static examples = [
     'List bot credentials for a bot',

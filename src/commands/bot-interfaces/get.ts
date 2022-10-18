@@ -23,7 +23,12 @@ export default class BotInterfacesGet extends MixCommand {
   static description = `retrieve the interface of a bot
  
 Use this command to get the interface of a bot.
-The configuration ID can be retrieved using the bot-configs:list command.`
+The configuration ID can be retrieved using the bot-configs:list command.
+
+Bots are used in certain integration scenarios. A bot is a Mix application
+with configurations that include dialog builds.
+
+See https://docs.mix.nuance.com/mix-api/v4/#bots for details.`
 
   static examples = [
     'Retrieve the interface of a bot',

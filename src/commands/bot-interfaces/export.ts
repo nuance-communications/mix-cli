@@ -22,7 +22,12 @@ export default class BotInterfacesExport extends MixCommand {
   static description = `export the interface of a bot
  
 Use this command to export the interface of a bot.
-The configuration ID can be retrieved using the bot-configs:list command.`
+The configuration ID can be retrieved using the bot-configs:list command.
+
+Bots are used in certain integration scenarios. A bot is a Mix application
+with configurations that include dialog builds.
+
+See https://docs.mix.nuance.com/mix-api/v4/#bots for details.`
 
   static examples = [
     'Export the interface of a bot',
