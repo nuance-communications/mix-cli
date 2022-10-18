@@ -335,7 +335,7 @@ that configuration file swiftly.`)
     debug('handleSuccess()')
     if (this.shouldDownloadFile) {
       try {
-        await downloadFile(result, this.options.filepath, this.options.overwrite)
+        await downloadFile(result, this.filepath, this.options.overwrite)
       } catch (error) {
         throw eDownloadFailed(error instanceof Error ? error.message : '')
       }
@@ -354,10 +354,16 @@ that configuration file swiftly.`)
     this.output(result as MixResult, this.options)
   }
 
+<<<<<<< HEAD
   // Actual command to override this and provide filepath or relevant default
   get filepath(): string {
     debug('get filepath()')
     return DEFAULT_FILEPATH
+=======
+  // must be implemented in actual command
+  get filepath(): string | undefined {
+    return undefined
+>>>>>>> 5b36d48 (fix: app-configs-export default file path)
   }
 
   // Called to transform reponse data before handing it over to outputHumanReadable().
