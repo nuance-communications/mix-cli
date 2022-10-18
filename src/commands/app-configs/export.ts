@@ -44,12 +44,13 @@ on the Mix platform.`
   }
 
   get filepath(): string {
-    debug('get getFilePath()')
+    debug('get filepath()')
     const filePath = this.options.filepath ?? this.defaultFilepath
     return filePath
   }
 
   get defaultFilepath(): string {
+    debug('get defaultFilepath()')
     const defaultFilePath = `app-config-${this.options.config}.zip`
     return defaultFilePath
   }
