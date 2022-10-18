@@ -341,7 +341,7 @@ that configuration file swiftly.`)
       cli.action.stop(this.requestCompleteMessage)
     } else if (this.shouldSaveBody) {
       try {
-        await saveFile(result, this.getFilePath, this.options.overwrite)
+        await saveFile(result, this.filepath, this.options.overwrite)
       } catch (error) {
         throw eDownloadFailed(error instanceof Error ? error.message : '')
       }
@@ -353,7 +353,7 @@ that configuration file swiftly.`)
   }
 
   // must be implemented in actual command
-  get getFilePath(): string | undefined {
+  get filepath(): string | undefined {
     return undefined
   }
 
