@@ -341,8 +341,7 @@ that configuration file swiftly.`)
       cli.action.stop(this.requestCompleteMessage)
     } else if (this.shouldSaveBody) {
       try {
-        const defaultFilePath = `./interface-bot-${this.options.bot}-config-${this.options.config}.json`
-        await saveFile(result, this.options.filepath ? this.options.filepath : defaultFilePath, this.options.overwrite)
+        await saveFile(result, this.getFilePath, this.options.overwrite)
       } catch (error) {
         throw eDownloadFailed(error instanceof Error ? error.message : '')
       }
@@ -351,6 +350,11 @@ that configuration file swiftly.`)
     }
 
     this.output(result as MixResult, this.options)
+  }
+
+  // must be implemented in actual command
+  get getFilePath(): any {
+    return undefined
   }
 
   // Called to transform reponse data before handing it over to outputHumanReadable().

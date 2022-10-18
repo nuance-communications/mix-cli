@@ -41,6 +41,17 @@ The configuration ID can be retrieved using the bot-configs:list command.`
 
   shouldSaveBody = true
 
+  get getFilePath(): any {
+    debug('get getFilePath()')
+    const filePath = this.options.filePath ? this.options.filePath : this.getDefaultPath()
+    return filePath
+  }
+
+  getDefaultPath(): any {
+    const defaultFilePath = `./interface-bot-${this.options.bot}-config-${this.options.config}.json`
+    return defaultFilePath
+  }
+
   get domainOptions(): DomainOption[] {
     debug('get domainOptions()')
     return ['bot', 'config']
@@ -60,7 +71,7 @@ The configuration ID can be retrieved using the bot-configs:list command.`
 
   outputHumanReadable(_transformedData: any, options: any) {
     debug('outputHumanReadable()')
-    const defaultFilePath = `./interface-bot-${options.bot}-config-${options.config}.json`
+    const defaultFilePath = this.getDefaultPath()
     console.log(`Interface data saved to file ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(defaultFilePath)}.`)
   }
 
