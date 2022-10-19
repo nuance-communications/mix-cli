@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -29,7 +30,7 @@ on the Mix platform.`
 
   static examples = [
     'Export a build using a build label',
-    '$ mix builds:export --build-label ASR_29050_11 -f build.zip',
+    '$ mix builds:export --build-label ASR_29050_11',
     '',
     'Export a build using project ID, build type and build version',
     '$ mix builds:export -P 29050 --build-type asr --build-version 11 -f build.zip --overwrite',
@@ -51,7 +52,10 @@ on the Mix platform.`
       exclusive: ['build-label'],
       options: MixFlags.buildTypeOptions,
     }),
-    filepath: MixFlags.outputFilePathFlag,
+    filepath: {
+      ...MixFlags.outputFilePathFlag,
+      required: false,
+    },
     overwrite: MixFlags.overwriteFileFlag,
     project: flags.integer({
       char: MixFlags.projectShortcut,
@@ -59,6 +63,19 @@ on the Mix platform.`
       description: MixFlags.projectDesc,
       exclusive: ['build-label'],
     }),
+  }
+
+  get filepath(): string {
+    debug('get filepath()')
+    const filePath = this.options.filepath ?? this.defaultFilepath
+    return filePath
+  }
+
+  get defaultFilepath(): string {
+    debug('get defaultFilepath()')
+    const {'build-label': buildLabel} = this.options
+    const defaultFilePath = `build-${buildLabel}.zip`
+    return defaultFilePath
   }
 
   shouldDownloadFile = true
@@ -93,9 +110,9 @@ on the Mix platform.`
     return BuildsAPI.exportBuild(client, params)
   }
 
-  outputHumanReadable(_transformedData: any) {
+  outputHumanReadable(_transformedData: any, options: any) {
     debug('outputHumanReadable()')
-    this.log(`Build exported to file ${this.options.filepath}`)
+    this.log(`Build exported to file ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(this.defaultFilepath)}`)
   }
 
   setRequestActionMessage(_options: any) {
