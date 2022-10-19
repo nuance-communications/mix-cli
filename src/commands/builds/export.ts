@@ -73,8 +73,7 @@ on the Mix platform.`
 
   get defaultFilepath(): string {
     debug('get defaultFilepath()')
-    const {'build-label': buildLabel} = this.options
-    const defaultFilePath = `build-${buildLabel}.zip`
+    const defaultFilePath = `build-${this.options['build-label']}.zip`
     return defaultFilePath
   }
 
