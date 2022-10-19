@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -34,10 +35,25 @@ on the Mix platform.`
 
   static flags = {
     'entity-name': MixFlags.entityFlag,
-    filepath: MixFlags.outputFilePathFlag,
+    filepath: {
+      ...MixFlags.outputFilePathFlag,
+      required: false,
+    },
     locale: MixFlags.localeMultipleWithDefaultFlag,
     overwrite: MixFlags.overwriteFileFlag,
     project: MixFlags.projectWithDefaultFlag,
+  }
+
+  get filepath(): string {
+    debug('get filepath()')
+    const filePath = this.options.filepath ?? this.defaultFilepath
+    return filePath
+  }
+
+  get defaultFilepath(): string {
+    debug('get defaultFilepath()')
+    const defaultFilePath = `literal-${this.options.project}-${this.options['entity-name']}.zip`
+    return defaultFilePath
   }
 
   shouldDownloadFile = true
@@ -64,9 +80,9 @@ on the Mix platform.`
     return LiteralsAPI.exportLiterals(client, params)
   }
 
-  outputHumanReadable(_transformedData: any) {
+  outputHumanReadable(_transformedData: any, options: any) {
     debug('outputHumanReadable()')
-    this.log(`Entity literals exported to file ${this.options.filepath}`)
+    this.log(`Entity literals exported to file ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(this.defaultFilepath)}`)
   }
 
   setRequestActionMessage(options: any) {
