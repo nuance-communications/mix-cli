@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -25,15 +26,30 @@ export default class SamplesExport extends MixCommand {
 Use this command to export samples for an intent in the project.`
 
   static examples = [
-    '$ mix samples:export -P 29050 -I ORDER_DRINK -L en-US -f samples.zip --overwrite',
+    '$ mix samples:export -P 29050 -I ORDER_DRINK -L en-US --overwrite',
   ]
 
   static flags = {
-    filepath: MixFlags.outputFilePathFlag,
+    filepath: {
+      ...MixFlags.outputFilePathFlag,
+      required: false,
+    },
     'intent-name': MixFlags.intentFlag,
     locale: MixFlags.localeMultipleWithDefaultFlag,
     overwrite: MixFlags.overwriteFileFlag,
     project: MixFlags.projectWithDefaultFlag,
+  }
+
+  get filepath(): string {
+    debug('get filepath()')
+    const filePath = this.options.filepath ?? this.defaultFilepath
+    return filePath
+  }
+
+  get defaultFilepath(): string {
+    debug('get defaultFilepath()')
+    const defaultFilePath = `samples-${this.options.project}-${this.options['intent-name']}.zip`
+    return defaultFilePath
   }
 
   shouldDownloadFile = true
@@ -60,14 +76,14 @@ Use this command to export samples for an intent in the project.`
     return SamplesAPI.exportSamples(client, params)
   }
 
-  outputHumanReadable(_transformedData: any) {
+  outputHumanReadable(_transformedData: any, options: any) {
     debug('outputHumanReadable()')
-    this.log(`Sample sentences exported to file ${this.options.filepath}`)
+    this.log(`Sample sentences exported to file ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(this.defaultFilepath)}`)
   }
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Exporting samples for locale${s(options.locale.count)} ${options.locale} ` +
-    `from project ${options.project}`
+    this.requestActionMessage = `Exporting samples for locale${s(options.locale.count)} ${chalk.cyan(options.locale)} ` +
+    `from project ${chalk.cyan(options.project)}`
   }
 }
