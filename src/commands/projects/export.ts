@@ -33,10 +33,10 @@ Use the --metadata-only flag to export the project metadata JSON file only.`
 
   static examples = [
     'Export the project package to a zip file',
-    '$ mix projects:export -P 29050 -f project.zip --overwrite',
+    '$ mix projects:export -P 29050 --overwrite',
     '',
     'Export the projecte metadata JSON file only',
-    '$ mix projects:export -P 29050 -f metadata.json --metadata-only --overwrite',
+    '$ mix projects:export -P 29050 --metadata-only --overwrite',
   ]
 
   static flags = {
