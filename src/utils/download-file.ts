@@ -12,7 +12,7 @@ import {createWriteStream} from 'fs'
 
 const debug = makeDebug.debug('mix:utils:download-file')
 
-export function downloadFile(response: any, filepath: string, shouldOverwrite: boolean) {
+export function downloadFile(response: any, filepath: string | undefined, shouldOverwrite: boolean) {
   debug('downloadFile() filepath: %s  shouldOverwrite: %s', filepath, shouldOverwrite)
   const flags = shouldOverwrite ? 'w' : 'wx'
   const writer = createWriteStream(filepath, {flags})
