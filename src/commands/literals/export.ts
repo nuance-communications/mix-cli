@@ -87,7 +87,7 @@ on the Mix platform.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Exporting entity literals from project ID ${options.project}` +
-    ` for locale${s(options.locale.length)} ${options.locale}`
+    this.requestActionMessage = `Exporting entity literals from project ID ${chalk.cyan(options.project)}` +
+    ` for locale${s(options.locale.length)} ${chalk.cyan(options.locale)}`
   }
 }
