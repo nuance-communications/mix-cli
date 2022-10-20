@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -39,10 +40,25 @@ Use the --metadata-only flag to export the project metadata JSON file only.`
   ]
 
   static flags = {
-    filepath: MixFlags.outputFilePathFlag,
+    filepath: {
+      ...MixFlags.outputFilePathFlag,
+      required: false,
+    },
     'metadata-only': MixFlags.projectMetadataOnlyFlag,
     overwrite: MixFlags.overwriteFileFlag,
     project: MixFlags.projectWithDefaultFlag,
+  }
+
+  get filepath(): string {
+    debug('get filepath()')
+    const filePath = this.options.filepath ?? this.defaultFilepath
+    return filePath
+  }
+
+  get defaultFilepath(): string {
+    debug('get defaultFilepath()')
+    const defaultFilePath = this.options['metadata-only'] ? `project-${this.options.project}-metadata.json` : `project-${this.options.project}.zip`
+    return defaultFilePath
   }
 
   shouldDownloadFile = true
@@ -71,12 +87,12 @@ Use the --metadata-only flag to export the project metadata JSON file only.`
     debug('outputHumanReadable()')
     const exportSource = options['metadata-only'] ?
       'Project metadata' : 'Project package'
-    this.log(`${exportSource} exported to file ${this.options.filepath}`)
+    this.log(`${exportSource} exported to file ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(this.defaultFilepath)}`)
   }
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
     this.requestActionMessage = (options['metadata-only'] ?
-      'Exporting project metadata' : 'Exporting project package') + ` for project ${options.project}`
+      'Exporting project metadata' : 'Exporting project package') + ` for project ${chalk.cyan(options.project)}`
   }
 }
