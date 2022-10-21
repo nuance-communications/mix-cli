@@ -15,6 +15,7 @@ import {channelColors} from '../mix/api/utils/channel-colors'
 import {eInvalidValue, eMissingParameter} from './errors'
 
 export type DomainOption =
+  | 'bot'
   | 'build-label'
   | 'build-version'
   | 'channel'
@@ -40,6 +41,8 @@ const dataPackRegEx = /^[a-z]{2}-[A-Z]{2}@[1-9]\d*\.\d+\.\d+$/
 const localeRegEx = /^[a-z]{2}-[A-Z]{2}$/
 
 const validationSchemes = {
+  bot: z.number().positive({
+    message: "Expected flag 'bot' to have a value greater than 0"}),
   'build-label': z.string().regex(buildLabelRegEx, {
     message: `Expected flag 'build-label' to match ${buildLabelRegEx}`}),
   'build-version': z.number().positive({

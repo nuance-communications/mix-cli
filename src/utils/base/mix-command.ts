@@ -45,8 +45,11 @@ import {
 
 import {createMixClient} from '../../mix/client'
 import {OutputFormat} from '../types'
+import {saveFile} from '../save-file'
 
 export type Columns = table.Columns<object>
+
+const DEFAULT_FILEPATH = 'outputfile'
 
 const debug = makeDebug.debug('mix:base:mix-command')
 
@@ -62,6 +65,7 @@ export default abstract class MixCommand extends BaseCommand {
   selectedFormat: OutputFormat = 'human-readable'
   shouldConfirmCommand = false
   shouldDownloadFile = false
+  shouldSaveBody = false;
   shouldWatchJob = false
   tries = 0
 
@@ -337,9 +341,23 @@ that configuration file swiftly.`)
       }
 
       cli.action.stop(this.requestCompleteMessage)
+    } else if (this.shouldSaveBody) {
+      try {
+        await saveFile(result, this.filepath, this.options.overwrite)
+      } catch (error) {
+        throw eDownloadFailed(error instanceof Error ? error.message : '')
+      }
+
+      cli.action.stop(this.requestCompleteMessage)
     }
 
     this.output(result as MixResult, this.options)
+  }
+
+  // Actual command to override this and provide filepath or relevant default
+  get filepath(): string {
+    debug('get filepath()')
+    return DEFAULT_FILEPATH
   }
 
   // Called to transform reponse data before handing it over to outputHumanReadable().
