@@ -49,6 +49,8 @@ import {saveFile} from '../save-file'
 
 export type Columns = table.Columns<object>
 
+const DEFAULT_FILEPATH = 'outputfile'
+
 const debug = makeDebug.debug('mix:base:mix-command')
 
 export default abstract class MixCommand extends BaseCommand {
@@ -352,10 +354,10 @@ that configuration file swiftly.`)
     this.output(result as MixResult, this.options)
   }
 
-  // must be implemented in actual command
-  get filepath(): string | undefined {
+  // Actual command to override this and provide filepath or relevant default
+  get filepath(): string {
     debug('get filepath()')
-    return undefined
+    return DEFAULT_FILEPATH
   }
 
   // Called to transform reponse data before handing it over to outputHumanReadable().

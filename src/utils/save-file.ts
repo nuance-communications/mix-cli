@@ -11,7 +11,7 @@ import {writeFileSync} from 'node:fs'
 
 const debug = makeDebug.debug('mix:utils:save-file')
 
-export function saveFile(response: any, filepath: string | undefined, shouldOverwrite: boolean) {
+export function saveFile(response: any, filepath: string, shouldOverwrite: boolean) {
   debug('downloadFile() filepath: %s  shouldOverwrite: %s', filepath, shouldOverwrite)
   const flags = shouldOverwrite ? 'w' : 'wx'
 
