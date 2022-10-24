@@ -40,13 +40,13 @@ Use the --metadata-only flag to export the project metadata JSON file only.`
   ]
 
   static flags = {
+    project: MixFlags.projectWithDefaultFlag,
     filepath: {
       ...MixFlags.outputFilePathFlag,
       required: false,
     },
     'metadata-only': MixFlags.projectMetadataOnlyFlag,
     overwrite: MixFlags.overwriteFileFlag,
-    project: MixFlags.projectWithDefaultFlag,
   }
 
   get filepath(): string {

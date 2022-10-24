@@ -33,7 +33,7 @@ on the Mix platform.`
     '$ mix builds:export --build-label ASR_29050_11',
     '',
     'Export a build using project ID, build type and build version',
-    '$ mix builds:export -P 29050 --build-type asr --build-version 11 -f build.zip --overwrite',
+    '$ mix builds:export -P 29050 --build-type asr --build-version 11 --overwrite',
   ]
 
   static flags = {

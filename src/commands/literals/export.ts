@@ -30,7 +30,7 @@ The contents of the exported zip file depend on the role you have been granted
 on the Mix platform.`
 
   static examples = [
-    '$ mix literals:export -P 29050 -E DrinkSize -L en-US -f literals.zip --overwrite',
+    '$ mix literals:export -P 29050 -E DrinkSize -L en-US --overwrite',
   ]
 
   static flags = {

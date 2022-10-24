@@ -30,6 +30,7 @@ Use this command to export samples for an intent in the project.`
   ]
 
   static flags = {
+    project: MixFlags.projectWithDefaultFlag,
     filepath: {
       ...MixFlags.outputFilePathFlag,
       required: false,
@@ -37,7 +38,6 @@ Use this command to export samples for an intent in the project.`
     'intent-name': MixFlags.intentFlag,
     locale: MixFlags.localeMultipleWithDefaultFlag,
     overwrite: MixFlags.overwriteFileFlag,
-    project: MixFlags.projectWithDefaultFlag,
   }
 
   get filepath(): string {

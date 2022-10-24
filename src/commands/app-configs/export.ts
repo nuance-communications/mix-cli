@@ -30,7 +30,7 @@ on the Mix platform.`
 
   static examples = [
     'Export an application configuration',
-    '$ mix app-configs:export -C 2269 -R NMDPTRIAL_alex_smith_company_com_20190919T190532 -f app-config.zip',
+    '$ mix app-configs:export -C 2269 -R NMDPTRIAL_alex_smith_company_com_20190919T190532 --overwrite',
   ]
 
   static flags = {
@@ -76,7 +76,7 @@ on the Mix platform.`
 
   outputHumanReadable(_transformedData: any, options: any) {
     debug('outputHumanReadable()')
-    this.log(`Application configuration exported to file ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(this.defaultFilepath)}.`)
+    this.log(`Application configuration exported to file ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(this.defaultFilepath)}`)
   }
 
   setRequestActionMessage(_options: any) {
