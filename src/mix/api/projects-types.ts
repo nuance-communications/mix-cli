@@ -162,6 +162,30 @@ export type ProjectsLockBodyParams = {
 }
 
 /** @hidden */
+export type ProjectsLockListBodyParams = {
+  /** ID of the project to list locks. */
+  projectId?: string
+
+  /** ID of the user to list locks. */
+  userId?: string
+
+  /** ID of the organization to list lock. */
+  orgId?: string
+
+  /** The maximum number of items to be returned in the response. */
+  limit?: number
+
+  /** The offset from which (sorted) elements will get included in the response. */
+  offset?: number
+
+  /**
+   * Comma-separated properties to sort by.
+   * Prepend with +/- for ascending/descending.
+   */
+  sortBy?: string
+}
+
+/** @hidden */
 export type ProjectsLockParams = Expand<ProjectsLockPathParams & ProjectsLockBodyParams>
 
 /** @hidden */
@@ -169,6 +193,9 @@ export type ProjectsUnlockParams = Expand<ProjectsLockPathParams>
 
 /** @hidden */
 export type ProjectsLockGetParams = Expand<ProjectsLockPathParams>
+
+/** @hidden */
+export type ProjectsLockListParams = Expand<ProjectsLockListBodyParams>
 
 /** @hidden */
 export type ProjectsParams =
@@ -182,3 +209,4 @@ export type ProjectsParams =
   | ProjectsLockParams
   | ProjectsUnlockParams
   | ProjectsLockGetParams
+  | ProjectsLockListParams

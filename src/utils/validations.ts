@@ -31,6 +31,7 @@ export type DomainOption =
   | 'offset'
   | 'organization'
   | 'project'
+  | 'user'
   | 'with-locale'
 
 const debug = makeDebug('mix:utils:validations')
@@ -72,6 +73,8 @@ const validationSchemes = {
     message: "Expected flag 'organization' to have a value greater than 0"}),
   project: z.number().positive({
     message: "Expected flag 'project' to have a value greater than 0"}),
+  user: z.number().positive({
+    message: "Expected flag 'user' to have a value greater than 0"}),
   'with-locale': z.string().regex(localeRegEx, {
     message: `Expected each locale in flag 'with-locale' to match ${localeRegEx}`}).array(),
 }
