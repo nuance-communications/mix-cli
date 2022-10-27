@@ -49,20 +49,10 @@ describe('builds:export', () => {
     )
     .stub(df, 'downloadFile', () => downloadFileStub)
     .stdout()
-    .command(['builds:export', '--build-label', td.request.buildLabel, '-f', td.request.filepath, '--overwrite'])
+    .command(['builds:export', '--build-label', td.request.buildLabel, '--overwrite'])
     .it('downloads a build and overwrites the zip file', ctx => {
       const [firstLine] = ctx.stdout.split('\n').map(ln => ln.trim())
-      expect(firstLine).to.equal(`Build exported to file ${td.request.filepath}`)
+      expect(firstLine).to.equal(`Build exported to file build-${td.request.buildLabel}.zip`)
     })
-
-  test
-    .env(testEnvData.env)
-    .stdout()
-    .command(['builds:export', '--build-label', td.request.buildLabel])
-    .catch(ctx => {
-      expect(ctx.message).to.contain('Missing required flag')
-      expect(ctx.message).to.contain('-f, --filepath FILEPATH')
-      })
-    .it('errors out when build output file path is not provided')
 
 })

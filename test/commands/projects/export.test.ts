@@ -43,12 +43,11 @@ describe('projects:export command', () => {
     )
     .stub(DownloadFileModule, 'downloadFile', () => downloadFileStub)
     .command(['projects:export',
-      '-P', td.export.flags.project.toString(),
-      `-f=${td.export.flags.filepath}`]
+      '-P', td.export.flags.project.toString()]
     )
     .it('exports a project to file', ctx => {
       const [firstLine] = ctx.stdout.split('\n').map(ln => ln.trim())
-      expect(firstLine).to.equal(`Project package exported to file ${td.export.flags.filepath}`)
+      expect(firstLine).to.equal(`Project package exported to file project-${td.export.flags.project}.zip`)
     })
 
   test
@@ -61,12 +60,11 @@ describe('projects:export command', () => {
     .stub(DownloadFileModule, 'downloadFile', () => downloadFileStub)
     .command(['projects:export',
       '-P', td.export.flags.project.toString(),
-      `-f=${td.export.flags.filepath}`,
       '--metadata-only',
     ])
     .it('exports a project metadata to file', ctx => {
       const [firstLine] = ctx.stdout.split('\n').map(ln => ln.trim())
-      expect(firstLine).to.equal(`Project metadata exported to file ${td.export.flags.filepath}`)
+      expect(firstLine).to.equal(`Project metadata exported to file project-${td.export.flags.project.toString()}-metadata.json`)
     })
 
   test
@@ -80,16 +78,4 @@ describe('projects:export command', () => {
       expect(err.message).to.contain('Missing required flag:\n -P, --project PROJECT')
     })
     .it('errors out when project ID is not specified')
-
-  test
-    .env(testData.env)
-    .stderr()
-    .command(['projects:export',
-      '-P', td.export.flags.project.toString()]
-    )
-    .catch(ctx => {
-      const err = ctx as PrettyPrintableError
-      expect(err.message).to.contain('Missing required flag:\n -f, --filepath FILEPATH')
-    })
-    .it('errors out when filepath is not specified')
  })
