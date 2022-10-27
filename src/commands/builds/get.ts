@@ -115,6 +115,12 @@ and build version.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
+    if (transformedData === undefined) {
+      this.log('No build found.')
+
+      return
+    }
+
     this.outputAsKeyValuePairs(transformedData, this.columns)
   }
 
