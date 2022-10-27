@@ -79,7 +79,7 @@ in an incomplete project.`
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
     this.requestActionMessage = (options.isWatching ?? false) ?
-      `Waiting for job to replace ${chalk.cyan(options.project)} to complete` :
+      `Waiting for job to replace project ${chalk.cyan(options.project)} to complete` :
       `Replacing project ${chalk.cyan(options.project)}`
   }
 
