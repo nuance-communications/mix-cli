@@ -25,11 +25,12 @@ export default class LocksList extends MixCommand {
 Use this command to get a list of all project locks.
 The list can be constrained using the project, organization
 and/or user flags.
+
 A project cannot be edited while it is locked.`
 
   static examples = [
     'list project locks',
-    '$ mix locks:list -P 249 -O 33 -U 32',
+    '$ mix locks:list -P 249 -U 32',
   ]
 
   static flags = {
@@ -53,8 +54,12 @@ A project cannot be edited while it is locked.`
     return {
       lockId: {header: 'LockId'},
       projectId: {header: 'ProjectId'},
-      email: {
+      name: {
         header: 'LockOwnerName',
+        get: (locks: any) => locks.lockOwner.name,
+      },
+      email: {
+        header: 'LockOwnerEmail',
         get: (locks: any) => locks.lockOwner.email,
       },
       id: {
@@ -105,13 +110,16 @@ A project cannot be edited while it is locked.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    const project = options.project ? `project ${options.project}` : ''
-    const user = options.user ? `user ${options.user}` : ''
-    const organization = options.organization ? `organization ${options.organization}` : ''
-    const searchingParams = (((project && user) || (project && organization)) ? `${project}, ` : project) + ((user && organization) ? `${user}, ` : user) + organization
-    const msgWithParams = `Retrieving locks for searching parameters ${chalk.cyan(searchingParams)}`
-    const msg = 'Retrieving locks'
-    this.requestActionMessage = searchingParams ? msgWithParams : msg
+
+    const filters = []
+    for (const option of ['user', 'project', 'organization']) {
+      if (options[option]) {
+        filters.push(`${option}=${chalk.cyan(options[option])}`)
+      }
+    }
+
+    this.requestActionMessage = filters.length === 0 ?
+      'Retrieving locks' : `Searching for locks with: ${filters.join(', ')}`
   }
 
   transformResponse(result: MixResult) {
