@@ -70,6 +70,17 @@ Use this command to list all environments available to a specific organization.`
     return EnvironmentsAPI.listEnvironments(client, params)
   }
 
+  outputHumanReadable(transformedData: any) {
+    debug('outputHumanReadable()')
+    if (transformedData.length === 0) {
+      this.log('No environments found.')
+
+      return
+    }
+
+    this.outputCLITable(transformedData, this.columns)
+  }
+
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
     this.requestActionMessage = `Retrieving environments for organization ID ${options.organization}`
