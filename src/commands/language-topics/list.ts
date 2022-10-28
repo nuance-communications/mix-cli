@@ -66,6 +66,17 @@ Use this command to list language topics available to a specific organization.`
     return LanguageTopicsAPI.listLanguageTopics(client, params)
   }
 
+  outputHumanReadable(transformedData: any) {
+    debug('outputHumanReadable()')
+    if (transformedData.length === 0) {
+      this.log('No language topics found.')
+
+      return
+    }
+
+    this.outputCLITable(transformedData, this.columns)
+  }
+
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
     this.requestActionMessage = `Retrieving language topics for organization ID ${options.organization}`
