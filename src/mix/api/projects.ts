@@ -191,7 +191,7 @@ export async function listProjects(client: MixClient, params: ProjectsListParams
 }
 
 /**
- * Retrieve list of projects lock.
+ * Retrieve list of project locks.
  *
  * @category locks
  */
