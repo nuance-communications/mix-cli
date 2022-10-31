@@ -18,12 +18,12 @@ import {
   ProjectsCreateParams,
   ProjectsGetParams,
   ProjectsListParams,
-  ProjectsRenameParams,
-  ProjectsReplaceParams,
   ProjectsLockParams,
-  ProjectsUnlockParams,
   ProjectsLockGetParams,
-  ProjectsLockListParams} from './projects-types'
+  ProjectsLockListParams,
+  ProjectsUnlockParams,
+  ProjectsRenameParams,
+  ProjectsReplaceParams} from './projects-types'
 
 const debug = makeDebug('mix:api:projects')
 
@@ -222,21 +222,6 @@ export async function lockProject(client: MixClient, params: ProjectsLockParams)
 }
 
 /**
- * Unlock a project.
- *
- * @category projects
- */
-export async function unlockProject(client: MixClient, params: ProjectsUnlockParams): Promise<MixResponse> {
-  debug('unlockProject()')
-  const {projectId} = params
-
-  return client.request({
-    method: 'put',
-    url: buildURL(client.getServer(), `/v4/projects/${projectId}/.unlock`),
-  })
-}
-
-/**
  * Rename a channel in a project.
  *
  * @category projects
@@ -278,5 +263,20 @@ export async function replaceProject(client: MixClient, params: ProjectsReplaceP
     url: buildURL(client.getServer(), `/v4/projects/${projectId}/.replace`),
     data: form,
     headers: form.getHeaders(),
+  })
+}
+
+/**
+ * Unlock a project.
+ *
+ * @category projects
+ */
+export async function unlockProject(client: MixClient, params: ProjectsUnlockParams): Promise<MixResponse> {
+  debug('unlockProject()')
+  const {projectId} = params
+
+  return client.request({
+    method: 'put',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/.unlock`),
   })
 }
