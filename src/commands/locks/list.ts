@@ -126,7 +126,7 @@ A project cannot be edited while it is locked.`
     debug('transformResponse()')
     const data = result.data as any
 
-    const {locks, count, offset, limit, totalSize} = data
+    const {count, limit, locks, offset,  totalSize} = data
 
     this.context.set('count', count)
     this.context.set('offset', offset)
