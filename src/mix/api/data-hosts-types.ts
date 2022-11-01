@@ -27,7 +27,29 @@ export type DataHostsListSearchParams = {
 export type DataHostsListParams = Expand<DataHostsListPathParams & DataHostsListSearchParams>
 
 /** @hidden */
-export type DataHostsParams = DataHostsListParams
+export type DataHostsLatestPathParams = {
+  /** ID of the Mix application for which to get the list of data hosts. */
+  applicationId: string,
+  
+  /** ID of the project to build. */
+  projectId: string
+}
 
 /** @hidden */
-export type DataHostsSearchParams = DataHostsListSearchParams
+export type DataHostsLatestSearchParams = {
+  /** ID of the deployment flow for which to return data hosts. */
+  deploymentFlowId?: string
+}
+
+/** @hidden */
+export type DataHostsLatestParams = Expand<DataHostsLatestPathParams & DataHostsLatestSearchParams>
+
+/** @hidden */
+export type DataHostsParams =
+| DataHostsListParams
+| DataHostsLatestParams
+
+/** @hidden */
+export type DataHostsSearchParams =
+| DataHostsListSearchParams
+| DataHostsLatestSearchParams
