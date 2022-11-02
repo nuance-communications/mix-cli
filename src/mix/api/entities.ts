@@ -105,7 +105,7 @@ export async function deleteEntity(client: MixClient, params: EntitiesDeletePara
 /**
  * Export the rule-based GrXML grammars for an entity. Note that
  * the rule-based grammars are restricted to Nuance Professional
- * Services users and not available to all users. 
+ * Services users and not available to all users.
  *
  * @category grammars
  */

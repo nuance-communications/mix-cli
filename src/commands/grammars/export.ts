@@ -18,7 +18,7 @@ import {DomainOption} from '../../utils/validations'
 
 const debug = makeDebug.debug('mix:command:grammars:export')
 
-export default class ProjectsExport extends MixCommand {
+export default class GrammarExport extends MixCommand {
   static description = `export the grammar for an entity
  
 Use this command to export the rule-based GrXML grammars for an entity.
@@ -62,14 +62,14 @@ and not available to all users.`
   async buildRequestParameters(options: Partial<flags.Output>): Promise<EntitiesGetParams> {
     debug('buildRequestParams()')
     const {
-        entity: entityName,
-        project: projectId,
-      } = options
-  
-      return {
-        entityName,
-        projectId,
-      }
+      entity: entityName,
+      project: projectId,
+    } = options
+
+    return {
+      entityName,
+      projectId,
+    }
   }
 
   doRequest(client: MixClient, params: EntitiesGetParams): Promise<MixResponse> {
