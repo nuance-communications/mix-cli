@@ -103,6 +103,24 @@ export async function deleteEntity(client: MixClient, params: EntitiesDeletePara
 }
 
 /**
+ * Export the rule-based GrXML grammars for an entity. Note that
+ * the rule-based grammars are restricted to Nuance Professional
+ * Services users and not available to all users. 
+ *
+ * @category grammars
+ */
+export async function exportGrammars(client: MixClient, params: EntitiesGetParams): Promise<MixResponse> {
+  debug('exportProject()')
+  const {entityName, projectId} = params
+
+  return client.request({
+    method: 'get',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/entities/${entityName}/grammars/.export`),
+    options: {responseType: 'stream'},
+  })
+}
+
+/**
  * Retrieve the details of an entity in a project.
  *
  * @category entities

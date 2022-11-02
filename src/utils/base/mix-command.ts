@@ -335,7 +335,7 @@ that configuration file swiftly.`)
     debug('handleSuccess()')
     if (this.shouldDownloadFile) {
       try {
-        await downloadFile(result, this.options.filepath, this.options.overwrite)
+        await downloadFile(result, this.filepath, this.options.overwrite)
       } catch (error) {
         throw eDownloadFailed(error instanceof Error ? error.message : '')
       }
