@@ -30,7 +30,7 @@ export type DataHostsListParams = Expand<DataHostsListPathParams & DataHostsList
 export type DataHostsLatestPathParams = {
   /** ID of the Mix application for which to get the list of data hosts. */
   applicationId: string,
-  
+
   /** ID of the project to build. */
   projectId: string
 }

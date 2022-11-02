@@ -13,7 +13,6 @@ import * as DataHostsAPI from '../../mix/api/data-hosts'
 import * as MixFlags from '../../utils/flags'
 import {DataHostsLatestParams, MixClient, MixResponse, MixResult} from '../../mix/types'
 import {DomainOption} from '../../utils/validations'
-import {eNoBuildInfo} from '../../utils/errors'
 import MixCommand from '../../utils/base/mix-command'
 
 const debug = makeDebug('mix:commands:data-hosts:latest')
@@ -25,7 +24,7 @@ Use this command to retrieve the list of the data hosts
 associated with the last generated dialog build.`
 
   static examples = [
-    'mix data-hosts:latest -D 66 -M 62 -P 14990',
+    'mix data-hosts:latest -D 658 -M 34 -P 619090',
   ]
 
   static flags = {
