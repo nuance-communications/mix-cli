@@ -2,7 +2,7 @@ name: Release npm package
 
 on:
   push:
-    branches: [main, beta]
+    branches: [main]
 
 jobs:
   release:
@@ -38,7 +38,7 @@ jobs:
           appname: 'Mix.cli'
           filepath: 'targetUpload.zip'
           vid: '${{ secrets.VERACODE_API_ID }}'
-          vkey: '${{ secrets.VERAOCDE_API_KEY }}'
+          vkey: '${{ secrets.VERACODE_API_KEY }}'
           criticality: 'Low'
 
 
