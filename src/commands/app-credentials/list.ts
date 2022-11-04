@@ -22,7 +22,7 @@ export default class AppCredentialsList extends MixCommand {
   static description = `list application credentials for a Mix application
   
 Use this command to list the application credentials for a Mix application.
-This lets you retrieve the Mix Application ID that is required in other
+This lets you retrieve the runtime appliction ID that is required in other
 commands.`
 
   static examples = [
