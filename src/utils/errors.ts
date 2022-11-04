@@ -39,6 +39,7 @@ export enum Codes {
   ConflictError = 'ECONFLICTERROR',
   DownloadFailed = 'EDOWNLOADFAILED',
   Exception = 'EEXCEPTION',
+  Forbidden = 'EFORBIDDEN',
   InvalidValue = 'EINVALIDVALUE',
   InvalidColumnError = 'EINVALIDCOLUMNERROR',
   MiscNotFound = 'ENOTFOUND',
@@ -97,6 +98,18 @@ export const eException = (message: string, suggestions?: string[]) => {
       code: Codes.Exception,
       exit: 1,
       suggestions: suggestions ?? ['Try the command later, or', 'Report the error to technical support.'],
+    })
+}
+
+export const eForbidden = (message: string) => {
+  return new MixCLIError(
+    message ?? 'Access is denied.',
+    {
+      code: Codes.Forbidden,
+      exit: 1,
+      suggestions: [
+        'verify that you are given access to the desired resource(s).',
+      ],
     })
 }
 
