@@ -31,6 +31,7 @@ Use this command to list the available entity types.`
 
   get columns() {
     debug('get columns()')
+
     return {
       name: {header: 'EntityName'},
       description: {header: 'Description'},
@@ -43,28 +44,31 @@ Use this command to list the available entity types.`
 
   get domainOptions(): DomainOption[] {
     debug('get domainOptions()')
+
     return []
   }
 
   async buildRequestParameters(_options: Partial<flags.Output>): Promise<EntityTypesListParams> {
     debug('buildRequestParameters()')
-    const includeCompatibleDataTypes = true
+
     return {
-      includeCompatibleDataTypes,
+      includeCompatibleDataTypes: true,
     }
   }
 
   doRequest(client: MixClient, params: EntityTypesListParams): Promise<MixResponse> {
     debug('doRequest()')
-    return EntityTypesAPI.listEntitytypes(client, params)
+
+    return EntityTypesAPI.listEntityTypes(client, params)
   }
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
     const {columns} = this
+
     if (transformedData.length === 0) {
-      const msg = 'No entity types found.'
-      this.log(msg)
+      const message = 'No entity types found.'
+      this.log(message)
 
       return
     }
@@ -80,6 +84,7 @@ Use this command to list the available entity types.`
   transformResponse(result: MixResult) {
     debug('transformResponse()')
     const data = result.data as any
+
     return data.entityTypes
   }
 }

@@ -58,7 +58,7 @@ export async function exportOntology(client: MixClient, params: OntologyExportPa
  *
  * @category entity-types
  */
-export async function listEntitytypes(client: MixClient, params: EntityTypesListParams): Promise<MixResponse> {
+export async function listEntityTypes(client: MixClient, params: EntityTypesListParams): Promise<MixResponse> {
   debug('listEntitytypes()')
   const {...searchParams} = params
 
