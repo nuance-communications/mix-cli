@@ -139,7 +139,7 @@ information at a time. The chosen section is specifed using the --table flag.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving details for project ${options.project}`
+    this.requestActionMessage = `Retrieving details for project ${chalk.cyan(options.project)}`
   }
 
   transformResponse(result: MixResult) {

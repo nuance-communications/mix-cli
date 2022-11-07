@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -62,12 +63,12 @@ Use this command to export samples for an intent in the project.`
 
   outputHumanReadable(_transformedData: any) {
     debug('outputHumanReadable()')
-    this.log(`Sample sentences exported to file ${this.options.filepath}`)
+    this.log(`Sample sentences exported to file ${chalk.cyan(this.options.filepath)}`)
   }
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Exporting samples for locale${s(options.locale.count)} ${options.locale} ` +
-    `from project ${options.project}`
+    this.requestActionMessage = `Exporting samples for locale${s(options.locale.count)} ${chalk.cyan(options.locale)} ` +
+    `from project ${chalk.cyan(options.project)}`
   }
 }

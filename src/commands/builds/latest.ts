@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -55,7 +56,7 @@ project.`
   }
 
   setRequestActionMessage(options: any) {
-    this.requestActionMessage = `Retrieving builds for project ID ${options.project}`
+    this.requestActionMessage = `Retrieving builds for project ID ${chalk.cyan(options.project)}`
   }
 
   transformResponse(result: MixResult) {

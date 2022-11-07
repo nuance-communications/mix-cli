@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -71,12 +72,12 @@ Use the --metadata-only flag to export the project metadata JSON file only.`
     debug('outputHumanReadable()')
     const exportSource = options['metadata-only'] ?
       'Project metadata' : 'Project package'
-    this.log(`${exportSource} exported to file ${this.options.filepath}`)
+    this.log(`${exportSource} exported to file ${chalk.cyan(this.options.filepath)}`)
   }
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
     this.requestActionMessage = (options['metadata-only'] ?
-      'Exporting project metadata' : 'Exporting project package') + ` for project ${options.project}`
+      'Exporting project metadata' : 'Exporting project package') + ` for project ${chalk.cyan(options.project)}`
   }
 }
