@@ -157,6 +157,9 @@
       "literals": {
         "description": "manage entity literals"
       },
+      "locks": {
+        "description": "list project locks"
+      },
       "projects": {
         "description": "manage projects"
       },
