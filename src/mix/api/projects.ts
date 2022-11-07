@@ -18,6 +18,10 @@ import {
   ProjectsCreateParams,
   ProjectsGetParams,
   ProjectsListParams,
+  ProjectsLockParams,
+  ProjectsLockGetParams,
+  ProjectsLocksListParams,
+  ProjectsUnlockParams,
   ProjectsRenameParams,
   ProjectsReplaceParams} from './projects-types'
 
@@ -157,6 +161,21 @@ export async function getProject(client: MixClient, params: ProjectsGetParams): 
 }
 
 /**
+ * Retrieve details about a project lock.
+ *
+ * @category locks
+ */
+export async function getProjectLock(client: MixClient, params: ProjectsLockGetParams): Promise<MixResponse> {
+  debug('getProjectLock()')
+  const {projectId} = params
+
+  return client.request({
+    method: 'get',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/.lock`),
+  })
+}
+
+/**
  * Retrieve the list of projects available in an organization.
  *
  * @category projects
@@ -168,6 +187,37 @@ export async function listProjects(client: MixClient, params: ProjectsListParams
   return client.request({
     method: 'get',
     url: buildURL(client.getServer(), `/v4/organizations/${orgId}/projects`),
+  })
+}
+
+/**
+ * Retrieve list of project locks.
+ *
+ * @category locks
+ */
+export async function listProjectLocks(client: MixClient, requestParams: ProjectsLocksListParams): Promise<MixResponse> {
+  debug('listProjectLocks()')
+
+  return client.request({
+    method: 'get',
+    url: buildURL(client.getServer(), '/v4/projects/.locks', requestParams),
+  })
+}
+
+/**
+ * Lock a project.
+ *
+ * @category projects
+ */
+export async function lockProject(client: MixClient, params: ProjectsLockParams): Promise<MixResponse> {
+  debug('lockProject()')
+  const {projectId, notes} = params
+  const body = {notes}
+
+  return client.request({
+    method: 'put',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/.lock`),
+    data: body,
   })
 }
 
@@ -213,5 +263,20 @@ export async function replaceProject(client: MixClient, params: ProjectsReplaceP
     url: buildURL(client.getServer(), `/v4/projects/${projectId}/.replace`),
     data: form,
     headers: form.getHeaders(),
+  })
+}
+
+/**
+ * Unlock a project.
+ *
+ * @category projects
+ */
+export async function unlockProject(client: MixClient, params: ProjectsUnlockParams): Promise<MixResponse> {
+  debug('unlockProject()')
+  const {projectId} = params
+
+  return client.request({
+    method: 'put',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/.unlock`),
   })
 }

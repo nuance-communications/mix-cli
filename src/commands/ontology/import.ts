@@ -65,14 +65,14 @@ It can also be pre-confirmed by using the --confirm flag.`
     debug('outputHumanReadable()')
     const {id} = transformedData
     if (id) {
-      this.log(`Ontology append job ${id} successfully queued.`)
+      this.log(`Ontology append job ${chalk.cyan(id)} successfully queued.`)
       this.log(`Use 'mix jobs:get -P ${this.options.project} -J ${id} --watch' to monitor progress.`)
     }
   }
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Importing ontology by appending into project ID ${options.project}`
+    this.requestActionMessage = `Importing ontology by appending into project ID ${chalk.cyan(options.project)}`
   }
 
   warnBeforeConfirmation() {

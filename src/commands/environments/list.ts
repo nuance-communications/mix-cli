@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -72,7 +73,7 @@ Use this command to list all environments available to a specific organization.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving environments for organization ID ${options.organization}`
+    this.requestActionMessage = `Retrieving environments for organization ID ${chalk.cyan(options.organization)}`
   }
 
   transformResponse(result: MixResult) {

@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -78,7 +79,7 @@ Use this command to get details about a particular intent in a project.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving details for intent ${options.intent}`
+    this.requestActionMessage = `Retrieving details for intent ${chalk.cyan(options.intent)}`
   }
 
   transformResponse(result: MixResult) {

@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -112,7 +113,7 @@ Use this command to list all versions of a build type for a particular project.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage(')
-    this.requestActionMessage = `Retrieving builds for project ID ${options.project}`
+    this.requestActionMessage = `Retrieving builds for project ID ${chalk.cyan(options.project)}`
   }
 
   transformResponse(result: MixResult) {
