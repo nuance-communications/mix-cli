@@ -54,6 +54,7 @@ on the Mix platform.`
     }),
     filepath: {
       ...MixFlags.outputFilePathFlag,
+      description: 'output file path (defaults to "build-<buildLabel>.zip")',
       required: false,
     },
     overwrite: MixFlags.overwriteFileFlag,
