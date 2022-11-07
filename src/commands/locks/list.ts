@@ -14,7 +14,7 @@ import {defaultLimit} from '../../utils/constants'
 import * as MixFlags from '../../utils/flags'
 import * as ProjectsAPI from '../../mix/api/projects'
 import {DomainOption} from '../../utils/validations'
-import {MixClient, MixResponse, MixResult,  ProjectsLockListParams} from '../../mix/types'
+import {MixClient, MixResponse, MixResult, ProjectsLocksListParams} from '../../mix/types'
 import MixCommand from '../../utils/base/mix-command'
 
 const debug = makeDebug('mix:commands:locks:list')
@@ -76,7 +76,7 @@ A project cannot be edited while it is locked.`
     return ['limit', 'offset', 'organization', 'project', 'user']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsLockListParams> {
+  async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsLocksListParams> {
     debug('buildRequestParameters()')
     const {limit = defaultLimit, offset, organization: orgId, project: projectId, user: userId, sort: sortBy} = options
 
@@ -90,9 +90,9 @@ A project cannot be edited while it is locked.`
     }
   }
 
-  doRequest(client: MixClient, params: ProjectsLockListParams): Promise<MixResponse> {
+  doRequest(client: MixClient, params: ProjectsLocksListParams): Promise<MixResponse> {
     debug('doRequest()')
-    return ProjectsAPI.listProjectLock(client, params)
+    return ProjectsAPI.listProjectLocks(client, params)
   }
 
   outputHumanReadable(transformedData: any) {

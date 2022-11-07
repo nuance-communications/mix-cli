@@ -141,7 +141,7 @@ export type ProjectsUnlockParams = Expand<ProjectsLockPathParams>
 export type ProjectsLockGetParams = Expand<ProjectsLockPathParams>
 
 /** @hidden */
-export type ProjectsLockListBodyParams = {
+export type ProjectsLocksListBodyParams = {
   /** The maximum number of items to be returned in the response. */
   limit?: number
 
@@ -165,7 +165,7 @@ export type ProjectsLockListBodyParams = {
 }
 
 /** @hidden */
-export type ProjectsLockListParams = Expand<ProjectsLockListBodyParams>
+export type ProjectsLocksListParams = Expand<ProjectsLocksListBodyParams>
 
 /** @hidden */
 export type ProjectsRenamePathParams = {
@@ -209,4 +209,4 @@ export type ProjectsParams =
   | ProjectsLockParams
   | ProjectsUnlockParams
   | ProjectsLockGetParams
-  | ProjectsLockListParams
+  | ProjectsLocksListParams

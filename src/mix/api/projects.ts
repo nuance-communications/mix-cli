@@ -20,7 +20,7 @@ import {
   ProjectsListParams,
   ProjectsLockParams,
   ProjectsLockGetParams,
-  ProjectsLockListParams,
+  ProjectsLocksListParams,
   ProjectsUnlockParams,
   ProjectsRenameParams,
   ProjectsReplaceParams} from './projects-types'
@@ -195,8 +195,8 @@ export async function listProjects(client: MixClient, params: ProjectsListParams
  *
  * @category locks
  */
-export async function listProjectLock(client: MixClient, requestParams: ProjectsLockListParams): Promise<MixResponse> {
-  debug('listProjectLock()')
+export async function listProjectLocks(client: MixClient, requestParams: ProjectsLocksListParams): Promise<MixResponse> {
+  debug('listProjectLocks()')
 
   return client.request({
     method: 'get',
