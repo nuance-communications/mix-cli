@@ -61,6 +61,17 @@ Use this command to list the geographies available on the platform.`
     return GeographiesAPI.listGeographies(client, params)
   }
 
+  outputHumanReadable(transformedData: any) {
+    debug('outputHumanReadable()')
+    if (transformedData.length === 0) {
+      this.log('No geographies found.')
+
+      return
+    }
+
+    this.outputCLITable(transformedData, this.columns)
+  }
+
   setRequestActionMessage(_options: any) {
     debug('setRequestActionMessage()')
     this.requestActionMessage = 'Retrieving geographies'

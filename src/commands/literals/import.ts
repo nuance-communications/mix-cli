@@ -85,7 +85,7 @@ It can also be pre-confirmed by using the --confirm flag.`
     const {id} = transformedData
 
     if (id) {
-      this.log(`Entity literals ${jobType} job ${id} successfully queued.`)
+      this.log(`Entity literals ${chalk.cyan(jobType)} job ${chalk.cyan(id)} successfully queued.`)
       this.log(`Use 'mix jobs:get -P ${this.options.project} -J ${id} --watch' to monitor progress.`)
     }
   }
@@ -93,8 +93,8 @@ It can also be pre-confirmed by using the --confirm flag.`
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
     const importMode = options.replace ? 'replacing' : 'appending'
-    this.requestActionMessage = `Importing entity literals by ${importMode} into project ID ${options.project}` +
-` for locale ${options.locale}`
+    this.requestActionMessage = `Importing entity literals by ${chalk.cyan(importMode)} into project ID ${chalk.cyan(options.project)}` +
+` for locale ${chalk.cyan(options.locale)}`
   }
 
   warnBeforeConfirmation() {

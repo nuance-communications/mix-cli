@@ -39,11 +39,10 @@ describe('app-configs:export', () => {
     .command(['app-configs:export',
       '--config', td.export.flags.config,
       '--runtime-app', td.export.flags['runtime-app'],
-      '-f', td.export.flags.filepath,
     ])
     .it('downloads application configuration to a zip file', ctx => {
       const [firstLine] = ctx.stdout.split('\n').map(ln => ln.trim())
-      expect(firstLine).to.equal(`Application configuration exported to file ${td.export.flags.filepath}.`)
+      expect(firstLine).to.equal(`Application configuration exported to file app-config-${td.export.flags.config}.zip`)
     })
 
   test
@@ -58,25 +57,10 @@ describe('app-configs:export', () => {
     .command(['app-configs:export',
       '--config', td.export.flags.config,
       '--runtime-app', td.export.flags['runtime-app'],
-      '-f', td.export.flags.filepath,
       '--overwrite',
     ])
     .it('downloads application configuration ond overwrites zip file', ctx => {
       const [firstLine] = ctx.stdout.split('\n').map(ln => ln.trim())
-      expect(firstLine).to.equal(`Application configuration exported to file ${td.export.flags.filepath}.`)
+      expect(firstLine).to.equal(`Application configuration exported to file app-config-${td.export.flags.config}.zip`)
     })
-
-  test
-    .env(testEnvData.env)
-    .stdout()
-    .command(['app-configs:export',
-      '--config', td.export.flags.config,
-      '--runtime-app', td.export.flags['runtime-app'],
-    ])
-    .catch(ctx => {
-      expect(ctx.message).to.contain('Missing required flag')
-      expect(ctx.message).to.contain('-f, --filepath FILEPATH')
-      })
-    .it('errors out when application configuration output file path is not provided')
-
 })

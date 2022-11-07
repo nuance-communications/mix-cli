@@ -20,6 +20,7 @@ import {BotsParams, BotsSearchParams} from './api/bots-types'
 import {BuildsParams, BuildsSearchParams} from './api/builds-types'
 import {ChannelsParams} from './api/channels-types'
 import {DataHostsParams, DataHostsSearchParams} from './api/data-hosts-types'
+import {DataTypesParams, DataTypesSearchParams} from './api/data-types-types'
 import {DeploymentFlowsParams, DeploymentFlowsSearchParams} from './api/deployment-flows-types'
 import {EnginePacksParams} from './api/engine-packs-types'
 import {EntitiesParams, EntitiesSearchParams} from './api/entities-types'
@@ -43,6 +44,7 @@ export * from './api/bot-interfaces-types'
 export * from './api/bots-types'
 export * from './api/builds-types'
 export * from './api/data-hosts-types'
+export * from './api/data-types-types'
 export * from './api/deployment-flows-types'
 export * from './api/engine-packs-types'
 export * from './api/entities-types'
@@ -70,6 +72,7 @@ export type MixRequestParams =
   | BuildsParams
   | ChannelsParams
   | DataHostsParams
+  | DataTypesParams
   | DeploymentFlowsParams
   | EnginePacksParams
   | EntitiesParams
@@ -94,6 +97,7 @@ export type MixRequestSearchParams =
   | BotsSearchParams
   | BuildsSearchParams
   | DataHostsSearchParams
+  | DataTypesSearchParams
   | DeploymentFlowsSearchParams
   | EntitiesSearchParams
   | EnvironmentsSearchParams
