@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -100,6 +101,13 @@ A number of flags can be used to constrain the returned results.`
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
     const {columns, options} = this
+
+    if (transformedData.length === 0) {
+      this.log('No applications found.')
+
+      return
+    }
+
     if (options.full) {
       this.warn(`Full application configuration objects are complex, so some data is not shown.
 If you want to see all app configs, either:
@@ -113,7 +121,7 @@ use applications:get to get full details for a single app.
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving applications for organization ID ${options.organization}`
+    this.requestActionMessage = `Retrieving applications for organization ID ${chalk.cyan(options.organization)}`
   }
 
   transformResponse(result: MixResult) {

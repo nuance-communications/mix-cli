@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -68,9 +69,20 @@ Use this command to list all intents available in a specific project.`
     return IntentsAPI.listIntents(client, params)
   }
 
+  outputHumanReadable(transformedData: any) {
+    debug('outputHumanReadable()')
+    if (transformedData.length === 0) {
+      this.log('No intents found.')
+
+      return
+    }
+
+    this.outputCLITable(transformedData, this.columns)
+  }
+
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving intents for project ID ${options.project}`
+    this.requestActionMessage = `Retrieving intents for project ID ${chalk.cyan(options.project)}`
   }
 
   transformResponse(result: MixResult) {

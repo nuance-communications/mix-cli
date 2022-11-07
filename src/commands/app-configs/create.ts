@@ -99,7 +99,7 @@ should be unique.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Creating application configuration with project ID ${options.project}`
+    this.requestActionMessage = `Creating application configuration with project ID ${chalk.cyan(options.project)}`
   }
 
   transformResponse(result: MixResult): any {

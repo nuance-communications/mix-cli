@@ -69,6 +69,6 @@ Note that you cannot add a new locale with this command.
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Updating project ${options.project}`
+    this.requestActionMessage = `Updating project ${chalk.cyan(options.project)}`
   }
 }

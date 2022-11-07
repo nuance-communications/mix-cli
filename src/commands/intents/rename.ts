@@ -72,7 +72,7 @@ Use this command to rename an intent in a project.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Renaming intent ${options.intent} in project ${options.project}`
+    this.requestActionMessage = `Renaming intent ${chalk.cyan(options.intent)} in project ${chalk.cyan(options.project)}`
   }
 
   transformResponse(result: MixResult) {

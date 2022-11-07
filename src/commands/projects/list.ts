@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -67,9 +68,20 @@ Use this command to list projects that are part of a particular organization.`
     return ProjectsAPI.listProjects(client, params)
   }
 
+  outputHumanReadable(transformedData: any) {
+    debug('outputHumanReadable()')
+    if (transformedData.length === 0) {
+      this.log('No projects found.')
+
+      return
+    }
+
+    this.outputCLITable(transformedData, this.columns)
+  }
+
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving projects for organization ID ${options.organization}`
+    this.requestActionMessage = `Retrieving projects for organization ID ${chalk.cyan(options.organization)}`
   }
 
   transformResponse(result: MixResult) {
