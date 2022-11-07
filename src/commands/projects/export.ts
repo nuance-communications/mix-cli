@@ -58,7 +58,7 @@ Use the --metadata-only flag to export the project metadata JSON file only.`
 
   get defaultFilepath(): string {
     debug('get defaultFilepath()')
-    const defaultFilePath = this.options['metadata-only'] ? `project-${this.options.project}-metadata.json` : `project-${this.options.project}.zip`
+    const defaultFilePath = this.options['metadata-only'] ? `project-metadata-${this.options.project}.json` : `project-${this.options.project}.zip`
     return defaultFilePath
   }
 

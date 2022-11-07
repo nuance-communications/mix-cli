@@ -64,7 +64,7 @@ describe('projects:export command', () => {
     ])
     .it('exports a project metadata to file', ctx => {
       const [firstLine] = ctx.stdout.split('\n').map(ln => ln.trim())
-      expect(firstLine).to.equal(`Project metadata exported to file project-${td.export.flags.project.toString()}-metadata.json`)
+      expect(firstLine).to.equal(`Project metadata exported to file project-metadata-${td.export.flags.project.toString()}.json`)
     })
 
   test
