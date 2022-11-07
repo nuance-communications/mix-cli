@@ -1,3 +1,15 @@
+# [2.1.0](https://github.com/nuance-communications/mix-cli/compare/v2.0.0...v2.1.0) (2022-11-01)
+
+
+### Bug Fixes
+
+* app-configs:destroy color correction ([#89](https://github.com/nuance-communications/mix-cli/issues/89)) ([98d2f48](https://github.com/nuance-communications/mix-cli/commit/98d2f48550222f4090ef85af967405b4465f73fa))
+
+
+### Features
+
+* add bot-related commands ([#88](https://github.com/nuance-communications/mix-cli/issues/88)) ([8c819f5](https://github.com/nuance-communications/mix-cli/commit/8c819f53aedf8d46ca035609207a0f08bd8cab2e))
+
 # [2.0.0](https://github.com/nuance-communications/mix-cli/compare/v1.5.0...v2.0.0) (2022-08-12)
 
 

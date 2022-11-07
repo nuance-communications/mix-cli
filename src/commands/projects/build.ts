@@ -80,8 +80,8 @@ Use this command to build a project.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Creating build job for project ID ${options.project} ` +
-`with locale${s(options.locale.length)} ${options.locale}`
+    this.requestActionMessage = `Creating build job for project ID ${chalk.cyan(options.project)} ` +
+`with locale${s(options.locale.length)} ${chalk.cyan(options.locale)}`
   }
 
   outputHumanReadable(transformedData: any) {

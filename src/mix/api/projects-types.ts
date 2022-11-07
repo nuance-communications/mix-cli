@@ -120,6 +120,54 @@ export type ProjectsListPathParams = {
 export type ProjectsListParams = Expand<ProjectsListPathParams>
 
 /** @hidden */
+export type ProjectsLockPathParams = {
+  /** ID of the project to lock. */
+  projectId: string
+}
+
+/** @hidden */
+export type ProjectsLockBodyParams = {
+  /** Project lock notes. */
+  notes: string
+}
+
+/** @hidden */
+export type ProjectsLockParams = Expand<ProjectsLockPathParams & ProjectsLockBodyParams>
+
+/** @hidden */
+export type ProjectsUnlockParams = Expand<ProjectsLockPathParams>
+
+/** @hidden */
+export type ProjectsLockGetParams = Expand<ProjectsLockPathParams>
+
+/** @hidden */
+export type ProjectsLocksListBodyParams = {
+  /** The maximum number of items to be returned in the response. */
+  limit?: number
+
+  /** The offset from which (sorted) elements will get included in the response. */
+  offset?: number
+
+  /** ID of the organization to list lock. */
+  orgId?: string
+
+  /** ID of the project to list locks. */
+  projectId?: string
+
+  /**
+  * Comma-separated properties to sort by.
+  * Prepend with +/- for ascending/descending.
+  */
+  sortBy?: string
+
+  /** ID of the user to list locks. */
+  userId?: string
+}
+
+/** @hidden */
+export type ProjectsLocksListParams = Expand<ProjectsLocksListBodyParams>
+
+/** @hidden */
 export type ProjectsRenamePathParams = {
   /** ID of the project to rename. */
   projectId: string
@@ -158,3 +206,7 @@ export type ProjectsParams =
   | ProjectsListParams
   | ProjectsRenameParams
   | ProjectsReplaceParams
+  | ProjectsLockParams
+  | ProjectsUnlockParams
+  | ProjectsLockGetParams
+  | ProjectsLocksListParams
