@@ -19,14 +19,14 @@ import {DomainOption} from '../../utils/validations'
 const debug = makeDebug.debug('mix:command:grammars:export')
 
 export default class GrammarExport extends MixCommand {
-  static description = `export the grammar for an entity
+  static description = `export the grammars for an entity
  
 Use this command to export the rule-based GrXML grammars for an entity.
 Note that rule-based grammars are restricted to Nuance Professional Services users
 and not available to all users.`
 
   static examples = [
-    'Export the grammar for an entity to a zip file',
+    'Export the grammars for an entity to a zip file',
     '$ mix grammars:export -P 29050 -E DrinkSize --overwrite',
   ]
 
@@ -35,6 +35,7 @@ and not available to all users.`
     project: MixFlags.projectWithDefaultFlag,
     filepath: {
       ...MixFlags.outputFilePathFlag,
+      description: 'output file path (defaults to "grammars-<projectId>-<entity>.zip")',
       required: false,
     },
     overwrite: MixFlags.overwriteFileFlag,
@@ -48,7 +49,7 @@ and not available to all users.`
 
   get defaultFilepath(): string {
     debug('get defaultFilepath()')
-    const defaultFilePath = `${this.options.project}-${this.options.entity}-grammars.zip`
+    const defaultFilePath = `grammars-${this.options.project}-${this.options.entity}.zip`
     return defaultFilePath
   }
 
@@ -79,11 +80,11 @@ and not available to all users.`
 
   outputHumanReadable(_transformedData: any, options: Partial<flags.Output>) {
     debug('outputHumanReadable()')
-    this.log(`Grammar saved to ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(this.defaultFilepath)}`)
+    this.log(`Grammars saved to ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(this.defaultFilepath)}`)
   }
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Exporting grammar for entity ${chalk.cyan(options.entity)} in project ${chalk.cyan(options.project)}`
+    this.requestActionMessage = `Exporting grammars for entity ${chalk.cyan(options.entity)} in project ${chalk.cyan(options.project)}`
   }
 }
