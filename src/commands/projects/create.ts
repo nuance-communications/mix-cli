@@ -13,7 +13,7 @@ import makeDebug from 'debug'
 import * as MixFlags from '../../utils/flags'
 import * as ProjectsAPI from '../../mix/api/projects'
 import {asArray} from '../../utils/as-array'
-import {DomainOption} from '../../utils/validations'
+import {DomainOption, validateChannelName} from '../../utils/validations'
 import {MixClient, MixResponse, MixResult, ProjectsCreateParams} from '../../mix/types'
 import MixCommand from '../../utils/base/mix-command'
 import {pluralize as s} from '../../utils/format'
@@ -87,7 +87,7 @@ provide a description of your project using the --description flag.`
 
   get domainOptions(): DomainOption[] {
     debug('get domainOptions()')
-    return ['locale[]', 'organization']
+    return ['locale[]', 'name', 'organization']
   }
 
   async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsCreateParams> {
@@ -152,6 +152,10 @@ provide a description of your project using the --description flag.`
     const channels = asArray(options.channel)
     const modes = asArray(options.modes)
     this.validateChannelsAndModes(channels, modes)
+
+    for (const channel of channels) {
+      validateChannelName(channel, '-' + (MixFlags.channelMultipleFlag.char?.toString() || 'flag'))
+    }
 
     const {
       'child-data-compliant': isChildDataCompliant,

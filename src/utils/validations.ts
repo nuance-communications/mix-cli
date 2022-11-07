@@ -29,6 +29,7 @@ export type DomainOption =
   | 'locale'
   | 'locale[]'
   | 'mix-app'
+  | 'name'
   | 'offset'
   | 'organization'
   | 'project'
@@ -70,6 +71,8 @@ const validationSchemes = {
     message: `Expected each locale in flag 'locale' to match ${localeRegEx}`}).array(),
   'mix-app': z.number().positive({
     message: "Expected flag 'mix-app' to have a value greater than 0"}),
+  name: z.string().min(1, {
+    message: "Project name can't be empty or consist only of whitespace"}),
   offset: z.number().nonnegative({
     message: "Expected flag 'offset' to have a value greater than or equal to 0"}),
   organization: z.number().positive({
@@ -125,11 +128,11 @@ export function validateChannelColor(color: string): void {
   }
 }
 
-export function validateChannelName(name: string) {
+export function validateChannelName(name: string, optionName: string) {
   debug('validateChannelName()')
   if (name.trim().length === 0) {
     throw (eInvalidValue("Channel name can't be empty or consist only of whitespace.", [
-      'Supply a non-empty value to --name flag',
+      `Supply a non-empty value to ${optionName} flag`,
     ]))
   }
 }
