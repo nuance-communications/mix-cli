@@ -35,6 +35,7 @@ on the Mix platform.`
   static flags = {
     filepath: {
       ...MixFlags.outputFilePathFlag,
+      description: 'output file path (defaults to "ontology-<projectId>-<locale>.zip")',
       required: false,
     },
     locale: MixFlags.localeMultipleWithDefaultFlag,
@@ -50,7 +51,7 @@ on the Mix platform.`
 
   get defaultFilepath(): string {
     debug('get defaultFilepath()')
-    const defaultFilePath = `ontology-${this.options.project}.zip`
+    const defaultFilePath = `ontology-${this.options.project}-${this.options.locale}.zip`
     return defaultFilePath
   }
 
