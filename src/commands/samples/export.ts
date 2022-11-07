@@ -33,6 +33,7 @@ Use this command to export samples for an intent in the project.`
     project: MixFlags.projectWithDefaultFlag,
     filepath: {
       ...MixFlags.outputFilePathFlag,
+      description: 'output file path (defaults to "samples-<projectId>-<intent>-<locale>.zip")',
       required: false,
     },
     'intent-name': MixFlags.intentFlag,
@@ -48,7 +49,7 @@ Use this command to export samples for an intent in the project.`
 
   get defaultFilepath(): string {
     debug('get defaultFilepath()')
-    const defaultFilePath = `samples-${this.options.project}-${this.options['intent-name']}.zip`
+    const defaultFilePath = `samples-${this.options.project}-${this.options['intent-name']}-${this.options.locale}.zip`
     return defaultFilePath
   }
 
