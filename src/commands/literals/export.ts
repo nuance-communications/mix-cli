@@ -37,7 +37,7 @@ on the Mix platform.`
     'entity-name': MixFlags.entityFlag,
     filepath: {
       ...MixFlags.outputFilePathFlag,
-      description: 'output file path (defaults to "literals-<projectId>-<locale>-<entity>.zip")',
+      description: 'output file path (defaults to "literals-<projectId>-<entity>-<locale>.zip")',
       required: false,
     },
     locale: MixFlags.localeMultipleWithDefaultFlag,
@@ -53,7 +53,7 @@ on the Mix platform.`
 
   get defaultFilepath(): string {
     debug('get defaultFilepath()')
-    const defaultFilePath = `literals-${this.options.project}-${this.options.locale}-${this.options['entity-name']}.zip`
+    const defaultFilePath = `literals-${this.options.project}-${this.options['entity-name']}-${this.options.locale}.zip`
     return defaultFilePath
   }
 
