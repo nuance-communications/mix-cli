@@ -144,7 +144,7 @@ export type EntitiesDeleteParams = Expand<EntitiesGetPathParams>
 export type EntitiesGetParams = Expand<EntitiesGetPathParams>
 export type EntitiesListParams = Expand<EntitiesListPathParams & EntitiesListSearchParams>
 export type EntitiesRenameParams = Expand<EntitiesGetPathParams & EntitiesRenameBodyParams>
-export type EntitiesGrammarReplaceParams = Expand<EntitiesGetParams & GrammarsReplaceBodyParams>
+export type EntitiesGrammarsReplaceParams = Expand<EntitiesGetParams & GrammarsReplaceBodyParams>
 
 /** @hidden */
 export type EntitiesParams =
@@ -155,7 +155,7 @@ export type EntitiesParams =
   | EntitiesGetParams
   | EntitiesListParams
   | EntitiesRenameParams
-  | EntitiesGrammarReplaceParams
+  | EntitiesGrammarsReplaceParams
 
 /** @hidden */
 export type EntitiesSearchParams = EntitiesListSearchParams

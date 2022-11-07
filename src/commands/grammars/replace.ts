@@ -13,7 +13,7 @@ import makeDebug from 'debug'
 import * as MixFlags from '../../utils/flags'
 import * as EntitiesAPI from '../../mix/api/entities'
 import MixCommand from '../../utils/base/mix-command'
-import {MixClient, MixResponse, MixResult, EntitiesGrammarReplaceParams} from '../../mix/types'
+import {MixClient, MixResponse, MixResult, EntitiesGrammarsReplaceParams} from '../../mix/types'
 
 const debug = makeDebug('mix:commands:grammars:replace')
 
@@ -45,16 +45,16 @@ users and not available to all users.`
   action = 'replace'
   shouldConfirmCommand = true
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<EntitiesGrammarReplaceParams> {
+  async buildRequestParameters(options: Partial<flags.Output>): Promise<EntitiesGrammarsReplaceParams> {
     debug('buildRequestParameters()')
     const {entity: entityName, filepath: filePath, project: projectId} = options
 
     return {entityName, filePath, projectId}
   }
 
-  doRequest(client: MixClient, params: EntitiesGrammarReplaceParams): Promise<MixResponse> {
+  doRequest(client: MixClient, params: EntitiesGrammarsReplaceParams): Promise<MixResponse> {
     debug('doRequest()')
-    return EntitiesAPI.replaceGrammar(client, params)
+    return EntitiesAPI.replaceGrammars(client, params)
   }
 
   get expectedConfirmationValue() {

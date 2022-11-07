@@ -25,7 +25,7 @@ import {
   EntitiesGetParams,
   EntitiesListParams,
   EntitiesRenameParams,
-  EntitiesGrammarReplaceParams,
+  EntitiesGrammarsReplaceParams,
 } from './entities-types'
 
 import {MixClient, MixResponse} from '../types'
@@ -178,8 +178,8 @@ export async function renameEntity(client: MixClient, params: EntitiesRenamePara
  *
  * @category grammars
  */
-export async function replaceGrammar(client: MixClient, params: EntitiesGrammarReplaceParams): Promise<MixResponse> {
-  debug('replaceGrammar()')
+export async function replaceGrammars(client: MixClient, params: EntitiesGrammarsReplaceParams): Promise<MixResponse> {
+  debug('replaceGrammars()')
   const {projectId, entityName, ...bodyParams} = params
   const {filePath} = bodyParams
   const form = createForm(filePath)
