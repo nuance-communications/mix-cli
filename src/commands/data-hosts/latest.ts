@@ -50,6 +50,7 @@ associated with the last generated dialog build.`
 
   get domainOptions(): DomainOption[] {
     debug('get domainOptions()')
+
     return ['deployment-flow', 'mix-app', 'project']
   }
 
@@ -70,11 +71,13 @@ associated with the last generated dialog build.`
 
   doRequest(client: MixClient, params: DataHostsLatestParams): Promise<MixResponse> {
     debug('doRequest()')
+
     return DataHostsAPI.listLatestDataHosts(client, params)
   }
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
+
     const {context, options} = this
     const count: number = context.get('count')
 
