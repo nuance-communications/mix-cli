@@ -43,6 +43,7 @@ Use the --metadata-only flag to export the project metadata JSON file only.`
     project: MixFlags.projectWithDefaultFlag,
     filepath: {
       ...MixFlags.outputFilePathFlag,
+      description: 'output file path (defaults to "project-<projectId>.zip")',
       required: false,
     },
     'metadata-only': MixFlags.projectMetadataOnlyFlag,
