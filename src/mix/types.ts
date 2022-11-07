@@ -13,6 +13,10 @@ import {AllowedHTTPMethod} from './api/shared-types'
 import {AppConfigsParams, AppConfigsSearchParams} from './api/app-configs-types'
 import {AppCredentialsParams, AppCredentialsSearchParams} from './api/app-credentials-types'
 import {ApplicationsListSearchParams, ApplicationsParams} from './api/applications-types'
+import {BotConfigsParams, BotConfigsSearchParams} from './api/bot-configs-types'
+import {BotCredentialsParams, BotCredentialsSearchParams} from './api/bot-credentials-types'
+import {BotInterfacesParams} from './api/bot-interfaces-types'
+import {BotsParams, BotsSearchParams} from './api/bots-types'
 import {BuildsParams, BuildsSearchParams} from './api/builds-types'
 import {ChannelsParams} from './api/channels-types'
 import {DataHostsParams, DataHostsSearchParams} from './api/data-hosts-types'
@@ -33,6 +37,10 @@ import {SamplesParams, SamplesSearchParams} from './api/samples-types'
 export * from './api/app-configs-types'
 export * from './api/app-credentials-types'
 export * from './api/applications-types'
+export * from './api/bot-configs-types'
+export * from './api/bot-credentials-types'
+export * from './api/bot-interfaces-types'
+export * from './api/bots-types'
 export * from './api/builds-types'
 export * from './api/data-hosts-types'
 export * from './api/deployment-flows-types'
@@ -55,6 +63,10 @@ export type MixRequestParams =
   | AppConfigsParams
   | AppCredentialsParams
   | ApplicationsParams
+  | BotConfigsParams
+  | BotCredentialsParams
+  | BotInterfacesParams
+  | BotsParams
   | BuildsParams
   | ChannelsParams
   | DataHostsParams
@@ -77,6 +89,9 @@ export type MixRequestSearchParams =
   | AppConfigsSearchParams
   | AppCredentialsSearchParams
   | ApplicationsListSearchParams
+  | BotConfigsSearchParams
+  | BotCredentialsSearchParams
+  | BotsSearchParams
   | BuildsSearchParams
   | DataHostsSearchParams
   | DeploymentFlowsSearchParams

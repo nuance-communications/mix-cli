@@ -66,12 +66,12 @@ Use this command to permanently delete an intent from a project.`
   outputHumanReadable(_transformedData: any) {
     debug('outputHumanReadable()')
     // Add intent name as endpoint response does not provide it
-    this.log(`Intent ${this.options.intent} was deleted.`)
+    this.log(`Intent ${chalk.cyan(this.options.intent)} was deleted.`)
   }
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Destroying intent ${options.intent}`
+    this.requestActionMessage = `Destroying intent ${chalk.cyan(options.intent)}`
   }
 
   warnBeforeConfirmation() {

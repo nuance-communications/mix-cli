@@ -135,8 +135,8 @@ provide a description of your project using the --description flag.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Creating project in organization ID ${options.organization} ` +
-      `with locale${s(options.locale.length)} ${options.locale}`
+    this.requestActionMessage = `Creating project in organization ID ${chalk.cyan(options.organization)} ` +
+      `with locale${s(options.locale.length)} ${chalk.cyan(options.locale)}`
   }
 
   transformResponse(result: MixResult): any {

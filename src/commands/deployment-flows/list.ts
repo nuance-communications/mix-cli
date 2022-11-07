@@ -96,7 +96,7 @@ The organization ID can be retrieved by using the organizations:list command.`
     const size = flows.length
     if (size > 0) {
       for (const [idx, flow] of flows.entries()) {
-        this.log(chalk.cyan.bold(`Steps for flow ${flow.displayName} (ID: ${flow.id})`))
+        this.log(chalk.cyan.bold(`Steps for flow ${chalk.cyan(flow.displayName)} (ID: ${chalk.cyan(flow.id)})`))
         cli.table(flow.steps, columns, options)
         if (idx !== flows.length - 1) {
           this.log()
@@ -134,7 +134,7 @@ The organization ID can be retrieved by using the organizations:list command.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving deployment flows for organization ID ${options.organization}`
+    this.requestActionMessage = `Retrieving deployment flows for organization ID ${chalk.cyan(options.organization)}`
   }
 
   transformResponse(result: MixResult) {
