@@ -149,6 +149,9 @@
       "entities": {
         "description": "manage entities"
       },
+      "grammars": {
+        "description": "manage grammars"
+      },
       "intents": {
         "description": "manage intents"
       },
