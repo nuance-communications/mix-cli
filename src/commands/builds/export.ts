@@ -30,10 +30,10 @@ on the Mix platform.`
 
   static examples = [
     'Export a build using a build label',
-    '$ mix builds:export --build-label ASR_29050_11 -f build.zip',
+    '$ mix builds:export --build-label ASR_29050_11',
     '',
     'Export a build using project ID, build type and build version',
-    '$ mix builds:export -P 29050 --build-type asr --build-version 11 -f build.zip --overwrite',
+    '$ mix builds:export -P 29050 --build-type asr --build-version 11 --overwrite',
   ]
 
   static flags = {
@@ -52,7 +52,11 @@ on the Mix platform.`
       exclusive: ['build-label'],
       options: MixFlags.buildTypeOptions,
     }),
-    filepath: MixFlags.outputFilePathFlag,
+    filepath: {
+      ...MixFlags.outputFilePathFlag,
+      description: 'output file path (defaults to "build-<buildLabel>.zip")',
+      required: false,
+    },
     overwrite: MixFlags.overwriteFileFlag,
     project: flags.integer({
       char: MixFlags.projectShortcut,
@@ -60,6 +64,18 @@ on the Mix platform.`
       description: MixFlags.projectDesc,
       exclusive: ['build-label'],
     }),
+  }
+
+  get filepath(): string {
+    debug('get filepath()')
+    const filePath = this.options.filepath ?? this.defaultFilepath
+    return filePath
+  }
+
+  get defaultFilepath(): string {
+    debug('get defaultFilepath()')
+    const defaultFilePath = `build-${this.options['build-label']}.zip`
+    return defaultFilePath
   }
 
   shouldDownloadFile = true
@@ -94,9 +110,9 @@ on the Mix platform.`
     return BuildsAPI.exportBuild(client, params)
   }
 
-  outputHumanReadable(_transformedData: any) {
+  outputHumanReadable(_transformedData: any, options: any) {
     debug('outputHumanReadable()')
-    this.log(`Build exported to file ${chalk.cyan(this.options.filepath)}`)
+    this.log(`Build exported to file ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(this.defaultFilepath)}`)
   }
 
   setRequestActionMessage(_options: any) {

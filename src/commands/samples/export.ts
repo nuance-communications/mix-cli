@@ -26,15 +26,31 @@ export default class SamplesExport extends MixCommand {
 Use this command to export samples for an intent in the project.`
 
   static examples = [
-    '$ mix samples:export -P 29050 -I ORDER_DRINK -L en-US -f samples.zip --overwrite',
+    '$ mix samples:export -P 29050 -I ORDER_DRINK -L en-US --overwrite',
   ]
 
   static flags = {
-    filepath: MixFlags.outputFilePathFlag,
+    project: MixFlags.projectWithDefaultFlag,
+    filepath: {
+      ...MixFlags.outputFilePathFlag,
+      description: 'output file path (defaults to "samples-<projectId>-<intent>-<locale>.zip")',
+      required: false,
+    },
     'intent-name': MixFlags.intentFlag,
     locale: MixFlags.localeMultipleWithDefaultFlag,
     overwrite: MixFlags.overwriteFileFlag,
-    project: MixFlags.projectWithDefaultFlag,
+  }
+
+  get filepath(): string {
+    debug('get filepath()')
+    const filePath = this.options.filepath ?? this.defaultFilepath
+    return filePath
+  }
+
+  get defaultFilepath(): string {
+    debug('get defaultFilepath()')
+    const defaultFilePath = `samples-${this.options.project}-${this.options['intent-name']}-${this.options.locale}.zip`
+    return defaultFilePath
   }
 
   shouldDownloadFile = true
@@ -61,9 +77,9 @@ Use this command to export samples for an intent in the project.`
     return SamplesAPI.exportSamples(client, params)
   }
 
-  outputHumanReadable(_transformedData: any) {
+  outputHumanReadable(_transformedData: any, options: any) {
     debug('outputHumanReadable()')
-    this.log(`Sample sentences exported to file ${chalk.cyan(this.options.filepath)}`)
+    this.log(`Sample sentences exported to file ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(this.defaultFilepath)}`)
   }
 
   setRequestActionMessage(options: any) {

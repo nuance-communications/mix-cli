@@ -30,15 +30,31 @@ The contents of the exported zip file depend on the role you have been granted
 on the Mix platform.`
 
   static examples = [
-    '$ mix literals:export -P 29050 -E DrinkSize -L en-US -f literals.zip --overwrite',
+    '$ mix literals:export -P 29050 -E DrinkSize -L en-US --overwrite',
   ]
 
   static flags = {
     'entity-name': MixFlags.entityFlag,
-    filepath: MixFlags.outputFilePathFlag,
+    filepath: {
+      ...MixFlags.outputFilePathFlag,
+      description: 'output file path (defaults to "literals-<projectId>-<entity>-<locale>.zip")',
+      required: false,
+    },
     locale: MixFlags.localeMultipleWithDefaultFlag,
     overwrite: MixFlags.overwriteFileFlag,
     project: MixFlags.projectWithDefaultFlag,
+  }
+
+  get filepath(): string {
+    debug('get filepath()')
+    const filePath = this.options.filepath ?? this.defaultFilepath
+    return filePath
+  }
+
+  get defaultFilepath(): string {
+    debug('get defaultFilepath()')
+    const defaultFilePath = `literals-${this.options.project}-${this.options['entity-name']}-${this.options.locale}.zip`
+    return defaultFilePath
   }
 
   shouldDownloadFile = true
@@ -65,14 +81,14 @@ on the Mix platform.`
     return LiteralsAPI.exportLiterals(client, params)
   }
 
-  outputHumanReadable(_transformedData: any) {
+  outputHumanReadable(_transformedData: any, options: any) {
     debug('outputHumanReadable()')
-    this.log(`Entity literals exported to file ${chalk.cyan(this.options.filepath)}`)
+    this.log(`Entity literals exported to file ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(this.defaultFilepath)}`)
   }
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Exporting ${chalk.cyan(options['entity-name'])} entity literals from project ID ${chalk.cyan(options.project)}` +
+    this.requestActionMessage = `Exporting entity literals from project ID ${chalk.cyan(options.project)}` +
     ` for locale${s(options.locale.length)} ${chalk.cyan(options.locale)}`
   }
 }

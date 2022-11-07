@@ -29,14 +29,30 @@ The contents of the exported zip file depend on the role you have been granted
 on the Mix platform.`
 
   static examples = [
-    '$ mix ontology:export -P 29050 -L en-US -f ontology.zip --overwrite',
+    '$ mix ontology:export -P 29050 -L en-US --overwrite',
   ]
 
   static flags = {
-    filepath: MixFlags.outputFilePathFlag,
+    filepath: {
+      ...MixFlags.outputFilePathFlag,
+      description: 'output file path (defaults to "ontology-<projectId>-<locale>.zip")',
+      required: false,
+    },
     locale: MixFlags.localeMultipleWithDefaultFlag,
     overwrite: MixFlags.overwriteFileFlag,
     project: MixFlags.projectWithDefaultFlag,
+  }
+
+  get filepath(): string {
+    debug('get filepath()')
+    const filePath = this.options.filepath ?? this.defaultFilepath
+    return filePath
+  }
+
+  get defaultFilepath(): string {
+    debug('get defaultFilepath()')
+    const defaultFilePath = `ontology-${this.options.project}-${this.options.locale}.zip`
+    return defaultFilePath
   }
 
   shouldDownloadFile = true
@@ -63,9 +79,9 @@ on the Mix platform.`
     return OntologyAPI.exportOntology(client, params)
   }
 
-  outputHumanReadable(_transformedData: any) {
+  outputHumanReadable(_transformedData: any, options: any) {
     debug('outputHumanReadable()')
-    this.log(`Ontology exported to file ${chalk.cyan(this.options.filepath)}`)
+    this.log(`Ontology exported to file ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(this.defaultFilepath)}`)
   }
 
   setRequestActionMessage(options: any) {
