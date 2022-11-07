@@ -13,6 +13,7 @@ import {
   buildCreateEntityBody,
   buildUpdateEntityBody,
 } from './utils/entities-helpers'
+import {createForm} from './utils/create-form'
 
 import buildURL from './utils/build-url'
 
@@ -24,6 +25,7 @@ import {
   EntitiesGetParams,
   EntitiesListParams,
   EntitiesRenameParams,
+  EntitiesGrammarsReplaceParams,
 } from './entities-types'
 
 import {MixClient, MixResponse} from '../types'
@@ -103,6 +105,24 @@ export async function deleteEntity(client: MixClient, params: EntitiesDeletePara
 }
 
 /**
+ * Export the rule-based GrXML grammars for an entity. Note that
+ * the rule-based grammars are restricted to Nuance Professional
+ * Services users and not available to all users.
+ *
+ * @category grammars
+ */
+export async function exportGrammars(client: MixClient, params: EntitiesGetParams): Promise<MixResponse> {
+  debug('exportProject()')
+  const {entityName, projectId} = params
+
+  return client.request({
+    method: 'get',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/entities/${entityName}/grammars/.export`),
+    options: {responseType: 'stream'},
+  })
+}
+
+/**
  * Retrieve the details of an entity in a project.
  *
  * @category entities
@@ -146,5 +166,28 @@ export async function renameEntity(client: MixClient, params: EntitiesRenamePara
     method: 'put',
     url: buildURL(client.getServer(), `/v4/projects/${projectId}/entities/${entityName}/.rename`),
     data: body,
+  })
+}
+
+/**
+ * Replace the rule-based GrXML grammars for an entity. The GrXML files
+ *  must be provided in a .zip file, in a folder identifying the locale for
+ * the grammar (for example, en-US/grammar.grxml). Note that rule-based
+ * grammars are restricted to Nuance Professional Services users and not
+ * available to all users.
+ *
+ * @category grammars
+ */
+export async function replaceGrammars(client: MixClient, params: EntitiesGrammarsReplaceParams): Promise<MixResponse> {
+  debug('replaceGrammars()')
+  const {projectId, entityName, ...bodyParams} = params
+  const {filePath} = bodyParams
+  const form = createForm(filePath)
+
+  return client.request({
+    method: 'post',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/entities/${entityName}/grammars/.replace`),
+    data: form,
+    headers: form.getHeaders(),
   })
 }
