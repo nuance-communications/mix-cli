@@ -19,7 +19,7 @@ const debug = makeDebug('mix:api:data-types')
  *
  * @category data-types
  */
-export async function listDatatypes(client: MixClient, params: DataTypesListParams): Promise<MixResponse> {
+export async function listDataTypes(client: MixClient, params: DataTypesListParams): Promise<MixResponse> {
   debug('listDatatypes()')
   const {...searchParams} = params
 

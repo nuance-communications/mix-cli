@@ -46,28 +46,31 @@ Use this command to list the available data types.`
 
   get domainOptions(): DomainOption[] {
     debug('get domainOptions()')
+
     return []
   }
 
   async buildRequestParameters(_options: Partial<flags.Output>): Promise<DataTypesListParams> {
     debug('buildRequestParameters()')
-    const includeCompatibleEntityTypes = true
+
     return {
-      includeCompatibleEntityTypes,
+      includeCompatibleEntityTypes: true,
     }
   }
 
   doRequest(client: MixClient, params: DataTypesListParams): Promise<MixResponse> {
     debug('doRequest()')
-    return DataTypesAPI.listDatatypes(client, params)
+
+    return DataTypesAPI.listDataTypes(client, params)
   }
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
     const {columns} = this
+
     if (transformedData.length === 0) {
-      const msg = 'No data types found.'
-      this.log(msg)
+      const message = 'No data types found.'
+      this.log(message)
 
       return
     }
@@ -83,6 +86,7 @@ Use this command to list the available data types.`
   transformResponse(result: MixResult) {
     debug('transformResponse()')
     const data = result.data as any
+
     return data.dataTypes
   }
 }
