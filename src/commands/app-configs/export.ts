@@ -37,7 +37,7 @@ on the Mix platform.`
     config: MixFlags.appConfigurationFlag,
     filepath: {
       ...MixFlags.outputFilePathFlag,
-      description: "output file path (defaults to 'app-config-<configid>.zip')",
+      description: 'output file path (defaults to "app-config-<configid>.zip")',
       required: false,
     },
     overwrite: MixFlags.overwriteFileFlag,
