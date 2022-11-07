@@ -18,20 +18,20 @@ import {MixClient, MixResponse, MixResult, EntitiesGrammarReplaceParams} from '.
 const debug = makeDebug('mix:commands:grammars:replace')
 
 export default class GrammarsReplace extends MixCommand {
-  static description = `replace the GrXML grammar for an entity 
+  static description = `replace the GrXML grammars for an entity 
 
-  Use this command to replace the rule-based GrXML grammars for an entity.
-  The GrXML files must be provided in a .zip file, in a folder identifying
-  the locale for the grammar (for example, en-US/grammar.grxml).
-  Note that rule-based grammars are restricted to Nuance Professional Services
-  users and not available to all users.`
+Use this command to replace the rule-based GrXML grammars for an entity.
+The GrXML files must be provided in a .zip file, in a folder identifying
+the locale for the grammar (for example, en-US/grammar.grxml).
+Note that rule-based grammars are restricted to Nuance Professional Services
+users and not available to all users.`
 
   static examples = [
-    'Replace the GrXML grammar for an entity',
-    '$ mix projects:replace -P 29050 -E DrinkSize -f 29050_DrinkSize.zip',
+    'Replace the GrXML grammars for an entity',
+    '$ mix grammars:replace -P 29050 -E DrinkSize -f 29050_DrinkSize.zip',
     '',
-    'Replace the GrXML grammar for an entity using pre-confirmation',
-    '$ mix projects:replace -P 29050 -E DrinkSize -f 29050_DrinkSize.zip -c DrinkSize',
+    'Replace the GrXML grammars for an entity using pre-confirmation',
+    '$ mix grammars:replace -P 29050 -E DrinkSize -f 29050_DrinkSize.zip -c DrinkSize',
   ]
 
   static flags = {
@@ -65,18 +65,18 @@ export default class GrammarsReplace extends MixCommand {
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
     const id = transformedData.ruleBasedEntity.id
-    this.log(id ? 'Grammar replaced successfully.' : 'Grammar replacement aborted.')
+    this.log(id ? 'Grammars replaced successfully.' : 'Grammars replacement aborted.')
   }
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Replacing grammar for ${chalk.cyan(options.entity)} in project ${chalk.cyan(options.project)}`
+    this.requestActionMessage = `Replacing grammars for ${chalk.cyan(options.entity)} in project ${chalk.cyan(options.project)}`
   }
 
   warnBeforeConfirmation() {
     debug('warnBeforeConfirmation()')
     this.warn(chalk.yellow(`This command is a destructive operation that cannot be undone.
-Consider making a backup of your grammar first.`))
+Consider making a backup of your grammars first.`))
   }
 
   transformResponse(result: MixResult) {
