@@ -69,6 +69,17 @@ Use this command to list all intents available in a specific project.`
     return IntentsAPI.listIntents(client, params)
   }
 
+  outputHumanReadable(transformedData: any) {
+    debug('outputHumanReadable()')
+    if (transformedData.length === 0) {
+      this.log('No intents found.')
+
+      return
+    }
+
+    this.outputCLITable(transformedData, this.columns)
+  }
+
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
     this.requestActionMessage = `Retrieving intents for project ID ${chalk.cyan(options.project)}`

@@ -101,6 +101,13 @@ A number of flags can be used to constrain the returned results.`
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
     const {columns, options} = this
+
+    if (transformedData.length === 0) {
+      this.log('No applications found.')
+
+      return
+    }
+
     if (options.full) {
       this.warn(`Full application configuration objects are complex, so some data is not shown.
 If you want to see all app configs, either:

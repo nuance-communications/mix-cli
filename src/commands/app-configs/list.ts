@@ -81,6 +81,17 @@ application IDs can be retrieved using the app-credentials:list command.`
     return AppConfigsAPI.listAppConfigs(client, params)
   }
 
+  outputHumanReadable(transformedData: any) {
+    debug('outputHumanReadable()')
+    if (transformedData.length === 0) {
+      this.log('No application configurations found.')
+
+      return
+    }
+
+    this.outputCLITable(transformedData, this.columns)
+  }
+
   setRequestActionMessage(_options: any) {
     debug('setRequestActionMessage()')
     this.requestActionMessage = 'Retrieving application configurations'

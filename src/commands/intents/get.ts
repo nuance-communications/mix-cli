@@ -74,6 +74,12 @@ Use this command to get details about a particular intent in a project.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
+    if (transformedData === undefined) {
+      this.log('No intent found.')
+
+      return
+    }
+
     this.outputAsKeyValuePairs(transformedData, this.columns)
   }
 

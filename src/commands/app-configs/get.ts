@@ -68,6 +68,12 @@ output is brief.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
+    if (transformedData === undefined) {
+      this.log('No application configuration found.')
+
+      return
+    }
+
     this.outputAsKeyValuePairs(transformedData, this.columns)
   }
 
