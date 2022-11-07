@@ -10,6 +10,7 @@
 export * from './app-configs'
 export * from './app-credentials'
 export * from './applications'
+export * from './bots'
 export * from './builds'
 export * from './channels'
 export * from './data-hosts'
