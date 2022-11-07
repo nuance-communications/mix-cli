@@ -141,7 +141,7 @@
         "description": "manage channels"
       },
       "data-hosts": {
-        "description": "manage data hosts"
+        "description": "list data hosts"
       },
       "deployment-flows": {
         "description": "manage deployment flows"
