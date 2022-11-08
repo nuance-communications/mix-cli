@@ -1,3 +1,10 @@
+## [2.2.1](https://github.com/nuance-communications/mix-cli/compare/v2.2.0...v2.2.1) (2022-11-08)
+
+
+### Bug Fixes
+
+* builds-export default file path ([#109](https://github.com/nuance-communications/mix-cli/issues/109)) ([7070765](https://github.com/nuance-communications/mix-cli/commit/7070765e4a5e652b8c1931b62d5e597c7c8ee730))
+
 # [2.2.0](https://github.com/nuance-communications/mix-cli/compare/v2.1.0...v2.2.0) (2022-11-08)
 
 
