@@ -1,3 +1,20 @@
+# [2.2.0](https://github.com/nuance-communications/mix-cli/compare/v2.1.0...v2.2.0) (2022-11-08)
+
+
+### Bug Fixes
+
+* add not found treatment to get and list command output ([#96](https://github.com/nuance-communications/mix-cli/issues/96)) ([20dc1f7](https://github.com/nuance-communications/mix-cli/commit/20dc1f7f3a587545e5dc46ad66fc5bb76fa156a0))
+* add support for default file names in export commands ([#94](https://github.com/nuance-communications/mix-cli/issues/94)) ([ff5780e](https://github.com/nuance-communications/mix-cli/commit/ff5780ec022e329e074e542fa0c8ff141609ca54))
+* correct color in output of commands ([#91](https://github.com/nuance-communications/mix-cli/issues/91)) ([7a06a20](https://github.com/nuance-communications/mix-cli/commit/7a06a20412768a6ab13ca7880375882f3dbb1b0a))
+
+
+### Features
+
+* add data-hosts:latest command ([#100](https://github.com/nuance-communications/mix-cli/issues/100)) ([fbfbc6a](https://github.com/nuance-communications/mix-cli/commit/fbfbc6a8b0c0b34274eaf0925203c32e274b11fe))
+* add data-types:list command ([#99](https://github.com/nuance-communications/mix-cli/issues/99)) ([afc6145](https://github.com/nuance-communications/mix-cli/commit/afc6145682b9d74c419b28a53dd057f6dfb67f13))
+* add entity-types:list command ([#98](https://github.com/nuance-communications/mix-cli/issues/98)) ([6f7f3a4](https://github.com/nuance-communications/mix-cli/commit/6f7f3a4ebb3e639fe0d8969e35484e7fc6f4d83d))
+* add grammars commands ([#101](https://github.com/nuance-communications/mix-cli/issues/101)) ([bc4a802](https://github.com/nuance-communications/mix-cli/commit/bc4a8022f8973e1b93e2fa4840f329471b145cde))
+
 # [2.1.0](https://github.com/nuance-communications/mix-cli/compare/v2.0.0...v2.1.0) (2022-11-01)
 
 
