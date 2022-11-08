@@ -9,6 +9,15 @@
 import {Expand} from './shared-types'
 
 /** @hidden */
+export type EntityTypesListSearchParams = {
+  /** When set to true, includes the compatible data types. */
+  includeCompatibleDataTypes?:boolean
+}
+
+/** @hidden */
+export type EntityTypesListParams = Expand<EntityTypesListSearchParams>
+
+/** @hidden */
 export type OntologyExportPathParams = {
   /** ID of project for which to export the ontology. */
   projectId: string
@@ -36,7 +45,12 @@ export type OntologyImportPathParams = {
 export type OntologyImportParams = Expand<OntologyImportPathParams>
 
 /** @hidden */
-export type OntologyParams = OntologyExportParams | OntologyImportParams
+export type OntologyParams =
+| EntityTypesListParams
+| OntologyExportParams
+| OntologyImportParams
 
 /** @hidden */
-export type OntologySearchParams = OntologyExportSearchParams
+export type OntologySearchParams =
+| EntityTypesListSearchParams
+| OntologyExportSearchParams

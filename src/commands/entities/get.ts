@@ -92,6 +92,12 @@ server.
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
+    if (transformedData === undefined) {
+      this.log('No entity found.')
+
+      return
+    }
+
     this.outputAsKeyValuePairs(transformedData, this.columns, true /* skip NAs */)
   }
 

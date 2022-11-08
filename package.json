@@ -141,13 +141,16 @@
         "description": "manage channels"
       },
       "data-hosts": {
-        "description": "manage data hosts"
+        "description": "list data hosts"
       },
       "deployment-flows": {
         "description": "manage deployment flows"
       },
       "entities": {
         "description": "manage entities"
+      },
+      "grammars": {
+        "description": "manage grammars"
       },
       "intents": {
         "description": "manage intents"
@@ -157,6 +160,9 @@
       },
       "literals": {
         "description": "manage entity literals"
+      },
+      "locks": {
+        "description": "list project locks"
       },
       "projects": {
         "description": "manage projects"

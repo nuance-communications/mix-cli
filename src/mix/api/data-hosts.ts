@@ -9,7 +9,7 @@
 import makeDebug from 'debug'
 
 import buildURL from './utils/build-url'
-import {DataHostsListParams} from './data-hosts-types'
+import {DataHostsListParams, DataHostsLatestParams} from './data-hosts-types'
 import {MixClient, MixResponse} from '../types'
 
 const debug = makeDebug('mix:api:data-hosts')
@@ -25,5 +25,19 @@ export async function listDataHosts(client: MixClient, params: DataHostsListPara
   return client.request({
     method: 'get',
     url: buildURL(client.getServer(), `/v4/builds/${buildLabel}/data-hosts`, requestParams),
+  })
+}
+
+/**
+ * Retrieve the list of the data hosts associated with the last generated dialog build.
+ * @category data-hosts
+ */
+export async function listLatestDataHosts(client: MixClient, params: DataHostsLatestParams): Promise<MixResponse> {
+  debug('listLatestDataHosts()')
+  const {applicationId, projectId, ...requestParams} = params
+
+  return client.request({
+    method: 'get',
+    url: buildURL(client.getServer(), `/v4/apps/${applicationId}/projects/${projectId}/data-hosts/.latest`, requestParams),
   })
 }

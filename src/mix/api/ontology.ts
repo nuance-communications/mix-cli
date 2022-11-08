@@ -11,7 +11,7 @@ import makeDebug from 'debug'
 import {createForm} from './utils/create-form'
 import buildURL from './utils/build-url'
 import {MixClient, MixResponse} from '../types'
-import {OntologyExportParams, OntologyImportParams} from './ontology-types'
+import {EntityTypesListParams, OntologyExportParams, OntologyImportParams} from './ontology-types'
 
 const debug = makeDebug('mix:api:ontology')
 
@@ -50,5 +50,20 @@ export async function exportOntology(client: MixClient, params: OntologyExportPa
     method: 'get',
     url: buildURL(client.getServer(), `/v4/projects/${projectId}/ontology/.export`, requestParams),
     options: {responseType: 'stream'},
+  })
+}
+
+/**
+ * Retrieve the available entity types.
+ *
+ * @category entity-types
+ */
+export async function listEntityTypes(client: MixClient, params: EntityTypesListParams): Promise<MixResponse> {
+  debug('listEntitytypes()')
+  const {...searchParams} = params
+
+  return client.request({
+    method: 'get',
+    url: buildURL(client.getServer(), '/v4/ontology/entity-types', searchParams),
   })
 }

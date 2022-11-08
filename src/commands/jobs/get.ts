@@ -80,6 +80,13 @@ Use this command to get details about a particular job.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
+
+    if (transformedData === undefined) {
+      this.log('No job found.')
+
+      return
+    }
+
     this.outputAsKeyValuePairs(transformedData, this.columns)
     this.log()
 

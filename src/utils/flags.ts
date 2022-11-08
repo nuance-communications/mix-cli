@@ -33,6 +33,7 @@ export const mixApplicationShortcut = 'M'
 export const organizationIDShortcut = 'O'
 export const projectShortcut = 'P'
 export const runtimeApplicationIDShortcut = 'R'
+export const userShortcut = 'U'
 export const tagShortcut = 'T'
 
 // Environment variables used as default
@@ -59,6 +60,7 @@ export const omitOverriddenDesc = 'omit application configurations that are over
 export const projectDesc = 'project ID'
 export const projectDescriptionDesc = 'project description (for child data compliance)'
 export const projectDescWithDefault = `project ID (defaults to ${projectEnvVarDefault})`
+export const userDesc = 'user ID'
 
 // Flag options
 export const buildTypeOptions = ['asr', 'dialog', 'nlu']
@@ -412,6 +414,11 @@ export const showFullBotCredentialsDetailsFlag = flags.boolean({
 export const sortFlag = flags.string({
   description:
     'comma-separated properties to sort by (prepend \'+\'/\'-\' for ascending/descending)',
+})
+
+export const userFlag = flags.integer({
+  char: userShortcut,
+  description: userDesc,
 })
 
 export const useProjectDataHostsFlag = flags.boolean({

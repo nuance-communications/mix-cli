@@ -121,7 +121,7 @@ It can also be pre-confirmed by using the --confirm flag.`
   outputHumanReadable(_transformedData: any) {
     debug('outputHumanReadable()')
     // Add buildLabel as endpoint response does not provide it
-    this.log(`Build ${this.context.get('buildLabel')} destroyed.`)
+    this.log(`Build ${chalk.cyan(this.context.get('buildLabel'))} destroyed.`)
   }
 
   setRequestActionMessage(_options: any) {

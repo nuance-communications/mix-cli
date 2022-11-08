@@ -131,6 +131,12 @@ export type EntitiesRenameBodyParams = {
 }
 
 /** @hidden */
+export type GrammarsReplaceBodyParams =  {
+  /** File that contains the new GrXML content. */
+  filePath: string
+}
+
+/** @hidden */
 export type EntitiesConfigureParams = Expand<EntitiesGetPathParams & EntitiesConfigureBodyParams>
 export type EntitiesConvertParams = Expand<EntitiesGetPathParams & EntitiesConvertBodyParams>
 export type EntitiesCreateParams = Expand<EntitiesListPathParams & EntitiesCreateBodyParams>
@@ -138,6 +144,7 @@ export type EntitiesDeleteParams = Expand<EntitiesGetPathParams>
 export type EntitiesGetParams = Expand<EntitiesGetPathParams>
 export type EntitiesListParams = Expand<EntitiesListPathParams & EntitiesListSearchParams>
 export type EntitiesRenameParams = Expand<EntitiesGetPathParams & EntitiesRenameBodyParams>
+export type EntitiesGrammarsReplaceParams = Expand<EntitiesGetParams & GrammarsReplaceBodyParams>
 
 /** @hidden */
 export type EntitiesParams =
@@ -148,6 +155,7 @@ export type EntitiesParams =
   | EntitiesGetParams
   | EntitiesListParams
   | EntitiesRenameParams
+  | EntitiesGrammarsReplaceParams
 
 /** @hidden */
 export type EntitiesSearchParams = EntitiesListSearchParams

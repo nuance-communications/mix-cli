@@ -6,6 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
+import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -66,9 +67,20 @@ Use this command to list language topics available to a specific organization.`
     return LanguageTopicsAPI.listLanguageTopics(client, params)
   }
 
+  outputHumanReadable(transformedData: any) {
+    debug('outputHumanReadable()')
+    if (transformedData.length === 0) {
+      this.log('No language topics found.')
+
+      return
+    }
+
+    this.outputCLITable(transformedData, this.columns)
+  }
+
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving language topics for organization ID ${options.organization}`
+    this.requestActionMessage = `Retrieving language topics for organization ID ${chalk.cyan(options.organization)}`
   }
 
   transformResponse(result: MixResult) {

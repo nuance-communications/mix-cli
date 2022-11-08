@@ -86,7 +86,7 @@ Use this command to list the engine packs available to a specific organization.`
     if (enginePacks.length > 0) {
       for (const pack of enginePacks) {
         this.log(`${chalk.bold('Engine Pack Release')}: ${chalk.cyan(pack.version)}`)
-        this.log(`Engine Pack ID: ${pack.enginePackId}`)
+        this.log(`Engine Pack ID: ${chalk.cyan(pack.enginePackId)}`)
         this.log(`ASR version: ${pack.asrVersion}\tNLU version: ${pack.nluVersion}`)
         this.log(`Dialog version: ${pack.dialogVersion}\tTTS version: ${pack.ttsVersion}`)
         this.log()
@@ -109,7 +109,7 @@ Use this command to list the engine packs available to a specific organization.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving engine packs for organization ID ${options.organization}`
+    this.requestActionMessage = `Retrieving engine packs for organization ID ${chalk.cyan(options.organization)}`
   }
 
   transformResponse(result: MixResult) {
