@@ -19,9 +19,9 @@ import {configurationProblemExitCode} from '../utils/constants'
 const debug = makeDebug('mix:commands:init')
 
 export default class Init extends Command {
-  static description = `initialize mix.cli configuration
+  static description = `initialize mix-cli configuration
   
-Use this command to initialize the Mix.cli configuration. Elements of the
+Use this command to initialize the mix-cli configuration. Elements of the
 configuration can also be overridden using environment variables.`
 
   static examples = ['mix init']
@@ -161,7 +161,7 @@ configuration can also be overridden using environment variables.`
   outputAnswerSomeQuestions() {
     debug('outputAnswerSomeQuestions()')
     this.log(`
-Answer the few questions below to configure mix.cli.
+Answer the few questions below to configure mix-cli.
 Simply accept defaults if you plan on using the Production US environment.`)
   }
 
@@ -180,22 +180,22 @@ directory to override values from the central configuration.`)
   outputHaveCompleteEnvVarSet() {
     debug('outputHaveCompleteEnvVarSet()')
     this.log(`
-mix.cli has detected that you have the environment variables relevant
-to mix.cli set. These are the values needed to create the central
+mix-cli has detected that you have the environment variables relevant
+to mix-cli set. These are the values needed to create the central
 configuration file.`)
   }
 
   outputHaveSomeEnvVarSet() {
     debug('outputHaveSomeEnvVarSet()')
     this.log(`
-mix.cli has detected that you have a partial set of Mix environment variables
+mix-cli has detected that you have a partial set of Mix environment variables
 currently set. We will create a brand new configuration to get a complete
 and consistent set of configuration values.`)
   }
 
   outputLetsCreateNewConfig() {
     debug('outputLetsCreateNewConfig()')
-    this.log('Let\'s create a new configuration file for mix.cli.')
+    this.log('Let\'s create a new configuration file for mix-cli.')
   }
 
   outputMixCLIConfigurationBackedUp(backupPathName: string) {
@@ -211,7 +211,7 @@ and consistent set of configuration values.`)
 
   outputUserIsAllSet() {
     debug('outputUserIsAllSet()')
-    this.log(`\nYour mix.cli configuration is ready! Next, get authenticated by typing:
+    this.log(`\nYour mix-cli configuration is ready! Next, get authenticated by typing:
 
 mix auth`)
   }

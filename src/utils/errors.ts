@@ -54,12 +54,12 @@ export enum Codes {
 
 export const eConfigNotFound = (message?: string, suggestions?: string[]) => {
   return new MixCLIError(
-    message ?? 'The mix.cli configuration file could not be found.',
+    message ?? 'The mix-cli configuration file could not be found.',
     {
       code: Codes.ConfigNotFound,
       exit: 1,
       suggestions: suggestions ?? [
-        'Manually create file \'config.json\' under $HOME/.config/mix.cli/',
+        'Manually create file \'config.json\' under $HOME/.config/mix-cli/',
         'You can find sample configuration files in the project\'s GitLab repository',
         'This situation is temporary until the implementation of the \'mix init\' command',
       ],
@@ -192,7 +192,7 @@ export const eTokenFileNotFound = {
     code: Codes.TokenFileNotFound,
     exit: 1,
     suggestions: [
-      'Retrieve your access token using "mix auth" before using other mix.cli commands.',
+      'Retrieve your access token using "mix auth" before using other mix-cli commands.',
       'File .mix-token must exist and contain access token JSON data.',
     ],
   },

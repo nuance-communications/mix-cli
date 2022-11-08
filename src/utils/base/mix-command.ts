@@ -78,8 +78,8 @@ export default abstract class MixCommand extends BaseCommand {
       this.mixCLIConfig = Config.getMixCLIConfig(this.config)
     } catch {
       this.log(`
-mix.cli now requires a central configuration file.
-Please run the "mix init" command and mix.cli will help you create
+mix-cli now requires a central configuration file.
+Please run the "mix init" command and mix-cli will help you create
 that configuration file swiftly.`)
       process.exitCode = configurationProblemExitCode
       return
