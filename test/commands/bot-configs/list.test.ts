@@ -9,7 +9,7 @@
 import {expect, test} from '@oclif/test'
 
 const td = require('./bot-configs-test-data')
-const {botId} = td.request
+const {botId, liveOnly, excludeOverrides} = td.request
 
 const endpoint = `/v4/bots/${botId}/configs`
 
@@ -22,6 +22,10 @@ describe('bot-configs:list command', () => {
     .nock(serverURL, (api) =>
       api
         .get(endpoint)
+        .query({
+          liveOnly,
+          excludeOverrides,
+        })
         .reply(200, td.response.json)
     )
     .stdout()
@@ -36,6 +40,10 @@ describe('bot-configs:list command', () => {
     .nock(serverURL, (api) =>
       api
         .get(endpoint)
+        .query({
+          liveOnly,
+          excludeOverrides,
+        })
         .reply(200, td.response.json)
     )
     .stdout()
@@ -45,7 +53,6 @@ describe('bot-configs:list command', () => {
       const [headers, ...results] = ctx.stdout.trim().split('\n')
       expect(headers.split(',')).to.deep.equal(['ConfigId', 'ContextTag', 'ParentId',  'HasInterface', 'CreateTime'])
       // first row has result with comma, so it needs to be formatted differently
-      expect(results[0].slice(1,-1).split('","')).to.deep.equal(['456', 'A789_C1', '92', 'true', 'now'])
-      expect(results[1].split(',')).to.deep.equal(['789', 'A789_C1', '123', 'true', 'later'])
+      expect(results[0].split(',')).to.deep.equal(['456', 'A789_C1', '92', 'true', 'now'])
     })
 })

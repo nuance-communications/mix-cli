@@ -8,14 +8,16 @@
 
 module.exports = {
   request: {
-    botId: "1386",
+    botId: "456",
+    liveOnly: false,
+    excludeOverrides: false,
   },
   response: {
     json: {
       configs: [
         {
-          id: "1386",
-          tag: "TestBotV3",
+          id: "456",
+          tag: "A789_C1",
           deployments: [
             {
               id: "339",
@@ -70,9 +72,9 @@ module.exports = {
               envGeographyDeployments: []
             }
           ],
-          parentId: "null",
+          parentId: "92",
           hasInterface: true,
-          createTime: "2021-01-28T01:19:59.415Z"
+          createTime: "now"
         }
       ]
     },
