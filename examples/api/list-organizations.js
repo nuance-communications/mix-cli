@@ -1,7 +1,7 @@
 // The following import statements show how the API client code
-// can be imported when using mix.cli as a dependency.
+// can be imported when using mix-cli as a dependency.
 import {createMixClient} from '@nuance-mix/mix-cli/lib/mix/client.js'
-import * as OrganizationsAPI from '@nuance-mix/mix.cli/lib/mix/api/organizations.js'
+import * as OrganizationsAPI from '@nuance-mix/mix-cli/lib/mix/api/organizations.js'
 
 const mixAPIServer = 'mix.api.nuance.com'
 
