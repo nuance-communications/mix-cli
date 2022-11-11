@@ -499,7 +499,7 @@ that configuration file swiftly.`)
 
       case 'PARTIALLY_COMPLETED':
         debug('status PARTIALLY_COMPLETED')
-        cli.action.stop(chalk.yellow(status))
+        cli.action.stop(chalk.green(status))
         this.shouldWatchJob = false
         break
 
@@ -507,6 +507,11 @@ that configuration file swiftly.`)
         debug('status RUNNING')
         cli.action.status = status
         this.shouldWatchJob = true
+        break
+
+      case 'FAILED':
+        debug('status FAILED')
+        this.shouldWatchJob = false
         break
 
       default:
