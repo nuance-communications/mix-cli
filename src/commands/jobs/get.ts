@@ -110,8 +110,10 @@ Use this command to get details about a particular job.`
         row.locale = report.locale ?? 'n/a'
         row.status = report.status
         row.createTime = report.createTime
-        if (row.status === 'FAILED') {
+
+        if (Object.prototype.hasOwnProperty.call(report, 'errors') && report.errors.errors.length > 0) {
           row.errors = report.errors.errors.map(({message}: any) => message).join(',')
+          isSomeFailed = true
         }
 
         // only keep the most recent report
@@ -122,8 +124,6 @@ Use this command to get details about a particular job.`
         } else if (reportsData[index].createTime < row.createTime) {
           reportsData[index] = row
         }
-
-        isSomeFailed = report.status === 'FAILED'
       }
     }
 
