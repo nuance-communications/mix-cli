@@ -61,11 +61,11 @@ Use this command to get details about a particular job.`
     }
   }
 
-  get reportsErrorsColumns() {
+  get reportsErrorsColumn() {
     debug('get reportsErrorsColumns()')
 
     return {
-      errors: {header: 'Errors'},
+      errorsCount: {header: 'ErrorsCount'},
     }
   }
 
@@ -112,7 +112,7 @@ Use this command to get details about a particular job.`
         row.createTime = report.createTime
 
         if (Object.prototype.hasOwnProperty.call(report, 'errors') && report.errors.errors.length > 0) {
-          row.errors = report.errors.errors.map(({message}: any) => message).join(',')
+          row.errorsCount = report.errors.errors.length
           isSomeFailed = true
         }
 
@@ -132,8 +132,8 @@ Use this command to get details about a particular job.`
     }
 
     if (isSomeFailed) {
-      this.outputCLITable(reportsData, {...this.reportsColumns, ...this.reportsErrorsColumns})
-      this.log('\nRun the command again with the --json flag to see detailed errors for reported failures.')
+      this.outputCLITable(reportsData, {...this.reportsColumns, ...this.reportsErrorsColumn})
+      this.log('\nRun the command again with the --json flag to see error details for reported failures.')
     }
   }
 
