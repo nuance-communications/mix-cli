@@ -35,6 +35,7 @@ import {
   eConflict,
   eDownloadFailed,
   eException,
+  eForbidden,
   eInvalidColumn,
   eInvalidValue,
   eNotConfirmed,
@@ -294,6 +295,7 @@ that configuration file swiftly.`)
     switch (error.statusCode) {
       case 400: throw eInvalidValue(error.message)
       case 401: throw eUnauthorized(error.message)
+      case 403: throw eForbidden(error.message)
       case 404: throw eNotFound(error.message)
       case 409: throw eConflict(error.message)
       default: throw eUnexpectedStatus(error.statusCode, error.message)
