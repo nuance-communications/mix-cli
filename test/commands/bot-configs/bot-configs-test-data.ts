@@ -78,5 +78,13 @@ module.exports = {
         }
       ]
     },
+    emptyBotConfigs: {
+      configs: [],
+    },
+    invalidBot: {
+      code: 3,
+      message: "Bot 456 is not available.",
+      details: [],
+    },
   },
 }
