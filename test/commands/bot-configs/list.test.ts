@@ -9,12 +9,8 @@
 import {expect, test} from '@oclif/test'
 
 const td = require('./bot-configs-test-data')
-const {
-  botId,
-  liveOnly,
-  excludeOverrides,
-} = td.request
 
+const botId = '456'
 const endpoint = `/v4/bots/${botId}/configs`
 
 const testEnvData = require('../../test-data')
@@ -28,8 +24,8 @@ describe('bot-configs:list command', () => {
     api
       .get(endpoint)
       .query({
-        liveOnly,
-        excludeOverrides,
+        liveOnly: false,
+        excludeOverrides: false,
       })
       .reply(200, td.response.json)
   )
@@ -38,9 +34,9 @@ describe('bot-configs:list command', () => {
   .it("list application configurations for a bot", (ctx) => {
     const lines = ctx.stdout.split('\n').map(ln => ln.trim())
     const headers = lines[0].split(/\s+/)
-    const firstLine = lines[2].split(/\s+/)
+    const firstRow = lines[2].split(/\s+/)
     expect(headers).to.deep.equal(['ConfigId', 'ContextTag', 'ParentId',  'HasInterface', 'CreateTime'])
-    expect(firstLine).to.deep.equal(['456', 'A789_C1', '92', 'true', 'now'])
+    expect(firstRow).to.deep.equal(['456', 'A3_C1', '92', 'true', 'now'])
   })
 
   test
@@ -49,13 +45,13 @@ describe('bot-configs:list command', () => {
       api
         .get(endpoint)
         .query({
-          liveOnly,
-          excludeOverrides,
+          liveOnly: false,
+          excludeOverrides: false,
         })
         .reply(200, td.response.json)
     )
     .stdout()
-    .command(["bot-configs:list", "-B", botId, "--json"])
+    .command(["bot-configs:list", "-B", botId.toString(), "--json"])
     .it("shows all application configuration data appropriately in JSON view", (ctx) => {
       const result = JSON.parse(ctx.stdout)
       expect(result).to.deep.equal(td.response.json)
@@ -67,18 +63,18 @@ describe('bot-configs:list command', () => {
       api
         .get(endpoint)
         .query({
-          liveOnly,
-          excludeOverrides,
+          liveOnly: false,
+          excludeOverrides: false,
         })
         .reply(200, td.response.json)
     )
     .stdout()
     .stderr()
-    .command(["bot-configs:list", "-B", botId, "--csv"])
+    .command(["bot-configs:list", "-B", botId.toString(), "--csv"])
     .it("reformats and hides data appropriately in tabular mode", (ctx) => {
       const [headers, ...results] = ctx.stdout.trim().split('\n')
       expect(headers.split(',')).to.deep.equal(['ConfigId', 'ContextTag', 'ParentId',  'HasInterface', 'CreateTime'])
-      expect(results[0].split(',')).to.deep.equal(['456', 'A789_C1', '92', 'true', 'now'])
+      expect(results[0].split(',')).to.deep.equal(['456', 'A3_C1', '92', 'true', 'now'])
     })
 
     test
@@ -87,8 +83,8 @@ describe('bot-configs:list command', () => {
       api
         .get(endpoint)
         .query({
-          liveOnly,
-          excludeOverrides,
+          liveOnly: false,
+          excludeOverrides: false,
         })
         .reply(200, td.response.emptyBotConfigs)
     )
@@ -111,16 +107,16 @@ describe('bot-configs:list command', () => {
     .env(testEnvData.env)
     .nock(serverURL, (api) =>
       api
+        //botId: 0
         .get(endpoint)
         .query({
-          liveOnly,
-          excludeOverrides,
+          liveOnly: false,
+          excludeOverrides: false,
         })
         .reply(400, td.response.invalidBot)
     )
-    .stdout()
     .command(["bot-configs:list", "-B", botId])
     .exit(1)
-    .it("exit with status 1 when value is invalid")
-
+    .it("exits with status 1 when value is invalid")
+    
 })

@@ -7,32 +7,27 @@
  */
 
 module.exports = {
-  request: {
-    botId: "456",
-    liveOnly: false,
-    excludeOverrides: false,
-  },
   response: {
     json: {
       configs: [
         {
           id: "456",
-          tag: "A789_C1",
+          tag: "A3_C1",
           deployments: [
             {
               id: "339",
               status: "DEPLOYED",
               envGeographyDeployments: [
                 {
-                  id: "1159",
+                  id: "119",
                   envGeography: {
-                  id: "338",
+                  id: "33",
                   geography: {
                       id: "1",
-                      displayName: "Sandbox US"
+                      displayName: "Azure US"
                     },
                     envType: "SANDBOX",
-                    envHost: "api.nuance.com"
+                    envHost: "api.com"
                   },
                   status: "DEPLOYED",
                   deploymentResult: "success",
@@ -45,15 +40,15 @@ module.exports = {
               status: "DEPLOYED",
               envGeographyDeployments: [
                 {
-                  id: "1160",
+                  id: "160",
                   envGeography: {
-                    id: "339",
+                    id: "39",
                     geography: {
                       id: "1",
-                      displayName: "Sandbox US"
+                      displayName: "Extra Geo"
                     },
                     envType: "SANDBOX",
-                    envHost: "api.nuance.com"
+                    envHost: "api.com"
                   },
                   status: "DEPLOYED",
                   deploymentResult: "success",
