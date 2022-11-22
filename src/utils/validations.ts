@@ -132,7 +132,7 @@ export function validateChannelName(name: string, optionName: string) {
   debug('validateChannelName()')
   if (name.trim().length === 0) {
     throw (eInvalidValue("Channel name can't be empty or consist only of whitespace.", [
-      `Supply a non-empty value to ${optionName} flag`,
+      `Supply a non-empty value to flag '${optionName}`,
     ]))
   }
 }

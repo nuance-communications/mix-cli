@@ -51,7 +51,7 @@ Use this command to change the name of a channel in a project.`
   tryDomainOptionsValidation(options: any, domainOptions: DomainOption[]) {
     super.tryDomainOptionsValidation(options, domainOptions)
 
-    validateChannelName(options['new-name'], '--new-name')
+    validateChannelName(options['new-name'], 'new-name')
   }
 
   async buildRequestParameters(options: Partial<Output>): Promise<ChannelsRenameParams> {

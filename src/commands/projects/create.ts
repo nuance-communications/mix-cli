@@ -154,7 +154,7 @@ provide a description of your project using the --description flag.`
     this.validateChannelsAndModes(channels, modes)
 
     for (const channel of channels) {
-      validateChannelName(channel, '-' + (MixFlags.channelMultipleFlag.char?.toString() || 'flag'))
+      validateChannelName(channel, MixFlags.channelMultipleFlag.char?.toString() || 'flag')
     }
 
     const {

@@ -83,7 +83,7 @@ the command currently requires that both the
   tryDomainOptionsValidation(options: any, domainOptions: DomainOption[]) {
     super.tryDomainOptionsValidation(options, domainOptions)
 
-    validateChannelName(options.name, '--name')
+    validateChannelName(options.name, 'name')
 
     if (options.color !== undefined) {
       validateChannelColor(options.color)
