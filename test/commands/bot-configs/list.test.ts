@@ -77,6 +77,53 @@ describe('bot-configs:list command', () => {
         expect(headers.split(',')).to.deep.equal(['ConfigId', 'ContextTag', 'ParentId',  'HasInterface', 'CreateTime'])
         expect(results[0].split(',')).to.deep.equal(['456', 'A3_C1', '92', 'true', 'now'])
       })
+
+    test
+      .env(testEnvData.env)
+      .nock(serverURL, (api) =>
+        api
+          .get(endpoint)
+          .query({
+            liveOnly: false,
+            excludeOverrides: false,
+            appId: "app_123"
+          })
+          .reply(200, td.response.json)
+      )
+      .stdout()
+      .command(["bot-configs:list", "-B", botId, "--with-runtime-app", "app_123"])
+      .it("list application configurations for a bot for given runtime application")
+
+      test
+      .env(testEnvData.env)
+      .nock(serverURL, (api) =>
+        api
+          .get(endpoint)
+          .query({
+            liveOnly: false,
+            excludeOverrides: false,
+            tag: "A35_C"
+          })
+          .reply(200, td.response.json)
+      )
+      .stdout()
+      .command(["bot-configs:list", "-B", botId, "--with-tag", "A35_C"])
+      .it("list application configurations for a bot for given context tag")
+
+    test
+      .env(testEnvData.env)
+      .nock(serverURL, (api) =>
+        api
+          .get(endpoint)
+          .query({
+            liveOnly: true,
+            excludeOverrides: false,
+          })
+          .reply(200, td.response.json)
+      )
+      .stdout()
+      .command(["bot-configs:list", "-B", botId, "--live-only"])
+      .it("list application configurations for a bot that are currently deployed")
   }),
 
   describe('bot-configs:list command with missing flags', () => {
@@ -112,26 +159,5 @@ describe('bot-configs:list command', () => {
       .it("shows error message for no application configuration data for a bot", (ctx) => {
         expect(ctx.stdout).to.contain('No configurations')
       })
-  }),
-  
-  describe('bot-configs:list command with invalid value', () => {
-      
-      const botId = '1'
-      const endpoint = `/v4/bots/${botId}/configs`
-  
-      test
-      .env(testEnvData.env)
-      .nock(serverURL, (api) =>
-        api
-          .get(endpoint)
-          .query({
-            liveOnly: false,
-            excludeOverrides: false,
-          })
-          .reply(400, td.response.invalidBot)
-      )
-      .command(["bot-configs:list", "-B", botId])
-      .exit(1)
-      .it("exits with status 1 when value is invalid")
   })  
 })
