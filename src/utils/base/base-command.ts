@@ -27,7 +27,7 @@ export default abstract class BaseCommand extends Command {
   async doAuth() {
     debug('doAuth()')
     const {clientId, clientSecret, ...safeToPrintConfig} = this.mixCLIConfig!
-    debug('mix.cli configuration: %O', safeToPrintConfig)
+    debug('mix-cli configuration: %O', safeToPrintConfig)
 
     const authServerAndCreds: AuthServerAndCreds = {
       authServerHost: this.mixCLIConfig!.authServer,

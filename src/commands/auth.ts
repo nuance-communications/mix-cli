@@ -17,7 +17,7 @@ import {Config, MixCLIConfig} from '../utils/config'
 import {configurationProblemExitCode, tokenFileName} from '../utils/constants'
 
 const SUCCESS = 'Token was retrieved and stored successfully.\n' +
-  'You are now ready to use mix.cli! 🚀\n\n' +
+  'You are now ready to use mix-cli! 🚀\n\n' +
   'If you are a first time user, you can start by looking\n' +
   'at the organizations you are part of by typing:\n\n' +
   'mix organizations:list\n\n' +
@@ -27,7 +27,7 @@ const debug = makeDebug('mix:commands:auth')
 export default class Auth extends Command {
   static description = `obtain Mix access token
   
-Use this command to retrieve an access token. Once Mix.cli has acquired the
+Use this command to retrieve an access token. Once mix-cli has acquired the
 access token, it takes care of refreshing it automatically.`
 
   static examples = ['mix auth']
@@ -98,8 +98,8 @@ access token, it takes care of refreshing it automatically.`
       this.mixCLIConfig = Config.getMixCLIConfig(this.config)
     } catch {
       this.log(`
-mix.cli now requires a central configuration file.
-Please run the "mix init" command and mix.cli will help you create
+mix-cli now requires a central configuration file.
+Please run the "mix init" command and mix-cli will help you create
 that configuration file swiftly.`)
       process.exitCode = configurationProblemExitCode
       return

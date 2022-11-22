@@ -25,9 +25,9 @@ Community](https://community.mix.nuance.com).
 Before adding a new command, please reach out to us in the
 [Mix Community](https://community.mix.nuance.com). We will be happy to discuss
 new commands. This also allows us to ensure consistency in the command language
-used for Mix.cli.
+used for mix-cli.
 
-# Mix.cli Development
+# mix-cli Development
 
 ## oclif Framework
 `mix-cli` is built on top of the [oclif](https://oclif.io/) framework. Read

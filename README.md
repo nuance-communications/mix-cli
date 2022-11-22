@@ -125,7 +125,7 @@ instructions and then launch a new shell. You will then get autocompletion of
 mix-cli commands by pressing the tab key.
 
 Type `mix autocomplete --refresh-cache` to rebuild the autocompletion cache, which
-is useful when upgrading to a version of mix.cli that introduces new commands.
+is useful when upgrading to a version of mix-cli that introduces new commands.
 
 Finally, type `mix autocomplete --help` to get help on using the autocomplete
 setup command.
@@ -555,7 +555,7 @@ OPTIONS
   -h, --help  show CLI help
 
 DESCRIPTION
-  Use this command to retrieve an access token. Once Mix.cli has acquired the
+  Use this command to retrieve an access token. Once mix-cli has acquired the
   access token, it takes care of refreshing it automatically.
 
 EXAMPLE
@@ -1838,14 +1838,14 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.1
 
 ## `mix init`
 
-initialize mix.cli configuration
+initialize mix-cli configuration
 
 ```
 USAGE
   $ mix init
 
 DESCRIPTION
-  Use this command to initialize the Mix.cli configuration. Elements of the
+  Use this command to initialize the mix-cli configuration. Elements of the
   configuration can also be overridden using environment variables.
 
 EXAMPLE
@@ -2357,7 +2357,7 @@ OPTIONS
 DESCRIPTION
   Use this command to update the data pack for a locale used in a project.
   The operation is not carried out immediately. Instead, the Mix backend returns
-  a job ID that can be used to monitor progress. mix.cli outputs detailed
+  a job ID that can be used to monitor progress. mix-cli outputs detailed
   information on the created job when the --json flag is provided.
 
   Note that you cannot add a new locale with this command.

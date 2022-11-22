@@ -11,7 +11,7 @@ const mixAPIServer = 'mix-api.example.com'
 module.exports = {
   headers: {
     Authorization: 'Bearer longTokenString',
-    'User-Agent': 'mix.cli user agent'
+    'User-Agent': 'mix-cli user agent'
   },
   server: mixAPIServer,
   version: {
