@@ -37,7 +37,7 @@ describe('bot-credentials:list command', () => {
       const headers = lines[0].split(/\s+/)
       const [appId, environment, ..._geographies] = lines[2].split(/\s+/)
       const geographies = _geographies.join(' ').split(',')
-      expect(headers).to.deep.equal(['RuntimeBotID(BotID)', 'Environment', 'Geography'])
+      expect(headers).to.deep.equal('Runtime Bot ID (BotID) Environment Geography'.split(/\s+/))
       expect(appId).to.equal('app_123')
       expect(environment).to.equal('SANDBOX')
       expect(geographies).to.contain('Azure US')
