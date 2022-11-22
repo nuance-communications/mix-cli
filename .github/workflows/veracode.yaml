@@ -33,7 +33,7 @@ jobs:
       - name: Veracode Upload And Scan
         uses: veracode/veracode-uploadandscan-action@0.2.1
         with:
-          appname: 'mix-cli'
+          appname: 'Mix.cli'
           createprofile: true
           createsandbox: 'true'
           sandboxname: ${{ format('CI_Sandbox_{0}', steps.extract_branch.outputs.branch) }}
