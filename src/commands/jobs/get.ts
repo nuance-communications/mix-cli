@@ -61,6 +61,14 @@ Use this command to get details about a particular job.`
     }
   }
 
+  get reportsErrorsColumn() {
+    debug('get reportsErrorsColumns()')
+
+    return {
+      errorsCount: {header: 'ErrorsCount'},
+    }
+  }
+
   get domainOptions(): DomainOption[] {
     debug('get domainOptions()')
     return ['job', 'project']
@@ -103,6 +111,11 @@ Use this command to get details about a particular job.`
         row.status = report.status
         row.createTime = report.createTime
 
+        if (report.errors && report.errors?.errors?.length > 0) {
+          row.errorsCount = report.errors.errors.length
+          isSomeFailed = true
+        }
+
         // only keep the most recent report
         const index = reportsData.findIndex(x => x.job === row.job && x.locale === row.locale)
 
@@ -111,16 +124,15 @@ Use this command to get details about a particular job.`
         } else if (reportsData[index].createTime < row.createTime) {
           reportsData[index] = row
         }
-
-        isSomeFailed = report.status === 'FAILED'
       }
     }
 
-    if (reportsData.length > 0) {
+    if (reportsData.length > 0 && !isSomeFailed) {
       this.outputCLITable(reportsData, this.reportsColumns)
     }
 
     if (isSomeFailed) {
+      this.outputCLITable(reportsData, {...this.reportsColumns, ...this.reportsErrorsColumn})
       this.log('\nRun the command again with the --json flag to see error details for reported failures.')
     }
   }
