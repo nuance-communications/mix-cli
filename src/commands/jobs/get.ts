@@ -111,7 +111,7 @@ Use this command to get details about a particular job.`
         row.status = report.status
         row.createTime = report.createTime
 
-        if (Object.prototype.hasOwnProperty.call(report, 'errors') && report.errors.errors.length > 0) {
+        if (report.errors && report.errors?.errors?.length > 0) {
           row.errorsCount = report.errors.errors.length
           isSomeFailed = true
         }
