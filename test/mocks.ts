@@ -8,7 +8,7 @@
 
 import crypto from 'crypto'
 
-const mixAPIServer = 'mix-api.example.com'
+export const mixAPIServer = 'mix-api.example.com'
 
 export const getMixCLIConfigMock = {
   authServer: 'auth.example.com',

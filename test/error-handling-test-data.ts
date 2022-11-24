@@ -6,8 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-module.exports = {
-  response: {
+export default {
     invalidValuesResponse: {
       code: 400,
       message: "Invalid organization id provided",
@@ -25,8 +24,12 @@ module.exports = {
     },
     conflictResponse: {
       code: 409,
-      message: "The request conflicts with your project or application configuration.",
+      message: "The request conflicts with your project or application configuration",
+      details: []
+    },
+    unexpectedStatusResponse: {
+      code: 500,
+      message: "Backend returned status code 500",
       details: []
     }
-  },
 }

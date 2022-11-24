@@ -7,32 +7,34 @@
  */
 
 import {expect, test} from '@oclif/test'
+import {mixAPIServer} from '../../mocks'
+import testData from './bot-credentials-test-data'
 
-const td = require('./bot-credentials-test-data')
+const {
+  botCredentialsListResponse,
+  fullBotCredentialsListResponse,
+  noBotCredentialsResponse,
+} = testData
 
-const testEnvData = require('../../test-data')
-const serverURL = `https://${testEnvData.server}`
+const serverURL = `https://${mixAPIServer}`
 
 describe('bot-credentials:list command', () => {
-
   describe('bot-credentials:list command with valid botId', () => {
-
     const botId = '456'
     const endpoint = `/v4/bots/${botId}/credentials`
   
     test
-    .env(testEnvData.env)
     .nock(serverURL, (api) =>
       api
         .get(endpoint)
         .query({
           view: "BCV_VIEW_UNSPECIFIED",
         })
-        .reply(200, td.response.json)
+        .reply(200, botCredentialsListResponse)
     )
     .stdout()
     .command(["bot-credentials:list", "-B", botId])
-    .it("list bot credentials", (ctx) => {
+    .it("bot-credentials:list provides human-readable output for given bot", (ctx) => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
       const headers = lines[0].split(/\s+/)
       const [appId, environment, ..._geographies] = lines[2].split(/\s+/)
@@ -44,43 +46,41 @@ describe('bot-credentials:list command', () => {
     })
   
     test
-      .env(testEnvData.env)
       .nock(serverURL, (api) =>
         api
           .get(endpoint)
           .query({
             view: "BCV_VIEW_UNSPECIFIED",
           })
-          .reply(200, td.response.json)
+          .reply(200, botCredentialsListResponse)
       )
       .stdout()
       .command(["bot-credentials:list", "-B", botId, "--json"])
-      .it("shows all bot credentials appropriately in JSON view", (ctx) => {
+      .it("bot-credentials:list provides JSON output for given bot", (ctx) => {
         const result = JSON.parse(ctx.stdout)
-        expect(result).to.deep.equal(td.response.json)
+        expect(result).to.deep.equal(botCredentialsListResponse)
       })
   
     test
-      .env(testEnvData.env)
       .nock(serverURL, (api) =>
         api
           .get(endpoint)
           .query({
             view: "BCV_FULL",
           })
-          .reply(200, td.response.fullBotCredentialsJson)
+          .reply(200, fullBotCredentialsListResponse)
       )
       .stdout()
       .stderr()
       .command(["bot-credentials:list", "-B", botId, "--full"])
-      .it("shows all bot credentials along with client details", (ctx) => {
+      .it("bot-credentials:list provides full details for given bot", (ctx) => {
         expect(ctx.stdout).to.contain('app_123')
         expect(ctx.stdout).to.contain('client_123')
       })
 
       const geoName = "Azure US"
+
       test
-      .env(testEnvData.env)
       .nock(serverURL, (api) =>
         api
           .get(endpoint)
@@ -88,86 +88,42 @@ describe('bot-credentials:list command', () => {
             view: "BCV_VIEW_UNSPECIFIED",
             envGeographyName: geoName,
           })
-          .reply(200, td.response.json)
+          .reply(200, botCredentialsListResponse)
       )
       .stdout()
       .stderr()
       .command(["bot-credentials:list", "-B", botId, "--with-geo-name", geoName])
-      .it("show bot credentials for given geo name", (ctx) => {
-        expect(ctx.stdout).to.contain('app_123')
-        expect(ctx.stdout).to.contain(geoName)
-      })
+      .it("bot-credentials:list provides human-readable output for given bot and geography")
   }),
 
-  describe('bot-credentials:list command with missing flags', () => {
-
+  describe('bot-credentials:list handling of missing flags', () => {
       test
-      .env(testEnvData.env)
       .stderr()
       .command(["bot-credentials:list"])
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
-      .it('errors out when no parameters supplied')
+      .it('bot-credentials:list errors out when no parameters supplied')
   }),
 
-  describe('bot-credentials:list command with empty data', () => {
-
+  describe('bot-credentials:list handling of empty data', () => {
       const botId = '457'
       const endpoint = `/v4/bots/${botId}/credentials`
       const geoName = "Azure US"
   
       test
-      .env(testEnvData.env)
       .nock(serverURL, (api) =>
         api
           .get(endpoint)
           .query({
             view: "BCV_VIEW_UNSPECIFIED",
           })
-          .reply(200, td.response.emptyBotCredentials)
+          .reply(200, noBotCredentialsResponse)
       )
       .stdout()
       .command(["bot-credentials:list", "-B", botId])
-      .it("shows error message for no credentials for a bot", (ctx) => {
+      .it("bot-credentials:list shows error message for no credentials for a bot", (ctx) => {
         expect(ctx.stdout).to.contain('No credentials')
       })
-
-      test
-      .env(testEnvData.env)
-      .nock(serverURL, (api) =>
-        api
-          .get(endpoint)
-          .query({
-            envGeographyName: geoName,
-            view: "BCV_VIEW_UNSPECIFIED",
-          })
-          .reply(200, td.response.emptyBotCredentials)
-      )
-      .stdout()
-      .command(["bot-credentials:list", "-B", botId,"--with-geo-name",geoName])
-      .it("shows error message for no credentials for a bot", (ctx) => {
-        expect(ctx.stdout).to.contain('No credentials')
-      })
-  }),
-  
-  describe('bot-configs:list command with invalid value', () => {
-      
-      const botId = '1'
-      const endpoint = `/v4/bots/${botId}/credentials`
-  
-      test
-      .env(testEnvData.env)
-      .nock(serverURL, (api) =>
-        api
-          .get(endpoint)
-          .query({
-            view: "BCV_VIEW_UNSPECIFIED",
-          })
-          .reply(400, td.response.invalidBot)
-      )
-      .command(["bot-credentials:list", "-B", botId])
-      .exit(1)
-      .it("exits with status 1 when value is invalid")
   })  
 })

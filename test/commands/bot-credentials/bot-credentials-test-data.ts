@@ -6,80 +6,73 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-module.exports = {
-  response: {
-    json: {
-      credentials: [
-        {
-          id: "456",
-          credential: {
-            id: "203",
-            appId: "app_123",
-            clients: [],
-            createTime: "now",
-            updateTime: "later"
-          },
-          geographies: [
+export default {
+  botCredentialsListResponse: {
+    credentials: [
+      {
+        id: "456",
+        credential: {
+          id: "203",
+          appId: "app_123",
+          clients: [],
+          createTime: "now",
+          updateTime: "later"
+        },
+        geographies: [
+          {
+            id: "412",
+            geography: {
+              id: "1",
+              displayName: "Azure US"
+            },
+            envType: "SANDBOX",
+            envHost: "api.com",
+            envName: ""
+          }
+        ],
+        createTime: "now",
+        updateTime: "later"
+      }
+    ]
+  },
+  fullBotCredentialsListResponse: {
+    credentials: [
+      {
+        id: "456",
+        credential: {
+          id: "203",
+          appId: "app_123",
+          clients: [
             {
-              id: "412",
-              geography: {
-                id: "1",
-                displayName: "Azure US"
-              },
-                envType: "SANDBOX",
-                envHost: "api.com",
-                envName: ""
+              id: "67",
+              clientId: "client_123",
+              clientName: "default",
+              oauthScopes: "asr dlg nlu tts",
+              createTime: "2022-09-12T16:14:53Z",
+              updateTime: "2022-09-22T19:26:21Z"
             }
           ],
           createTime: "now",
           updateTime: "later"
-        }
-      ]
-    },
-    fullBotCredentialsJson: {
-      credentials: [
-        {
-          id: "456",
-          credential: {
-            id: "203",
-            appId: "app_123",
-            clients: [
-              {
-                id: "67",
-                clientId: "client_123",
-                clientName: "default",
-                oauthScopes: "asr dlg nlu tts",
-                createTime: "2022-09-12T16:14:53Z",
-                updateTime: "2022-09-22T19:26:21Z"
-              }
-            ],
-            createTime: "now",
-            updateTime: "later"
-          },
-          geographies: [
-            {
-              id: "412",
-              geography: {
-                id: "1",
-                displayName: "Azure US"
-              },
-                envType: "SANDBOX",
-                envHost: "api.com",
-                envName: ""
-            }
-          ],
-          createTime: "now",
-          updateTime: "later"
-        }
-      ]
-    },
-    emptyBotCredentials: {
-      credentials: [],
-    },
-    invalidBot: {
-      code: 3,
-      message: "Bot 456 is not available.",
-      details: [],
-    },
+        },
+        geographies: [
+          {
+            id: "412",
+            geography: {
+              id: "1",
+              displayName: "Azure US"
+            },
+            envType: "SANDBOX",
+            envHost: "api.com",
+            envName: ""
+          }
+        ],
+        createTime: "now",
+        updateTime: "later"
+      }
+    ]
+  },
+  noBotCredentialsResponse: {
+    credentials: [],
   },
 }

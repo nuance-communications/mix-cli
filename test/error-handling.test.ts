@@ -8,25 +8,31 @@
 
 import {expect, test} from '@oclif/test'
 import {PrettyPrintableError} from "@oclif/errors"
+import {mixAPIServer} from './mocks'
+import testData from './error-handling-test-data'
 
-const td = require('./error-handling-test-data')
+const {
+  conflictResponse,
+  invalidValuesResponse,
+  notFoundResponse,
+  unauthorizedResponse,
+  unexpectedStatusResponse,
+} = testData
+
+const serverURL = `https://${mixAPIServer}`
 
 const orgId = '10'
 const endpoint = `/v4/organizations/${orgId}/apps`
 
-const testEnvData = require('./test-data')
-const serverURL = `https://${testEnvData.server}`
-
-describe('error handling with applications:list command', () => {
+describe('Centralized HTTP error code handling', () => {
   test
-    .env(testEnvData.env)
     .nock(serverURL, (api) =>
       api
         .get(endpoint)
         .query({
           view: "AV_VIEW_UNSPECIFIED",
         })
-        .reply(400, td.response.invalidValuesResponse)
+        .reply(400, invalidValuesResponse)
     )
     .stdout()
     .command(["applications:list", "-O", orgId])
@@ -34,17 +40,16 @@ describe('error handling with applications:list command', () => {
       const err: PrettyPrintableError = ctx
       expect(err.code).to.contain('EINVALIDVALUE')
     })
-    .it('One or more flags have invalid values.')
+    .it('HTTP code 400 generates EINVALIDVALUE exception')
 
     test
-    .env(testEnvData.env)
     .nock(serverURL, (api) =>
       api
         .get(endpoint)
         .query({
           view: "AV_VIEW_UNSPECIFIED",
         })
-        .reply(401, td.response.unauthorizedResponse)
+        .reply(401, unauthorizedResponse)
     )
     .stdout()
     .command(["applications:list", "-O", orgId])
@@ -52,17 +57,16 @@ describe('error handling with applications:list command', () => {
       const err: PrettyPrintableError = ctx
       expect(err.code).to.contain('EUNAUTHORIZED')
     })
-    .it('Unauthorized request.')
+    .it('HTTP code 401 generates EUNAUTHORIZED exception')
 
     test
-    .env(testEnvData.env)
     .nock(serverURL, (api) =>
       api
         .get(endpoint)
         .query({
           view: "AV_VIEW_UNSPECIFIED",
         })
-        .reply(404, td.response.notFoundResponse)
+        .reply(404, notFoundResponse)
     )
     .stdout()
     .command(["applications:list", "-O", orgId])
@@ -70,10 +74,9 @@ describe('error handling with applications:list command', () => {
       const err: PrettyPrintableError = ctx
       expect(err.code).to.contain('ENOTFOUND')
     })
-    .it('The data you requested could not be found.')
+    .it('HTTP code 404 generates ENOTFOUND exception')
 
     test
-    .env(testEnvData.env)
     .nock(serverURL, (api) =>
       api
         .get(endpoint)
@@ -81,7 +84,7 @@ describe('error handling with applications:list command', () => {
           view: "AV_VIEW_UNSPECIFIED",
           appId: "app_123"
         })
-        .reply(409, td.response.conflictResponse)
+        .reply(409, conflictResponse)
     )
     .stdout()
     .command(["applications:list", "-O", orgId, "--with-runtime-app", "app_123"])
@@ -89,5 +92,22 @@ describe('error handling with applications:list command', () => {
       const err: PrettyPrintableError = ctx
       expect(err.code).to.contain('ECONFLICTERROR')
     })
-    .it('The request conflicts with your project or application configuration.')
+    .it('HTTP code 409 generates ECONFLICTERROR exception')
+
+    test
+    .nock(serverURL, (api) =>
+      api
+        .get(endpoint)
+        .query({
+          view: "AV_VIEW_UNSPECIFIED",
+        })
+        .reply(500, unexpectedStatusResponse)
+    )
+    .stdout()
+    .command(["applications:list", "-O", orgId])
+    .catch(ctx => {
+      const err: PrettyPrintableError = ctx
+      expect(err.code).to.contain('EUNEXPECTEDSTATUS')
+    })
+    .it('HTTP code 500 generates EUNEXPECTEDSTATUS exception')
 })
