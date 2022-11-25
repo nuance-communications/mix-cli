@@ -69,8 +69,5 @@ export default {
       ],
       createTime: "2022-09-22T15:46:18Z"
     }
-  },
-  noBotInterfacesGetResponse: {
-    configs: [],
-  },
+  }
 }
