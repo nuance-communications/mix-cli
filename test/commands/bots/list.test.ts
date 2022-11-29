@@ -28,13 +28,13 @@ describe('bots:list command', () => {
         api
           .get(endpoint)
           .query({
-            view: "BV_VIEW_UNSPECIFIED",
+            view: 'BV_VIEW_UNSPECIFIED',
           })
           .reply(200, botsListResponse)
       )
       .stdout()
-      .command(["bots:list", "-O", orgId])
-    .it("bots:list provides human-readable output for given organization", (ctx) => {
+      .command(['bots:list', '-O', orgId])
+    .it('bots:list provides human-readable output for given organization', (ctx) => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
       const headers = lines[0].split(/\s+/)
       const firstRow = lines[2].split(/\s+/)
@@ -47,13 +47,13 @@ describe('bots:list command', () => {
         api
           .get(endpoint)
           .query({
-            view: "BV_VIEW_UNSPECIFIED",
+            view: 'BV_VIEW_UNSPECIFIED',
           })
           .reply(200, botsListResponse)
       )
       .stdout()
-      .command(["bots:list", "-O", orgId, "--json"])
-    .it("bots:list provides JSON output for given organization", (ctx) => {
+      .command(['bots:list', '-O', orgId, '--json'])
+    .it('bots:list provides JSON output for given organization', (ctx) => {
       const result = JSON.parse(ctx.stdout)
       expect(result).to.deep.equal(botsListResponse)
     })
@@ -63,13 +63,13 @@ describe('bots:list command', () => {
         api
           .get(endpoint)
           .query({
-            view: "BV_VIEW_UNSPECIFIED",
+            view: 'BV_VIEW_UNSPECIFIED',
           })
           .reply(200, botsListResponse)
       )
       .stdout()
-      .command(["bots:list", "-O", orgId, "--csv"])
-    .it("bots:list provides CSV output for given organization", (ctx) => {
+      .command(['bots:list', '-O', orgId, '--csv'])
+    .it('bots:list provides CSV output for given organization', (ctx) => {
       const [headers, ...results] = ctx.stdout.trim().split('\n')
       expect(headers.split(',')).to.deep.equal(['BotId', 'Name'])
       expect(results[0].split(',')).to.deep.equal(['456',  'Mix Sample App'])
@@ -80,14 +80,14 @@ describe('bots:list command', () => {
         api
           .get(endpoint)
           .query({
-            view: "BV_FULL",
+            view: 'BV_FULL',
           })
           .reply(200, fullBotsDetailsResponse)
       )
       .stdout()
       .stderr()
-      .command(["bots:list", "-O", orgId, "--full"])
-    .it("bots:list provides full details for given organization", (ctx) => {
+      .command(['bots:list', '-O', orgId, '--full'])
+    .it('bots:list provides full details for given organization', (ctx) => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
       const headers = lines[0].split(/\s+/)
       const firstRow = lines[2].split(/\s+/)
@@ -100,24 +100,26 @@ describe('bots:list command', () => {
         api
           .get(endpoint)
           .query({
-            view: "BV_FULL_AVAILABLE_CONFIGS",
+            view: 'BV_FULL_AVAILABLE_CONFIGS',
           })
           .reply(200, fullBotsDetailsResponse)
       )
       .stdout()
       .stderr()
-      .command(["bots:list",
+      .command(['bots:list',
         `-O=${orgId}`,
-        "--full",
-        "--omit-overridden"
+        '--full',
+        '--omit-overridden'
       ])
-    .it("bots:list omits overriden app configs in list for given organization")
+    .it('bots:list omits overriden app configs in list for given organization', (ctx) => {
+      // test fails if wrong view is passed
+    })
   }),
 
   describe('bots:list handling of missing flags', () => {
     test
       .stderr()
-      .command(["bots:list"])
+      .command(['bots:list'])
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
@@ -125,7 +127,7 @@ describe('bots:list command', () => {
 
     test
       .stderr()
-      .command(["bots:list", "-O", "24", "--omit-overridden"])
+      .command(['bots:list', '-O', '24', '--omit-overridden'])
       .catch(ctx => {
         expect(ctx.message).to.contain('--full')
       })
@@ -141,13 +143,13 @@ describe('bots:list command', () => {
         api
           .get(endpoint)
           .query({
-            view: "BV_VIEW_UNSPECIFIED",
+            view: 'BV_VIEW_UNSPECIFIED',
           })
           .reply(200, noBotsReponse)
       )
       .stdout()
-      .command(["bots:list", "-O", orgId])
-    .it("bots:list shows error message for organization with no bots", (ctx) => {
+      .command(['bots:list', '-O', orgId])
+    .it('bots:list shows error message for organization with no bots', (ctx) => {
       expect(ctx.stdout).to.contain('No bots')
     })
   })
