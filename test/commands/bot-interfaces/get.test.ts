@@ -31,10 +31,10 @@ describe('bot-interfaces:get command', () => {
       )
       .stdout()
       .command(['bot-interfaces:get', '-B', botId, '-C', configId])
-      .it('bot-interfaces:get provides human-readable output for given bot and configuration', (ctx) => {
-        expect(ctx.stdout).to.contain('52')
-        expect(ctx.stdout).to.contains(['en-US'])
-      })
+    .it('bot-interfaces:get provides human-readable output for given bot and configuration', (ctx) => {
+      expect(ctx.stdout).to.contain('52')
+      expect(ctx.stdout).to.contains(['en-US'])
+    })
   
     test
       .nock(serverURL, (api) =>
@@ -44,10 +44,10 @@ describe('bot-interfaces:get command', () => {
       )
       .stdout()
       .command(['bot-interfaces:get', '-B', botId, '-C', configId, '--json'])
-      .it('bot-interfaces:get provides JSON output for given bot and configuration', (ctx) => {
-        const result = JSON.parse(ctx.stdout)
-        expect(result).to.deep.equal(botInterfacesGetResponse)
-      })
+    .it('bot-interfaces:get provides JSON output for given bot and configuration', (ctx) => {
+      const result = JSON.parse(ctx.stdout)
+      expect(result).to.deep.equal(botInterfacesGetResponse)
+    })
   }),
 
   describe('bot-interfaces:get handling of missing flags', () => {
@@ -60,7 +60,7 @@ describe('bot-interfaces:get command', () => {
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
-      .it('bot-interfaces:get errors out when no parameters supplied')
+    .it('bot-interfaces:get errors out when no parameters supplied')
 
     test
       .stderr()
@@ -68,7 +68,7 @@ describe('bot-interfaces:get command', () => {
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
-      .it('bot-interfaces:get errors out when configuration Id not supplied')
+    .it('bot-interfaces:get errors out when configuration Id not supplied')
 
     test
       .stderr()
@@ -76,7 +76,7 @@ describe('bot-interfaces:get command', () => {
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
-      .it('bot-interfaces:get errors out when bot Id not supplied')
+    .it('bot-interfaces:get errors out when bot Id not supplied')
   })
 
   describe('bot-interfaces:get handling of empty data', () => {
@@ -92,8 +92,8 @@ describe('bot-interfaces:get command', () => {
       )
       .stdout()
       .command(['bot-interfaces:get', '-B', botId, '-C', configId])
-      .it('bot-interfaces:get shows error message for no interface for a bot', (ctx) => {
-        expect(ctx.stdout).to.contain('No interface')
-      })
+    .it('bot-interfaces:get shows error message for no interface for a bot', (ctx) => {
+      expect(ctx.stdout).to.contain('No interface')
+    })
   })  
 })

@@ -53,10 +53,10 @@ describe('bot-interfaces:export command', () => {
       .stub(sf, 'saveFile', () => saveFileStub(saveArgs))
       .stdout()
       .command(['bot-interfaces:export', '-B', botId, '-C', configId])
-      .it('bot-interfaces:export provides human-readable output for given bot and configuration with default filepath', (ctx) => {
-        expect(saveFileStub.calledWith(saveArgs)).equals(true)
-        expect(ctx.stdout).to.contain(`saved to file ${defaultFilepath}`)
-      })
+    .it('bot-interfaces:export provides human-readable output for given bot and configuration with default filepath', (ctx) => {
+      expect(saveFileStub.calledWith(saveArgs)).equals(true)
+      expect(ctx.stdout).to.contain(`saved to file ${defaultFilepath}`)
+    })
 
     const error = new Error('file already exist')
     const failedSaveFileStub = sinon.stub().throws(error)
@@ -77,7 +77,7 @@ describe('bot-interfaces:export command', () => {
       .catch(ctx => {
         expect(ctx.message).to.contain('file already exist')
       })
-      .it('bot-interfaces:export errors out when file already exist')
+    .it('bot-interfaces:export errors out when file already exist')
   }),
 
   describe('bot-interfaces:export command with valid botId, configuration Id and given filepath', () => {
@@ -97,9 +97,9 @@ describe('bot-interfaces:export command', () => {
       .stub(sf, 'saveFile', () => saveFileStub)
       .stdout()
       .command(['bot-interfaces:export', '-B', botId, '-C', configId, '-f', filepath])
-      .it('bot-interfaces:export provides human-readable output for given bot and configuration with filepath', (ctx) => {
-        expect(ctx.stdout).to.contain(`saved to file ${filepath}`)
-      })
+    .it('bot-interfaces:export provides human-readable output for given bot and configuration with filepath', (ctx) => {
+      expect(ctx.stdout).to.contain(`saved to file ${filepath}`)
+    })
 
     test
       .nock(serverURL, (api) =>
@@ -110,10 +110,10 @@ describe('bot-interfaces:export command', () => {
       .stub(sf, 'saveFile', () => saveFileStub)
       .stdout()
       .command(['bot-interfaces:export', '-B', botId, '-C', configId, '-f', filepath, '--overwrite'])
-      .it('bot-interfaces:export provides human-readable output for given bot and configuration with overwriting filepath', (ctx) => {
-        const [firstLine] = ctx.stdout.split('\n').map(ln => ln.trim())
-        expect(firstLine).to.contain(`saved to file ${filepath}`)
-      })    
+    .it('bot-interfaces:export provides human-readable output for given bot and configuration with overwriting filepath', (ctx) => {
+      const [firstLine] = ctx.stdout.split('\n').map(ln => ln.trim())
+      expect(firstLine).to.contain(`saved to file ${filepath}`)
+    })    
   }),
   
   describe('bot-interfaces:export handling of missing flags', () => {
@@ -126,7 +126,7 @@ describe('bot-interfaces:export command', () => {
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
-      .it('bot-interfaces:export errors out when no parameters supplied')
+    .it('bot-interfaces:export errors out when no parameters supplied')
 
     test
       .stderr()
@@ -134,7 +134,7 @@ describe('bot-interfaces:export command', () => {
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
-      .it('bot-interfaces:export errors out when configuration Id not supplied')
+    .it('bot-interfaces:export errors out when configuration Id not supplied')
 
     test
       .stderr()
@@ -142,6 +142,6 @@ describe('bot-interfaces:export command', () => {
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
-      .it('bot-interfaces:export errors out when bot Id not supplied')
+    .it('bot-interfaces:export errors out when bot Id not supplied')
   })
 })
