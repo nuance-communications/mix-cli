@@ -7,7 +7,7 @@
  */
 
 import {expect, test} from '@oclif/test'
-import {mixAPIServer} from '../../mocks'
+import {mixAPIServerURL} from '../../mocks'
 import testData from './bots-test-data'
 
 const {
@@ -16,15 +16,13 @@ const {
   noBotsReponse,
 } = testData
 
-const serverURL = `https://${mixAPIServer}`
-
 describe('bots:list command', () => {
   describe('bots:list command with valid organization ID', () => {
     const orgId = '24'
     const endpoint = `/v4/organizations/${orgId}/bots`
   
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({
@@ -43,7 +41,7 @@ describe('bots:list command', () => {
     })
   
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({
@@ -59,7 +57,7 @@ describe('bots:list command', () => {
     })
   
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({
@@ -76,7 +74,7 @@ describe('bots:list command', () => {
     })
 
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({
@@ -96,7 +94,7 @@ describe('bots:list command', () => {
     })
 
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({
@@ -139,7 +137,7 @@ describe('bots:list command', () => {
     const endpoint = `/v4/organizations/${orgId}/bots`
   
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({

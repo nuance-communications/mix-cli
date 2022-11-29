@@ -7,7 +7,7 @@
  */
 
 import {expect, test} from '@oclif/test'
-import {mixAPIServer} from '../../mocks'
+import {mixAPIServerURL} from '../../mocks'
 import testData from './bot-credentials-test-data'
 
 const {
@@ -16,15 +16,13 @@ const {
   noBotCredentialsResponse,
 } = testData
 
-const serverURL = `https://${mixAPIServer}`
-
 describe('bot-credentials:list command', () => {
   describe('bot-credentials:list command with valid botId', () => {
     const botId = '456'
     const endpoint = `/v4/bots/${botId}/credentials`
   
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({
@@ -46,7 +44,7 @@ describe('bot-credentials:list command', () => {
     })
   
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({
@@ -62,7 +60,7 @@ describe('bot-credentials:list command', () => {
     })
   
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({
@@ -81,7 +79,7 @@ describe('bot-credentials:list command', () => {
     const geoName = 'Azure US'
 
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({
@@ -113,7 +111,7 @@ describe('bot-credentials:list command', () => {
     const endpoint = `/v4/bots/${botId}/credentials`
   
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({

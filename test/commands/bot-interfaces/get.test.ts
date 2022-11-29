@@ -7,15 +7,13 @@
  */
 
 import {expect, test} from '@oclif/test'
-import {mixAPIServer} from '../../mocks'
+import {mixAPIServerURL} from '../../mocks'
 import testData from './bot-interfaces-test-data'
 
 const {
   botInterfacesGetResponse,
   noBotInterfacesResponse
 } = testData
-
-const serverURL = `https://${mixAPIServer}`
 
 describe('bot-interfaces:get command', () => {
   describe('bot-interfaces:get command with valid bot Id and configuration Id', () => {
@@ -24,7 +22,7 @@ describe('bot-interfaces:get command', () => {
     const endpoint = `/v4/bots/${botId}/configs/${configId}/interface`
   
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .reply(200, botInterfacesGetResponse)
@@ -37,7 +35,7 @@ describe('bot-interfaces:get command', () => {
     })
   
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .reply(200, botInterfacesGetResponse)
@@ -85,7 +83,7 @@ describe('bot-interfaces:get command', () => {
     const endpoint = `/v4/bots/${botId}/configs/${configId}/interface`
   
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .reply(200, noBotInterfacesResponse.interface)

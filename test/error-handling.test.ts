@@ -8,7 +8,7 @@
 
 import {expect, test} from '@oclif/test'
 import {PrettyPrintableError} from '@oclif/errors'
-import {mixAPIServer} from './mocks'
+import {mixAPIServerURL} from './mocks'
 import testData from './error-handling-test-data'
 
 const {
@@ -20,14 +20,12 @@ const {
   unexpectedStatusResponse,
 } = testData
 
-const serverURL = `https://${mixAPIServer}`
-
 const orgId = '10'
 const endpoint = `/v4/organizations/${orgId}/apps`
 
 describe('Centralized HTTP error code handling', () => {
   test
-    .nock(serverURL, (api) =>
+    .nock(mixAPIServerURL, (api) =>
       api
         .get(endpoint)
         .query({
@@ -44,7 +42,7 @@ describe('Centralized HTTP error code handling', () => {
   .it('HTTP code 400 generates EINVALIDVALUE exception')
 
   test
-    .nock(serverURL, (api) =>
+    .nock(mixAPIServerURL, (api) =>
       api
         .get(endpoint)
         .query({
@@ -61,7 +59,7 @@ describe('Centralized HTTP error code handling', () => {
   .it('HTTP code 401 generates EUNAUTHORIZED exception')
 
   test
-    .nock(serverURL, (api) =>
+    .nock(mixAPIServerURL, (api) =>
       api
         .get(endpoint)
         .query({
@@ -78,7 +76,7 @@ describe('Centralized HTTP error code handling', () => {
   .it('HTTP code 403 generates EFORBIDDEN exception')
 
   test
-    .nock(serverURL, (api) =>
+    .nock(mixAPIServerURL, (api) =>
       api
         .get(endpoint)
         .query({
@@ -95,7 +93,7 @@ describe('Centralized HTTP error code handling', () => {
   .it('HTTP code 404 generates ENOTFOUND exception')
 
   test
-    .nock(serverURL, (api) =>
+    .nock(mixAPIServerURL, (api) =>
       api
         .get(endpoint)
         .query({
@@ -113,7 +111,7 @@ describe('Centralized HTTP error code handling', () => {
   .it('HTTP code 409 generates ECONFLICTERROR exception')
 
   test
-    .nock(serverURL, (api) =>
+    .nock(mixAPIServerURL, (api) =>
       api
         .get(endpoint)
         .query({

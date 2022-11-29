@@ -7,7 +7,7 @@
  */
 
 import {expect, test} from '@oclif/test'
-import {mixAPIServer} from '../../mocks'
+import {mixAPIServerURL} from '../../mocks'
 import testData from './bot-configs-test-data'
 
 const {
@@ -15,15 +15,13 @@ const {
   noBotConfigsResponse,
 } = testData
 
-const serverURL = `https://${mixAPIServer}`
-
 describe('bot-configs:list command', () => {
   describe('bot-configs:list command with valid botId', () => {
     const botId = '456'
     const endpoint = `/v4/bots/${botId}/configs`
   
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({
@@ -49,7 +47,7 @@ describe('bot-configs:list command', () => {
     })
   
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({
@@ -66,7 +64,7 @@ describe('bot-configs:list command', () => {
     })
   
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({
@@ -91,7 +89,7 @@ describe('bot-configs:list command', () => {
     })
 
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({
@@ -108,7 +106,7 @@ describe('bot-configs:list command', () => {
     })
 
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({
@@ -125,7 +123,7 @@ describe('bot-configs:list command', () => {
     })
 
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({
@@ -156,7 +154,7 @@ describe('bot-configs:list command', () => {
     const endpoint = `/v4/bots/${botId}/configs`
 
     test
-      .nock(serverURL, (api) =>
+      .nock(mixAPIServerURL, (api) =>
         api
           .get(endpoint)
           .query({
