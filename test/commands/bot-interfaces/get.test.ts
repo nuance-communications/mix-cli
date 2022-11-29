@@ -12,28 +12,16 @@ import testData from './bot-interfaces-test-data'
 
 const {
   botInterfacesGetResponse,
+  noBotInterfacesResponse
 } = testData
 
 const serverURL = `https://${mixAPIServer}`
 
 describe('bot-interfaces:get command', () => {
-  describe('bot-interfaces:get command with valid botId and Configuration Id', () => {
+  describe('bot-interfaces:get command with valid bot Id and configuration Id', () => {
     const botId = '456'
     const configId = '321'
     const endpoint = `/v4/bots/${botId}/configs/${configId}/interface`
-  
-    test
-    .nock(serverURL, (api) =>
-      api
-        .get(endpoint)
-        .reply(200, botInterfacesGetResponse)
-    )
-    .stdout()
-    .command(["bot-interfaces:get", "-B", botId, "-C", configId])
-    .it("bot-interfaces:get provides human-readable output for given bot and configuration", (ctx) => {
-        expect(ctx.stdout).to.contain('52')
-        expect(ctx.stdout).to.contains(['en-US'])
-    })
   
     test
       .nock(serverURL, (api) =>
@@ -42,39 +30,70 @@ describe('bot-interfaces:get command', () => {
           .reply(200, botInterfacesGetResponse)
       )
       .stdout()
-      .command(["bot-interfaces:get", "-B", botId, "-C", configId, "--json"])
-      .it("bot-interfaces:get provides JSON output for given bot and configuration", (ctx) => {
+      .command(['bot-interfaces:get', '-B', botId, '-C', configId])
+      .it('bot-interfaces:get provides human-readable output for given bot and configuration', (ctx) => {
+        expect(ctx.stdout).to.contain('52')
+        expect(ctx.stdout).to.contains(['en-US'])
+      })
+  
+    test
+      .nock(serverURL, (api) =>
+        api
+          .get(endpoint)
+          .reply(200, botInterfacesGetResponse)
+      )
+      .stdout()
+      .command(['bot-interfaces:get', '-B', botId, '-C', configId, '--json'])
+      .it('bot-interfaces:get provides JSON output for given bot and configuration', (ctx) => {
         const result = JSON.parse(ctx.stdout)
         expect(result).to.deep.equal(botInterfacesGetResponse)
       })
   }),
 
   describe('bot-interfaces:get handling of missing flags', () => {
-      const botId = '456'
-      const configId = '321'
+    const botId = '456'
+    const configId = '321'
     
-      test
+    test
       .stderr()
-      .command(["bot-interfaces:get"])
+      .command(['bot-interfaces:get'])
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
       .it('bot-interfaces:get errors out when no parameters supplied')
 
-      test
+    test
       .stderr()
-      .command(["bot-interfaces:get", "-B", botId])
+      .command(['bot-interfaces:get', '-B', botId])
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
       .it('bot-interfaces:get errors out when configuration Id not supplied')
 
-      test
+    test
       .stderr()
-      .command(["bot-interfaces:get", "-C", configId])
+      .command(['bot-interfaces:get', '-C', configId])
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
       .it('bot-interfaces:get errors out when bot Id not supplied')
   })
+
+  describe('bot-interfaces:get handling of empty data', () => {
+    const botId = '457'
+    const configId = '561'
+    const endpoint = `/v4/bots/${botId}/configs/${configId}/interface`
+  
+    test
+      .nock(serverURL, (api) =>
+        api
+          .get(endpoint)
+          .reply(200, noBotInterfacesResponse.interface)
+      )
+      .stdout()
+      .command(['bot-interfaces:get', '-B', botId, '-C', configId])
+      .it('bot-interfaces:get shows error message for no interface for a bot', (ctx) => {
+        expect(ctx.stdout).to.contain('No interface')
+      })
+  })  
 })

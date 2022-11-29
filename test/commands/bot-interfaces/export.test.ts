@@ -30,15 +30,15 @@ describe('bot-interfaces:export command', () => {
   const configId = '321'
   const endpoint = `/v4/bots/${botId}/configs/${configId}/interface`
 
-  describe('bot-interfaces:export command with valid botId, onfiguration Id and default filePath', () => {
-    const defaultFilePath = `interface-bot-${botId}-config-${configId}.json`
+  describe('bot-interfaces:export command with valid bot Id, configuration Id and default filepath', () => {
+    const defaultFilepath = `interface-bot-${botId}-config-${configId}.json`
     const overwrite = false
     const saveArgs = {
       response: botInterfacesGetResponse,
-      filePath: defaultFilePath,
+      filepath: defaultFilepath,
       overwrite: overwrite
     }
-    const saveFileStub = sinon.stub().resolves(true)
+    const saveFileStub = sinon.stub().returns(undefined)
 
     after(() => {
       saveFileStub.reset()
@@ -53,10 +53,9 @@ describe('bot-interfaces:export command', () => {
       .stub(sf, 'saveFile', () => saveFileStub(saveArgs))
       .stdout()
       .command(['bot-interfaces:export', '-B', botId, '-C', configId])
-      .it('bot-interfaces:export provides human-readable output for given bot and configuration with default filePath', (ctx) => {
+      .it('bot-interfaces:export provides human-readable output for given bot and configuration with default filepath', (ctx) => {
         expect(saveFileStub.calledWith(saveArgs)).equals(true)
-        const [firstLine] = ctx.stdout.split('\n').map(ln => ln.trim())
-        expect(firstLine).to.contain(`saved to file ${defaultFilePath}`)
+        expect(ctx.stdout).to.contain(`saved to file ${defaultFilepath}`)
       })
 
     const error = new Error('file already exist')
@@ -81,9 +80,9 @@ describe('bot-interfaces:export command', () => {
       .it('bot-interfaces:export errors out when file already exist')
   }),
 
-  describe('bot-interfaces:export command with valid botId, onfiguration Id and given filePath', () => {
-    const filePath = `interface-${botId}-${configId}.json`
-    const saveFileStub = sinon.stub().resolves(true)
+  describe('bot-interfaces:export command with valid botId, configuration Id and given filepath', () => {
+    const filepath = `interface-${botId}-${configId}.json`
+    const saveFileStub = sinon.stub().returns(undefined)
 
     after(() => {
       saveFileStub.reset()
@@ -97,10 +96,9 @@ describe('bot-interfaces:export command', () => {
       )
       .stub(sf, 'saveFile', () => saveFileStub)
       .stdout()
-      .command(['bot-interfaces:export', '-B', botId, '-C', configId, '-f', filePath])
-      .it('bot-interfaces:export provides human-readable output for given bot and configuration with filePath', (ctx) => {
-        const [firstLine] = ctx.stdout.split('\n').map(ln => ln.trim())
-        expect(firstLine).to.contain(`saved to file ${filePath}`)
+      .command(['bot-interfaces:export', '-B', botId, '-C', configId, '-f', filepath])
+      .it('bot-interfaces:export provides human-readable output for given bot and configuration with filepath', (ctx) => {
+        expect(ctx.stdout).to.contain(`saved to file ${filepath}`)
       })
 
     test
@@ -111,10 +109,10 @@ describe('bot-interfaces:export command', () => {
       )
       .stub(sf, 'saveFile', () => saveFileStub)
       .stdout()
-      .command(['bot-interfaces:export', '-B', botId, '-C', configId, '-f', filePath, '--overwrite'])
-      .it('bot-interfaces:export provides human-readable output for given bot and configuration with overwriting filePath', (ctx) => {
+      .command(['bot-interfaces:export', '-B', botId, '-C', configId, '-f', filepath, '--overwrite'])
+      .it('bot-interfaces:export provides human-readable output for given bot and configuration with overwriting filepath', (ctx) => {
         const [firstLine] = ctx.stdout.split('\n').map(ln => ln.trim())
-        expect(firstLine).to.contain(`saved to file ${filePath}`)
+        expect(firstLine).to.contain(`saved to file ${filepath}`)
       })    
   }),
   
