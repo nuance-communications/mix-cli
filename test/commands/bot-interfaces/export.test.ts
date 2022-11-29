@@ -60,7 +60,7 @@ describe('bot-interfaces:export command', () => {
       })
 
     const error = new Error('file already exist')
-    const failedSaveFileStub = sinon.stub().rejects().throws(error)
+    const failedSaveFileStub = sinon.stub().throws(error)
 
     after(() => {
       failedSaveFileStub.reset()
@@ -72,12 +72,13 @@ describe('bot-interfaces:export command', () => {
           .get(endpoint)
           .reply(200, botInterfacesGetResponse)
       )
-      .stub(sf, 'saveFile', () => failedSaveFileStub)
+      .stub(sf, 'saveFile', failedSaveFileStub)
       .stdout()
       .command(['bot-interfaces:export', '-B', botId, '-C', configId])
-      .it('bot-interfaces:export errors out when file alreday exist', (ctx) => {
-        expect(failedSaveFileStub).to.throw(error)
+      .catch(ctx => {
+        expect(ctx.message).to.contain('file already exist')
       })
+      .it('bot-interfaces:export errors out when file already exist')
   }),
 
   describe('bot-interfaces:export command with valid botId, onfiguration Id and given filePath', () => {
