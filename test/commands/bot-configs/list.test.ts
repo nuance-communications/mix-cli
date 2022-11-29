@@ -23,30 +23,30 @@ describe('bot-configs:list command', () => {
     const endpoint = `/v4/bots/${botId}/configs`
   
     test
-    .nock(serverURL, (api) =>
-      api
-        .get(endpoint)
-        .query({
-          liveOnly: false,
-          excludeOverrides: false,
-        })
-        .reply(200, botConfigsListResponse)
-    )
-    .stdout()
-    .command(["bot-configs:list", "-B", botId])
-    .it("bot-configs:list provides human-readable output for given bot", (ctx) => {
-      const lines = ctx.stdout.split('\n').map(ln => ln.trim())
-      const headers = lines[0].split(/\s+/)
-      const firstRow = lines[2].split(/\s+/)
-      expect(headers).to.deep.equal([
-        'ConfigId',
-        'ContextTag',
-        'ParentId',
-        'HasInterface',
-        'CreateTime'
-      ])
-      expect(firstRow).to.deep.equal(['456', 'A3_C1', '92', 'true', 'now'])
-    })
+      .nock(serverURL, (api) =>
+        api
+          .get(endpoint)
+          .query({
+            liveOnly: false,
+            excludeOverrides: false,
+          })
+          .reply(200, botConfigsListResponse)
+      )
+      .stdout()
+      .command(['bot-configs:list', '-B', botId])
+      .it('bot-configs:list provides human-readable output for given bot', (ctx) => {
+        const lines = ctx.stdout.split('\n').map(ln => ln.trim())
+        const headers = lines[0].split(/\s+/)
+        const firstRow = lines[2].split(/\s+/)
+        expect(headers).to.deep.equal([
+          'ConfigId',
+          'ContextTag',
+          'ParentId',
+          'HasInterface',
+          'CreateTime'
+        ])
+        expect(firstRow).to.deep.equal(['456', 'A3_C1', '92', 'true', 'now'])
+      })
   
     test
       .nock(serverURL, (api) =>
@@ -59,8 +59,8 @@ describe('bot-configs:list command', () => {
           .reply(200, botConfigsListResponse)
       )
       .stdout()
-      .command(["bot-configs:list", "-B", botId, "--json"])
-      .it("bot-configs:list provides JSON output for given bot", (ctx) => {
+      .command(['bot-configs:list', '-B', botId, '--json'])
+      .it('bot-configs:list provides JSON output for given bot', (ctx) => {
         const result = JSON.parse(ctx.stdout)
         expect(result).to.deep.equal(botConfigsListResponse)
       })
@@ -77,8 +77,8 @@ describe('bot-configs:list command', () => {
       )
       .stdout()
       .stderr()
-      .command(["bot-configs:list", "-B", botId, "--csv"])
-      .it("bot-configs:list provides CSV output for given bot", (ctx) => {
+      .command(['bot-configs:list', '-B', botId, '--csv'])
+      .it('bot-configs:list provides CSV output for given bot', (ctx) => {
         const [headers, ...results] = ctx.stdout.trim().split('\n')
         expect(headers.split(',')).to.deep.equal([
           'ConfigId',
@@ -97,28 +97,28 @@ describe('bot-configs:list command', () => {
           .query({
             liveOnly: false,
             excludeOverrides: false,
-            appId: "app_123"
+            appId: 'app_123'
           })
           .reply(200, botConfigsListResponse)
       )
       .stdout()
-      .command(["bot-configs:list", "-B", botId, "--with-runtime-app", "app_123"])
-      .it("bot-configs:list provides human-readable output for given bot and runtime application")
+      .command(['bot-configs:list', '-B', botId, '--with-runtime-app', 'app_123'])
+      .it('bot-configs:list provides human-readable output for given bot and runtime application')
 
-      test
+    test
       .nock(serverURL, (api) =>
         api
           .get(endpoint)
           .query({
             liveOnly: false,
             excludeOverrides: false,
-            tag: "A35_C"
+            tag: 'A35_C'
           })
           .reply(200, botConfigsListResponse)
       )
       .stdout()
-      .command(["bot-configs:list", "-B", botId, "--with-tag", "A35_C"])
-      .it("bot-configs:list provides human-readable output for given bot and context tag")
+      .command(['bot-configs:list', '-B', botId, '--with-tag', 'A35_C'])
+      .it('bot-configs:list provides human-readable output for given bot and context tag')
 
     test
       .nock(serverURL, (api) =>
@@ -131,14 +131,14 @@ describe('bot-configs:list command', () => {
           .reply(200, botConfigsListResponse)
       )
       .stdout()
-      .command(["bot-configs:list", "-B", botId, "--live-only"])
-      .it("bot-configs:list provides human-readable output of bot configurations for given bot that are currently deployed")
+      .command(['bot-configs:list', '-B', botId, '--live-only'])
+      .it('bot-configs:list provides human-readable output of currently deployed bot configurations for given bot')
   }),
 
   describe('bot-configs:list handling of missing flags', () => {
-      test
+    test
       .stderr()
-      .command(["bot-configs:list"])
+      .command(['bot-configs:list'])
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
@@ -146,10 +146,10 @@ describe('bot-configs:list command', () => {
   }),
 
   describe('bot-configs:list handling of empty data', () => {
-      const botId = '457'
-      const endpoint = `/v4/bots/${botId}/configs`
+    const botId = '457'
+    const endpoint = `/v4/bots/${botId}/configs`
 
-      test
+    test
       .nock(serverURL, (api) =>
         api
           .get(endpoint)
@@ -160,8 +160,8 @@ describe('bot-configs:list command', () => {
           .reply(200, noBotConfigsResponse)
       )
       .stdout()
-      .command(["bot-configs:list", "-B", botId])
-      .it("bot-configs:list shows error message for bot with no application configuration", (ctx) => {
+      .command(['bot-configs:list', '-B', botId])
+      .it('bot-configs:list shows error message for bot with no application configuration', (ctx) => {
         expect(ctx.stdout).to.contain('No configurations')
       })
   })  
