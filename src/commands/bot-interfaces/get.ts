@@ -61,7 +61,7 @@ See https://docs.mix.nuance.com/mix-api/v4/#bots for details.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    if(transformedData === undefined) {
+    if (transformedData === undefined) {
       this.log('No interface found')
 
       return
