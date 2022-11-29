@@ -13,9 +13,14 @@ export default {
       details: []
     },
     unauthorizedResponse: {
-      code:401,
-      status:"Unauthorized",
-      message:"The request could not be authorized"
+      code: 401,
+      status: "Unauthorized",
+      message: "The request could not be authorized"
+    },
+    forbiddenAccessResponse: {
+      code: 403,
+      message: "Access is denied",
+      details: []
     },
     notFoundResponse: {
       code: 404,

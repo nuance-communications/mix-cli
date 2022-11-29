@@ -7,12 +7,13 @@
  */
 
 import {expect, test} from '@oclif/test'
-import {PrettyPrintableError} from "@oclif/errors"
+import {PrettyPrintableError} from '@oclif/errors'
 import {mixAPIServer} from './mocks'
 import testData from './error-handling-test-data'
 
 const {
   conflictResponse,
+  forbiddenAccessResponse,
   invalidValuesResponse,
   notFoundResponse,
   unauthorizedResponse,
@@ -30,84 +31,101 @@ describe('Centralized HTTP error code handling', () => {
       api
         .get(endpoint)
         .query({
-          view: "AV_VIEW_UNSPECIFIED",
+          view: 'AV_VIEW_UNSPECIFIED',
         })
         .reply(400, invalidValuesResponse)
     )
     .stdout()
-    .command(["applications:list", "-O", orgId])
+    .command(['applications:list', '-O', orgId])
     .catch(ctx => {
       const err: PrettyPrintableError = ctx
       expect(err.code).to.contain('EINVALIDVALUE')
     })
-    .it('HTTP code 400 generates EINVALIDVALUE exception')
+  .it('HTTP code 400 generates EINVALIDVALUE exception')
 
-    test
+  test
     .nock(serverURL, (api) =>
       api
         .get(endpoint)
         .query({
-          view: "AV_VIEW_UNSPECIFIED",
+          view: 'AV_VIEW_UNSPECIFIED',
         })
         .reply(401, unauthorizedResponse)
     )
     .stdout()
-    .command(["applications:list", "-O", orgId])
+    .command(['applications:list', '-O', orgId])
     .catch(ctx => {
       const err: PrettyPrintableError = ctx
       expect(err.code).to.contain('EUNAUTHORIZED')
     })
-    .it('HTTP code 401 generates EUNAUTHORIZED exception')
+  .it('HTTP code 401 generates EUNAUTHORIZED exception')
 
-    test
+  test
     .nock(serverURL, (api) =>
       api
         .get(endpoint)
         .query({
-          view: "AV_VIEW_UNSPECIFIED",
+          view: 'AV_VIEW_UNSPECIFIED',
+        })
+        .reply(403, forbiddenAccessResponse)
+    )
+    .stdout()
+    .command(['applications:list', '-O', orgId])
+    .catch(ctx => {
+      const err: PrettyPrintableError = ctx
+      expect(err.code).to.contain('EFORBIDDEN')
+    })
+  .it('HTTP code 403 generates EFORBIDDEN exception')
+
+  test
+    .nock(serverURL, (api) =>
+      api
+        .get(endpoint)
+        .query({
+          view: 'AV_VIEW_UNSPECIFIED',
         })
         .reply(404, notFoundResponse)
     )
     .stdout()
-    .command(["applications:list", "-O", orgId])
+    .command(['applications:list', '-O', orgId])
     .catch(ctx => {
       const err: PrettyPrintableError = ctx
       expect(err.code).to.contain('ENOTFOUND')
     })
-    .it('HTTP code 404 generates ENOTFOUND exception')
+  .it('HTTP code 404 generates ENOTFOUND exception')
 
-    test
+  test
     .nock(serverURL, (api) =>
       api
         .get(endpoint)
         .query({
-          view: "AV_VIEW_UNSPECIFIED",
-          appId: "app_123"
+          view: 'AV_VIEW_UNSPECIFIED',
+          appId: 'app_123'
         })
         .reply(409, conflictResponse)
     )
     .stdout()
-    .command(["applications:list", "-O", orgId, "--with-runtime-app", "app_123"])
+    .command(['applications:list', '-O', orgId, '--with-runtime-app', 'app_123'])
     .catch(ctx => {
       const err: PrettyPrintableError = ctx
       expect(err.code).to.contain('ECONFLICTERROR')
     })
-    .it('HTTP code 409 generates ECONFLICTERROR exception')
+  .it('HTTP code 409 generates ECONFLICTERROR exception')
 
-    test
+  test
     .nock(serverURL, (api) =>
       api
         .get(endpoint)
         .query({
-          view: "AV_VIEW_UNSPECIFIED",
+          view: 'AV_VIEW_UNSPECIFIED',
         })
         .reply(500, unexpectedStatusResponse)
     )
     .stdout()
-    .command(["applications:list", "-O", orgId])
+    .command(['applications:list', '-O', orgId])
     .catch(ctx => {
       const err: PrettyPrintableError = ctx
       expect(err.code).to.contain('EUNEXPECTEDSTATUS')
     })
-    .it('HTTP code 500 generates EUNEXPECTEDSTATUS exception')
+  .it('HTTP code 500 generates EUNEXPECTEDSTATUS exception')
 })
