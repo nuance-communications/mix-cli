@@ -35,6 +35,7 @@ import {
   eConflict,
   eDownloadFailed,
   eException,
+  eForbidden,
   eInvalidColumn,
   eInvalidValue,
   eNotConfirmed,
@@ -78,8 +79,8 @@ export default abstract class MixCommand extends BaseCommand {
       this.mixCLIConfig = Config.getMixCLIConfig(this.config)
     } catch {
       this.log(`
-mix.cli now requires a central configuration file.
-Please run the "mix init" command and mix.cli will help you create
+mix-cli now requires a central configuration file.
+Please run the "mix init" command and mix-cli will help you create
 that configuration file swiftly.`)
       process.exitCode = configurationProblemExitCode
       return
@@ -294,6 +295,7 @@ that configuration file swiftly.`)
     switch (error.statusCode) {
       case 400: throw eInvalidValue(error.message)
       case 401: throw eUnauthorized(error.message)
+      case 403: throw eForbidden(error.message)
       case 404: throw eNotFound(error.message)
       case 409: throw eConflict(error.message)
       default: throw eUnexpectedStatus(error.statusCode, error.message)
@@ -499,7 +501,7 @@ that configuration file swiftly.`)
 
       case 'PARTIALLY_COMPLETED':
         debug('status PARTIALLY_COMPLETED')
-        cli.action.stop(chalk.yellow(status))
+        cli.action.stop(chalk.green(status))
         this.shouldWatchJob = false
         break
 
@@ -507,6 +509,11 @@ that configuration file swiftly.`)
         debug('status RUNNING')
         cli.action.status = status
         this.shouldWatchJob = true
+        break
+
+      case 'FAILED':
+        debug('status FAILED')
+        this.shouldWatchJob = false
         break
 
       default:

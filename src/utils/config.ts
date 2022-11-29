@@ -44,7 +44,7 @@ export const Config = {
     if (mixCLIConfig !== undefined) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const {clientId, clientSecret, ...safeToShow} = mixCLIConfig
-      debug('existing mix.cli configuration: %O', safeToShow)
+      debug('existing mix-cli configuration: %O', safeToShow)
       return mixCLIConfig
     }
 
@@ -53,7 +53,7 @@ export const Config = {
     mixCLIConfig = overrideConfigUsingEnvVars(fileConfig)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {clientId, clientSecret, ...safeToShow} = mixCLIConfig
-    debug('resulting mix.cli configuration loaded: %O', safeToShow)
+    debug('resulting mix-cli configuration loaded: %O', safeToShow)
 
     return mixCLIConfig
   },
