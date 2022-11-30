@@ -91,9 +91,8 @@ describe('bot-credentials:list command', () => {
       .stdout()
       .stderr()
       .command(['bot-credentials:list', '-B', botId, '--with-geo-name', geoName])
-    .it('bot-credentials:list provides human-readable output for given bot and geography', (ctx) => {
-      // test fails if no geography name supplied
-    })
+    .it('bot-credentials:list provides human-readable output for given bot and geography')
+    // test fails if no geography name supplied
   }),
 
   describe('bot-credentials:list handling of missing flags', () => {

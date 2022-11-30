@@ -109,9 +109,8 @@ describe('bots:list command', () => {
         '--full',
         '--omit-overridden'
       ])
-    .it('bots:list omits overriden app configs in list for given organization', (ctx) => {
-      // test fails if wrong view is passed
-    })
+    .it('bots:list omits overriden app configs in list for given organization')
+    // test fails if wrong view is passed
   }),
 
   describe('bots:list handling of missing flags', () => {

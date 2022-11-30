@@ -101,9 +101,8 @@ describe('bot-configs:list command', () => {
       )
       .stdout()
       .command(['bot-configs:list', '-B', botId, '--with-runtime-app', 'app_123'])
-    .it('bot-configs:list provides human-readable output for given bot and runtime application', (ctx) => {
-      // test fails if no runtime application supplied
-    })
+    .it('bot-configs:list provides human-readable output for given bot and runtime application')
+    // test fails if no runtime application supplied
 
     test
       .nock(mixAPIServerURL, (api) =>
@@ -118,9 +117,8 @@ describe('bot-configs:list command', () => {
       )
       .stdout()
       .command(['bot-configs:list', '-B', botId, '--with-tag', 'A35_C'])
-    .it('bot-configs:list provides human-readable output for given bot and context tag', (ctx) => {
-      // test fails if no context tag supplied
-    })
+    .it('bot-configs:list provides human-readable output for given bot and context tag')
+    // test fails if no context tag supplied
 
     test
       .nock(mixAPIServerURL, (api) =>
@@ -134,9 +132,8 @@ describe('bot-configs:list command', () => {
       )
       .stdout()
       .command(['bot-configs:list', '-B', botId, '--live-only'])
-    .it('bot-configs:list provides human-readable output of currently deployed bot configurations for given bot', (ctx) => {
-      // test fails if liveOnly is set to false
-    })
+    .it('bot-configs:list provides human-readable output of currently deployed bot configurations for given bot')
+    // test fails if liveOnly is set to false
   }),
 
   describe('bot-configs:list handling of missing flags', () => {
