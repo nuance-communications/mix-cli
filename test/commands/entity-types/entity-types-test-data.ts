@@ -10,18 +10,18 @@ export default {
   entityTypesListResponse: {
     entityTypes: [
       {
-        name: "BASE",
-        description: "Predefined Entity",
+        name: 'BASE',
+        description: 'Predefined Entity',
         compatibleDataTypes: [
-          "SET"
+          'SET'
         ]
       },
       {
-        name: "FREEFORM",
-        description: "Freefrom text",
+        name: 'FREEFORM',
+        description: 'Freefrom text',
         compatibleDataTypes: [
-          "SET",
-          "NUMBER"
+          'SET',
+          'NUMBER'
         ]
       }
     ]
