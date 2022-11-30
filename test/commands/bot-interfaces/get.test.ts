@@ -31,7 +31,7 @@ describe('bot-interfaces:get command', () => {
       .command(['bot-interfaces:get', '-B', botId, '-C', configId])
     .it('bot-interfaces:get provides human-readable output for given bot and configuration', (ctx) => {
       expect(ctx.stdout).to.contain('52')
-      expect(ctx.stdout).to.contains(['en-US'])
+      expect(ctx.stdout).to.contain(['en-US'])
     })
   
     test
