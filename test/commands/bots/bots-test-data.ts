@@ -10,10 +10,10 @@ export default {
   botsListResponse: {
     bots: [
       {
-        id: "456",
-        applicationName: "Mix Sample App",
+        id: '456',
+        applicationName: 'Mix Sample App',
         configs: [],
-        createTime: "2022-09-12T16:14:53Z"
+        createTime: '2022-09-12T16:14:53Z'
       }
     ],
     totalSize: 1
@@ -21,31 +21,31 @@ export default {
   fullBotsDetailsResponse: {
     bots: [
       {
-        id: "456",
-        applicationName: "Mix Sample App",
+        id: '456',
+        applicationName: 'Mix Sample App',
         configs: [
           {
-            id: "514",
-            tag: "A3_C1",
+            id: '514',
+            tag: 'A3_C1',
             deployments: [
               {
-                id: "49",
-                status: "DEPLOYED",
+                id: '49',
+                status: 'DEPLOYED',
                 envGeographyDeployments: [
                   {
-                    id: "40",
+                    id: '40',
                     envGeography: {
-                      id: "4912",
+                      id: '4912',
                       geography: {
-                        id: "1",
-                        displayName: "Azure US"
+                        id: '1',
+                        displayName: 'Azure US'
                       },
-                      envType: "SANDBOX",
-                      envHost: "api.com",
-                      envName: "Sandbox"
+                      envType: 'SANDBOX',
+                      envHost: 'api.com',
+                      envName: 'Sandbox'
                     },
-                    status: "DEPLOYED",
-                    deploymentResult: "success",
+                    status: 'DEPLOYED',
+                    deploymentResult: 'success',
                     isOverridden: false,
                     dataHosts: [],
                     approvalRequired: false
@@ -53,13 +53,13 @@ export default {
                 ]
               }
             ],
-            parentId: "",
+            parentId: '',
             hasInterface: true,
             deploymentFlowId: 6582,
-            createTime: "2022-10-17T17:30:06Z"
+            createTime: '2022-10-17T17:30:06Z'
           }
         ],
-        createTime: "2022-09-12T16:14:53Z"
+        createTime: '2022-09-12T16:14:53Z'
       }
     ],
     totalSize: 1

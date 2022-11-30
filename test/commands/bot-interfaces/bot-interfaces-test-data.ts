@@ -9,65 +9,65 @@
 export default {
   botInterfacesGetResponse: {
     interface: {
-      id: "52",
+      id: '52',
       version: 1,
-      languageTopic: "gen",
+      languageTopic: 'gen',
       locales: [
-        "en-US"
+        'en-US'
       ],
       channels: [
         {
-          id: "channel1",
-          displayName: "Default",
-          codeName: "default",
+          id: 'channel1',
+          displayName: 'Default',
+          codeName: 'default',
           modes: [
-            "TEXT"
+            'TEXT'
           ],
-          color: "COLOR_UNSPECIFIED"
+          color: 'COLOR_UNSPECIFIED'
         },
         {
-          id: "channel2",
-          displayName: "text",
-          codeName: "text",
+          id: 'channel2',
+          displayName: 'text',
+          codeName: 'text',
           modes: [
-            "RICH_TEXT"
+            'RICH_TEXT'
           ],
-          color: "GREEN"
+          color: 'GREEN'
         }
       ],
       variables: [
         {
-          id: "variable1",
-          displayName: "resultObject",
-          description: "",
+          id: 'variable1',
+          displayName: 'resultObject',
+          description: '',
           isReserved: true,
-          complexVariableTypeId: "c1"
+          complexVariableTypeId: 'c1'
         },
         {
-          id: "variable2",
-          displayName: "resourceReferences",
-          description: "References to external resources",
+          id: 'variable2',
+          displayName: 'resourceReferences',
+          description: 'References to external resources',
           isReserved: true,
-          simpleVariableType: "STRING_TYPE"
+          simpleVariableType: 'STRING_TYPE'
         }
       ],
       transferNodes: [
         {
-          id: "transferNode1",
-          nodeName: "IGNORE ME",
-          nodeType: "END",
-          description: "",
+          id: 'transferNode1',
+          nodeName: 'IGNORE ME',
+          nodeType: 'END',
+          description: '',
           requestVariables: []
         },
         {
-          id: "transferNode2",
-          nodeName: "End dialog",
-          nodeType: "END",
-          description: "",
+          id: 'transferNode2',
+          nodeName: 'End dialog',
+          nodeType: 'END',
+          description: '',
           requestVariables: []
         }
       ],
-      createTime: "2022-09-22T15:46:18Z"
+      createTime: '2022-09-22T15:46:18Z'
     }
   },
   noBotInterfacesResponse: {

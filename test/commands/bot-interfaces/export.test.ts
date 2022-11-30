@@ -28,7 +28,7 @@ describe('bot-interfaces:export command', () => {
   const configId = '321'
   const endpoint = `/v4/bots/${botId}/configs/${configId}/interface`
 
-  describe('bot-interfaces:export command with valid bot Id, configuration Id and default filepath', () => {
+  describe('bot-interfaces:export command with valid botId, configurationId and default filepath', () => {
     const defaultFilepath = `interface-bot-${botId}-config-${configId}.json`
     const overwrite = false
     const saveArgs = {
@@ -52,7 +52,7 @@ describe('bot-interfaces:export command', () => {
       .stdout()
       .command(['bot-interfaces:export', '-B', botId, '-C', configId])
     .it('bot-interfaces:export provides human-readable output for given bot and configuration with default filepath', (ctx) => {
-      expect(saveFileStub.calledWith(saveArgs)).equals(true)
+      expect(saveFileStub.calledWith(saveArgs)).to.be.true
       expect(ctx.stdout).to.contain(`saved to file ${defaultFilepath}`)
     })
 
@@ -78,7 +78,7 @@ describe('bot-interfaces:export command', () => {
     .it('bot-interfaces:export errors out when file already exist')
   }),
 
-  describe('bot-interfaces:export command with valid botId, configuration Id and given filepath', () => {
+  describe('bot-interfaces:export command with valid botId, configurationId and given filepath', () => {
     const filepath = `interface-${botId}-${configId}.json`
     const saveFileStub = sinon.stub().returns(undefined)
 
@@ -132,7 +132,7 @@ describe('bot-interfaces:export command', () => {
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
-    .it('bot-interfaces:export errors out when configuration Id not supplied')
+    .it('bot-interfaces:export errors out when configurationId not supplied')
 
     test
       .stderr()
@@ -140,6 +140,6 @@ describe('bot-interfaces:export command', () => {
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
-    .it('bot-interfaces:export errors out when bot Id not supplied')
+    .it('bot-interfaces:export errors out when botId not supplied')
   })
 })

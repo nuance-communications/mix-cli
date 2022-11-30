@@ -17,7 +17,7 @@ const {
 } = testData
 
 describe('bots:list command', () => {
-  describe('bots:list command with valid organization ID', () => {
+  describe('bots:list command with valid organizationId', () => {
     const orgId = '24'
     const endpoint = `/v4/organizations/${orgId}/bots`
   

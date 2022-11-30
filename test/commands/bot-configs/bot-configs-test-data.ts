@@ -10,65 +10,65 @@ export default {
   botConfigsListResponse: {
     configs: [
       {
-        id: "456",
-        tag: "A3_C1",
+        id: '456',
+        tag: 'A3_C1',
         deployments: [
           {
-            id: "339",
-            status: "DEPLOYED",
+            id: '339',
+            status: 'DEPLOYED',
             envGeographyDeployments: [
               {
-                id: "119",
+                id: '119',
                 envGeography: {
-                id: "33",
+                id: '33',
                 geography: {
-                  id: "1",
-                  displayName: "Azure US"
+                  id: '1',
+                  displayName: 'Azure US'
                 },
-                envType: "SANDBOX",
-                envHost: "api.com"
+                envType: 'SANDBOX',
+                envHost: 'api.com'
               },
-              status: "DEPLOYED",
-              deploymentResult: "success",
+              status: 'DEPLOYED',
+              deploymentResult: 'success',
               isOverridden: false
               }
             ]
           },
           {
-            id: "340",
-            status: "DEPLOYED",
+            id: '340',
+            status: 'DEPLOYED',
             envGeographyDeployments: [
             {
-              id: "160",
+              id: '160',
               envGeography: {
-                id: "39",
+                id: '39',
                 geography: {
-                  id: "1",
-                  displayName: "Extra Geo"
+                  id: '1',
+                  displayName: 'Extra Geo'
                 },
-                envType: "SANDBOX",
-                envHost: "api.com"
+                envType: 'SANDBOX',
+                envHost: 'api.com'
               },
-              status: "DEPLOYED",
-              deploymentResult: "success",
+              status: 'DEPLOYED',
+              deploymentResult: 'success',
               isOverridden: false
             }
             ]
           },
           {
-            id: "341",
-            status: "PENDING_REQUEST",
+            id: '341',
+            status: 'PENDING_REQUEST',
             envGeographyDeployments: []
           },
           {
-            id: "342",
-            status: "UNDEPLOYED",
+            id: '342',
+            status: 'UNDEPLOYED',
             envGeographyDeployments: []
           }
           ],
-        parentId: "92",
+        parentId: '92',
         hasInterface: true,
-        createTime: "now"
+        createTime: 'now'
       }
     ]
   },

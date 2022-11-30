@@ -16,7 +16,7 @@ const {
 } = testData
 
 describe('bot-interfaces:get command', () => {
-  describe('bot-interfaces:get command with valid bot Id and configuration Id', () => {
+  describe('bot-interfaces:get command with valid botId and configurationId', () => {
     const botId = '456'
     const configId = '321'
     const endpoint = `/v4/bots/${botId}/configs/${configId}/interface`
@@ -66,7 +66,7 @@ describe('bot-interfaces:get command', () => {
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
-    .it('bot-interfaces:get errors out when configuration Id not supplied')
+    .it('bot-interfaces:get errors out when configurationId not supplied')
 
     test
       .stderr()
@@ -74,7 +74,7 @@ describe('bot-interfaces:get command', () => {
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
-    .it('bot-interfaces:get errors out when bot Id not supplied')
+    .it('bot-interfaces:get errors out when botId not supplied')
   })
 
   describe('bot-interfaces:get handling of empty data', () => {

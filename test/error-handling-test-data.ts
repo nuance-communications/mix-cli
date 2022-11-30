@@ -9,32 +9,32 @@
 export default {
     invalidValuesResponse: {
       code: 400,
-      message: "Invalid organization id provided",
+      message: 'Invalid organization id provided',
       details: []
     },
     unauthorizedResponse: {
       code: 401,
-      status: "Unauthorized",
-      message: "The request could not be authorized"
+      status: 'Unauthorized',
+      message: 'The request could not be authorized'
     },
     forbiddenAccessResponse: {
       code: 403,
-      message: "Access is denied",
+      message: 'Access is denied',
       details: []
     },
     notFoundResponse: {
       code: 404,
-      message: "Organization not found",
+      message: 'Organization not found',
       details: []
     },
     conflictResponse: {
       code: 409,
-      message: "The request conflicts with your project or application configuration",
+      message: 'The request conflicts with your project or application configuration',
       details: []
     },
     unexpectedStatusResponse: {
       code: 500,
-      message: "Backend returned status code 500",
+      message: 'Backend returned status code 500',
       details: []
     }
 }
