@@ -53,7 +53,7 @@ describe('grammars:export command', () => {
       .command(['grammars:export', '-P', projectId, '-E', entityName])
     .it('grammars:export provides human-readable output for given project and entity with default filepath', (ctx) => {
       expect(downloadFileStub.calledWith(downloadArgs)).to.be.true
-      expect(ctx.stdout).to.contain(`saved to file ${defaultFilepath}`)
+      expect(ctx.stdout).to.contain(`exported to file ${defaultFilepath}`)
     })
 
     const error = new Error('file already exist')
@@ -97,7 +97,7 @@ describe('grammars:export command', () => {
       .stdout()
       .command(['grammars:export', '-P', projectId, '-E', entityName, '-f', filepath])
     .it('grammars:export provides human-readable output for given project and entity with filepath', (ctx) => {
-      expect(ctx.stdout).to.contain(`saved to file ${filepath}`)
+      expect(ctx.stdout).to.contain(`exported to file ${filepath}`)
     })
 
     test
@@ -112,7 +112,7 @@ describe('grammars:export command', () => {
     .it('grammars:export provides human-readable output for given project and entity with overwriting filepath', (ctx) => {
       expect(downloadFileStub.calledWith(downloadArgs)).to.be.true
       const [firstLine] = ctx.stdout.split('\n').map(ln => ln.trim())
-      expect(firstLine).to.contain(`saved to file ${filepath}`)
+      expect(firstLine).to.contain(`exported to file ${filepath}`)
     })    
   }),
   
