@@ -61,6 +61,11 @@ See https://docs.mix.nuance.com/mix-api/v4/#bots for details.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
+    if (transformedData === undefined) {
+      this.log('No interface found')
+
+      return
+    }
 
     this.log(`${chalk.bold('Bot interface ID:')} ${chalk.cyan(transformedData.id)}`)
     this.log(`${chalk.bold('Version:')} ${chalk.cyan(transformedData.version)}`)
