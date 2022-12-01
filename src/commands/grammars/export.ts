@@ -80,7 +80,7 @@ and not available to all users.`
 
   outputHumanReadable(_transformedData: any, options: Partial<flags.Output>) {
     debug('outputHumanReadable()')
-    this.log(`Grammars saved to ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(this.defaultFilepath)}`)
+    this.log(`Grammars exported to file ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(this.defaultFilepath)}`)
   }
 
   setRequestActionMessage(options: any) {
