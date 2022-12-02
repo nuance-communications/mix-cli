@@ -47,7 +47,6 @@ describe('grammars:replace command', () => {
 
   describe('grammars:replace command with valid projectId, entityName and filepath', () => {
     describe('grammars:replace command with user confirmation', () => {
-
       test
         .do(() => {
           promptStub.onFirstCall().resolves(entityName)
@@ -83,7 +82,6 @@ describe('grammars:replace command', () => {
     }),
 
     describe('grammars:replace command with pre-confirmation', () => {
-
       test
         .nock(mixAPIServerURL, (api) =>
           api
@@ -141,7 +139,7 @@ describe('grammars:replace command', () => {
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
-    .it('grammars:replace errors out when entityName and fielpath not supplied')
+    .it('grammars:replace errors out when entityName and filepath not supplied')
 
     test
       .stderr()
