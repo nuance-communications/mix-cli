@@ -7,27 +7,35 @@
  */
 
 import {expect, test} from '@oclif/test'
-import {PrettyPrintableError} from '@oclif/errors'
+import {mixAPIServerURL} from '../../mocks'
+import testData from './data-hosts-test-data'
 
-const testData = require ('../../test-data')
-const serverURL = 'https://' + testData.server
-const td = require('./data-hosts-test-data')
-const endpoint = '/v4/builds'
+const {
+  dataHostsListResponse,
+  noDataHostsReponse,
+} = testData
 
-describe('data-hosts:list', () => {
-  test
-    .env(testData.env)
-    .stdout()
-    .nock(serverURL, api =>
-      api.get(`${endpoint}/${td.request.buildLabel}/data-hosts`)
-      .query({
-        applicationId: td.request['mix-app']
-      })
-      .reply(200, td.response.json))
-    .command(['data-hosts:list',
-      `-M=${td.request['mix-app']}`,
-      `--build-label=${td.request.buildLabel}`])
-    .it('outputs data hosts when given a build label and Mix application ID', ctx => {
+describe('data-hosts:list command', () => {
+  describe('data-hosts:list command with valid buildLabel, deploymentFlowId and mix-app', () => {
+    const projectId = '457'
+    const buildVersion = '1'
+    const buildLabel = `DIALOG_${projectId}_${buildVersion}`
+    const deploymentFlowId = '88'
+    const mixApp = '32'
+    const endpoint = `/v4/builds/${buildLabel}/data-hosts`
+  
+    test
+      .nock(mixAPIServerURL, (api) =>
+        api
+          .get(endpoint)
+          .query({
+            applicationId: mixApp,
+          })
+          .reply(200, dataHostsListResponse)
+      )
+      .stdout()
+      .command(['data-hosts:list', '-M', mixApp, '--build-label', buildLabel])
+    .it('data-hosts:list provides human-readable output for given Mix application ID and buildLabel', (ctx) => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
       const headers = lines[0].split(/\s+/)
       const dataLine = lines[2].split(/\s+/)
@@ -35,152 +43,167 @@ describe('data-hosts:list', () => {
       expect(dataLine).to.deep.equal(['742', 'test', '87','1', 'https://www.testing.com'])
     })
 
-  test
-    .env(testData.env)
-    .stdout()
-    .nock(serverURL, api =>
-      api.get(`${endpoint}/${td.request.buildLabel}/data-hosts`)
-      .query({
-        applicationId: td.request['mix-app']
-      })
-      .reply(200, td.response.json))
-    .command(['data-hosts:list',
-      `-M=${td.request['mix-app']}`,
-      `--build-label=${td.request.buildLabel}`,
-      '--csv'])
-    .it('outputs data hosts in csv format', ctx => {
-      expect(ctx.stdout).to.equal(td.csvOutput)
-      expect(ctx.stdout).not.to.contain(`2 data hosts found for Mix application ${td.request['mix-app']}`)
+    test
+      .nock(mixAPIServerURL, (api) =>
+        api
+          .get(endpoint)
+          .query({
+            applicationId: mixApp,
+          })
+          .reply(200, dataHostsListResponse)
+      )
+      .stdout()
+      .command(['data-hosts:list', '-M', mixApp, '-P', projectId, '--build-version', buildVersion])
+    .it('data-hosts:list provides human-readable output for given Mix application ID, projectId and buildVersion', (ctx) => {
+      const lines = ctx.stdout.split('\n').map(ln => ln.trim())
+      const headers = lines[0].split(/\s+/)
+      const dataLine = lines[2].split(/\s+/)
+      expect(headers).to.deep.equal(['DataHostId', 'Alias', 'EnvironmentId','EnvironmentGeographyId', 'Value'])
+      expect(dataLine).to.deep.equal(['742', 'test', '87','1', 'https://www.testing.com'])
     })
-
-  test
-    .env(testData.env)
-    .stdout()
-    .nock(serverURL, api =>
-      api.get(`${endpoint}/${td.request.buildLabel}/data-hosts`)
-      .query({
-        applicationId: td.request['mix-app']
-      })
-      .reply(200, td.response.json))
-    .command(['data-hosts:list',
-      `-M=${td.request['mix-app']}`,
-      `-P=${td.request.projectId}`,
-      `--build-version=${td.request.version}`,
-      '--json'])
-    .it('outputs data hosts in json format when given a Mix application ID, project ID and build version', ctx => {
-      const result = JSON.parse(ctx.stdout)
-      expect(result).to.deep.equal(td.response.json)
-      expect(ctx.stdout).not.to.contain(`2 data hosts found for Mix application ${td.request['mix-app']}`)
-    })
-
-  test
-    .env(testData.env)
-    .stdout()
-    .nock(serverURL, api =>
-      api.get(`${endpoint}/${td.request.buildLabel}/data-hosts`)
-      .query({
-        applicationId: td.request['mix-app'],
-        deploymentFlowId: td.request.dialogFlowId
-      })
-      .reply(200, td.response.filter))
-    .command(['data-hosts:list',
-      `-M=${td.request['mix-app']}`,
-      `-P=${td.request.projectId}`,
-      `--build-version=${td.request.version}`,
-      `-D=${td.request.dialogFlowId}`,
-      '--json'])
-    .it('outputs data hosts in json format when given a Mix application ID, project ID, build version and deployment flow ID', ctx => {
-      const result = JSON.parse(ctx.stdout)
-      expect(result).to.deep.equal(td.response.filter)
-    })
-
   
-  test
-    .env(testData.env)
-    .stdout()
-    .nock(serverURL, api =>
-      api.get(`${endpoint}/${td.request.buildLabel}/data-hosts`)
-      .query({
-        applicationId: td.request['mix-app'],
-        deploymentFlowId: td.request.dialogFlowId
-      })
-      .reply(200, td.response.empty))
-    .command(['data-hosts:list',
-      `-M=${td.request['mix-app']}`,
-      `-P=${td.request.projectId}`,
-      `--build-version=${td.request.version}`,
-      `-D=${td.request.dialogFlowId}`])
-    .it('outputs data hosts post message for empty response', ctx => {
-      expect(ctx.stdout).to.contain(`No data hosts found for this application build.`)
-      expect(ctx.stdout).not.to.contain(`0 data host found for Mix application ${td.request['mix-app']} with deployment flow ${td.request.dialogFlowId}.`)
+    test
+      .nock(mixAPIServerURL, (api) =>
+        api
+          .get(endpoint)
+          .query({
+            applicationId: mixApp,
+            deploymentFlowId: deploymentFlowId
+          })
+          .reply(200, dataHostsListResponse)
+      )
+      .stdout()
+      .command(['data-hosts:list', '-M', mixApp, '--build-label', buildLabel, '-D', deploymentFlowId])
+    .it('data-hosts:list provides human-readable output for given Mix application ID, buildLabel and deploymentFlowId')
+    // test failed if no deploymentFlowId supplied
+
+    test
+      .nock(mixAPIServerURL, (api) =>
+        api
+          .get(endpoint)
+          .query({
+            applicationId: mixApp,
+            deploymentFlowId: deploymentFlowId
+          })
+          .reply(200, dataHostsListResponse)
+      )
+      .stdout()
+      .command(['data-hosts:list',
+        `-M=${mixApp}`,
+        `-P=${projectId}`,
+        `--build-version=${buildVersion}`,
+        `-D=${deploymentFlowId}`,
+      ])
+    .it('data-hosts:list provides human-readable output for given Mix application ID, projectId, buildVersion and deploymentFlowId')
+    // test failed if no deploymentFlowId supplied
+
+    test
+      .nock(mixAPIServerURL, (api) =>
+        api
+          .get(endpoint)
+          .query({
+            applicationId: mixApp,
+          })
+          .reply(200, dataHostsListResponse)
+      )
+      .stdout()
+      .command(['data-hosts:list', '-M', mixApp, '--build-label', buildLabel, '--json'])
+    .it('data-hosts:list provides JSON output for given Mix application ID and buildLabel', (ctx) => {
+      const result = JSON.parse(ctx.stdout)
+      expect(result).to.deep.equal(dataHostsListResponse)
     })
 
-  test
-    .env(testData.env)
-    .stdout()
-    .nock(serverURL, api =>
-      api.get(`${endpoint}/${td.request.buildLabel}/data-hosts`)
-      .query({
-        applicationId: td.request['mix-app'],
-        deploymentFlowId: '999999'
-      })
-      .reply(404))
-    .command(['data-hosts:list',
-      `-M=${td.request['mix-app']}`,
-      `--build-label=${td.request.buildLabel}`,
-      '-D=999999'])
-    .catch(ctx => {
-      const err: PrettyPrintableError = ctx
-      expect(err.message).to.contain('The data you requested could not be found.')
-      expect(err.code).to.contain('ENOTFOUND')
-      expect(err.suggestions).to.deep.equal(['verify the values passed to the command flags.'])
+    test
+      .nock(mixAPIServerURL, (api) =>
+        api
+          .get(endpoint)
+          .query({
+            applicationId: mixApp,
+          })
+          .reply(200, dataHostsListResponse)
+      )
+      .stdout()
+      .command(['data-hosts:list', '-M', mixApp, '--build-label', buildLabel, '--csv'])
+    .it('data-hosts:list provides CSV output for given Mix application ID and buildLabel', (ctx) => {
+      const lines = ctx.stdout.split('\n').map(ln => ln.trim())
+      const headers = lines[0].split(',')
+      const dataLine = lines[1].split(',')
+      expect(headers).to.deep.equal(['DataHostId', 'Alias', 'EnvironmentId','EnvironmentGeographyId', 'Value'])
+      expect(dataLine).to.deep.equal(['742', 'test', '87','1', 'https://www.testing.com'])
     })
-    .it('errors out when given an invalid deployment flow ID') 
+  }),
 
-  test
-    .env(testData.env)
-    .stdout()
-    .nock(serverURL, api =>
-      api.get(`${endpoint}/${td.request.buildLabel}/data-hosts`)
-      .query({
-        applicationId: td.request['mix-app'],
-        deploymentFlowId: td.request.dialogFlowId
+  describe('data-hosts:list handling of missing flags', () => {
+    const projectId = '457'
+    const buildVersion = '1'
+    const buildLabel = `DIALOG_${projectId}_${buildVersion}`
+    const mixApp = '32'
+    test
+      .stderr()
+      .command(['data-hosts:list'])
+      .catch(ctx => {
+        expect(ctx.message).to.contain('Missing required flag')
       })
-      .reply(401))
-    .command(['data-hosts:list',
-      `-M=${td.request['mix-app']}`,
-      `--build-label=${td.request.buildLabel}`,
-      `-D=${td.request.dialogFlowId}`])
-    .catch(ctx => {
-      const err: PrettyPrintableError = ctx
-      expect(err.message).to.contain('Unauthorized request.')
-      expect(err.code).to.contain('EUNAUTHORIZED')
-    })
-    .it('errors out when authentication has failed') 
+    .it('data-hosts:list errors out when no parameters supplied')
 
-  test
-    .env(testData.env)
-    .stdout()
-    .command(['data-hosts:list',
-      '-M=-11',
-      `--build-label=${td.request.buildLabel}`,
-      '-D=11'])
-    .catch(ctx => {
-      const err: PrettyPrintableError = ctx
-      expect(err.message).to.contain("Expected flag 'mix-app' to have a value greater than 0")
-    })
-    .it('errors out when given an invalid Mix application ID')
+    test
+      .stderr()
+      .command(['data-hosts:list', '-M', mixApp])
+      .catch(ctx => {
+        expect(ctx.message).to.contain('Required flag(s) missing')
+      })
+    .it('data-hosts:list errors out when no buildLabel supplied')
+
+    test
+      .stderr()
+      .command(['data-hosts:list', '--build-label', buildLabel])
+      .catch(ctx => {
+        expect(ctx.message).to.contain('Missing required flag')
+      })
+    .it('data-hosts:list errors out when no Mix application ID supplied')
+
+    test
+      .stderr()
+      .command(['data-hosts:list', '-P', projectId])
+      .catch(ctx => {
+        expect(ctx.message).to.contain('Missing required flag')
+      })
+    .it('data-hosts:list errors out when no buildVersion supplied')
+
+    test
+      .stderr()
+      .command(['data-hosts:list', '--build-version', buildVersion])
+      .catch(ctx => {
+        expect(ctx.message).to.contain('--project= must also be provided')
+      })
+    .it('data-hosts:list errors out when no projectId supplied')
+
+    test
+      .stderr()
+      .command(['data-hosts:list', '-P', projectId, '--build-version', buildVersion])
+      .catch(ctx => {
+        expect(ctx.message).to.contain('Missing required flag')
+      })
+    .it('data-hosts:list errors out when no Mix application ID supplied')
+  }),
+
+  describe('data-hosts:list handling of empty data', () => {
+    const buildLabel = 'DIALOG_458_2'
+    const endpoint = `/v4/builds/${buildLabel}/data-hosts`
   
-  test
-    .env(testData.env)
-    .stdout()
-    .command(['data-hosts:list',
-      '-M=11',
-      `--build-label=${td.request.buildLabel}`,
-      '-D=0'])
-    .catch(ctx => {
-      const err: PrettyPrintableError = ctx
-      expect(err.message).to.contain("Expected flag 'deployment-flow' to have a value greater than 0")
+    test
+      .nock(mixAPIServerURL, (api) =>
+        api
+          .get(endpoint)
+          .query({
+            applicationId: '20',
+          })
+          .reply(200, noDataHostsReponse)
+      )
+      .stdout()
+      .command(['data-hosts:list', '-M', '20', '--build-label', buildLabel])
+    .it('data-hosts:list shows error message for no data hosts ', (ctx) => {
+      expect(ctx.stdout).to.contain('No data hosts')
     })
-    .it('errors out when given an invalid deployment flow ID')
+  })
 })
