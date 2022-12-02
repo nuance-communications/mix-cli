@@ -53,7 +53,7 @@ describe('bot-interfaces:export command', () => {
       .command(['bot-interfaces:export', '-B', botId, '-C', configId])
     .it('bot-interfaces:export provides human-readable output for given bot and configuration with default filepath', (ctx) => {
       expect(saveFileStub.calledWith(saveArgs)).to.be.true
-      expect(ctx.stdout).to.contain(`saved to file ${defaultFilepath}`)
+      expect(ctx.stdout).to.contain(`exported to file ${defaultFilepath}`)
     })
 
     const error = new Error('file already exist')
@@ -96,7 +96,7 @@ describe('bot-interfaces:export command', () => {
       .stdout()
       .command(['bot-interfaces:export', '-B', botId, '-C', configId, '-f', filepath])
     .it('bot-interfaces:export provides human-readable output for given bot and configuration with filepath', (ctx) => {
-      expect(ctx.stdout).to.contain(`saved to file ${filepath}`)
+      expect(ctx.stdout).to.contain(`exported to file ${filepath}`)
     })
 
     test
@@ -110,7 +110,7 @@ describe('bot-interfaces:export command', () => {
       .command(['bot-interfaces:export', '-B', botId, '-C', configId, '-f', filepath, '--overwrite'])
     .it('bot-interfaces:export provides human-readable output for given bot and configuration with overwriting filepath', (ctx) => {
       const [firstLine] = ctx.stdout.split('\n').map(ln => ln.trim())
-      expect(firstLine).to.contain(`saved to file ${filepath}`)
+      expect(firstLine).to.contain(`exported to file ${filepath}`)
     })    
   }),
   
