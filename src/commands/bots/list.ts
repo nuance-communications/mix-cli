@@ -31,6 +31,10 @@ A number of flags can be used to constrain the returned results.`
   static flags = {
     full: MixFlags.showFullBotDetailsFlag,
     json: MixFlags.jsonFlag,
+    'live-only': flags.boolean({
+      description: MixFlags.liveOnlyFlag.description,
+      dependsOn: ['full'],
+    }),
     organization: MixFlags.organizationFlag,
     ...MixFlags.tableFlags({except: ['extended']}),
     'omit-overridden': flags.boolean({
@@ -72,8 +76,16 @@ A number of flags can be used to constrain the returned results.`
 
   get viewType() {
     debug('get viewType()')
+    const {full, 'live-only': liveOnly, 'omit-overridden': omitOverridden} = this.options
 
-    const {full, 'omit-overridden': omitOverridden} = this.options
+    if (liveOnly) {
+      return full && liveOnly ?
+        'BV_FULL_LIVE_CONFIGS' :
+        (full ?
+          'BV_FULL' :
+          'BV_VIEW_UNSPECIFIED')
+    }
+
     return full && omitOverridden ?
       'BV_FULL_AVAILABLE_CONFIGS' :
       (full ?
