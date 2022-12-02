@@ -25,6 +25,17 @@ export default {
       }
     ]
   },
+  dataHostsLatestResponse: {
+    dataHosts: [
+      { 
+        id: '743',
+        alias: 'test2',
+        environmentId: '87',
+        environmentGeographyId: '1',
+        value: 'http://data.com'
+      }
+    ]
+  },
   noDataHostsReponse: {
     dataHosts: [],
   },

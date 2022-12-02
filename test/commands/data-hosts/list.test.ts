@@ -16,12 +16,12 @@ const {
 } = testData
 
 describe('data-hosts:list command', () => {
-  describe('data-hosts:list command with valid buildLabel, deploymentFlowId and mix-app', () => {
+  describe('data-hosts:list command with valid Mix applicationId, buildLabel and deploymentFlowId', () => {
     const projectId = '457'
     const buildVersion = '1'
     const buildLabel = `DIALOG_${projectId}_${buildVersion}`
     const deploymentFlowId = '88'
-    const mixApp = '32'
+    const applicationId = '32'
     const endpoint = `/v4/builds/${buildLabel}/data-hosts`
   
     test
@@ -29,13 +29,13 @@ describe('data-hosts:list command', () => {
         api
           .get(endpoint)
           .query({
-            applicationId: mixApp,
+            applicationId: applicationId,
           })
           .reply(200, dataHostsListResponse)
       )
       .stdout()
-      .command(['data-hosts:list', '-M', mixApp, '--build-label', buildLabel])
-    .it('data-hosts:list provides human-readable output for given Mix application ID and buildLabel', (ctx) => {
+      .command(['data-hosts:list', '-M', applicationId, '--build-label', buildLabel])
+    .it('data-hosts:list provides human-readable output for given Mix applicationId and buildLabel', (ctx) => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
       const headers = lines[0].split(/\s+/)
       const dataLine = lines[2].split(/\s+/)
@@ -48,13 +48,13 @@ describe('data-hosts:list command', () => {
         api
           .get(endpoint)
           .query({
-            applicationId: mixApp,
+            applicationId: applicationId,
           })
           .reply(200, dataHostsListResponse)
       )
       .stdout()
-      .command(['data-hosts:list', '-M', mixApp, '-P', projectId, '--build-version', buildVersion])
-    .it('data-hosts:list provides human-readable output for given Mix application ID, projectId and buildVersion', (ctx) => {
+      .command(['data-hosts:list', '-M', applicationId, '-P', projectId, '--build-version', buildVersion])
+    .it('data-hosts:list provides human-readable output for given Mix applicationId, projectId and buildVersion', (ctx) => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
       const headers = lines[0].split(/\s+/)
       const dataLine = lines[2].split(/\s+/)
@@ -67,14 +67,14 @@ describe('data-hosts:list command', () => {
         api
           .get(endpoint)
           .query({
-            applicationId: mixApp,
+            applicationId: applicationId,
             deploymentFlowId: deploymentFlowId
           })
           .reply(200, dataHostsListResponse)
       )
       .stdout()
-      .command(['data-hosts:list', '-M', mixApp, '--build-label', buildLabel, '-D', deploymentFlowId])
-    .it('data-hosts:list provides human-readable output for given Mix application ID, buildLabel and deploymentFlowId')
+      .command(['data-hosts:list', '-M', applicationId, '--build-label', buildLabel, '-D', deploymentFlowId])
+    .it('data-hosts:list provides human-readable output for given Mix applicationId, buildLabel and deploymentFlowId')
     // test failed if no deploymentFlowId supplied
 
     test
@@ -82,19 +82,19 @@ describe('data-hosts:list command', () => {
         api
           .get(endpoint)
           .query({
-            applicationId: mixApp,
+            applicationId: applicationId,
             deploymentFlowId: deploymentFlowId
           })
           .reply(200, dataHostsListResponse)
       )
       .stdout()
       .command(['data-hosts:list',
-        `-M=${mixApp}`,
+        `-M=${applicationId}`,
         `-P=${projectId}`,
         `--build-version=${buildVersion}`,
         `-D=${deploymentFlowId}`,
       ])
-    .it('data-hosts:list provides human-readable output for given Mix application ID, projectId, buildVersion and deploymentFlowId')
+    .it('data-hosts:list provides human-readable output for given Mix applicationId, projectId, buildVersion and deploymentFlowId')
     // test failed if no deploymentFlowId supplied
 
     test
@@ -102,13 +102,13 @@ describe('data-hosts:list command', () => {
         api
           .get(endpoint)
           .query({
-            applicationId: mixApp,
+            applicationId: applicationId,
           })
           .reply(200, dataHostsListResponse)
       )
       .stdout()
-      .command(['data-hosts:list', '-M', mixApp, '--build-label', buildLabel, '--json'])
-    .it('data-hosts:list provides JSON output for given Mix application ID and buildLabel', (ctx) => {
+      .command(['data-hosts:list', '-M', applicationId, '--build-label', buildLabel, '--json'])
+    .it('data-hosts:list provides JSON output for given Mix applicationId and buildLabel', (ctx) => {
       const result = JSON.parse(ctx.stdout)
       expect(result).to.deep.equal(dataHostsListResponse)
     })
@@ -118,13 +118,13 @@ describe('data-hosts:list command', () => {
         api
           .get(endpoint)
           .query({
-            applicationId: mixApp,
+            applicationId: applicationId,
           })
           .reply(200, dataHostsListResponse)
       )
       .stdout()
-      .command(['data-hosts:list', '-M', mixApp, '--build-label', buildLabel, '--csv'])
-    .it('data-hosts:list provides CSV output for given Mix application ID and buildLabel', (ctx) => {
+      .command(['data-hosts:list', '-M', applicationId, '--build-label', buildLabel, '--csv'])
+    .it('data-hosts:list provides CSV output for given Mix applicationId and buildLabel', (ctx) => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
       const headers = lines[0].split(',')
       const dataLine = lines[1].split(',')
@@ -137,7 +137,7 @@ describe('data-hosts:list command', () => {
     const projectId = '457'
     const buildVersion = '1'
     const buildLabel = `DIALOG_${projectId}_${buildVersion}`
-    const mixApp = '32'
+    const applicationId = '32'
     test
       .stderr()
       .command(['data-hosts:list'])
@@ -148,11 +148,11 @@ describe('data-hosts:list command', () => {
 
     test
       .stderr()
-      .command(['data-hosts:list', '-M', mixApp])
+      .command(['data-hosts:list', '-M', applicationId])
       .catch(ctx => {
         expect(ctx.message).to.contain('Required flag(s) missing')
       })
-    .it('data-hosts:list errors out when no buildLabel supplied')
+    .it('data-hosts:list errors out when no buildLabel or projectId and buildVersion supplied')
 
     test
       .stderr()
@@ -160,7 +160,7 @@ describe('data-hosts:list command', () => {
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
-    .it('data-hosts:list errors out when no Mix application ID supplied')
+    .it('data-hosts:list errors out when no Mix applicationId supplied')
 
     test
       .stderr()
@@ -168,7 +168,7 @@ describe('data-hosts:list command', () => {
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
-    .it('data-hosts:list errors out when no buildVersion supplied')
+    .it('data-hosts:list errors out when no Mix applicationId and buildVersion supplied')
 
     test
       .stderr()
@@ -176,7 +176,7 @@ describe('data-hosts:list command', () => {
       .catch(ctx => {
         expect(ctx.message).to.contain('--project= must also be provided')
       })
-    .it('data-hosts:list errors out when no projectId supplied')
+    .it('data-hosts:list errors out when no Mix applicationId and projectId supplied')
 
     test
       .stderr()
@@ -184,7 +184,7 @@ describe('data-hosts:list command', () => {
       .catch(ctx => {
         expect(ctx.message).to.contain('Missing required flag')
       })
-    .it('data-hosts:list errors out when no Mix application ID supplied')
+    .it('data-hosts:list errors out when no Mix applicationId supplied')
   }),
 
   describe('data-hosts:list handling of empty data', () => {
