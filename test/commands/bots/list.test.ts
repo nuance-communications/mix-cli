@@ -111,6 +111,25 @@ describe('bots:list command', () => {
       ])
     .it('bots:list omits overriden app configs in list for given organization')
     // test fails if wrong view is passed
+
+    test
+      .nock(mixAPIServerURL, (api) =>
+        api
+          .get(endpoint)
+          .query({
+            view: 'BV_FULL_LIVE_CONFIGS',
+          })
+          .reply(200, fullBotsDetailsResponse)
+      )
+      .stdout()
+      .stderr()
+      .command(['bots:list',
+        `-O=${orgId}`,
+        '--full',
+        '--live-only'
+      ])
+    .it('bots:list currently deployed app configs in list for given organization')
+    // test fails if wrong view is passed
   }),
 
   describe('bots:list handling of missing flags', () => {
@@ -121,6 +140,14 @@ describe('bots:list command', () => {
         expect(ctx.message).to.contain('Missing required flag')
       })
     .it('bots:list errors out when no parameters supplied')
+
+    test
+      .stderr()
+      .command(['bots:list', '-O', '24', '--live-only'])
+      .catch(ctx => {
+        expect(ctx.message).to.contain('--full')
+      })
+    .it('bots:list errors out when --live-only is used without --full')
 
     test
       .stderr()
