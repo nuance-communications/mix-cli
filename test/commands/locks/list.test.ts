@@ -12,7 +12,7 @@ import testData from './locks-test-data'
 
 const {
   locksListResponse,
-  noLocksReponse,
+  noLocksListReponse,
 } = testData
 
 describe('locks:list command', () => {
@@ -46,7 +46,7 @@ describe('locks:list command', () => {
         'CreateTime',
         'Notes'
       ])
-      expect(firstRow).to.deep.equal(['15', '457', 'Alice', 'example@gmail.com', '2', 'now', 'string'])
+      expect(firstRow).to.deep.equal(['15', '457', 'Alice', 'alice@company.com', '2', 'now', 'string'])
     })
 
     test
@@ -136,7 +136,7 @@ describe('locks:list command', () => {
         'CreateTime',
         'Notes'
       ])
-      expect(firstRow).to.deep.equal(['15', '457', 'Alice', 'example@gmail.com', '2', 'now', 'string'])
+      expect(firstRow).to.deep.equal(['15', '457', 'Alice', 'alice@company.com', '2', 'now', 'string'])
     })
   }),
 
@@ -150,7 +150,7 @@ describe('locks:list command', () => {
           .query({
             limit: 25,
           })
-          .reply(200, noLocksReponse)
+          .reply(200, noLocksListReponse)
       )
       .stdout()
       .command(['locks:list'])

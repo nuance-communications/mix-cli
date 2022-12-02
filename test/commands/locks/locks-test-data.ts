@@ -14,7 +14,7 @@ export default {
         projectId: '457',
         lockOwner: {
           id: '2',
-          email: 'example@gmail.com',
+          email: 'alice@company.com',
           name: 'Alice'
         },
         notes: 'string',
@@ -25,7 +25,7 @@ export default {
         projectId: '458',
         lockOwner: {
           id: '4',
-          email: 'example@gmail.com',
+          email: 'alex@company.com',
           name: 'Alex'
         },
         notes: 'export',
@@ -37,7 +37,23 @@ export default {
     limit: 25,
     offset: 0
   },
-  noLocksReponse: {
+  locksGetResponse: {
+    lock: {
+      lockId: '15',
+      projectId: '457',
+      lockOwner: {
+        id: '2',
+        email: 'alice@company.com',
+        name: 'Alice'
+      },
+      notes: 'string',
+      createTime: 'now'
+    }
+  },
+  noLocksListReponse: {
     locks: [],
+  },
+  noLocksGetReponse: {
+    locks: {},
   },
 }
