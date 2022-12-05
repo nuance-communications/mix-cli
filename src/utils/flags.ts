@@ -178,6 +178,11 @@ export const entityNameFlag = flags.string({
   required: true,
 })
 
+export const excludeChannelsFlag = flags.boolean({
+  description: 'exclude project channels from the list',
+  default: false,
+})
+
 export const excludeOverridesFlag = flags.boolean({
   description: 'exclude application configurations that are overridden',
   default: false,
@@ -510,6 +515,10 @@ export const withLocaleMultipleFlag = flags.string({
 export const withOrganizationTypeFlag = flags.string({
   description: 'organization type',
   options: ['personal', 'standard'],
+})
+
+export const withProjectName = flags.string({
+  description: 'filter results by project name (The search is case sensitive)',
 })
 
 export const withRuntimeApp = flags.string({

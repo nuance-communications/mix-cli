@@ -16,6 +16,7 @@ import MixCommand from '../../utils/base/mix-command'
 import {asChannelsList, asDataPackslist} from '../../utils/format'
 import {MixClient, MixResponse, MixResult, ProjectsListParams} from '../../mix/types'
 import {DomainOption} from '../../utils/validations'
+import {defaultLimit} from '../../utils/constants'
 
 const debug = makeDebug('mix:commands:projects:list')
 export default class ProjectsList extends MixCommand {
@@ -26,9 +27,19 @@ Use this command to list projects that are part of a particular organization.`
   static examples = ['mix projects:list -O 64']
 
   static flags = {
+    'include-features': flags.boolean({
+      description: 'include the list of features supported by engine pack of project',
+      default: false,
+    }),
+    'exclude-channels': MixFlags.excludeChannelsFlag,
     json: MixFlags.jsonFlag,
-    organization: MixFlags.organizationWithDefaultFlag,
-    ...MixFlags.tableFlags({except: ['extended']}),
+    organization: {
+      ...MixFlags.organizationWithDefaultFlag,
+      required: false,
+    },
+    ...MixFlags.limitOffsetSortFlags,
+    ...MixFlags.tableFlags({except: ['extended', 'sort']}),
+    'with-name': MixFlags.withProjectName,
     yaml: MixFlags.yamlFlag,
   }
 
@@ -38,14 +49,33 @@ Use this command to list projects that are part of a particular organization.`
       id: {header: 'ProjectId'},
       displayName: {header: 'Name'},
       languageTopic: {header: 'LanguageTopic'},
-      channels: {
-        header: 'Channels',
-        get: asChannelsList,
-      },
       datapacks: {
         header: 'DataPacks',
         get: asDataPackslist,
       },
+    }
+  }
+
+  get channelsColumn() {
+    return {
+      channels: {
+        header: 'Channels',
+        get: asChannelsList,
+      },
+    }
+  }
+
+  get featuresColumn() {
+    return {
+      features: {
+        header: 'Features',
+        get: ({enginePackFeatures}: any) => enginePackFeatures.join(','),
+      },
+    }
+  }
+
+  get timeColumns() {
+    return {
       createTime: {header: 'CreateTime'},
       updateTime: {header: 'UpdateTime'},
     }
@@ -58,9 +88,25 @@ Use this command to list projects that are part of a particular organization.`
 
   async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsListParams> {
     debug('buildRequestParameters()')
-    const {organization: orgId} = options
+    const {
+      'exclude-channels': excludeChannels,
+      'include-features': includeFeatures,
+      limit = defaultLimit,
+      offset,
+      organization: orgId,
+      sort: sortBy,
+      'with-name': filter,
+    } = options
 
-    return {orgId}
+    return {
+      excludeChannels,
+      includeFeatures,
+      filter,
+      ...(typeof limit === 'undefined' ? {} : {limit}),
+      ...(typeof offset === 'undefined' ? {} : {offset}),
+      orgId,
+      ...(typeof sortBy === 'undefined' ? {} : {sortBy}),
+    }
   }
 
   doRequest(client: MixClient, params: ProjectsListParams): Promise<MixResponse> {
@@ -68,20 +114,38 @@ Use this command to list projects that are part of a particular organization.`
     return ProjectsAPI.listProjects(client, params)
   }
 
-  outputHumanReadable(transformedData: any) {
+  outputHumanReadable(transformedData: any, options: any) {
     debug('outputHumanReadable()')
+    let isExcludeChannel = false
+    let isIncludeFeatures = false
+
     if (transformedData.length === 0) {
       this.log('No projects found.')
 
       return
     }
 
-    this.outputCLITable(transformedData, this.columns)
+    options['exclude-channels'] ? isExcludeChannel = true : isExcludeChannel = false
+    options['include-features'] ? isIncludeFeatures = true : isIncludeFeatures = false
+
+    let tableColumns = {}
+
+    isIncludeFeatures ? (isExcludeChannel ? tableColumns = {...this.columns, ...this.featuresColumn, ...this.timeColumns} :
+      tableColumns = {...this.columns, ...this.featuresColumn, ...this.channelsColumn, ...this.timeColumns}) :
+      (isExcludeChannel ? tableColumns = {...this.columns, ...this.timeColumns} :
+        tableColumns = {...this.columns, ...this.channelsColumn, ...this.timeColumns})
+
+    this.outputCLITable(transformedData, tableColumns)
+
+    if (isIncludeFeatures) {
+      this.log('\nRun the command again with the --json flag to see all engine pack features.')
+    }
   }
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving projects for organization ID ${chalk.cyan(options.organization)}`
+    options.organization ? this.requestActionMessage = `Retrieving projects for organization ID ${chalk.cyan(options.organization)}` :
+      this.requestActionMessage = 'Retrieving projects across all organizations'
   }
 
   transformResponse(result: MixResult) {
