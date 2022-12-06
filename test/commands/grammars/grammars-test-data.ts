@@ -10,5 +10,20 @@ export default {
   grammarsExportResponse: {
     data: {
     }
+  },
+  grammarsReplaceResponse: {
+    entity: {
+      ruleBasedEntity: {
+        id: 'ca8',
+        name: 'D_NUMBER',
+        localeBasedGrammars: {
+          'en-US': 'grammar.grxml'
+        },
+        settings: {
+          isSensitive: false,
+          canonicalize: true
+        }
+      }
+    }
   }
 }
