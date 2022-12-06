@@ -22,9 +22,16 @@ const debug = makeDebug('mix:commands:projects:list')
 export default class ProjectsList extends MixCommand {
   static description = `list projects
   
-Use this command to list projects that are part of a particular organization.`
+Use this command to list projects across all organizations.
+A number of flags can be used to constrain the returned results.`
 
-  static examples = ['mix projects:list -O 64']
+  static examples = [
+    'List projects to which you have access, across all organizations',
+    'mix projects:list',
+    '',
+    'List projects that are part of a particular organization',
+    'mix projects:list -O 64',
+  ]
 
   static flags = {
     'include-features': flags.boolean({
