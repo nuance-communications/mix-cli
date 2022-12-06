@@ -96,7 +96,7 @@ describe('grammars:replace command', () => {
           `-f=${filepath}`,
           `-c=${entityName}`
           ])
-      .it('grammars:replace provides human-readable output for given project, entity and filepath with confirmation', (ctx) => {
+      .it('grammars:replace provides human-readable output for given project, entity and filepath with pre-confirmation', (ctx) => {
         expect(createFormStub.calledWith(filepath)).to.be.true
         expect(ctx.stdout).to.not.contain(`Consider making a backup of your grammars first`)
         expect(ctx.stdout).to.contain('replaced successfully')
