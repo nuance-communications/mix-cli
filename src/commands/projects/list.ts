@@ -108,10 +108,10 @@ A number of flags can be used to constrain the returned results.`
     return {
       excludeChannels,
       includeFeatures,
-      filter,
+      ...(typeof filter === 'undefined' ? {} : {filter}),
       ...(typeof limit === 'undefined' ? {} : {limit}),
       ...(typeof offset === 'undefined' ? {} : {offset}),
-      orgId,
+      ...(typeof orgId === 'undefined' ? {} : {orgId}),
       ...(typeof sortBy === 'undefined' ? {} : {sortBy}),
     }
   }
