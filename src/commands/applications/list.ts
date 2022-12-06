@@ -15,28 +15,39 @@ import * as MixFlags from '../../utils/flags'
 import MixCommand, {Columns} from '../../utils/base/mix-command'
 import {ApplicationsListParams, MixClient, MixResponse, MixResult} from '../../mix/types'
 import {DomainOption} from '../../utils/validations'
+import {defaultLimit} from '../../utils/constants'
 
 const debug = makeDebug('mix:commands:applications:list')
 
 export default class ApplicationsList extends MixCommand {
-  static description = `list Mix applications in an organization
+  static description = `list Mix applications
   
-Use this command to list Mix applications for a specific Mix organization.
+Use this command to list Mix applications.
 A number of flags can be used to constrain the returned results.`
 
   static examples = [
-    '$ mix applications:list -O 64',
+    'List Mix applications to which you have access, across all organizations',
+    'mix applications:list',
+    '',
+    'List Mix applications that are part of a particular organization',
+    'mix applications:list -O 64',
   ]
 
   static flags = {
     full: MixFlags.showFullApplicationDetailsFlag,
     json: MixFlags.jsonFlag,
-    organization: MixFlags.organizationFlag,
+    limit: MixFlags.limitFlag,
+    offset: MixFlags.offsetFlag,
+    organization: {
+      ...MixFlags.organizationFlag,
+      required: false,
+    },
     ...MixFlags.tableFlags({except: ['extended']}),
     'omit-overridden': flags.boolean({
       description: MixFlags.omitOverriddenDesc,
       dependsOn: ['full'],
     }),
+    'with-name': MixFlags.withApplicationName,
     'with-runtime-app': MixFlags.withRuntimeApp,
     yaml: MixFlags.yamlFlag,
   }
@@ -84,10 +95,13 @@ A number of flags can be used to constrain the returned results.`
 
   async buildRequestParameters(options: Partial<flags.Output>): Promise<ApplicationsListParams> {
     debug('buildRequestParameters()')
-    const {organization: orgId, 'with-runtime-app': appId} = options
+    const {limit = defaultLimit, offset, organization: orgId, 'with-name': filter, 'with-runtime-app': appId} = options
 
     return {
-      orgId,
+      ...(typeof limit === 'undefined' ? {} : {limit}),
+      ...(typeof offset === 'undefined' ? {} : {offset}),
+      ...(typeof orgId === 'undefined' ? {} : {orgId}),
+      ...(typeof filter === 'undefined' ? {} : {filter}),
       ...(typeof appId === 'undefined' ? {} : {appId}),
       view: this.viewType,
     }
@@ -121,7 +135,9 @@ use applications:get to get full details for a single app.
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving applications for organization ID ${chalk.cyan(options.organization)}`
+    options.organization ?
+      this.requestActionMessage = `Retrieving applications for organization ID ${chalk.cyan(options.organization)}` :
+      this.requestActionMessage = 'Retrieving applications'
   }
 
   transformResponse(result: MixResult) {
