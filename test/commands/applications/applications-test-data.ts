@@ -5,40 +5,64 @@
  * This source code is licensed under the Apache-2.0 license found in
  * the LICENSE file in the root directory of this source tree.
  */
-
-module.exports = {
-  request: {
-    orgId: "123",
-    view: "AV_FULL",
+export default {
+  applicationsListResponse: {
+    applications: [
+      {
+        id: '1',
+        applicationName: 'Sample App',
+        organizationId: '3',
+        organizationName: 'name@company.com',
+        configs: [],
+        createTime: 'later'
+      },
+      {
+        id: '2',
+        applicationName: 'Sample App',
+        organizationId: '4',
+        organizationName: 'name@company.com',
+        configs: [],
+        createTime: 'now'
+      }
+    ],
+    count: 2,
+    totalSize: 600,
+    limit: 2,
+    offset: 0
   },
-  response: {
-    json: {
-      applications: [
-        {
-          id: "456",
-          applicationName: "Mix Sample App",
-          configs: [
-            {
-              id: "config_a",
+  fullApplicationsListResponse: {
+    applications: [
+      {
+        id: '1',
+        applicationName: 'Sample App',
+        organizationId: '3',
+        organizationName: 'name@company.com',
+        configs: [
+          {
+            id: '58',
+            tag:'A58',
+            deployments: [],
+            parentId: '',
+            deploymentFlowId: '6',
+            builds: {},
+            projectDetails: {
+              projectId: '61',
+              projectName: 'Test Project',
+              isChildDataCompliant: true,
+              projectDescription: 'Test Project.'
             },
-            {
-              id: "config_b",
-            },
-          ],
-          createTime: 'now',
-        },
-        {
-            id: "789",
-            applicationName: "Mix Sample App 2",
-            configs: [
-              {
-                id: "config_x",
-              }
-            ],
-            createTime: 'later',
+            createTime: 'later'
           },
-      ],
-      totalSize: 1,
-    },
+        ],
+        createTime: 'later'
+      }
+    ],
+    count: 1,
+    totalSize: 1,
+    limit: 2,
+    offset: 0
+  },
+  noApplicationsResponse: {
+    applications: [],
   },
 }

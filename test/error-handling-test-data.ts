@@ -9,7 +9,7 @@
 export default {
     invalidValuesResponse: {
       code: 400,
-      message: 'Invalid organization id provided',
+      message: 'Invalid application id provided',
       details: []
     },
     unauthorizedResponse: {
@@ -24,12 +24,12 @@ export default {
     },
     notFoundResponse: {
       code: 404,
-      message: 'Organization not found',
+      message: 'Application not found',
       details: []
     },
     conflictResponse: {
       code: 409,
-      message: 'The request conflicts with your project or application configuration',
+      message: 'The request conflicts with your application configuration',
       details: []
     },
     unexpectedStatusResponse: {
