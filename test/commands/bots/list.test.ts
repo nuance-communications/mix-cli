@@ -158,6 +158,16 @@ describe('bots:list command', () => {
     .it('bots:list errors out when --omit-overriden is used without --full')
   }),
 
+  describe('bots:list handling of conflict flags', () => {
+    test
+      .stderr()
+      .command(['bots:list', '-O', '24', '--full', '--live-only', '--omit-overridden'])
+      .catch(ctx => {
+        expect(ctx.message).to.contain('--full')
+      })
+    .it('bots:list errors out when --live-only and --omit-overridden supplied together')
+  }),
+
   describe('bots:list handling of empty data', () => {
     const orgId = '221'
     const endpoint = `/v4/organizations/${orgId}/bots`
