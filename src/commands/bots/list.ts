@@ -34,12 +34,14 @@ A number of flags can be used to constrain the returned results.`
     'live-only': flags.boolean({
       description: MixFlags.liveOnlyFlag.description,
       dependsOn: ['full'],
+      exclusive: ['omit-overridden'],
     }),
     organization: MixFlags.organizationFlag,
     ...MixFlags.tableFlags({except: ['extended']}),
     'omit-overridden': flags.boolean({
       description: MixFlags.omitOverriddenDesc,
       dependsOn: ['full'],
+      exclusive: ['live-only'],
     }),
     yaml: MixFlags.yamlFlag,
   }
@@ -78,19 +80,19 @@ A number of flags can be used to constrain the returned results.`
     debug('get viewType()')
     const {full, 'live-only': liveOnly, 'omit-overridden': omitOverridden} = this.options
 
-    if (liveOnly) {
-      return full && liveOnly ?
-        'BV_FULL_LIVE_CONFIGS' :
-        (full ?
-          'BV_FULL' :
-          'BV_VIEW_UNSPECIFIED')
+    if (!full) {
+      return 'BV_VIEW_UNSPECIFIED'
     }
 
-    return full && omitOverridden ?
-      'BV_FULL_AVAILABLE_CONFIGS' :
-      (full ?
-        'BV_FULL' :
-        'BV_VIEW_UNSPECIFIED')
+    if (liveOnly) {
+      return 'BV_FULL_LIVE_CONFIGS'
+    }
+
+    if (omitOverridden) {
+      return 'BV_FULL_AVAILABLE_CONFIGS'
+    }
+
+    return 'BV_FULL'
   }
 
   async buildRequestParameters(options: Partial<flags.Output>): Promise<BotsListParams> {
