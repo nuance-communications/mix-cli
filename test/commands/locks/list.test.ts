@@ -123,7 +123,7 @@ describe('locks:list command', () => {
       )
       .stdout()
       .command(['locks:list', '--csv'])
-    .it('locks:list provides human-readable output', (ctx) => {
+    .it('locks:list provides CSV output', (ctx) => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
       const headers = lines[0].split(',')
       const firstRow = lines[1].split(',')
@@ -154,7 +154,7 @@ describe('locks:list command', () => {
       )
       .stdout()
       .command(['locks:list'])
-    .it('locks:list shows error message with no locks', (ctx) => {
+    .it('locks:list shows relevant message if no locks are returned', (ctx) => {
       expect(ctx.stdout).to.contain('No locks')
     })
   })  
