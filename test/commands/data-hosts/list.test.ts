@@ -202,7 +202,7 @@ describe('data-hosts:list command', () => {
       )
       .stdout()
       .command(['data-hosts:list', '-M', '20', '--build-label', buildLabel])
-    .it('data-hosts:list shows error message for no data hosts ', (ctx) => {
+    .it('data-hosts:list shows relevant message if no data hosts are returned', (ctx) => {
       expect(ctx.stdout).to.contain('No data hosts')
     })
   })
