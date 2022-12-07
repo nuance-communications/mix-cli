@@ -42,4 +42,28 @@ export type ApplicationsListSearchParams = {
 export type ApplicationsListParams = Expand<ApplicationsListPathParams & ApplicationsListSearchParams>
 
 /** @hidden */
-export type ApplicationsParams = ApplicationsListParams
+export type ApplicationsGetSearchParams = {
+  /** ID of the Mix application for which to get the details. */
+  filter?: string
+
+  /**
+   * Application view to return.
+   * - ACV_VIEW_UNSPECIFIED: Returns credentials details without including clients
+   * - ACV_FULL: Returns all credentials details, including list of clients
+   *
+   * @defaultValue: ACV_VIEW_UNSPECIFIED
+   */
+  view?: 'AV_FULL'
+}
+
+/** @hidden */
+export type ApplicationsGetParams = Expand<ApplicationsGetSearchParams>
+
+/** @hidden */
+export type ApplicationsParams =
+  | ApplicationsListParams
+
+/** @hidden */
+export type ApplicationsSearchParams =
+  | ApplicationsGetParams
+  | ApplicationsListSearchParams
