@@ -173,7 +173,7 @@ describe('bots:list command', () => {
       )
       .stdout()
       .command(['bots:list', '-O', orgId])
-    .it('bots:list shows error message for organization with no bots', (ctx) => {
+    .it('bots:list shows relevant message if organization has no bots', (ctx) => {
       expect(ctx.stdout).to.contain('No bots')
     })
   })
