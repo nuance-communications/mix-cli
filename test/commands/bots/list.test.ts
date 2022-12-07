@@ -128,7 +128,7 @@ describe('bots:list command', () => {
         '--full',
         '--live-only'
       ])
-    .it('bots:list currently deployed app configs in list for given organization')
+    .it('bots:list provides currently deployed app configs in list for given organization')
     // test fails if wrong view is passed
   }),
 
@@ -163,7 +163,7 @@ describe('bots:list command', () => {
       .stderr()
       .command(['bots:list', '-O', '24', '--full', '--live-only', '--omit-overridden'])
       .catch(ctx => {
-        expect(ctx.message).to.contain('--full')
+        expect(ctx.message).to.contain('cannot also be provided')
       })
     .it('bots:list errors out when --live-only and --omit-overridden supplied together')
   }),
