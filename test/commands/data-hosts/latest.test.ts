@@ -123,7 +123,7 @@ describe('data-hosts:latest command', () => {
       )
       .stdout()
       .command(['data-hosts:latest', '-M', applicationId, '-P', projectId])
-    .it('data-hosts:latest shows error message for no data hosts ', (ctx) => {
+    .it('data-hosts:latest shows relevant message if no data hosts are returned', (ctx) => {
       expect(ctx.stdout).to.contain('No data hosts')
     })
   })
