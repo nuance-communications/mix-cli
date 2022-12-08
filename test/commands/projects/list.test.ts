@@ -31,7 +31,7 @@ describe('projects:list command', () => {
     .command(['projects:list'])
     .it('lists basic data for all projects', ctx => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
-      const headers = lines[0].split(/\s+/)
+      const headers = lines[3].split(/\s+/)
 
       expect(headers).to.deep.equal(['ProjectId', 'Name', 'LanguageTopic', 'DataPacks', 'Channels', 'CreateTime', 'UpdateTime'])
     })
@@ -53,7 +53,7 @@ describe('projects:list command', () => {
     .command(['projects:list', '--sort=-displayName'])
     .it('responds correctly to tabular formatting flags', ctx => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
-      const headers = lines[0].split(/\s+/)
+      const headers = lines[3].split(/\s+/)
 
       expect(headers).to.deep.equal(['ProjectId', 'Name', 'LanguageTopic', 'DataPacks', 'Channels', 'CreateTime', 'UpdateTime'])
     })
