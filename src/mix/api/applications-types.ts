@@ -8,15 +8,15 @@
 
 import {Expand} from './shared-types'
 
-  /**
-   * Application view to return.
-   * - AV_VIEW_UNSPECIFIED: Returns application details without including application configurations
-   * - AV_FULL: Returns all application details, including the list of application configurations
-   * - AV_FULL_AVAILABLE_CONFIGS: Returns all application details, omitting configs that are overridden
-   * - AV_FULL_LIVE_CONFIGS: Returns all application configs that are deployed
-   *
-   * @defaultValue: AV_VIEW_UNSPECIFIED
-   */
+/**
+ * Application view to return.
+ * - AV_VIEW_UNSPECIFIED: Returns application details without including application configurations
+ * - AV_FULL: Returns all application details, including the list of application configurations
+ * - AV_FULL_AVAILABLE_CONFIGS: Returns all application details, omitting configs that are overridden
+ * - AV_FULL_LIVE_CONFIGS: Returns all application configs that are deployed
+ *
+ * @defaultValue: AV_VIEW_UNSPECIFIED
+ */
 export type ApplicationsView = 'AV_VIEW_UNSPECIFIED' | 'AV_FULL' | 'AV_FULL_AVAILABLE_CONFIGS'
 
 /** @hidden */

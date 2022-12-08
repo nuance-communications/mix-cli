@@ -29,7 +29,7 @@ export default class ApplicationsGet extends MixCommand {
   static flags = {
     json: MixFlags.jsonFlag,
     'mix-app': MixFlags.mixApplicationFlag,
-    ...MixFlags.tableFlags({except: ['extended']}),
+    ...MixFlags.tableFlags({except: ['extended', 'csv']}),
     yaml: MixFlags.yamlFlag,
   }
 
