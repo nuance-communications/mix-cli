@@ -62,6 +62,38 @@ export default {
     limit: 2,
     offset: 0
   },
+  applicationsGetResponse: {
+    applications: [
+      {
+        id: '1',
+        applicationName: 'Sample App',
+        organizationId: '3',
+        organizationName: 'name@company.com',
+        configs: [
+          {
+            id: '58',
+            tag:'A58',
+            deployments: [],
+            parentId: '',
+            deploymentFlowId: '6',
+            builds: {},
+            projectDetails: {
+              projectId: '61',
+              projectName: 'Test Project',
+              isChildDataCompliant: true,
+              projectDescription: 'Test Project.'
+            },
+            createTime: 'later'
+          },
+        ],
+        createTime: 'later'
+      }
+    ],
+    count: 1,
+    totalSize: 1,
+    limit: 2,
+    offset: 0
+  },
   noApplicationsResponse: {
     applications: [],
   },
