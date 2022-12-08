@@ -42,10 +42,10 @@ export async function getApplications(client: MixClient, params: ApplicationsGet
  */
 export async function listApplications(client: MixClient, params: ApplicationsListParams): Promise<MixResponse> {
   debug('listApplications()')
-  const {orgId, ...requestParams} = params
+  const {...requestParams} = params
 
   return client.request({
     method: 'get',
-    url: buildURL(client.getServer(), `/v4/organizations/${orgId}/apps`, requestParams),
+    url: buildURL(client.getServer(), '/v4/apps', requestParams),
   })
 }

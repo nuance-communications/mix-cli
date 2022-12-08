@@ -77,7 +77,7 @@ See https://docs.mix.nuance.com/mix-api/v4/#bots for details.`
 
   outputHumanReadable(_transformedData: any, options: any) {
     debug('outputHumanReadable()')
-    console.log(`Interface data saved to file ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(this.defaultFilepath)}.`)
+    console.log(`Bot interface exported to file ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(this.defaultFilepath)}.`)
   }
 
   setRequestActionMessage(options: any) {

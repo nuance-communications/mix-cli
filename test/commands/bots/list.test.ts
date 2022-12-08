@@ -111,6 +111,25 @@ describe('bots:list command', () => {
       ])
     .it('bots:list omits overriden app configs in list for given organization')
     // test fails if wrong view is passed
+
+    test
+      .nock(mixAPIServerURL, (api) =>
+        api
+          .get(endpoint)
+          .query({
+            view: 'BV_FULL_LIVE_CONFIGS',
+          })
+          .reply(200, fullBotsDetailsResponse)
+      )
+      .stdout()
+      .stderr()
+      .command(['bots:list',
+        `-O=${orgId}`,
+        '--full',
+        '--live-only'
+      ])
+    .it('bots:list provides currently deployed app configs in list for given organization')
+    // test fails if wrong view is passed
   }),
 
   describe('bots:list handling of missing flags', () => {
@@ -124,11 +143,29 @@ describe('bots:list command', () => {
 
     test
       .stderr()
+      .command(['bots:list', '-O', '24', '--live-only'])
+      .catch(ctx => {
+        expect(ctx.message).to.contain('--full')
+      })
+    .it('bots:list errors out when --live-only is used without --full')
+
+    test
+      .stderr()
       .command(['bots:list', '-O', '24', '--omit-overridden'])
       .catch(ctx => {
         expect(ctx.message).to.contain('--full')
       })
     .it('bots:list errors out when --omit-overriden is used without --full')
+  }),
+
+  describe('bots:list handling of conflict flags', () => {
+    test
+      .stderr()
+      .command(['bots:list', '-O', '24', '--full', '--live-only', '--omit-overridden'])
+      .catch(ctx => {
+        expect(ctx.message).to.contain('cannot also be provided')
+      })
+    .it('bots:list errors out when --live-only and --omit-overridden supplied together')
   }),
 
   describe('bots:list handling of empty data', () => {
@@ -146,7 +183,7 @@ describe('bots:list command', () => {
       )
       .stdout()
       .command(['bots:list', '-O', orgId])
-    .it('bots:list shows error message for organization with no bots', (ctx) => {
+    .it('bots:list shows relevant message if organization has no bots', (ctx) => {
       expect(ctx.stdout).to.contain('No bots')
     })
   })

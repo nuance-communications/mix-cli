@@ -20,8 +20,8 @@ const {
   unexpectedStatusResponse,
 } = testData
 
-const orgId = '10'
-const endpoint = `/v4/organizations/${orgId}/apps`
+const applicationId = '10'
+const endpoint = `/v4/apps/${applicationId}/credentials`
 
 describe('Centralized HTTP error code handling', () => {
   test
@@ -29,12 +29,12 @@ describe('Centralized HTTP error code handling', () => {
       api
         .get(endpoint)
         .query({
-          view: 'AV_VIEW_UNSPECIFIED',
+          view: 'ACV_VIEW_UNSPECIFIED',
         })
         .reply(400, invalidValuesResponse)
     )
     .stdout()
-    .command(['applications:list', '-O', orgId])
+    .command(['app-credentials:list', '-M', applicationId])
     .catch(ctx => {
       const err: PrettyPrintableError = ctx
       expect(err.code).to.contain('EINVALIDVALUE')
@@ -46,12 +46,12 @@ describe('Centralized HTTP error code handling', () => {
       api
         .get(endpoint)
         .query({
-          view: 'AV_VIEW_UNSPECIFIED',
+          view: 'ACV_VIEW_UNSPECIFIED',
         })
         .reply(401, unauthorizedResponse)
     )
     .stdout()
-    .command(['applications:list', '-O', orgId])
+    .command(['app-credentials:list', '-M', applicationId])
     .catch(ctx => {
       const err: PrettyPrintableError = ctx
       expect(err.code).to.contain('EUNAUTHORIZED')
@@ -63,12 +63,12 @@ describe('Centralized HTTP error code handling', () => {
       api
         .get(endpoint)
         .query({
-          view: 'AV_VIEW_UNSPECIFIED',
+          view: 'ACV_VIEW_UNSPECIFIED',
         })
         .reply(403, forbiddenAccessResponse)
     )
     .stdout()
-    .command(['applications:list', '-O', orgId])
+    .command(['app-credentials:list', '-M', applicationId])
     .catch(ctx => {
       const err: PrettyPrintableError = ctx
       expect(err.code).to.contain('EFORBIDDEN')
@@ -80,12 +80,12 @@ describe('Centralized HTTP error code handling', () => {
       api
         .get(endpoint)
         .query({
-          view: 'AV_VIEW_UNSPECIFIED',
+          view: 'ACV_VIEW_UNSPECIFIED',
         })
         .reply(404, notFoundResponse)
     )
     .stdout()
-    .command(['applications:list', '-O', orgId])
+    .command(['app-credentials:list', '-M', applicationId])
     .catch(ctx => {
       const err: PrettyPrintableError = ctx
       expect(err.code).to.contain('ENOTFOUND')
@@ -97,13 +97,13 @@ describe('Centralized HTTP error code handling', () => {
       api
         .get(endpoint)
         .query({
-          view: 'AV_VIEW_UNSPECIFIED',
-          appId: 'app_123'
+          view: 'ACV_VIEW_UNSPECIFIED',
+          envGeographyName: 'geo',
         })
         .reply(409, conflictResponse)
     )
     .stdout()
-    .command(['applications:list', '-O', orgId, '--with-runtime-app', 'app_123'])
+    .command(['app-credentials:list', '-M', applicationId, '--with-geo-name', 'geo'])
     .catch(ctx => {
       const err: PrettyPrintableError = ctx
       expect(err.code).to.contain('ECONFLICTERROR')
@@ -115,12 +115,12 @@ describe('Centralized HTTP error code handling', () => {
       api
         .get(endpoint)
         .query({
-          view: 'AV_VIEW_UNSPECIFIED',
+          view: 'ACV_VIEW_UNSPECIFIED',
         })
         .reply(500, unexpectedStatusResponse)
     )
     .stdout()
-    .command(['applications:list', '-O', orgId])
+    .command(['app-credentials:list', '-M', applicationId])
     .catch(ctx => {
       const err: PrettyPrintableError = ctx
       expect(err.code).to.contain('EUNEXPECTEDSTATUS')

@@ -56,7 +56,7 @@ export const mixApplicationIDDesc = 'Mix application ID'
 export const noProjectInfoDesc = 'omit project details in table mode'
 export const noChannelsDesc = 'omit channel details in table mode'
 export const noDataPacksDesc = 'omit data pack details in table mode'
-export const omitOverriddenDesc = 'omit application configurations that are overriden'
+export const omitOverriddenDesc = 'omit application configurations that are overridden'
 export const projectDesc = 'project ID'
 export const projectDescriptionDesc = 'project description (for child data compliance)'
 export const projectDescWithDefault = `project ID (defaults to ${projectEnvVarDefault})`
@@ -484,6 +484,10 @@ export const toEntityTypeFlag = flags.string({
 export const watchFlag = flags.boolean({
   default: false,
   description: 'poll status of job every minute',
+})
+
+export const withApplicationName = flags.string({
+  description: 'filter results by Mix application name',
 })
 
 export const withBuildTypeMultipleFlag = flags.string({
