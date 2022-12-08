@@ -17,6 +17,7 @@ import {asChannelsList, asDataPackslist} from '../../utils/format'
 import {MixClient, MixResponse, MixResult, ProjectsListParams} from '../../mix/types'
 import {DomainOption} from '../../utils/validations'
 import {defaultLimit} from '../../utils/constants'
+import {pluralize as s} from '../../utils/format'
 
 const debug = makeDebug('mix:commands:projects:list')
 export default class ProjectsList extends MixCommand {
@@ -123,6 +124,9 @@ A number of flags can be used to constrain the returned results.`
 
   outputHumanReadable(transformedData: any, options: any) {
     debug('outputHumanReadable()')
+    const {channelsColumn, columns, context, featuresColumn, timeColumns} = this
+    const count: number = context.get('count')
+    const totalSize: number = context.get('totalSize')
     let isExcludeChannel = false
     let isIncludeFeatures = false
 
@@ -137,11 +141,14 @@ A number of flags can be used to constrain the returned results.`
 
     let tableColumns = {}
 
-    isIncludeFeatures ? (isExcludeChannel ? tableColumns = {...this.columns, ...this.featuresColumn, ...this.timeColumns} :
-      tableColumns = {...this.columns, ...this.featuresColumn, ...this.channelsColumn, ...this.timeColumns}) :
-      (isExcludeChannel ? tableColumns = {...this.columns, ...this.timeColumns} :
-        tableColumns = {...this.columns, ...this.channelsColumn, ...this.timeColumns})
+    isIncludeFeatures ? (isExcludeChannel ? tableColumns = {...columns, ...featuresColumn, ...timeColumns} :
+      tableColumns = {...columns, ...featuresColumn, ...channelsColumn, ...timeColumns}) :
+      (isExcludeChannel ? tableColumns = {...columns, ...timeColumns} :
+        tableColumns = {...columns, ...channelsColumn, ...timeColumns})
 
+    const resultInformation = count > 1 ? `1-${count}` : count
+
+    this.log(`\nShowing result${s(count)} ${chalk.cyan(resultInformation)} of ${chalk.cyan(totalSize)}.\n`)
     this.outputCLITable(transformedData, tableColumns)
 
     if (isIncludeFeatures) {
@@ -158,6 +165,12 @@ A number of flags can be used to constrain the returned results.`
   transformResponse(result: MixResult) {
     debug('transformResponse()')
     const data = result.data as any
-    return data.projects
+    const {count, totalSize, offset, limit, projects} = data
+    this.context.set('count', count)
+    this.context.set('offset', offset)
+    this.context.set('limit', limit)
+    this.context.set('totalSize', totalSize)
+
+    return projects
   }
 }
