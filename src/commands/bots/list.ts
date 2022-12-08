@@ -86,6 +86,8 @@ Flags 'live-only' and 'omit-overridden' can only be used with flag 'full'.`
     debug('get viewType()')
     const {full, 'live-only': liveOnly, 'omit-overridden': omitOverridden} = this.options
 
+    // oclif ensures that full is provided with either live-only/omit-overridden
+    // otherwise command errors out before viewType() gets called
     if (!full) {
       return 'BV_VIEW_UNSPECIFIED'
     }
