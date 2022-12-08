@@ -150,7 +150,7 @@ use applications:get to get full details for a single app.
     }
 
     if (totalSize > count) {
-      this.log(`\nShowing ${chalk.cyan(count)} of ${chalk.cyan(totalSize)} application${s(count)}.\n`)
+      this.log(`\nShowing ${chalk.cyan(count)} of ${chalk.cyan(totalSize)} application${s(totalSize)}.\n`)
     }
 
     super.outputCLITable(transformedData, columns)
