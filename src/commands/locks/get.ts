@@ -65,7 +65,8 @@ A project cannot be edited while it is locked.`
 
     this.log(`${chalk.bold('LockId')}: ${transformedData.lockId}`)
     this.log(`${chalk.bold('ProjectId')}: ${transformedData.projectId}`)
-    this.log(`${chalk.bold('LockOwnerName')}: ${transformedData.lockOwner.email}`)
+    this.log(`${chalk.bold('LockOwnerName')}: ${transformedData.lockOwner.name}`)
+    this.log(`${chalk.bold('LockOwnerEmail')}: ${transformedData.lockOwner.email}`)
     this.log(`${chalk.bold('LockUserId')}: ${transformedData.lockOwner.id}`)
     this.log(`${chalk.bold('CreateTime')}: ${transformedData.createTime}`)
     this.log(`${chalk.bold('Notes')}: ${transformedData.notes}`)
