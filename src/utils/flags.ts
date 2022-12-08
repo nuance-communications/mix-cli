@@ -486,6 +486,10 @@ export const watchFlag = flags.boolean({
   description: 'poll status of job every minute',
 })
 
+export const withApplicationName = flags.string({
+  description: 'filter results by Mix application name',
+})
+
 export const withBuildTypeMultipleFlag = flags.string({
   description: 'build types to include',
   options: buildTypeOptions,

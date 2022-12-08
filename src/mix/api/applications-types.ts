@@ -18,15 +18,21 @@ import {Expand} from './shared-types'
 export type ApplicationsView = 'AV_VIEW_UNSPECIFIED' | 'AV_FULL' | 'AV_FULL_AVAILABLE_CONFIGS'
 
 /** @hidden */
-export type ApplicationsListPathParams = {
-  /** ID of the organization for which to get the list of applications. */
-  orgId: string
-}
-
-/** @hidden */
 export type ApplicationsListSearchParams = {
   /** Runtime app ID to filter the results; for example, NMDPTRIAL_alex_smith_company_com_20190919T190532. */
   appId?: string,
+
+  /** Filter results parameter: application display name. The search is case sensitive. */
+  filter?: string
+
+  /** The maximum number of items to be returned in the response. */
+  limit?: number
+
+  /** The offset from which (sorted) elements will get included in the response. */
+  offset?: number
+
+  /** ID of the organization for which to get the list of applications. */
+  orgId?: string
 
   /**
    * Application view to return.
@@ -39,7 +45,7 @@ export type ApplicationsListSearchParams = {
 }
 
 /** @hidden */
-export type ApplicationsListParams = Expand<ApplicationsListPathParams & ApplicationsListSearchParams>
+export type ApplicationsListParams = Expand<ApplicationsListSearchParams>
 
 /** @hidden */
 export type ApplicationsParams = ApplicationsListParams
