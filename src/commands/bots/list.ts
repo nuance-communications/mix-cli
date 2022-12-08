@@ -22,7 +22,13 @@ export default class BotsList extends MixCommand {
   static description = `list bots in an organization
   
 Use this command to list bots for a specific Mix organization.
-A number of flags can be used to constrain the returned results.`
+Use flag 'full' to list all bot details, including the list of bot configs.
+Use flag 'live-only'  with flag 'full' to filter out
+bot configs that are NOT deployed.
+Use flag 'omit-overridden'  with flag 'full' to filter out
+bot configs that are overridden.
+Flags 'live-only' and 'omit-overridden' cannot be used together.
+Flags 'live-only' and 'omit-overridden' can only be used with flag 'full'.`
 
   static examples = [
     '$ mix bots:list -O 64',
@@ -114,8 +120,7 @@ A number of flags can be used to constrain the returned results.`
     debug('outputHumanReadable()')
     const {columns, options} = this
     if (transformedData.length === 0) {
-      const msg = 'No bots found.'
-      this.log(msg)
+      this.log('No bots found.')
 
       return
     }
