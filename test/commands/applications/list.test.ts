@@ -35,8 +35,8 @@ describe('applications:list command', () => {
       .command(['applications:list'])
     .it('applications:list provides human-readable output', (ctx) => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
-      const headers = lines[0].split(/\s+/)
-      const firstRow = lines[2].split(/\s+/)
+      const headers = lines[3].split(/\s+/)
+      const firstRow = lines[5].split(/\s+/)
       expect(headers).to.deep.equal(['ApplicationId', 'Name'])
       expect(firstRow).to.deep.equal('1 Sample App'.split(/\s+/))
     })
