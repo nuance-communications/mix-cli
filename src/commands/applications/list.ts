@@ -142,9 +142,8 @@ use applications:get to get full details for a single app.
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    options.organization ?
-      this.requestActionMessage = `Retrieving applications for organization ID ${chalk.cyan(options.organization)}` :
-      this.requestActionMessage = 'Retrieving applications'
+      const optionalOrganizationInfo = options.organization ? ` for organization ID ${chalk.cyan(options.organization)}` : ''
+      this.requestActionMessage = 'Retrieving applications' + optionalOrganizationInfo
   }
 
   transformResponse(result: MixResult) {
