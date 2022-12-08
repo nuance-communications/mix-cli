@@ -9,7 +9,7 @@
 export default {
     invalidValuesResponse: {
       code: 400,
-      message: 'Invalid application id provided',
+      message: 'Invalid application ID provided',
       details: []
     },
     unauthorizedResponse: {

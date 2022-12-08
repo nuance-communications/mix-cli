@@ -202,7 +202,7 @@ describe('applications:list command', () => {
       )
       .stdout()
       .command(['applications:list'])
-    .it('applications:list shows error message for no applications', (ctx) => {
+    .it('applications:list shows relevant message if no applications found', (ctx) => {
       expect(ctx.stdout).to.contain('No applications')
     })
   })
