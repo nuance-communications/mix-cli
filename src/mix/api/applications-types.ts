@@ -15,7 +15,7 @@ import {Expand} from './shared-types'
  *
  * @defaultValue: ACV_VIEW_UNSPECIFIED
  */
-export type ApplicationsView = 'AV_VIEW_UNSPECIFIED' | 'AV_FULL' | 'AV_FULL_AVAILABLE_CONFIGS'
+export type ApplicationsView = 'AV_VIEW_UNSPECIFIED' | 'AV_FULL' | 'AV_FULL_AVAILABLE_CONFIGS' | 'AV_FULL_LIVE_CONFIGS'
 
 /** @hidden */
 export type ApplicationsListSearchParams = {
@@ -36,11 +36,13 @@ export type ApplicationsListSearchParams = {
 
   /**
    * Application view to return.
-   * - ACV_VIEW_UNSPECIFIED: Returns credentials details without including clients
-   * - ACV_FULL: Returns all credentials details, including list of clients
+   * - AV_VIEW_UNSPECIFIED: Returns application details without including application configurations
+   * - AV_FULL: Returns all application details, including the list of application configurations
+   * - AV_FULL_AVAILABLE_CONFIGS: Returns all application details, omitting configs that are overridden
+   * - AV_FULL_LIVE_CONFIGS: Returns all application configs that are deployed
    *
    * @defaultValue: ACV_VIEW_UNSPECIFIED
-   */
+  */
   view?: ApplicationsView
 }
 

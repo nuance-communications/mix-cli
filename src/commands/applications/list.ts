@@ -44,9 +44,15 @@ A number of flags can be used to constrain the returned results.`
       required: false,
     },
     ...MixFlags.tableFlags({except: ['extended']}),
+    'live-only': flags.boolean({
+      description: MixFlags.liveOnlyFlag.description,
+      dependsOn: ['full'],
+      exclusive: ['omit-overridden'],
+    }),
     'omit-overridden': flags.boolean({
       description: MixFlags.omitOverriddenDesc,
       dependsOn: ['full'],
+      exclusive: ['live-only'],
     }),
     'with-name': MixFlags.withApplicationName,
     'with-runtime-app': MixFlags.withRuntimeApp,
@@ -85,13 +91,23 @@ A number of flags can be used to constrain the returned results.`
 
   get viewType() {
     debug('get viewType()')
+    const {full, 'live-only': liveOnly, 'omit-overridden': omitOverridden} = this.options
 
-    const {full, 'omit-overridden': omitOverridden} = this.options
-    return full && omitOverridden ?
-      'AV_FULL_AVAILABLE_CONFIGS' :
-      (full ?
-        'AV_FULL' :
-        'AV_VIEW_UNSPECIFIED')
+    // oclif ensures that full is provided with either live-only/omit-overridden
+    // otherwise command errors out before viewType() gets called
+    if (!full) {
+      return 'AV_VIEW_UNSPECIFIED'
+    }
+
+    if (liveOnly) {
+      return 'AV_FULL_LIVE_CONFIGS'
+    }
+
+    if (omitOverridden) {
+      return 'AV_FULL_AVAILABLE_CONFIGS'
+    }
+
+    return 'AV_FULL'
   }
 
   async buildRequestParameters(options: Partial<flags.Output>): Promise<ApplicationsListParams> {
