@@ -74,7 +74,7 @@ describe('locks:get command', () => {
       )
       .stdout()
       .command(['locks:get', '-P', projectId])
-    .it('locks:get shows error message with no lock', (ctx) => {
+    .it('locks:get shows relevant message if no locks are returned', (ctx) => {
       expect(ctx.stdout).to.contain('No lock')
     })
   })
