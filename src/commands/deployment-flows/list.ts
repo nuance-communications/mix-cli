@@ -104,7 +104,9 @@ The organization ID can be retrieved by using the organizations:list command.`
       }
 
       if (totalSize > count) {
-        this.log(`\nShowing ${chalk.cyan(count)} of ${totalSize} deployment flow${s(count)}.\n`)
+        this.log()
+        this.log(`Showing ${chalk.cyan(count)} of ${totalSize} deployment flow${s(totalSize)}.`)
+        this.log()
       }
     } else {
       this.log(`No deployment flows found for organization ${chalk.cyan(options.organization)}`)
