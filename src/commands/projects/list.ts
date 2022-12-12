@@ -35,10 +35,7 @@ A number of flags can be used to constrain the returned results.`
   ]
 
   static flags = {
-    'include-features': flags.boolean({
-      description: 'include the list of features supported by engine pack of project',
-      default: false,
-    }),
+    'include-features': MixFlags.includeFeaturesFlag,
     'exclude-channels': MixFlags.excludeChannelsFlag,
     json: MixFlags.jsonFlag,
     organization: {
@@ -126,9 +123,10 @@ A number of flags can be used to constrain the returned results.`
     debug('outputHumanReadable()')
     const {channelsColumn, columns, context, featuresColumn, timeColumns} = this
     const count: number = context.get('count')
+    const offset: number = context.get('offset')
     const totalSize: number = context.get('totalSize')
-    let isExcludeChannel = false
-    let isIncludeFeatures = false
+    const shouldIncludeChannel = !options['exclude-channels']
+    const shouldIncludeFeatures = options['include-features']
 
     if (transformedData.length === 0) {
       this.log('No projects found.')
@@ -136,30 +134,29 @@ A number of flags can be used to constrain the returned results.`
       return
     }
 
-    options['exclude-channels'] ? isExcludeChannel = true : isExcludeChannel = false
-    options['include-features'] ? isIncludeFeatures = true : isIncludeFeatures = false
+    const tableColumns = {
+      ...columns,
+      ...(shouldIncludeChannel ? channelsColumn : {}),
+      ...(shouldIncludeFeatures ? featuresColumn : {}),
+      ...timeColumns,
+    }
 
-    let tableColumns = {}
+    const resultInformation = offset + count > 1 ? `${chalk.cyan(offset + 1)}-${chalk.cyan(offset + count)}` : chalk.cyan(offset + count)
 
-    isIncludeFeatures ? (isExcludeChannel ? tableColumns = {...columns, ...featuresColumn, ...timeColumns} :
-      tableColumns = {...columns, ...featuresColumn, ...channelsColumn, ...timeColumns}) :
-      (isExcludeChannel ? tableColumns = {...columns, ...timeColumns} :
-        tableColumns = {...columns, ...channelsColumn, ...timeColumns})
-
-    const resultInformation = count > 1 ? `1-${count}` : count
-
-    this.log(`\nShowing result${s(count)} ${chalk.cyan(resultInformation)} of ${chalk.cyan(totalSize)}.\n`)
     this.outputCLITable(transformedData, tableColumns)
+    this.log()
+    this.log(`Result${s(offset + count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
+    this.log()
 
-    if (isIncludeFeatures) {
-      this.log('\nRun the command again with the --json flag to see all engine pack features.')
+    if (shouldIncludeFeatures) {
+      this.log('Run the command again with the --json flag to see all engine pack features.')
     }
   }
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    options.organization ? this.requestActionMessage = `Retrieving projects for organization ID ${chalk.cyan(options.organization)}` :
-      this.requestActionMessage = 'Retrieving projects across all organizations'
+    const optionalOrganizationInfo = options.organization ? ` for organization ID ${chalk.cyan(options.organization)}` : ''
+    this.requestActionMessage = 'Retrieving projects' + optionalOrganizationInfo
   }
 
   transformResponse(result: MixResult) {

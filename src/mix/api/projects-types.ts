@@ -124,7 +124,7 @@ export type ProjectsListBodyParams = {
   /** The maximum number of items to be returned in the response. */
   limit?: number
 
-  /** The offset from which (sorted) elements will get included in the response. */
+  /** The offset from which elements will get included in the response. */
   offset?: number
 
   /** ID of the organization for which to get the list of projects. */

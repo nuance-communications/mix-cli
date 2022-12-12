@@ -197,6 +197,11 @@ export const hasAFlag = flags.string({
   multiple: true,
 })
 
+export const includeFeaturesFlag = flags.boolean({
+  description: "include the list of features supported by project's engine pack",
+  default: false,
+})
+
 export const inputFilePathFlag = flags.string({
   char: filePathShortucut,
   description: 'input file path',
@@ -518,7 +523,7 @@ export const withOrganizationTypeFlag = flags.string({
 })
 
 export const withProjectName = flags.string({
-  description: 'filter results by project name (The search is case sensitive)',
+  description: 'filter results by project name (case sensitive)',
 })
 
 export const withRuntimeApp = flags.string({
