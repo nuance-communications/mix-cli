@@ -54,10 +54,14 @@ A number of flags can be used to constrain the returned results.`
       id: {header: 'ProjectId'},
       displayName: {header: 'Name'},
       languageTopic: {header: 'LanguageTopic'},
+      ...(this.options['exclude-channels'] ? {} : this.channelsColumn),
       datapacks: {
         header: 'DataPacks',
         get: asDataPackslist,
       },
+      ...(this.options['include-features'] ? this.featuresColumn : {}),
+      createTime: {header: 'CreateTime'},
+      updateTime: {header: 'UpdateTime'},
     }
   }
 
@@ -76,13 +80,6 @@ A number of flags can be used to constrain the returned results.`
         header: 'Features',
         get: ({enginePackFeatures}: any) => enginePackFeatures.join(','),
       },
-    }
-  }
-
-  get timeColumns() {
-    return {
-      createTime: {header: 'CreateTime'},
-      updateTime: {header: 'UpdateTime'},
     }
   }
 
@@ -121,11 +118,10 @@ A number of flags can be used to constrain the returned results.`
 
   outputHumanReadable(transformedData: any, options: any) {
     debug('outputHumanReadable()')
-    const {channelsColumn, columns, context, featuresColumn, timeColumns} = this
+    const {columns, context} = this
     const count: number = context.get('count')
     const offset: number = context.get('offset')
     const totalSize: number = context.get('totalSize')
-    const shouldIncludeChannel = !options['exclude-channels']
     const shouldIncludeFeatures = options['include-features']
 
     if (transformedData.length === 0) {
@@ -134,22 +130,15 @@ A number of flags can be used to constrain the returned results.`
       return
     }
 
-    const tableColumns = {
-      ...columns,
-      ...(shouldIncludeChannel ? channelsColumn : {}),
-      ...(shouldIncludeFeatures ? featuresColumn : {}),
-      ...timeColumns,
-    }
-
     const resultInformation = offset + count > 1 ? `${chalk.cyan(offset + 1)}-${chalk.cyan(offset + count)}` : chalk.cyan(offset + count)
 
-    this.outputCLITable(transformedData, tableColumns)
+    this.outputCLITable(transformedData, columns)
     this.log()
     this.log(`Result${s(offset + count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
     this.log()
 
     if (shouldIncludeFeatures) {
-      this.log('Run the command again with the --json flag to see all engine pack features.')
+      this.log("Run the command again with the 'json' flag to see all engine pack features.")
     }
   }
 
