@@ -87,10 +87,34 @@ export default {
           },
         ],
         createTime: 'later'
+      },
+      {
+        id: '15',
+        applicationName: 'Sample App 1',
+        organizationId: '3',
+        organizationName: 'name@company.com',
+        configs: [
+          {
+            id: '54',
+            tag:'A54',
+            deployments: [],
+            parentId: '',
+            deploymentFlowId: '6',
+            builds: {},
+            projectDetails: {
+              projectId: '36',
+              projectName: 'Test Project',
+              isChildDataCompliant: true,
+              projectDescription: 'Test Project.'
+            },
+            createTime: 'later'
+          },
+        ],
+        createTime: 'later'
       }
     ],
-    count: 1,
-    totalSize: 1,
+    count: 2,
+    totalSize: 15,
     limit: 2,
     offset: 0
   },
