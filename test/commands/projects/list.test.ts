@@ -33,7 +33,7 @@ describe('projects:list command', () => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
       const headers = lines[0].split(/\s+/)
 
-      expect(headers).to.deep.equal(['ProjectId', 'Name', 'LanguageTopic', 'DataPacks', 'Channels', 'CreateTime', 'UpdateTime'])
+      expect(headers).to.deep.equal(['ProjectId', 'Name', 'LanguageTopic', 'Channels', 'DataPacks', 'CreateTime', 'UpdateTime'])
     })
 
   test
@@ -55,6 +55,6 @@ describe('projects:list command', () => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
       const headers = lines[0].split(/\s+/)
 
-      expect(headers).to.deep.equal(['ProjectId', 'Name', 'LanguageTopic', 'DataPacks', 'Channels', 'CreateTime', 'UpdateTime'])
+      expect(headers).to.deep.equal(['ProjectId', 'Name', 'LanguageTopic', 'Channels', 'DataPacks', 'CreateTime', 'UpdateTime'])
     })
 })
