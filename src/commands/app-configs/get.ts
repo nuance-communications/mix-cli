@@ -22,7 +22,7 @@ export default class AppConfigsGet extends MixCommand {
   
 Use this command to get details about a particular application configuration.
 The configuration ID can be retrieved using the app-configs:list command.
-Use the --json or --yaml flag to get the full details as the human-readable
+Use the 'json' or 'yaml' flag to get the full details as the human-readable
 output is brief.`
 
   static examples = [
