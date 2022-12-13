@@ -78,7 +78,7 @@ export default class ApplicationsGet extends MixCommand {
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const {columns, configsColumns} = this
+    const {columns, configsColumns, options} = this
 
     if (transformedData.length === 0) {
       this.log('No application found.')
@@ -89,21 +89,24 @@ export default class ApplicationsGet extends MixCommand {
     const configsData: any[] = []
 
     for (const application of Object.keys(transformedData)) {
-      const {configs} = transformedData[application]
+      const {id, configs} = transformedData[application]
+      const applicationId = options['mix-app'].toString()
 
-      this.outputAsKeyValuePairs(transformedData[application], columns)
-      this.log('')
+      if (id === applicationId) {
+        this.outputAsKeyValuePairs(transformedData[application], columns)
+        this.log('')
 
-      for (const config of configs) {
-        const row: any = {}
+        for (const config of configs) {
+          const row: any = {}
 
-        row.configId = config.id
-        row.deploymentFlowId = config.deploymentFlowId
-        row.projectId = config.projectDetails.projectId
-        row.projectName = config.projectDetails.projectName
-        row.createTime = config.createTime
+          row.configId = config.id
+          row.deploymentFlowId = config.deploymentFlowId
+          row.projectId = config.projectDetails.projectId
+          row.projectName = config.projectDetails.projectName
+          row.createTime = config.createTime
 
-        configsData.push(row)
+          configsData.push(row)
+        }
       }
     }
 

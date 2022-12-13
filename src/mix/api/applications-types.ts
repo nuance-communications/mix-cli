@@ -38,10 +38,12 @@ export type ApplicationsListSearchParams = {
 
   /**
    * Application view to return.
-   * - ACV_VIEW_UNSPECIFIED: Returns credentials details without including clients
-   * - ACV_FULL: Returns all credentials details, including list of clients
+   * - AV_VIEW_UNSPECIFIED: Returns application details without including application configurations
+   * - AV_FULL: Returns all application details, including the list of application configurations
+   * - AV_FULL_AVAILABLE_CONFIGS: Returns all application details, omitting configs that are overridden
+   * - AV_FULL_LIVE_CONFIGS: Returns all application configs that are deployed
    *
-   * @defaultValue: ACV_VIEW_UNSPECIFIED
+   * @defaultValue: AV_VIEW_UNSPECIFIED
    */
   view?: ApplicationsView
 }
