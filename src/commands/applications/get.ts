@@ -94,7 +94,7 @@ export default class ApplicationsGet extends MixCommand {
 
       if (id === applicationId) {
         this.outputAsKeyValuePairs(transformedData[application], columns)
-        this.log('')
+        this.log()
 
         for (const config of configs) {
           const row: any = {}
