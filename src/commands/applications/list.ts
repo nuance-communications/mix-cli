@@ -133,6 +133,7 @@ A number of flags can be used to constrain the returned results.`
     debug('outputHumanReadable()')
     const {columns, context, options} = this
     const count: number = context.get('count')
+    const offset: number = context.get('offset')
     const totalSize: number = context.get('totalSize')
 
     if (transformedData.length === 0) {
@@ -149,13 +150,14 @@ use applications:get to get full details for a single app.
 `)
     }
 
-    if (totalSize > count) {
-      this.log()
-      this.log(`Showing ${chalk.cyan(count)} of ${chalk.cyan(totalSize)} application${s(totalSize)}.`)
-      this.log()
-    }
-
     super.outputCLITable(transformedData, columns)
+
+    if (totalSize >= count) {
+      const resultInformation = offset + count > 1 ? `${chalk.cyan(offset + 1)}-${chalk.cyan(offset + count)}` : chalk.cyan(offset + count)
+
+      this.log()
+      this.log(`Result${s(offset + count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
+    }
   }
 
   setRequestActionMessage(options: any) {
