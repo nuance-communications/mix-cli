@@ -153,10 +153,10 @@ use applications:get to get full details for a single app.
     super.outputCLITable(transformedData, columns)
 
     if (totalSize >= count) {
-      const resultInformation = offset + count > 1 ? `${chalk.cyan(offset + 1)}-${chalk.cyan(offset + count)}` : chalk.cyan(offset + count)
+      const resultInformation = count > 1 ? `${chalk.cyan(offset + 1)}-${chalk.cyan(offset + count)}` : chalk.cyan(count)
 
       this.log()
-      this.log(`Result${s(offset + count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
+      this.log(`Result${s(count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
     }
   }
 
