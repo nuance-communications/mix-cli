@@ -76,6 +76,21 @@ export default class ApplicationsGet extends MixCommand {
     return ApplicationsAPI.getApplications(client, params)
   }
 
+  outputJSON(result: MixResult): void {
+    debug('outputJSON()')
+    const data = result.data as any
+    const transformedDataResponse = Object.values(data.applications).filter(
+      (application: any) => (application.id === this.options['mix-app'].toString()),
+    )
+    const applications: any = {}
+
+    for (const application of transformedDataResponse) {
+      applications.application = application
+    }
+
+    this.log(JSON.stringify(applications, null, 2))
+  }
+
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
     const {columns, configsColumns, options} = this
