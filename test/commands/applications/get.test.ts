@@ -60,7 +60,6 @@ describe('applications:get command', () => {
       .command(['applications:get', '-M', applicationId, '--json'])
     .it('applications:get provides JSON output for given applicationId', (ctx) => {
       const result = JSON.parse(ctx.stdout)
-      console.log(ctx.stdout);
       expect(result).to.deep.equal(applicationsGetJsonResponse)
     })
   })
