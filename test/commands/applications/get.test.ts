@@ -12,6 +12,7 @@ import testData from './applications-test-data'
 
 const {
   applicationsGetResponse,
+  applicationsGetJsonResponse,
   noApplicationsResponse,
 } = testData
 
@@ -59,7 +60,8 @@ describe('applications:get command', () => {
       .command(['applications:get', '-M', applicationId, '--json'])
     .it('applications:get provides JSON output for given applicationId', (ctx) => {
       const result = JSON.parse(ctx.stdout)
-      expect(result).to.deep.equal(applicationsGetResponse)
+      console.log(ctx.stdout);
+      expect(result).to.deep.equal(applicationsGetJsonResponse)
     })
   })
 
