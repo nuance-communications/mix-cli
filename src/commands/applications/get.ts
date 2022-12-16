@@ -14,6 +14,7 @@ import * as MixFlags from '../../utils/flags'
 import MixCommand, {Columns} from '../../utils/base/mix-command'
 import {ApplicationsGetParams, MixClient, MixResponse, MixResult} from '../../mix/types'
 import {DomainOption} from '../../utils/validations'
+import YAML from 'yaml'
 
 const debug = makeDebug('mix:commands:applications:get')
 
@@ -78,51 +79,39 @@ export default class ApplicationsGet extends MixCommand {
 
   outputJSON(result: MixResult): void {
     debug('outputJSON()')
-    const data = result.data as any
-    const transformedDataResponse = Object.values(data.applications).filter(
-      (application: any) => (application.id === this.options['mix-app'].toString()),
-    )
-    const applications: any = {}
+    this.log(JSON.stringify(this.transformResponse(result), null, 2))
+  }
 
-    for (const application of transformedDataResponse) {
-      applications.application = application
-    }
-
-    this.log(JSON.stringify(applications, null, 2))
+  outputYAML(result: MixResult): void {
+    debug('outputYAML()')
+    this.log(YAML.stringify(this.transformResponse(result)))
   }
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const {columns, configsColumns, options} = this
+    const {columns, configsColumns} = this
 
-    if (transformedData.length === 0) {
+    if (transformedData.application === undefined) {
       this.log('No application found.')
 
       return
     }
 
     const configsData: any[] = []
+    const {configs} = transformedData.application
+    this.outputAsKeyValuePairs(transformedData.application, columns)
+    this.log()
 
-    for (const application of Object.keys(transformedData)) {
-      const {id, configs} = transformedData[application]
-      const applicationId = options['mix-app'].toString()
+    for (const config of configs) {
+      const row: any = {}
 
-      if (id === applicationId) {
-        this.outputAsKeyValuePairs(transformedData[application], columns)
-        this.log()
+      row.configId = config.id
+      row.deploymentFlowId = config.deploymentFlowId
+      row.projectId = config.projectDetails.projectId
+      row.projectName = config.projectDetails.projectName
+      row.createTime = config.createTime
 
-        for (const config of configs) {
-          const row: any = {}
-
-          row.configId = config.id
-          row.deploymentFlowId = config.deploymentFlowId
-          row.projectId = config.projectDetails.projectId
-          row.projectName = config.projectDetails.projectName
-          row.createTime = config.createTime
-
-          configsData.push(row)
-        }
-      }
+      configsData.push(row)
     }
 
     if (configsData.length > 0) {
@@ -138,6 +127,15 @@ export default class ApplicationsGet extends MixCommand {
   transformResponse(result: MixResult) {
     debug('transformResponse()')
     const data = result.data as any
-    return data.applications
+    const transformedDataResponse = Object.values(data.applications).filter(
+      (application: any) => (application.id === this.options['mix-app'].toString()),
+    )
+    const applications: any = {}
+
+    for (const application of transformedDataResponse) {
+      applications.application = application
+    }
+
+    return applications
   }
 }
