@@ -130,11 +130,11 @@ A number of flags can be used to constrain the returned results.`
       return
     }
 
-    const resultInformation = offset + count > 1 ? `${chalk.cyan(offset + 1)}-${chalk.cyan(offset + count)}` : chalk.cyan(offset + count)
+    const resultInformation = count > 1 ? `${chalk.cyan(offset + 1)}-${chalk.cyan(offset + count)}` : chalk.cyan(count)
 
     this.outputCLITable(transformedData, columns)
     this.log()
-    this.log(`Result${s(offset + count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
+    this.log(`Result${s(count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
     this.log()
 
     if (shouldIncludeFeatures) {
