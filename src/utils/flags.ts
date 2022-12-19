@@ -349,7 +349,7 @@ export const projectWithDefaultFlag = flags.integer({
 })
 
 export const projectTableFlag = flags.string({
-  description: 'data table to output (with --csv only)',
+  description: "data table to output (with 'csv' flag only)",
   dependsOn: ['csv'],
   exclusive: ['json', 'yaml'],
   options: ['channels', 'data-packs', 'project'],
@@ -433,18 +433,18 @@ export const tableFlags = (options: any) => {
   })}
   const columnsCSV = {columns: flags.string({
     dependsOn: ['csv'],
-    description: 'only show provided columns (comma-separated) (with --csv only)',
+    description: "only show provided columns (comma-separated) (with 'csv' flag only)",
     exclusive: ['extended', 'json', 'yaml'],
   })}
   const columnsTableCSV = {columns: flags.string({
     dependsOn: ['csv', 'table'],
-    description: 'only show provided columns (comma-separated) (with --csv only)',
+    description: "only show provided columns (comma-separated) (with 'csv' flag only)",
     exclusive: ['extended', 'json', 'yaml'],
   })}
   const tableCSV = {csv: flags.boolean({
     dependsOn: ['table'],
     exclusive: ['json', 'no-truncate', 'yaml'],
-    description: 'output to csv format (with --table only)',
+    description: "output to csv format (with 'table' flag only)",
   })}
 
   const csv = {csv: flags.boolean({exclusive: ['json', 'no-truncate', 'yaml'], description: 'output to csv format'})}

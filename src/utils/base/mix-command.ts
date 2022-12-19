@@ -442,7 +442,7 @@ that configuration file swiftly.`)
       this.context.get('count'))} of ${chalk.cyan(this.context.get('totalSize'))} shown.`)
 
     if ((this.context?.get('totalSize') ?? 0) > (this.context?.get('count') ?? 1)) {
-      this.log(`Use the ${chalk.cyan('--limit')} and ${chalk.cyan('--offset')} flags to view other parts of the list.`)
+      this.log(`Use the ${chalk.cyan('limit')} and ${chalk.cyan('offset')} flags to view other parts of the list.`)
     }
   }
 

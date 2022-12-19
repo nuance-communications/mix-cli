@@ -86,7 +86,7 @@ export const eDownloadFailed = (message: string) => {
       suggestions: [
         'Verify provided file path exists.',
         'Verify permissions on provided file path.',
-        'Use --overwrite to overwrite an existing file.',
+        "Use 'overwrite' flag to overwrite an existing file.",
       ],
     })
 }
@@ -129,7 +129,7 @@ export const eInvalidColumn = (message?: string, suggestions?: string[]) => {
     {
       code: Codes.InvalidColumnError,
       exit: 1,
-      suggestions: suggestions ? suggestions : ['verify the values passed to the --columns flag.'],
+      suggestions: suggestions ? suggestions : ["verify the values passed to the 'columns' flag."],
     })
 }
 
@@ -161,8 +161,8 @@ by the combination of its build type, project ID and build version.`,
     {
       code: Codes.NoBuildInfo,
       exit: 1,
-      suggestions: suggestions ?? ['Set --build-label flag OR ...',
-        'Set --project, --build-type AND –build-version flags.'], // default
+      suggestions: suggestions ?? ["Set 'build-label' flag OR ...",
+        "Set 'project', 'build-type' AND 'build-version' flags."], // default
     })
 }
 
@@ -179,11 +179,11 @@ export const eNotFound = (message?: string, suggestions?: string[]) => {
 export const eNotConfirmed = (confirm: string, expected: string) => {
   return new MixCLIError(
     `Operation was not confirmed.
-Value ${chalk.red(confirm)} supplied to --confirm flag does not match expected value ${chalk.cyan(expected)}. Aborting.`,
+Value ${chalk.red(confirm)} supplied to 'confirm' flag does not match expected value ${chalk.cyan(expected)}. Aborting.`,
     {
       code: Codes.NotConfirmed,
       exit: 1,
-      suggestions: ['check value supplied to --confirm flag and try again.'],
+      suggestions: ["check value supplied to 'confirm' flag and try again."],
     })
 }
 
