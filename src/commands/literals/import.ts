@@ -23,10 +23,10 @@ export default class LiteralsImport extends MixCommand {
 Use this command to import literal-value pairs into a project. By default, the
 literal-value pairs are appended to the project in the specified locale. It is
 also possible to completely replace literal-value pairs for the specified locale
-by using the --replace flag.
+by using the 'replace' flag.
 
 The import needs to be confirmed by re-typing the entity name when prompted.
-It can also be pre-confirmed by using the --confirm flag.`
+It can also be pre-confirmed by using the 'confirm' flag.`
 
   static examples = [
     'Import entity literals by appending',
