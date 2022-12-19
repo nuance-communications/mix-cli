@@ -114,9 +114,9 @@ describe('grammars:replace command', () => {
           `-c=${wrongEntity}`
          ])
         .catch(ctx => {
-          expect(ctx.message).to.contain('--confirm flag does not match expected value')
+          expect(ctx.message).to.contain("'confirm' flag does not match expected value")
         })
-      .it('grammars:replace errors out when --confirm flag does not match expected value')
+      .it("grammars:replace errors out when 'confirm' flag does not match expected value")
     })
   }),
   

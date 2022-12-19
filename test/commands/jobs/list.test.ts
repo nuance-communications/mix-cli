@@ -48,7 +48,7 @@ describe('jobs:list command', () => {
     .command(['jobs:list',
       `-P=${td.request.projectId}`])
     .it('indicates there are more samples to see ', ctx => {
-      expect(ctx.stdout).to.contain('Use the --limit and --offset flags to view other parts of the list')
+      expect(ctx.stdout).to.contain("Use the 'limit' and 'offset' flags to view other parts of the list")
       expect(ctx.stdout).to.contain(`Items 1-2 of 5 shown.`)
   })
 
