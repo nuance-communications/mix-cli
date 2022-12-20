@@ -28,7 +28,7 @@ The configuration ID can be retrieved using the bot-configs:list command.
 Bots are used in certain integration scenarios. A bot is a Mix application
 with configurations that include dialog builds.
 
-See https://docs.mix.nuance.com/mix-api/v4/#bots for details.`
+See https://docs.nuance.com/mix/apis/mix-api/v4/reference/bots/ for details.`
 
   static examples = [
     'Retrieve the interface of a bot',
