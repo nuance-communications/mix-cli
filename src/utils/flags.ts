@@ -43,7 +43,7 @@ export const projectEnvVarDefault = 'MIX_PROJECT'
 
 // Flag descriptions
 export const botIDDesc = 'Bot ID'
-export const buildLabelDesc = 'build label (format is <buildType>_<projectId>_<buildVersion>'
+export const buildLabelDesc = 'build label (format is <buildType>_<projectId>_<buildVersion>)'
 export const buildTypeDesc = 'build type'
 export const buildVersionDesc = 'build version'
 export const childDataCompliantDesc = 'marks projects as being child-data compliant'
