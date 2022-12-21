@@ -43,7 +43,7 @@ export const projectEnvVarDefault = 'MIX_PROJECT'
 
 // Flag descriptions
 export const botIDDesc = 'Bot ID'
-export const buildLabelDesc = 'build label (format is <buildType>_<projectId>_<buildVersion>'
+export const buildLabelDesc = 'build label (format is <buildType>_<projectId>_<buildVersion>)'
 export const buildTypeDesc = 'build type'
 export const buildVersionDesc = 'build version'
 export const childDataCompliantDesc = 'marks projects as being child-data compliant'
@@ -56,7 +56,7 @@ export const mixApplicationIDDesc = 'Mix application ID'
 export const noProjectInfoDesc = 'omit project details in table mode'
 export const noChannelsDesc = 'omit channel details in table mode'
 export const noDataPacksDesc = 'omit data pack details in table mode'
-export const omitOverriddenDesc = 'omit application configurations that are overriden'
+export const omitOverriddenDesc = 'omit application configurations that are overridden'
 export const projectDesc = 'project ID'
 export const projectDescriptionDesc = 'project description (for child data compliance)'
 export const projectDescWithDefault = `project ID (defaults to ${projectEnvVarDefault})`
@@ -494,6 +494,10 @@ export const toEntityTypeFlag = flags.string({
 export const watchFlag = flags.boolean({
   default: false,
   description: 'poll status of job every minute',
+})
+
+export const withApplicationName = flags.string({
+  description: 'filter results by Mix application name',
 })
 
 export const withBuildTypeMultipleFlag = flags.string({

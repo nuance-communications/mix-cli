@@ -22,7 +22,13 @@ export default class BotsList extends MixCommand {
   static description = `list bots in an organization
   
 Use this command to list bots for a specific Mix organization.
-A number of flags can be used to constrain the returned results.`
+Use flag 'full' to list all bot details, including the list of bot configs.
+Use flag 'live-only'  with flag 'full' to filter out
+bot configs that are NOT deployed.
+Use flag 'omit-overridden'  with flag 'full' to filter out
+bot configs that are overridden.
+Flags 'live-only' and 'omit-overridden' cannot be used together.
+Flags 'live-only' and 'omit-overridden' can only be used with flag 'full'.`
 
   static examples = [
     '$ mix bots:list -O 64',
@@ -31,11 +37,17 @@ A number of flags can be used to constrain the returned results.`
   static flags = {
     full: MixFlags.showFullBotDetailsFlag,
     json: MixFlags.jsonFlag,
+    'live-only': flags.boolean({
+      description: MixFlags.liveOnlyFlag.description,
+      dependsOn: ['full'],
+      exclusive: ['omit-overridden'],
+    }),
     organization: MixFlags.organizationFlag,
     ...MixFlags.tableFlags({except: ['extended']}),
     'omit-overridden': flags.boolean({
       description: MixFlags.omitOverriddenDesc,
       dependsOn: ['full'],
+      exclusive: ['live-only'],
     }),
     yaml: MixFlags.yamlFlag,
   }
@@ -72,13 +84,23 @@ A number of flags can be used to constrain the returned results.`
 
   get viewType() {
     debug('get viewType()')
+    const {full, 'live-only': liveOnly, 'omit-overridden': omitOverridden} = this.options
 
-    const {full, 'omit-overridden': omitOverridden} = this.options
-    return full && omitOverridden ?
-      'BV_FULL_AVAILABLE_CONFIGS' :
-      (full ?
-        'BV_FULL' :
-        'BV_VIEW_UNSPECIFIED')
+    // oclif ensures that full is provided with either live-only/omit-overridden
+    // otherwise command errors out before viewType() gets called
+    if (!full) {
+      return 'BV_VIEW_UNSPECIFIED'
+    }
+
+    if (liveOnly) {
+      return 'BV_FULL_LIVE_CONFIGS'
+    }
+
+    if (omitOverridden) {
+      return 'BV_FULL_AVAILABLE_CONFIGS'
+    }
+
+    return 'BV_FULL'
   }
 
   async buildRequestParameters(options: Partial<flags.Output>): Promise<BotsListParams> {
@@ -100,8 +122,7 @@ A number of flags can be used to constrain the returned results.`
     debug('outputHumanReadable()')
     const {columns, options} = this
     if (transformedData.length === 0) {
-      const msg = 'No bots found.'
-      this.log(msg)
+      this.log('No bots found.')
 
       return
     }

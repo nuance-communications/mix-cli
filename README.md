@@ -148,7 +148,7 @@ Please consult the [Mix V4 API documentation](https://mix.api.nuance.com/v4/swag
 for additional information.
 
 # Learning more about Mix
-Please visit the [Mix Documentation site](https://docs.mix.nuance.com?src=ghmixcli)
+Please visit the [Mix Documentation site](https://docs.nuance.com/mix/?src=ghmixcli)
 to learn more about Mix.
 
 # Contributing
@@ -618,7 +618,7 @@ DESCRIPTION
   Bots are used in certain integration scenarios. A bot is a Mix application
   with configurations that include dialog builds.
 
-  See https://docs.mix.nuance.com/mix-api/v4/#bots for details.
+  See https://docs.nuance.com/mix/apis/mix-api/v4/reference/bots/ for details.
 
 EXAMPLE
   $ mix bot-configs:list -B 164 --with-runtime-app NMDPTRIAL_alex_smith_company_com_20190919T190532
@@ -649,7 +649,7 @@ DESCRIPTION
   Bots are used in certain integration scenarios. A bot is a Mix application
   with configurations that include dialog builds.
 
-  See https://docs.mix.nuance.com/mix-api/v4/#bots for details.
+  See https://docs.nuance.com/mix/apis/mix-api/v4/reference/bots/ for details.
 
 EXAMPLES
   List bot credentials for a bot
@@ -682,7 +682,7 @@ DESCRIPTION
   Bots are used in certain integration scenarios. A bot is a Mix application
   with configurations that include dialog builds.
 
-  See https://docs.mix.nuance.com/mix-api/v4/#bots for details.
+  See https://docs.nuance.com/mix/apis/mix-api/v4/reference/bots/ for details.
 
 EXAMPLES
   Export the interface of a bot
@@ -712,7 +712,7 @@ DESCRIPTION
   Bots are used in certain integration scenarios. A bot is a Mix application
   with configurations that include dialog builds.
 
-  See https://docs.mix.nuance.com/mix-api/v4/#bots for details.
+  See https://docs.nuance.com/mix/apis/mix-api/v4/reference/bots/ for details.
 
 EXAMPLES
   Retrieve the interface of a bot

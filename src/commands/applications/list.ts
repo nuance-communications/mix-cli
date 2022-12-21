@@ -15,28 +15,45 @@ import * as MixFlags from '../../utils/flags'
 import MixCommand, {Columns} from '../../utils/base/mix-command'
 import {ApplicationsListParams, MixClient, MixResponse, MixResult} from '../../mix/types'
 import {DomainOption} from '../../utils/validations'
+import {defaultLimit} from '../../utils/constants'
 
 const debug = makeDebug('mix:commands:applications:list')
 
 export default class ApplicationsList extends MixCommand {
-  static description = `list Mix applications in an organization
+  static description = `list Mix applications
   
-Use this command to list Mix applications for a specific Mix organization.
+Use this command to list Mix applications.
 A number of flags can be used to constrain the returned results.`
 
   static examples = [
-    '$ mix applications:list -O 64',
+    'List Mix applications to which you have access, across all organizations',
+    'mix applications:list',
+    '',
+    'List Mix applications that are part of a particular organization',
+    'mix applications:list -O 64',
   ]
 
   static flags = {
     full: MixFlags.showFullApplicationDetailsFlag,
     json: MixFlags.jsonFlag,
-    organization: MixFlags.organizationFlag,
+    limit: MixFlags.limitFlag,
+    offset: MixFlags.offsetFlag,
+    organization: {
+      ...MixFlags.organizationFlag,
+      required: false,
+    },
     ...MixFlags.tableFlags({except: ['extended']}),
+    'live-only': flags.boolean({
+      description: MixFlags.liveOnlyFlag.description,
+      dependsOn: ['full'],
+      exclusive: ['omit-overridden'],
+    }),
     'omit-overridden': flags.boolean({
       description: MixFlags.omitOverriddenDesc,
       dependsOn: ['full'],
+      exclusive: ['live-only'],
     }),
+    'with-name': MixFlags.withApplicationName,
     'with-runtime-app': MixFlags.withRuntimeApp,
     yaml: MixFlags.yamlFlag,
   }
@@ -73,21 +90,34 @@ A number of flags can be used to constrain the returned results.`
 
   get viewType() {
     debug('get viewType()')
+    const {full, 'live-only': liveOnly, 'omit-overridden': omitOverridden} = this.options
 
-    const {full, 'omit-overridden': omitOverridden} = this.options
-    return full && omitOverridden ?
-      'AV_FULL_AVAILABLE_CONFIGS' :
-      (full ?
-        'AV_FULL' :
-        'AV_VIEW_UNSPECIFIED')
+    // oclif ensures that full is provided with either live-only/omit-overridden
+    // otherwise command errors out before viewType() gets called
+    if (!full) {
+      return 'AV_VIEW_UNSPECIFIED'
+    }
+
+    if (liveOnly) {
+      return 'AV_FULL_LIVE_CONFIGS'
+    }
+
+    if (omitOverridden) {
+      return 'AV_FULL_AVAILABLE_CONFIGS'
+    }
+
+    return 'AV_FULL'
   }
 
   async buildRequestParameters(options: Partial<flags.Output>): Promise<ApplicationsListParams> {
     debug('buildRequestParameters()')
-    const {organization: orgId, 'with-runtime-app': appId} = options
+    const {limit = defaultLimit, offset, organization: orgId, 'with-name': filter, 'with-runtime-app': appId} = options
 
     return {
-      orgId,
+      ...(typeof limit === 'undefined' ? {} : {limit}),
+      ...(typeof offset === 'undefined' ? {} : {offset}),
+      ...(typeof orgId === 'undefined' ? {} : {orgId}),
+      ...(typeof filter === 'undefined' ? {} : {filter}),
       ...(typeof appId === 'undefined' ? {} : {appId}),
       view: this.viewType,
     }
@@ -100,7 +130,7 @@ A number of flags can be used to constrain the returned results.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const {columns, options} = this
+    const {options} = this
 
     if (transformedData.length === 0) {
       this.log('No applications found.')
@@ -116,17 +146,24 @@ use applications:get to get full details for a single app.
 `)
     }
 
-    super.outputCLITable(transformedData, columns)
+    super.outputHumanReadable(transformedData, options)
   }
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = `Retrieving applications for organization ID ${chalk.cyan(options.organization)}`
+    const optionalOrganizationInfo = options.organization ? ` for organization ID ${chalk.cyan(options.organization)}` : ''
+    this.requestActionMessage = 'Retrieving applications' + optionalOrganizationInfo
   }
 
   transformResponse(result: MixResult) {
     debug('transformResponse()')
     const data = result.data as any
-    return data.applications
+    const {applications, count, totalSize, offset, limit} = data
+    this.context.set('count', count)
+    this.context.set('offset', offset)
+    this.context.set('limit', limit)
+    this.context.set('totalSize', totalSize)
+
+    return applications
   }
 }

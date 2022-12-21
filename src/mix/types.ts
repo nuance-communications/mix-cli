@@ -12,7 +12,7 @@ import {AllowedHTTPMethod} from './api/shared-types'
 
 import {AppConfigsParams, AppConfigsSearchParams} from './api/app-configs-types'
 import {AppCredentialsParams, AppCredentialsSearchParams} from './api/app-credentials-types'
-import {ApplicationsListSearchParams, ApplicationsParams} from './api/applications-types'
+import {ApplicationsSearchParams, ApplicationsParams} from './api/applications-types'
 import {BotConfigsParams, BotConfigsSearchParams} from './api/bot-configs-types'
 import {BotCredentialsParams, BotCredentialsSearchParams} from './api/bot-credentials-types'
 import {BotInterfacesParams} from './api/bot-interfaces-types'
@@ -91,7 +91,7 @@ export type MixRequestParams =
 export type MixRequestSearchParams =
   | AppConfigsSearchParams
   | AppCredentialsSearchParams
-  | ApplicationsListSearchParams
+  | ApplicationsSearchParams
   | BotConfigsSearchParams
   | BotCredentialsSearchParams
   | BotsSearchParams
