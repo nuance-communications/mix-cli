@@ -35,8 +35,8 @@ describe('applications:list command', () => {
       .command(['applications:list'])
     .it('applications:list provides human-readable output', (ctx) => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
-      const headers = lines[3].split(/\s+/)
-      const firstRow = lines[5].split(/\s+/)
+      const headers = lines[0].split(/\s+/)
+      const firstRow = lines[2].split(/\s+/)
       expect(headers).to.deep.equal(['ApplicationId', 'Name'])
       expect(firstRow).to.deep.equal('1 Sample App'.split(/\s+/))
     })
@@ -180,11 +180,29 @@ describe('applications:list command', () => {
   describe('applications:list handling of missing flags', () => {
     test
       .stderr()
+      .command(['applications:list', '--live-only'])
+      .catch(ctx => {
+        expect(ctx.message).to.contain('--full')
+      })
+    .it('applications:list errors out when --live-only is used without --full')
+
+    test
+      .stderr()
       .command(['applications:list', '--omit-overridden'])
       .catch(ctx => {
         expect(ctx.message).to.contain('--full')
       })
     .it('applications:list errors out when --omit-overriden is used without --full')
+  }),
+
+  describe('applications:list handling of conflict flags', () => {
+    test
+      .stderr()
+      .command(['applications:list', '--full', '--live-only', '--omit-overridden'])
+      .catch(ctx => {
+        expect(ctx.message).to.contain('cannot also be provided')
+      })
+    .it('applications:list errors out when --live-only and --omit-overridden supplied together')
   }),
 
   describe('applications:list handling of empty data', () => {

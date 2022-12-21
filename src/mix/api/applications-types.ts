@@ -17,7 +17,7 @@ import {Expand} from './shared-types'
  *
  * @defaultValue: AV_VIEW_UNSPECIFIED
  */
-export type ApplicationsView = 'AV_VIEW_UNSPECIFIED' | 'AV_FULL' | 'AV_FULL_AVAILABLE_CONFIGS'
+export type ApplicationsView = 'AV_VIEW_UNSPECIFIED' | 'AV_FULL' | 'AV_FULL_AVAILABLE_CONFIGS' | 'AV_FULL_LIVE_CONFIGS'
 
 /** @hidden */
 export type ApplicationsListSearchParams = {

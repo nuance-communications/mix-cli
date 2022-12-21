@@ -16,7 +16,6 @@ import MixCommand, {Columns} from '../../utils/base/mix-command'
 import {ApplicationsListParams, MixClient, MixResponse, MixResult} from '../../mix/types'
 import {DomainOption} from '../../utils/validations'
 import {defaultLimit} from '../../utils/constants'
-import {pluralize as s} from '../../utils/format'
 
 const debug = makeDebug('mix:commands:applications:list')
 
@@ -44,9 +43,15 @@ A number of flags can be used to constrain the returned results.`
       required: false,
     },
     ...MixFlags.tableFlags({except: ['extended']}),
+    'live-only': flags.boolean({
+      description: MixFlags.liveOnlyFlag.description,
+      dependsOn: ['full'],
+      exclusive: ['omit-overridden'],
+    }),
     'omit-overridden': flags.boolean({
       description: MixFlags.omitOverriddenDesc,
       dependsOn: ['full'],
+      exclusive: ['live-only'],
     }),
     'with-name': MixFlags.withApplicationName,
     'with-runtime-app': MixFlags.withRuntimeApp,
@@ -85,13 +90,23 @@ A number of flags can be used to constrain the returned results.`
 
   get viewType() {
     debug('get viewType()')
+    const {full, 'live-only': liveOnly, 'omit-overridden': omitOverridden} = this.options
 
-    const {full, 'omit-overridden': omitOverridden} = this.options
-    return full && omitOverridden ?
-      'AV_FULL_AVAILABLE_CONFIGS' :
-      (full ?
-        'AV_FULL' :
-        'AV_VIEW_UNSPECIFIED')
+    // oclif ensures that full is provided with either live-only/omit-overridden
+    // otherwise command errors out before viewType() gets called
+    if (!full) {
+      return 'AV_VIEW_UNSPECIFIED'
+    }
+
+    if (liveOnly) {
+      return 'AV_FULL_LIVE_CONFIGS'
+    }
+
+    if (omitOverridden) {
+      return 'AV_FULL_AVAILABLE_CONFIGS'
+    }
+
+    return 'AV_FULL'
   }
 
   async buildRequestParameters(options: Partial<flags.Output>): Promise<ApplicationsListParams> {
@@ -115,9 +130,7 @@ A number of flags can be used to constrain the returned results.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const {columns, context, options} = this
-    const count: number = context.get('count')
-    const totalSize: number = context.get('totalSize')
+    const {options} = this
 
     if (transformedData.length === 0) {
       this.log('No applications found.')
@@ -133,11 +146,7 @@ use applications:get to get full details for a single app.
 `)
     }
 
-    if (totalSize > count) {
-      this.log(`\nShowing ${chalk.cyan(count)} of ${chalk.cyan(totalSize)} application${s(count)}.\n`)
-    }
-
-    super.outputCLITable(transformedData, columns)
+    super.outputHumanReadable(transformedData, options)
   }
 
   setRequestActionMessage(options: any) {
