@@ -127,15 +127,12 @@ export default class ApplicationsGet extends MixCommand {
   transformResponse(result: MixResult) {
     debug('transformResponse()')
     const data = result.data as any
-    const transformedDataResponse = Object.values(data.applications).filter(
-      (application: any) => (application.id === this.options['mix-app'].toString()),
+    // Let's only keep the entry that has a matching application ID.
+    // The list endpoint may return entries that matched on the application name
+    // but those are discarded.
+    const application = Object.values(data.applications).find(
+      (app: any) => (app.id === this.options['mix-app'].toString()),
     )
-    const applications: any = {}
-
-    for (const application of transformedDataResponse) {
-      applications.application = application
-    }
-
-    return applications
+    return {application}
   }
 }
