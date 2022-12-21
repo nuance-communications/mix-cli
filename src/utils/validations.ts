@@ -99,12 +99,12 @@ export function validateChannelModeOptions(modes: string[]): void {
     if (!(mode in modesSeen)) {
       debug('mode name is not valid')
       throw (eInvalidValue(`Unknown channel mode ${chalk.red(modes[i])} supplied to command.`, [
-        `Ensure all flags 'mode' are one of ${Object.keys(ChannelModalities).sort().join('|')}.`,
+        `Ensure each 'mode' flag value is one of ${Object.keys(ChannelModalities).sort().join('|')}.`,
       ]))
     } else if (modesSeen[mode]) {
       debug('mode name is duplicate (already seen)')
       throw (eInvalidValue(`Mode ${chalk.red(modes[i])} was supplied more than once.`, [
-        "Ensure all values of flags 'mode' are unique.",
+        "Ensure each 'mode' flag value is unique.",
       ]))
     }
 
@@ -169,14 +169,14 @@ export function validateRegexEntityParams(
 
   if (!isLocaleIgnored && (pattern === undefined || locale === undefined)) {
     throw (eMissingParameter('Regex entities require a pattern and a locale.', [
-      "Use the 'pattern' flag to provide the required regular expression.",
-      "Use the  'locale' flag to provide the locale for which the regular expression applies.",
+      "Use flag 'pattern' to provide the required regular expression.",
+      "Use flag 'locale' to provide the locale for which the regular expression applies.",
     ]))
   }
 
   if (isLocaleIgnored && pattern === undefined) {
     throw (eMissingParameter('Converting to a Regex entity requires a pattern.', [
-      "use the 'pattern' flag to provide the required regular expression.",
+      "use flag 'pattern' to provide the required regular expression.",
     ]))
   }
 }
