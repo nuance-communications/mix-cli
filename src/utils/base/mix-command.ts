@@ -439,10 +439,16 @@ that configuration file swiftly.`)
 
     if (this.options.filter) return
 
-    const resultInformation = this.context.get('count') > 1 ? `${chalk.cyan(this.context.get('offset') + 1)}-${chalk.cyan(this.context.get('offset') + this.context.get('count'))}` : chalk.cyan(this.context.get('count') + this.context.get('offset'))
+    const count = this.context.get('count')
+    const offset = this.context.get('offset')
+    const totalSize = this.context.get('totalSize')
+
+    const resultInformation = count > 1 ?
+      `${chalk.cyan(offset + 1)}-${chalk.cyan(offset + count)}` :
+      chalk.cyan(count + offset)
 
     this.log()
-    this.log(`Item${s(this.context.get('count'))} ${resultInformation} of ${chalk.cyan(this.context.get('totalSize'))} shown.`)
+    this.log(`Item${s(count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
 
     if ((this.context?.get('totalSize') ?? 0) > (this.context?.get('count') ?? 1)) {
       this.log(`Use the ${chalk.cyan('--limit')} and ${chalk.cyan('--offset')} flags to view other parts of the list.`)
