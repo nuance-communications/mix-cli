@@ -17,7 +17,6 @@ import {asChannelsList, asDataPackslist} from '../../utils/format'
 import {MixClient, MixResponse, MixResult, ProjectsListParams} from '../../mix/types'
 import {DomainOption} from '../../utils/validations'
 import {defaultLimit} from '../../utils/constants'
-import {pluralize as s} from '../../utils/format'
 
 const debug = makeDebug('mix:commands:projects:list')
 export default class ProjectsList extends MixCommand {
@@ -116,12 +115,9 @@ A number of flags can be used to constrain the returned results.`
     return ProjectsAPI.listProjects(client, params)
   }
 
-  outputHumanReadable(transformedData: any, options: any) {
+  outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const {columns, context} = this
-    const count: number = context.get('count')
-    const offset: number = context.get('offset')
-    const totalSize: number = context.get('totalSize')
+    const {options} = this
     const shouldIncludeFeatures = options['include-features']
 
     if (transformedData.length === 0) {
@@ -130,14 +126,10 @@ A number of flags can be used to constrain the returned results.`
       return
     }
 
-    const resultInformation = count > 1 ? `${chalk.cyan(offset + 1)}-${chalk.cyan(offset + count)}` : chalk.cyan(count)
-
-    this.outputCLITable(transformedData, columns)
-    this.log()
-    this.log(`Result${s(count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
-    this.log()
+    super.outputHumanReadable(transformedData, options)
 
     if (shouldIncludeFeatures) {
+      this.log()
       this.log("Run the command again with the 'json' flag to see all engine pack features.")
     }
   }
