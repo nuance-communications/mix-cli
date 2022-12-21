@@ -37,11 +37,11 @@ describe('applications:get command', () => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
       const headers = lines[4].split(/\s+/)
       const firstRow = lines[6].split(/\s+/)
-      //test if the resulted applicationId is same as provided applicationId
-      expect(lines[0]).to.deep.equal(`ApplicationId: ${applicationId}`)
-      expect(lines[1]).to.deep.equal('Name: Sample App')
+      // test if the resulted applicationId is same as provided applicationId
+      expect(lines[0]).to.equal(`ApplicationId: ${applicationId}`)
+      expect(lines[1]).to.equal('Name: Sample App')
       expect(lines[1]).to.not.contain(`${applicationId}`)
-      expect(lines[2]).to.deep.equal('CreateTime: later')
+      expect(lines[2]).to.equal('CreateTime: later')
       expect(headers).to.deep.equal(['ConfigId', 'DeploymentFlowId', 'ProjectId', 'ProjectName', 'CreateTime'])
       expect(firstRow).to.deep.equal('58 6 61 Test Project later'.split(/\s+/))
     })
