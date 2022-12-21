@@ -16,7 +16,6 @@ import MixCommand, {Columns} from '../../utils/base/mix-command'
 import {ApplicationsListParams, MixClient, MixResponse, MixResult} from '../../mix/types'
 import {DomainOption} from '../../utils/validations'
 import {defaultLimit} from '../../utils/constants'
-import {pluralize as s} from '../../utils/format'
 
 const debug = makeDebug('mix:commands:applications:list')
 
@@ -131,10 +130,7 @@ A number of flags can be used to constrain the returned results.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const {columns, context, options} = this
-    const count: number = context.get('count')
-    const offset: number = context.get('offset')
-    const totalSize: number = context.get('totalSize')
+    const {options} = this
 
     if (transformedData.length === 0) {
       this.log('No applications found.')
@@ -150,14 +146,7 @@ use applications:get to get full details for a single app.
 `)
     }
 
-    super.outputCLITable(transformedData, columns)
-
-    if (totalSize >= count) {
-      const resultInformation = count > 1 ? `${chalk.cyan(offset + 1)}-${chalk.cyan(offset + count)}` : chalk.cyan(count)
-
-      this.log()
-      this.log(`Result${s(count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
-    }
+    super.outputHumanReadable(transformedData, options)
   }
 
   setRequestActionMessage(options: any) {

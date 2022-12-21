@@ -22,6 +22,7 @@ import {configurationProblemExitCode} from '../constants'
 import {Confirmation} from '../types'
 import {downloadFile} from '../download-file'
 import {validateDomainOptions, DomainOption} from '../validations'
+import {pluralize as s} from '../../utils/format'
 
 import {
   ConnectionError,
@@ -438,8 +439,10 @@ that configuration file swiftly.`)
 
     if (this.options.filter) return
 
-    this.log(`\nItems ${chalk.cyan((this.context.get('offset') + 1))}-${chalk.cyan(this.context.get('offset') +
-      this.context.get('count'))} of ${chalk.cyan(this.context.get('totalSize'))} shown.`)
+    const resultInformation = this.context.get('count') > 1 ? `${chalk.cyan(this.context.get('offset') + 1)}-${chalk.cyan(this.context.get('offset') + this.context.get('count'))}` : chalk.cyan(this.context.get('count') + this.context.get('offset'))
+
+    this.log()
+    this.log(`Item${s(this.context.get('count'))} ${resultInformation} of ${chalk.cyan(this.context.get('totalSize'))} shown.`)
 
     if ((this.context?.get('totalSize') ?? 0) > (this.context?.get('count') ?? 1)) {
       this.log(`Use the ${chalk.cyan('--limit')} and ${chalk.cyan('--offset')} flags to view other parts of the list.`)
