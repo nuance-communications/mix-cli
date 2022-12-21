@@ -86,7 +86,7 @@ export const eDownloadFailed = (message: string) => {
       suggestions: [
         'Verify provided file path exists.',
         'Verify permissions on provided file path.',
-        "Use 'overwrite' flag to overwrite an existing file.",
+        "Use flag 'overwrite' to overwrite an existing file.",
       ],
     })
 }
