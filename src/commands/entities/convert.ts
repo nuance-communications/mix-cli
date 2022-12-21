@@ -39,7 +39,7 @@ expression for the entity is locale-dependent, then use the entities:configure
 command to update the regular expression for the relevant locales.
 
 Relational entities can have zero or one isA relation and
-zero or many hasA relations. One 'is-A' or 'has-A' flag must be
+zero or many hasA relations. One 'is-a' or 'has-a' flag must be
 set at a minimum whent converting an entity to the "relational" type.
 
 The examples below show how to convert an entity to each possible
