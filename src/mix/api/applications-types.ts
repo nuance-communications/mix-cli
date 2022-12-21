@@ -15,7 +15,7 @@ import {Expand} from './shared-types'
  * - AV_FULL_AVAILABLE_CONFIGS: Returns all application details, omitting configs that are overridden
  * - AV_FULL_LIVE_CONFIGS: Returns all application configs that are deployed
  *
- * @defaultValue: AC_VIEW_UNSPECIFIED
+ * @defaultValue: AV_VIEW_UNSPECIFIED
  */
 export type ApplicationsView = 'AV_VIEW_UNSPECIFIED' | 'AV_FULL' | 'AV_FULL_AVAILABLE_CONFIGS' | 'AV_FULL_LIVE_CONFIGS'
 
@@ -43,7 +43,7 @@ export type ApplicationsListSearchParams = {
    * - AV_FULL_AVAILABLE_CONFIGS: Returns all application details, omitting configs that are overridden
    * - AV_FULL_LIVE_CONFIGS: Returns all application configs that are deployed
    *
-   * @defaultValue: AC_VIEW_UNSPECIFIED
+   * @defaultValue: AV_VIEW_UNSPECIFIED
    */
   view?: ApplicationsView
 }
