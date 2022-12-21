@@ -77,7 +77,7 @@ See https://docs.nuance.com/mix/apis/mix-api/v4/reference/bots/ for details.`
     this.log(`${transformedData.variables.length} variable${s(transformedData.variables.length)} `)
     this.log(`${transformedData.transferNodes.length} transfer node${s(transformedData.transferNodes.length)}`)
     this.log()
-    this.log('Use this command with the `json` flag to get the complete interface.')
+    this.log("Use this command with the 'json' flag to get the complete interface.")
     this.log('Use the bot-interfaces:export command to export the interface to a JSON file.')
   }
 

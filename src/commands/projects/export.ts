@@ -29,7 +29,7 @@ As such, the project package exported by regular users will not include
 these files. Regular users may end up with an incomplete project after calling
 this endpoint.
 
-Use the --metadata-only flag to export the project metadata JSON file only.`
+Use the 'metadata-only' flag to export the project metadata JSON file only.`
 
   static examples = [
     'Export the project package to a zip file',

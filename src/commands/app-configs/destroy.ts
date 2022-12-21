@@ -23,7 +23,7 @@ export default class AppConfigsDestroy extends MixCommand {
   
 Use this command to permanently delete an application configuration.
 The deletion needs to be confirmed by re-typing the application configuration
-ID when prompted. It can also be pre-confirmed by using the --confirm flag.`
+ID when prompted. It can also be pre-confirmed by using the 'confirm' flag.`
 
   static flags = {
     config: MixFlags.appConfigurationFlag,

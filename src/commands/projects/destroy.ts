@@ -26,7 +26,7 @@ Unless a backup exists, there is no way to restore a project that
 has been destroyed.
 
 The deletion needs to be confirmed by re-typing the project ID when prompted.
-It can also be pre-confirmed by using the --confirm flag.`
+It can also be pre-confirmed by using the 'confirm' flag.`
 
   static examples = [
     'Destroy a project',

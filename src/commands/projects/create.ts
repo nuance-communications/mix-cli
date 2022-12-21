@@ -24,12 +24,12 @@ export default class ProjectsCreate extends MixCommand {
   static description = `create a new project
 
 Use this command to create a new project. Many parameters are needed to
-create a project. In particular, channels and modes go hand in hand. A --channel
-flag must be matched by a --modes flag. Use a comma-separated list (no spaces)
+create a project. In particular, channels and modes go hand in hand. A 'channel'
+flag must be matched by a 'modes' flag. Use a comma-separated list (no spaces)
 of mode names to specify multiple modes for a channel.
 
 Given the right user permissions, it is possible to specify an engine pack using
-the --engine-pack flag.
+the 'engine-pack' flag.
 
 ${chalk.bold('Nuance’s Child Data Policy')}
 Nuance’s Child Data Policy is related to online services that are subject to
@@ -46,8 +46,8 @@ or product that is primarily directed to children under 16.
 This acknowledgement must be completed for any projects that are intended
 for use in the Nuance SaaS cloud.
 
-To acknowledge such a project, use the --child-data-compliant flag and also
-provide a description of your project using the --description flag.`
+To acknowledge such a project, use the 'child-data-compliant' flag and also
+provide a description of your project using the 'description' flag.`
 
   static examples = [
     'Create a project with one channel and two modes',

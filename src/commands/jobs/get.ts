@@ -133,7 +133,8 @@ Use this command to get details about a particular job.`
 
     if (isSomeFailed) {
       this.outputCLITable(reportsData, {...this.reportsColumns, ...this.reportsErrorsColumn})
-      this.log('\nRun the command again with the --json flag to see error details for reported failures.')
+      this.log()
+      this.log("Run the command again with the 'json' flag to see error details for reported failures.")
     }
   }
 

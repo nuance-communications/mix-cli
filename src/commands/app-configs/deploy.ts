@@ -23,7 +23,7 @@ export default class AppConfigsDeploy extends MixCommand {
 Use this command to deploy an application configuration. The configuration ID
 can be retrieved using the app-configs:list command.
 
-A specific environment-geography can be specified using the --env-geo flag.
+A specific environment-geography can be specified using the 'env-geo' flag.
 If none is specified, the application configuration will get deployed to the
 next environment-geography defined in the deployment flow specified when
 the application configuration was created.

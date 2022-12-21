@@ -27,7 +27,7 @@ varies with the type of the entity queried. However, the CSV output provides a
 column for each of the properties present in the superset of all entity type
 properties. This way, a consistent set of columns is always presented.
 
-Use the --json or --yaml flag to see the original data returned by the
+Use the 'json' or 'yaml' flag to see the original data returned by the
 server.
 `
 
