@@ -28,7 +28,7 @@ bot IDs can be retrieved using the bot-credentials:list command.
 Bots are used in certain integration scenarios. A bot is a Mix application
 with configurations that include dialog builds.
 
-See https://docs.mix.nuance.com/mix-api/v4/#bots for details.`
+See https://docs.nuance.com/mix/apis/mix-api/v4/reference/bots/ for details.`
 
   static examples = [
     '$ mix bot-configs:list -B 164 --with-runtime-app NMDPTRIAL_alex_smith_company_com_20190919T190532',
