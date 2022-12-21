@@ -9,11 +9,13 @@
 import {Expand} from './shared-types'
 
 /**
- * Application credentials view to return.
- * - ACV_VIEW_UNSPECIFIED: Returns credentials details without including clients
- * - ACV_FULL: Returns all credentials details, including list of clients
+ * Application view to return.
+ * - AV_VIEW_UNSPECIFIED: Returns application details without including application configurations
+ * - AV_FULL: Returns all application details, including the list of application configurations
+ * - AV_FULL_AVAILABLE_CONFIGS: Returns all application details, omitting configs that are overridden
+ * - AV_FULL_LIVE_CONFIGS: Returns all application configs that are deployed
  *
- * @defaultValue: ACV_VIEW_UNSPECIFIED
+ * @defaultValue: AV_VIEW_UNSPECIFIED
  */
 export type ApplicationsView = 'AV_VIEW_UNSPECIFIED' | 'AV_FULL' | 'AV_FULL_AVAILABLE_CONFIGS'
 
@@ -36,10 +38,12 @@ export type ApplicationsListSearchParams = {
 
   /**
    * Application view to return.
-   * - ACV_VIEW_UNSPECIFIED: Returns credentials details without including clients
-   * - ACV_FULL: Returns all credentials details, including list of clients
+   * - AV_VIEW_UNSPECIFIED: Returns application details without including application configurations
+   * - AV_FULL: Returns all application details, including the list of application configurations
+   * - AV_FULL_AVAILABLE_CONFIGS: Returns all application details, omitting configs that are overridden
+   * - AV_FULL_LIVE_CONFIGS: Returns all application configs that are deployed
    *
-   * @defaultValue: ACV_VIEW_UNSPECIFIED
+   * @defaultValue: AV_VIEW_UNSPECIFIED
    */
   view?: ApplicationsView
 }
@@ -48,4 +52,30 @@ export type ApplicationsListSearchParams = {
 export type ApplicationsListParams = Expand<ApplicationsListSearchParams>
 
 /** @hidden */
-export type ApplicationsParams = ApplicationsListParams
+export type ApplicationsGetSearchParams = {
+  /** ID of the Mix application for which to get the details. */
+  filter?: string
+
+  /**
+   * Application view to return.
+   * - AV_VIEW_UNSPECIFIED: Returns application details without including application configurations
+   * - AV_FULL: Returns all application details, including the list of application configurations
+   * - AV_FULL_AVAILABLE_CONFIGS: Returns all application details, omitting configs that are overridden
+   * - AV_FULL_LIVE_CONFIGS: Returns all application configs that are deployed
+   *
+   * @defaultValue: AV_VIEW_UNSPECIFIED
+   */
+  view?: 'AV_FULL'
+}
+
+/** @hidden */
+export type ApplicationsGetParams = Expand<ApplicationsGetSearchParams>
+
+/** @hidden */
+export type ApplicationsParams =
+  | ApplicationsListParams
+
+/** @hidden */
+export type ApplicationsSearchParams =
+  | ApplicationsGetParams
+  | ApplicationsListSearchParams

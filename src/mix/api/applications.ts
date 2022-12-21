@@ -9,10 +9,24 @@
 import makeDebug from 'debug'
 
 import buildURL from './utils/build-url'
-import {ApplicationsListParams} from './applications-types'
+import {ApplicationsGetParams, ApplicationsListParams} from './applications-types'
 import {MixClient, MixResponse} from '../types'
 
 const debug = makeDebug('mix:api:applications')
+
+/**
+ * Retrieve the details of Mix application.
+ *
+ * @category applications
+ */
+export async function getApplications(client: MixClient, params: ApplicationsGetParams): Promise<MixResponse> {
+  debug('getApplications()')
+
+  return client.request({
+    method: 'get',
+    url: buildURL(client.getServer(), '/v4/apps', params),
+  })
+}
 
 /**
  * Retrieve the list of Mix applications.
