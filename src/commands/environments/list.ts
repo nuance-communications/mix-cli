@@ -79,7 +79,7 @@ Use this command to list all environments available to a specific organization.`
       return
     }
 
-    this.outputCLITable(transformedData, this.columns)
+    super.outputHumanReadable(transformedData, this.options)
   }
 
   setRequestActionMessage(options: any) {
