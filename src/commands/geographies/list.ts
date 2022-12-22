@@ -69,7 +69,7 @@ Use this command to list the geographies available on the platform.`
       return
     }
 
-    this.outputCLITable(transformedData, this.columns)
+    super.outputHumanReadable(transformedData, this.options)
   }
 
   setRequestActionMessage(_options: any) {
