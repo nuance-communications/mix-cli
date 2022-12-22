@@ -7,7 +7,6 @@
  */
 
 import chalk from 'chalk'
-import {cli} from 'cli-ux'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -16,7 +15,6 @@ import * as MixFlags from '../../utils/flags'
 import MixCommand from '../../utils/base/mix-command'
 import {defaultLimit} from '../../utils/constants'
 import {DeploymentFlowsListParams, MixClient, MixResponse, MixResult} from '../../mix/types'
-import {pluralize as s} from '../../utils/format'
 import {DomainOption} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:deployment-flows:list')

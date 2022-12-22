@@ -97,7 +97,6 @@ A project cannot be edited while it is locked.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const {columns} = this
 
     if (transformedData.length === 0) {
       this.log('No locks found.')
