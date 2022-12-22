@@ -146,5 +146,8 @@ export default {
   },
   noApplicationsResponse: {
     applications: [],
-  },
+    count: 0,
+    limit: 25,
+    offset: 0
+  }
 }
