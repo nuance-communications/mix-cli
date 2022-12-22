@@ -88,25 +88,17 @@ The organization ID can be retrieved by using the organizations:list command.`
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
 
-    const {columns, context,  options} = this
-    const count: number = context.get('count')
-    const totalSize: number = context.get('totalSize')
+    const {options} = this
     const flows = transformedData
 
     const size = flows.length
     if (size > 0) {
       for (const [idx, flow] of flows.entries()) {
         this.log(chalk.cyan.bold(`Steps for flow ${chalk.cyan(flow.displayName)} (ID: ${chalk.cyan(flow.id)})`))
-        cli.table(flow.steps, columns, options)
+        super.outputHumanReadable(flow.steps, options)
         if (idx !== flows.length - 1) {
           this.log()
         }
-      }
-
-      if (totalSize > count) {
-        this.log()
-        this.log(`Showing ${chalk.cyan(count)} of ${totalSize} deployment flow${s(totalSize)}.`)
-        this.log()
       }
     } else {
       this.log(`No deployment flows found for organization ${chalk.cyan(options.organization)}`)
