@@ -6,7 +6,6 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -67,19 +66,15 @@ found in the JSON output of the app-configs:get command.`
 
     for (const undeployment of undeployments) {
       const {
-        applicationConfigDeploymentId: deploymentId,
-        configId,
-        environmentGeographyId,
+        message,
       } = undeployment
 
-      this.log(`Application configuration ID ${chalk.cyan(configId)} undeployed from ` +
-        `environmentGeography ID ${chalk.cyan(environmentGeographyId)} ` +
-        `with deployment ID ${chalk.cyan(deploymentId)}.`)
+      this.log(message)
     }
   }
 
   setRequestActionMessage(_options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = 'Undeploying application configuration'
+    this.requestActionMessage = 'Undeploying application configuration ID from environmentGeography ID with deployment ID '
   }
 }
