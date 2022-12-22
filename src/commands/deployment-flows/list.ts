@@ -7,6 +7,7 @@
  */
 
 import chalk from 'chalk'
+import {cli} from 'cli-ux'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
@@ -15,6 +16,7 @@ import * as MixFlags from '../../utils/flags'
 import MixCommand from '../../utils/base/mix-command'
 import {defaultLimit} from '../../utils/constants'
 import {DeploymentFlowsListParams, MixClient, MixResponse, MixResult} from '../../mix/types'
+import {pluralize as s} from '../../utils/format'
 import {DomainOption} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:deployment-flows:list')
@@ -86,17 +88,25 @@ The organization ID can be retrieved by using the organizations:list command.`
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
 
-    const {options} = this
+    const {columns, context,  options} = this
+    const count: number = context.get('count')
+    const totalSize: number = context.get('totalSize')
     const flows = transformedData
 
     const size = flows.length
     if (size > 0) {
       for (const [idx, flow] of flows.entries()) {
         this.log(chalk.cyan.bold(`Steps for flow ${chalk.cyan(flow.displayName)} (ID: ${chalk.cyan(flow.id)})`))
-        super.outputHumanReadable(flow.steps, options)
+        cli.table(flow.steps, columns, options)
         if (idx !== flows.length - 1) {
           this.log()
         }
+      }
+
+      if (totalSize > count) {
+        this.log()
+        this.log(`Showing ${chalk.cyan(count)} of ${totalSize} deployment flow${s(totalSize)}.`)
+        this.log()
       }
     } else {
       this.log(`No deployment flows found for organization ${chalk.cyan(options.organization)}`)
