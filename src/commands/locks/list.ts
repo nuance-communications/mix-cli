@@ -105,7 +105,7 @@ A project cannot be edited while it is locked.`
       return
     }
 
-    super.outputCLITable(transformedData, columns)
+    super.outputHumanReadable(transformedData, this.options)
   }
 
   setRequestActionMessage(options: any) {
