@@ -465,8 +465,11 @@ that configuration file swiftly.`)
   outputHumanReadable(transformedData: any, _options: Partial<flags.Output>) {
     debug('outputHumanReadable()')
     if (this.context.get('offset') >=  this.context.get('totalSize')) {
-      this.log(`\nNo result to display as value ${this.context.get('offset')} for offset is larger than the total number of results (${this.context.get('totalSize')}).` +
-      `\nUse a value lower than ${this.context.get('totalSize')} for offset.`)
+      this.log()
+      this.log(`No result to display as value ${this.context.get('offset')} for offset is larger than the total number of results (${this.context.get('totalSize')}).`)
+      this.log(`Use a value lower than ${this.context.get('totalSize')} for offset.`)
+    } else if (this.context.get('count') === 0) {
+      this.log(`No ${this.context?.get('topic')} found.`)
     } else {
       this.outputCLITable(transformedData, this.columns)
 

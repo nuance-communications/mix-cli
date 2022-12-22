@@ -130,13 +130,8 @@ A number of flags can be used to constrain the returned results.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const {options} = this
-
-    if (transformedData.length === 0) {
-      this.log('No applications found.')
-
-      return
-    }
+    const {context, options} = this
+    context.set('topic', 'applications')
 
     if (options.full) {
       this.warn(`Full application configuration objects are complex, so some data is not shown.
