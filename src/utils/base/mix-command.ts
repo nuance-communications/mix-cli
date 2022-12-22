@@ -462,9 +462,9 @@ that configuration file swiftly.`)
   }
 
   // Every command offers human-readable output
-  outputHumanReadable(transformedData: any, _options: Partial<flags.Output>) {
+  outputHumanReadable(transformedData: any, options: Partial<flags.Output>) {
     debug('outputHumanReadable()')
-    if (this.context.get('offset') >=  this.context.get('totalSize')) {
+    if (options.offset && this.context.get('offset') >=  this.context.get('totalSize')) {
       this.log()
       this.log(`No result to display as value ${this.context.get('offset')} for offset is larger than the total number of results (${this.context.get('totalSize')}).`)
       this.log(`Use a value lower than ${this.context.get('totalSize')} for offset.`)

@@ -101,12 +101,7 @@ Use this command to list all versions of a build type for a particular project.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const count: number = this.context.get('count')
-
-    if (count === 0) {
-      this.log('No builds found.')
-      return
-    }
+    this.context.set('topic', 'builds')
 
     super.outputHumanReadable(transformedData, this.options)
   }
