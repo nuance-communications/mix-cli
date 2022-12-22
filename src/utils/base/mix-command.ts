@@ -461,7 +461,10 @@ that configuration file swiftly.`)
     this.outputCLITable(transformedData, this.columns)
   }
 
-  // Every command offers human-readable output
+  // Every command offers human-readable output. The default implementation
+  // defined below outputs a table and checks for absence of results and
+  // partial lists of results. Most commands need to provide a different output
+  // and override this method.
   outputHumanReadable(transformedData: any, options: Partial<flags.Output>) {
     debug('outputHumanReadable()')
     if (options.offset && this.context.get('offset') >=  this.context.get('totalSize')) {
