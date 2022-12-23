@@ -95,6 +95,6 @@ project.`
       return
     }
 
-    super.outputHumanReadable(transformedData, this.options)
+    this.outputCLITable(transformedData, this.columns)
   }
 }
