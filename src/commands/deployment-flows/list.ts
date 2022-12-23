@@ -110,10 +110,10 @@ The organization ID can be retrieved by using the organizations:list command.`
       `${chalk.cyan(offset + 1)}-${chalk.cyan(offset + count)}` :
       chalk.cyan(count + offset)
 
-      this.log()
-      this.log(`Deployment-flow${s(count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
-      if ((this.context?.get('totalSize') ?? 0) >= (this.context?.get('count') ?? 1)) {
-        this.log(`Use the ${chalk.cyan("'limit'")} and ${chalk.cyan("'offset'")} flags to view other parts of the list.`)
+    this.log()
+    this.log(`Deployment-flow${s(count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
+    if ((this.context?.get('totalSize') ?? 0) >= (this.context?.get('count') ?? 1)) {
+      this.log(`Use the ${chalk.cyan("'limit'")} and ${chalk.cyan("'offset'")} flags to view other parts of the list.`)
     }
   }
 
@@ -132,9 +132,9 @@ The organization ID can be retrieved by using the organizations:list command.`
           this.log()
         }
       }
+
       this.outputPartialListCount()
-    }
-    else {
+    } else {
       this.explainAbsenceOfResult(options)
     }
   }
