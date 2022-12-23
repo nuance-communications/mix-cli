@@ -63,7 +63,6 @@ Use this command to list the geographies available on the platform.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    this.context.set('topic', 'geographies')
 
     super.outputHumanReadable(transformedData, this.options)
   }
@@ -81,6 +80,8 @@ Use this command to list the geographies available on the platform.`
     this.context.set('offset', offset)
     this.context.set('limit', limit)
     this.context.set('totalSize', totalSize)
+    this.context.set('topic', 'geographies')
+
     return geographies
   }
 }

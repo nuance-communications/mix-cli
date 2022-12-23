@@ -97,7 +97,6 @@ A project cannot be edited while it is locked.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    this.context.set('topic', 'locks')
 
     super.outputHumanReadable(transformedData, this.options)
   }
@@ -126,6 +125,7 @@ A project cannot be edited while it is locked.`
     this.context.set('offset', offset)
     this.context.set('limit', limit)
     this.context.set('totalSize', totalSize)
+    this.context.set('topic', 'locks')
 
     return locks
   }

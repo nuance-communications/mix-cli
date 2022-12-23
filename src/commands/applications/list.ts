@@ -130,8 +130,7 @@ A number of flags can be used to constrain the returned results.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const {context, options} = this
-    context.set('topic', 'applications')
+    const {options} = this
 
     if (options.full) {
       this.warn(`Full application configuration objects are complex, so some data is not shown.
@@ -158,6 +157,7 @@ use applications:get to get full details for a single app.
     this.context.set('offset', offset)
     this.context.set('limit', limit)
     this.context.set('totalSize', totalSize)
+    this.context.set('topic', 'applications')
 
     return applications
   }

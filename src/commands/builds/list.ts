@@ -101,7 +101,6 @@ Use this command to list all versions of a build type for a particular project.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    this.context.set('topic', 'builds')
 
     super.outputHumanReadable(transformedData, this.options)
   }
@@ -119,6 +118,7 @@ Use this command to list all versions of a build type for a particular project.`
     this.context.set('offset', offset)
     this.context.set('limit', limit)
     this.context.set('totalSize', totalSize)
+    this.context.set('topic', 'builds')
 
     return builds
   }

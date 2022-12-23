@@ -93,7 +93,6 @@ Use this command to list the organizations you are part of.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    this.context.set('topic', 'organizations')
 
     super.outputHumanReadable(transformedData, this.options)
   }
@@ -111,6 +110,8 @@ Use this command to list the organizations you are part of.`
     this.context.set('offset', offset)
     this.context.set('limit', limit)
     this.context.set('totalSize', totalSize)
+    this.context.set('topic', 'organizations')
+
     return organizations
   }
 }

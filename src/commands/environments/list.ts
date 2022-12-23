@@ -73,7 +73,6 @@ Use this command to list all environments available to a specific organization.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    this.context.set('topic', 'environments')
 
     super.outputHumanReadable(transformedData, this.options)
   }
@@ -92,6 +91,8 @@ Use this command to list all environments available to a specific organization.`
     this.context.set('offset', offset)
     this.context.set('limit', limit)
     this.context.set('totalSize', totalSize)
+    this.context.set('topic', 'environments')
+
     return environments
   }
 }
