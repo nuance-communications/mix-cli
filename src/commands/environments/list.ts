@@ -72,7 +72,7 @@ Use this command to list all environments available to a specific organization.`
   }
 
   outputHumanReadable(transformedData: any) {
-    debug('outputHumanReadable()') 
+    debug('outputHumanReadable()')
     this.context.set('topic', 'environments')
 
     super.outputHumanReadable(transformedData, this.options)

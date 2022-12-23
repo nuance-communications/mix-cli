@@ -63,11 +63,7 @@ Use this command to list the geographies available on the platform.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    if (transformedData.length === 0) {
-      this.log('No geographies found.')
-
-      return
-    }
+    this.context.set('topic', 'geographies')
 
     super.outputHumanReadable(transformedData, this.options)
   }
