@@ -72,11 +72,7 @@ Use this command to list all jobs related to a particular project.`
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
     const {context, options} = this
-    const count: number = context.get('count')
-
-    if (count === 0) {
-      return this.log('No jobs found.')
-    }
+    context.set('topic', 'jobs')
 
     super.outputHumanReadable(transformedData, options)
   }
