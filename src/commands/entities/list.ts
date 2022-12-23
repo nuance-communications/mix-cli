@@ -74,7 +74,7 @@ Use this command to list all entities available in a specific project.`
       return
     }
 
-    super.outputHumanReadable(transformedData, this.options)
+    this.outputCLITable(transformedData, this.columns)
   }
 
   setRequestActionMessage(options: any) {
