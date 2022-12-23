@@ -97,12 +97,7 @@ A project cannot be edited while it is locked.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-
-    if (transformedData.length === 0) {
-      this.log('No locks found.')
-
-      return
-    }
+    this.context.set('topic', 'locks')
 
     super.outputHumanReadable(transformedData, this.options)
   }
