@@ -93,11 +93,7 @@ Use this command to list the organizations you are part of.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    if (transformedData.length === 0) {
-      this.log('No organizations found.')
-
-      return
-    }
+    this.context.set('topic', 'organizations')
 
     super.outputHumanReadable(transformedData, this.options)
   }
