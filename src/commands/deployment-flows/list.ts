@@ -85,12 +85,42 @@ The organization ID can be retrieved by using the organizations:list command.`
     return DeploymentFlowsAPI.listDeploymentFlows(client, params)
   }
 
+  explainAbsenceOfResult(options: Partial<flags.Output>) {
+    debug('explainAbsenceofResult()')
+
+    if (options.offset && this.context.get('offset') >=  this.context.get('totalSize')) {
+      this.log()
+      this.log(`No result to display as value ${this.context.get('offset')} for offset is larger than the total number of results (${this.context.get('totalSize')}).`)
+      this.log(`Use a value lower than ${this.context.get('totalSize')} for offset.`)
+    } else {
+      this.log(`No deployment flows found for organization ${chalk.cyan(options.organization)}.`)
+    }
+  }
+
+  outputPartialListCount() {
+    debug('outputPartialListCount()')
+
+    if (this.options.filter) return
+
+    const count = this.context.get('count')
+    const offset = this.context.get('offset')
+    const totalSize = this.context.get('totalSize')
+
+    const resultInformation = count > 1 ?
+      `${chalk.cyan(offset + 1)}-${chalk.cyan(offset + count)}` :
+      chalk.cyan(count + offset)
+
+      this.log()
+      this.log(`Deployment-flow${s(count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
+      if ((this.context?.get('totalSize') ?? 0) >= (this.context?.get('count') ?? 1)) {
+        this.log(`Use the ${chalk.cyan("'limit'")} and ${chalk.cyan("'offset'")} flags to view other parts of the list.`)
+    }
+  }
+
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
 
-    const {columns, context,  options} = this
-    const count: number = context.get('count')
-    const totalSize: number = context.get('totalSize')
+    const {columns, options} = this
     const flows = transformedData
 
     const size = flows.length
@@ -102,14 +132,10 @@ The organization ID can be retrieved by using the organizations:list command.`
           this.log()
         }
       }
-
-      if (totalSize > count) {
-        this.log()
-        this.log(`Showing ${chalk.cyan(count)} of ${totalSize} deployment flow${s(totalSize)}.`)
-        this.log()
-      }
-    } else {
-      this.log(`No deployment flows found for organization ${chalk.cyan(options.organization)}`)
+      this.outputPartialListCount()
+    }
+    else {
+      this.explainAbsenceOfResult(options)
     }
   }
 
