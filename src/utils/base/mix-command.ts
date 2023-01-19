@@ -50,6 +50,7 @@ import {saveFile} from '../save-file'
 export type Columns = table.Columns<object>
 
 const DEFAULT_FILEPATH = 'outputfile'
+const WATCH_JOB_WAIT_TIME_MS = 10 * 1000
 
 const debug = makeDebug.debug('mix:base:mix-command')
 
@@ -482,11 +483,12 @@ that configuration file swiftly.`)
   async watchJob(jobId: string, projectId: string) {
     debug('watchJob()')
 
-    await cli.wait(2 * 1000)
+    await cli.wait(WATCH_JOB_WAIT_TIME_MS)
     await this.doAuth()
+    this.client?.setToken(this.accessToken?.access_token)
     const response = await this.doSafeRequest(this.client, {jobId, projectId}, JobsAPI.getJob)
     const result = response as MixResult
-    const resultData: any = result?.data
+    const resultData: any = result?.data ?? {}
     debug('resultData: %O', resultData)
     const {status} = resultData
 
