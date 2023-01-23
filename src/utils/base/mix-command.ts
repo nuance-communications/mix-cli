@@ -514,7 +514,7 @@ that configuration file swiftly.`)
       default:
         // mixFailure, connectionFailure and unexpected states are treated the same
         debug('applying default for status %s', status)
-        cli.action.stop(chalk.red('Failed to retrieve job details'))
+        cli.action.stop(chalk.red('Failed to retrieve job details. Please try again.'))
         this.shouldWatchJob = false
         break
     }
