@@ -13,7 +13,7 @@ import makeDebug from 'debug'
 import * as MixFlags from '../../utils/flags'
 import * as ProjectsAPI from '../../mix/api/projects'
 import {asArray} from '../../utils/as-array'
-import {DomainOption} from '../../utils/validations'
+import {DomainOption, validateChannelName} from '../../utils/validations'
 import {MixClient, MixResponse, MixResult, ProjectsCreateParams} from '../../mix/types'
 import MixCommand from '../../utils/base/mix-command'
 import {pluralize as s} from '../../utils/format'
@@ -24,12 +24,12 @@ export default class ProjectsCreate extends MixCommand {
   static description = `create a new project
 
 Use this command to create a new project. Many parameters are needed to
-create a project. In particular, channels and modes go hand in hand. A --channel
-flag must be matched by a --modes flag. Use a comma-separated list (no spaces)
+create a project. In particular, channels and modes go hand in hand. A 'channel'
+flag must be matched by a 'modes' flag. Use a comma-separated list (no spaces)
 of mode names to specify multiple modes for a channel.
 
 Given the right user permissions, it is possible to specify an engine pack using
-the --engine-pack flag.
+the 'engine-pack' flag.
 
 ${chalk.bold('Nuance’s Child Data Policy')}
 Nuance’s Child Data Policy is related to online services that are subject to
@@ -46,8 +46,8 @@ or product that is primarily directed to children under 16.
 This acknowledgement must be completed for any projects that are intended
 for use in the Nuance SaaS cloud.
 
-To acknowledge such a project, use the --child-data-compliant flag and also
-provide a description of your project using the --description flag.`
+To acknowledge such a project, use the 'child-data-compliant' flag and also
+provide a description of your project using the 'description' flag.`
 
   static examples = [
     'Create a project with one channel and two modes',
@@ -87,7 +87,7 @@ provide a description of your project using the --description flag.`
 
   get domainOptions(): DomainOption[] {
     debug('get domainOptions()')
-    return ['locale[]', 'organization']
+    return ['locale[]', 'name', 'organization']
   }
 
   async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsCreateParams> {
@@ -152,6 +152,10 @@ provide a description of your project using the --description flag.`
     const channels = asArray(options.channel)
     const modes = asArray(options.modes)
     this.validateChannelsAndModes(channels, modes)
+
+    for (const channel of channels) {
+      validateChannelName(channel, MixFlags.channelMultipleFlag.char?.toString() || 'flag')
+    }
 
     const {
       'child-data-compliant': isChildDataCompliant,

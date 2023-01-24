@@ -26,7 +26,7 @@ using the build label or the combination of project ID, build type and build
 version.
 
 The deletion needs to be confirmed by re-typing the build label when prompted.
-It can also be pre-confirmed by using the --confirm flag.`
+It can also be pre-confirmed by using the 'confirm' flag.`
 
   static examples = [
     'Destroy a build',
@@ -96,8 +96,8 @@ It can also be pre-confirmed by using the --confirm flag.`
   OR by the combination of its build type, project ID and build version.`,
       {
         suggestions: [
-          'Set --build-label flag OR ...',
-          'Set --project, --build-type AND -–build-version flags.',
+          "Set 'build-label' flag OR ...",
+          "Set 'project', 'build-type' AND 'build-version' flags.",
         ],
       })
     }

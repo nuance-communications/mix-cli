@@ -6,14 +6,13 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import chalk from 'chalk'
 import {flags} from '@oclif/command'
 import makeDebug from 'debug'
 
 import * as AppConfigsAPI from '../../mix/api/app-configs'
 import * as MixFlags from '../../utils/flags'
 import MixCommand from '../../utils/base/mix-command'
-import {AppConfigsDeployParams, MixClient, MixResponse} from '../../mix/types'
+import {AppConfigsDeployParams, MixClient, MixResponse, MixResult} from '../../mix/types'
 import {DomainOption} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:app-configs:deploy')
@@ -24,7 +23,7 @@ export default class AppConfigsDeploy extends MixCommand {
 Use this command to deploy an application configuration. The configuration ID
 can be retrieved using the app-configs:list command.
 
-A specific environment-geography can be specified using the --env-geo flag.
+A specific environment-geography can be specified using the 'env-geo' flag.
 If none is specified, the application configuration will get deployed to the
 next environment-geography defined in the deployment flow specified when
 the application configuration was created.
@@ -42,6 +41,19 @@ the application configuration was created.
     config: MixFlags.appConfigurationFlag,
     'env-geo': MixFlags.envGeoIDMultipleFlag,
     ...MixFlags.machineOutputFlags,
+  }
+
+  get columns() {
+    debug('get columns()')
+
+    return {
+      id: {header: 'Id'},
+      configId: {header: 'ConfigId'},
+      approved: {header: 'Approved'},
+      promotionFlowStepId: {header: 'PromotionFlowStepId'},
+      code: {header: 'Code'},
+      comment: {header: 'Comment'},
+    }
   }
 
   get domainOptions(): DomainOption[] {
@@ -66,18 +78,23 @@ the application configuration was created.
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const {deployments} = transformedData
+    if (transformedData.length === 0) {
+      this.log('No application configurations found to deploy.')
 
-    for (const deployment of deployments) {
-      const {id: deploymentId, configId} = deployment
-
-      this.log(`Application configuration ID ${chalk.cyan(configId)} deployed ` +
-        `with deployment ID ${chalk.cyan(deploymentId)}`)
+      return
     }
+
+    this.outputCLITable(transformedData, this.columns)
   }
 
   setRequestActionMessage(_options: any) {
     debug('setRequestActionMessage()')
     this.requestActionMessage = 'Deploying application configuration'
+  }
+
+  transformResponse(result: MixResult) {
+    debug('transformResponse()')
+    const data = result.data as any
+    return data.deployments
   }
 }

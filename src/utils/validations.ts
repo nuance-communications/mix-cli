@@ -29,6 +29,7 @@ export type DomainOption =
   | 'locale'
   | 'locale[]'
   | 'mix-app'
+  | 'name'
   | 'offset'
   | 'organization'
   | 'project'
@@ -70,6 +71,8 @@ const validationSchemes = {
     message: `Expected each locale in flag 'locale' to match ${localeRegEx}`}).array(),
   'mix-app': z.number().positive({
     message: "Expected flag 'mix-app' to have a value greater than 0"}),
+  name: z.string().min(1, {
+    message: "Project name can't be empty or consist only of whitespace"}),
   offset: z.number().nonnegative({
     message: "Expected flag 'offset' to have a value greater than or equal to 0"}),
   organization: z.number().positive({
@@ -96,12 +99,12 @@ export function validateChannelModeOptions(modes: string[]): void {
     if (!(mode in modesSeen)) {
       debug('mode name is not valid')
       throw (eInvalidValue(`Unknown channel mode ${chalk.red(modes[i])} supplied to command.`, [
-        `Ensure all --mode flags are one of ${Object.keys(ChannelModalities).sort().join('|')}.`,
+        `Ensure each 'mode' flag value is one of ${Object.keys(ChannelModalities).sort().join('|')}.`,
       ]))
     } else if (modesSeen[mode]) {
       debug('mode name is duplicate (already seen)')
       throw (eInvalidValue(`Mode ${chalk.red(modes[i])} was supplied more than once.`, [
-        'Ensure all values of --mode flags are unique.',
+        "Ensure each 'mode' flag value is unique.",
       ]))
     }
 
@@ -120,16 +123,16 @@ export function validateChannelColor(color: string): void {
 
   if (!allColors.includes(adjustedColor)) {
     throw (eInvalidValue(`Unknown channel color ${chalk.red(color)} supplied to command.`, [
-      `Ensure value of --color flag is one of:\n${allColors.join('\n')}`,
+      `Ensure value of flag 'color' is one of:\n${allColors.join('\n')}`,
     ]))
   }
 }
 
-export function validateChannelName(name: string) {
+export function validateChannelName(name: string, optionName: string) {
   debug('validateChannelName()')
   if (name.trim().length === 0) {
     throw (eInvalidValue("Channel name can't be empty or consist only of whitespace.", [
-      'Supply a non-empty value to --name flag',
+      `Supply a non-empty value to flag '${optionName}'`,
     ]))
   }
 }
@@ -166,14 +169,14 @@ export function validateRegexEntityParams(
 
   if (!isLocaleIgnored && (pattern === undefined || locale === undefined)) {
     throw (eMissingParameter('Regex entities require a pattern and a locale.', [
-      'Use --pattern to provide the required regular expression.',
-      'Use --locale to provide the locale for which the regular expression applies.',
+      "Use flag 'pattern' to provide the required regular expression.",
+      "Use flag 'locale' to provide the locale for which the regular expression applies.",
     ]))
   }
 
   if (isLocaleIgnored && pattern === undefined) {
     throw (eMissingParameter('Converting to a Regex entity requires a pattern.', [
-      'use --pattern to provide the required regular expression.',
+      "use flag 'pattern' to provide the required regular expression.",
     ]))
   }
 }
@@ -183,7 +186,7 @@ export function validateRuleBasedEntityParams(hasA: string[]|undefined, isA: str
 
   if (hasA === undefined && isA === undefined) {
     throw (eMissingParameter('Relational entities require has-a and/or is-a relation.', [
-      'use the --has-a and/or --is-a flags to provide the required relation.',
+      "use the 'has-a' and/or 'is-a' flags to provide the required relation.",
     ]))
   }
 }

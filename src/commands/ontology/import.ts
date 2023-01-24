@@ -24,7 +24,7 @@ Use this command to import an ontology into a specific project. The provided
 ontology can only be appended to the existing ontology.
 
 The import needs to be confirmed by re-typing the project ID when prompted.
-It can also be pre-confirmed by using the --confirm flag.`
+It can also be pre-confirmed by using the 'confirm' flag.`
 
   static examples = [
     'Import an ontology',

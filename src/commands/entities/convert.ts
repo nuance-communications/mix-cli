@@ -30,7 +30,7 @@ entity type, you will have to provide additional information as
 explained below.
 
 Regex entities make use of regular expressions specific to a single
-locale. Use the --pattern flag to provide the regular expression for
+locale. Use the 'pattern' flag to provide the regular expression for
 the converted entity. It is recommended to surround the pattern value
 with quotes, especially if the escape character "\\" is used in the
 pattern (see examples below). The regular expression provided gets
@@ -39,7 +39,7 @@ expression for the entity is locale-dependent, then use the entities:configure
 command to update the regular expression for the relevant locales.
 
 Relational entities can have zero or one isA relation and
-zero or many hasA relations. One --is-A or --has-A flag must be
+zero or many hasA relations. One 'is-a' or 'has-a' flag must be
 set at a minimum whent converting an entity to the "relational" type.
 
 The examples below show how to convert an entity to each possible

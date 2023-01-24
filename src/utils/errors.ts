@@ -39,6 +39,7 @@ export enum Codes {
   ConflictError = 'ECONFLICTERROR',
   DownloadFailed = 'EDOWNLOADFAILED',
   Exception = 'EEXCEPTION',
+  Forbidden = 'EFORBIDDEN',
   InvalidValue = 'EINVALIDVALUE',
   InvalidColumnError = 'EINVALIDCOLUMNERROR',
   MiscNotFound = 'ENOTFOUND',
@@ -54,12 +55,12 @@ export enum Codes {
 
 export const eConfigNotFound = (message?: string, suggestions?: string[]) => {
   return new MixCLIError(
-    message ?? 'The mix.cli configuration file could not be found.',
+    message ?? 'The mix-cli configuration file could not be found.',
     {
       code: Codes.ConfigNotFound,
       exit: 1,
       suggestions: suggestions ?? [
-        'Manually create file \'config.json\' under $HOME/.config/mix.cli/',
+        'Manually create file \'config.json\' under $HOME/.config/mix-cli/',
         'You can find sample configuration files in the project\'s GitLab repository',
         'This situation is temporary until the implementation of the \'mix init\' command',
       ],
@@ -85,7 +86,7 @@ export const eDownloadFailed = (message: string) => {
       suggestions: [
         'Verify provided file path exists.',
         'Verify permissions on provided file path.',
-        'Use --overwrite to overwrite an existing file.',
+        "Use flag 'overwrite' to overwrite an existing file.",
       ],
     })
 }
@@ -97,6 +98,18 @@ export const eException = (message: string, suggestions?: string[]) => {
       code: Codes.Exception,
       exit: 1,
       suggestions: suggestions ?? ['Try the command later, or', 'Report the error to technical support.'],
+    })
+}
+
+export const eForbidden = (message: string) => {
+  return new MixCLIError(
+    message ?? 'Access is denied.',
+    {
+      code: Codes.Forbidden,
+      exit: 1,
+      suggestions: [
+        'verify that you are given access to the desired resource(s).',
+      ],
     })
 }
 
@@ -116,7 +129,7 @@ export const eInvalidColumn = (message?: string, suggestions?: string[]) => {
     {
       code: Codes.InvalidColumnError,
       exit: 1,
-      suggestions: suggestions ? suggestions : ['verify the values passed to the --columns flag.'],
+      suggestions: suggestions ? suggestions : ["verify the values passed to the 'columns' flag."],
     })
 }
 
@@ -148,8 +161,8 @@ by the combination of its build type, project ID and build version.`,
     {
       code: Codes.NoBuildInfo,
       exit: 1,
-      suggestions: suggestions ?? ['Set --build-label flag OR ...',
-        'Set --project, --build-type AND –build-version flags.'], // default
+      suggestions: suggestions ?? ["Set 'build-label' flag OR ...",
+        "Set 'project', 'build-type' AND 'build-version' flags."], // default
     })
 }
 
@@ -166,11 +179,11 @@ export const eNotFound = (message?: string, suggestions?: string[]) => {
 export const eNotConfirmed = (confirm: string, expected: string) => {
   return new MixCLIError(
     `Operation was not confirmed.
-Value ${chalk.red(confirm)} supplied to --confirm flag does not match expected value ${chalk.cyan(expected)}. Aborting.`,
+Value ${chalk.red(confirm)} supplied to 'confirm' flag does not match expected value ${chalk.cyan(expected)}. Aborting.`,
     {
       code: Codes.NotConfirmed,
       exit: 1,
-      suggestions: ['check value supplied to --confirm flag and try again.'],
+      suggestions: ["check value supplied to 'confirm' flag and try again."],
     })
 }
 
@@ -192,7 +205,7 @@ export const eTokenFileNotFound = {
     code: Codes.TokenFileNotFound,
     exit: 1,
     suggestions: [
-      'Retrieve your access token using "mix auth" before using other mix.cli commands.',
+      'Retrieve your access token using "mix auth" before using other mix-cli commands.',
       'File .mix-token must exist and contain access token JSON data.',
     ],
   },

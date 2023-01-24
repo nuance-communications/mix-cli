@@ -22,6 +22,7 @@ import {configurationProblemExitCode} from '../constants'
 import {Confirmation} from '../types'
 import {downloadFile} from '../download-file'
 import {validateDomainOptions, DomainOption} from '../validations'
+import {pluralize as s} from '../../utils/format'
 
 import {
   ConnectionError,
@@ -35,6 +36,7 @@ import {
   eConflict,
   eDownloadFailed,
   eException,
+  eForbidden,
   eInvalidColumn,
   eInvalidValue,
   eNotConfirmed,
@@ -50,6 +52,7 @@ import {saveFile} from '../save-file'
 export type Columns = table.Columns<object>
 
 const DEFAULT_FILEPATH = 'outputfile'
+const WATCH_JOB_WAIT_TIME_MS = 10 * 1000
 
 const debug = makeDebug.debug('mix:base:mix-command')
 
@@ -78,8 +81,8 @@ export default abstract class MixCommand extends BaseCommand {
       this.mixCLIConfig = Config.getMixCLIConfig(this.config)
     } catch {
       this.log(`
-mix.cli now requires a central configuration file.
-Please run the "mix init" command and mix.cli will help you create
+mix-cli now requires a central configuration file.
+Please run the "mix init" command and mix-cli will help you create
 that configuration file swiftly.`)
       process.exitCode = configurationProblemExitCode
       return
@@ -294,6 +297,7 @@ that configuration file swiftly.`)
     switch (error.statusCode) {
       case 400: throw eInvalidValue(error.message)
       case 401: throw eUnauthorized(error.message)
+      case 403: throw eForbidden(error.message)
       case 404: throw eNotFound(error.message)
       case 409: throw eConflict(error.message)
       default: throw eUnexpectedStatus(error.statusCode, error.message)
@@ -436,11 +440,19 @@ that configuration file swiftly.`)
 
     if (this.options.filter) return
 
-    this.log(`\nItems ${chalk.cyan((this.context.get('offset') + 1))}-${chalk.cyan(this.context.get('offset') +
-      this.context.get('count'))} of ${chalk.cyan(this.context.get('totalSize'))} shown.`)
+    const count = this.context.get('count')
+    const offset = this.context.get('offset')
+    const totalSize = this.context.get('totalSize')
+
+    const resultInformation = count > 1 ?
+      `${chalk.cyan(offset + 1)}-${chalk.cyan(offset + count)}` :
+      chalk.cyan(count + offset)
+
+    this.log()
+    this.log(`Item${s(count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
 
     if ((this.context?.get('totalSize') ?? 0) > (this.context?.get('count') ?? 1)) {
-      this.log(`Use the ${chalk.cyan('--limit')} and ${chalk.cyan('--offset')} flags to view other parts of the list.`)
+      this.log(`Use the ${chalk.cyan("'limit'")} and ${chalk.cyan("'offset'")} flags to view other parts of the list.`)
     }
   }
 
@@ -482,11 +494,12 @@ that configuration file swiftly.`)
   async watchJob(jobId: string, projectId: string) {
     debug('watchJob()')
 
-    await cli.wait(2 * 1000)
+    await cli.wait(WATCH_JOB_WAIT_TIME_MS)
     await this.doAuth()
+    this.client?.setToken(this.accessToken?.access_token)
     const response = await this.doSafeRequest(this.client, {jobId, projectId}, JobsAPI.getJob)
     const result = response as MixResult
-    const resultData: any = result?.data
+    const resultData: any = result?.data ?? {}
     debug('resultData: %O', resultData)
     const {status} = resultData
 
@@ -499,7 +512,7 @@ that configuration file swiftly.`)
 
       case 'PARTIALLY_COMPLETED':
         debug('status PARTIALLY_COMPLETED')
-        cli.action.stop(chalk.yellow(status))
+        cli.action.stop(chalk.green(status))
         this.shouldWatchJob = false
         break
 
@@ -509,10 +522,15 @@ that configuration file swiftly.`)
         this.shouldWatchJob = true
         break
 
+      case 'FAILED':
+        debug('status FAILED')
+        this.shouldWatchJob = false
+        break
+
       default:
         // mixFailure, connectionFailure and unexpected states are treated the same
         debug('applying default for status %s', status)
-        cli.action.stop(chalk.red('Failed to retrieve job details'))
+        cli.action.stop(chalk.red('Failed to retrieve job details. Please try again.'))
         this.shouldWatchJob = false
         break
     }

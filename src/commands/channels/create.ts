@@ -34,7 +34,7 @@ richtext
 tts
 
 Note that, for your convenience, this command will automatically convert
-inputs to the --mode flag as close to the format of the above modes as possible,
+inputs to the 'mode' flag as close to the format of the above modes as possible,
 by converting upper-case letters to lower-case and removing deliminating punctuation
 ('-' and '_'). So, the modes 'audioscript', 'AUDIO-SCRIPT', and 'a_u-d_i-o----scriPT'
 are all equivalent to the server-side value of 'AUDIO_SCRIPT'. 
@@ -55,7 +55,7 @@ teal          yellow
 
 ${chalk.bold('IMPORTANT:')} Due to a current server-side limitation,
 the command currently requires that both the 
---mode and --color flags are set.`
+'mode' and 'color' flags are set.`
 
   static examples = [
     `mix channels:create -P 1922 --name "New IVR channel" \\
@@ -83,7 +83,7 @@ the command currently requires that both the
   tryDomainOptionsValidation(options: any, domainOptions: DomainOption[]) {
     super.tryDomainOptionsValidation(options, domainOptions)
 
-    validateChannelName(options.name)
+    validateChannelName(options.name, 'name')
 
     if (options.color !== undefined) {
       validateChannelColor(options.color)

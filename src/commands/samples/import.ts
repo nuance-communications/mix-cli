@@ -23,10 +23,10 @@ export default class SamplesImport extends MixCommand {
 Use this command sample sentences into a project.  By default, the samples
 sentences are appended to the project in the specified locale. It is also
 possible to completely replace sample sentences for the specified locale
-by using the --replace flag.
+by using the 'replace' flag.
 
 The import needs to be confirmed by re-typing the intent name when prompted.
-It can also be pre-confirmed by using the --confirm flag. Consider making
+It can also be pre-confirmed by using the 'confirm' flag. Consider making
 a project backup before using this command.`
 
   static examples = [

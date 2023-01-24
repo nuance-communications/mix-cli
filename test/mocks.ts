@@ -10,6 +10,8 @@ import crypto from 'crypto'
 
 const mixAPIServer = 'mix-api.example.com'
 
+export const mixAPIServerURL = `https://${mixAPIServer}`
+
 export const getMixCLIConfigMock = {
   authServer: 'auth.example.com',
   clientId: crypto.randomUUID(),

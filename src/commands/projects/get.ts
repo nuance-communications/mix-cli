@@ -59,7 +59,7 @@ export default class ProjectGet extends MixCommand {
 Use this command to get details about a particular project.
 
 CSV output is available for this command but only for one section of project
-information at a time. The chosen section is specifed using the --table flag.`
+information at a time. The chosen section is specifed using the 'table' flag.`
 
   static examples = ['mix projects:get -P 1922']
 

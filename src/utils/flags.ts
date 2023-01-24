@@ -43,7 +43,7 @@ export const projectEnvVarDefault = 'MIX_PROJECT'
 
 // Flag descriptions
 export const botIDDesc = 'Bot ID'
-export const buildLabelDesc = 'build label (format is <buildType>_<projectId>_<buildVersion>'
+export const buildLabelDesc = 'build label (format is <buildType>_<projectId>_<buildVersion>)'
 export const buildTypeDesc = 'build type'
 export const buildVersionDesc = 'build version'
 export const childDataCompliantDesc = 'marks projects as being child-data compliant'
@@ -56,7 +56,7 @@ export const mixApplicationIDDesc = 'Mix application ID'
 export const noProjectInfoDesc = 'omit project details in table mode'
 export const noChannelsDesc = 'omit channel details in table mode'
 export const noDataPacksDesc = 'omit data pack details in table mode'
-export const omitOverriddenDesc = 'omit application configurations that are overriden'
+export const omitOverriddenDesc = 'omit application configurations that are overridden'
 export const projectDesc = 'project ID'
 export const projectDescriptionDesc = 'project description (for child data compliance)'
 export const projectDescWithDefault = `project ID (defaults to ${projectEnvVarDefault})`
@@ -349,7 +349,7 @@ export const projectWithDefaultFlag = flags.integer({
 })
 
 export const projectTableFlag = flags.string({
-  description: 'data table to output (with --csv only)',
+  description: "data table to output (with 'csv' flag only)",
   dependsOn: ['csv'],
   exclusive: ['json', 'yaml'],
   options: ['channels', 'data-packs', 'project'],
@@ -433,18 +433,18 @@ export const tableFlags = (options: any) => {
   })}
   const columnsCSV = {columns: flags.string({
     dependsOn: ['csv'],
-    description: 'only show provided columns (comma-separated) (with --csv only)',
+    description: "only show provided columns (comma-separated) (with 'csv' flag only)",
     exclusive: ['extended', 'json', 'yaml'],
   })}
   const columnsTableCSV = {columns: flags.string({
     dependsOn: ['csv', 'table'],
-    description: 'only show provided columns (comma-separated) (with --csv only)',
+    description: "only show provided columns (comma-separated) (with 'csv' flag only)",
     exclusive: ['extended', 'json', 'yaml'],
   })}
   const tableCSV = {csv: flags.boolean({
     dependsOn: ['table'],
     exclusive: ['json', 'no-truncate', 'yaml'],
-    description: 'output to csv format (with --table only)',
+    description: "output to csv format (with 'table' flag only)",
   })}
 
   const csv = {csv: flags.boolean({exclusive: ['json', 'no-truncate', 'yaml'], description: 'output to csv format'})}
@@ -484,6 +484,10 @@ export const toEntityTypeFlag = flags.string({
 export const watchFlag = flags.boolean({
   default: false,
   description: 'poll status of job every minute',
+})
+
+export const withApplicationName = flags.string({
+  description: 'filter results by Mix application name',
 })
 
 export const withBuildTypeMultipleFlag = flags.string({

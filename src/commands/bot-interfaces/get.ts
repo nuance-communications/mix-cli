@@ -28,7 +28,7 @@ The configuration ID can be retrieved using the bot-configs:list command.
 Bots are used in certain integration scenarios. A bot is a Mix application
 with configurations that include dialog builds.
 
-See https://docs.mix.nuance.com/mix-api/v4/#bots for details.`
+See https://docs.nuance.com/mix/apis/mix-api/v4/reference/bots/ for details.`
 
   static examples = [
     'Retrieve the interface of a bot',
@@ -61,6 +61,11 @@ See https://docs.mix.nuance.com/mix-api/v4/#bots for details.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
+    if (transformedData === undefined) {
+      this.log('No interface found')
+
+      return
+    }
 
     this.log(`${chalk.bold('Bot interface ID:')} ${chalk.cyan(transformedData.id)}`)
     this.log(`${chalk.bold('Version:')} ${chalk.cyan(transformedData.version)}`)
@@ -72,7 +77,7 @@ See https://docs.mix.nuance.com/mix-api/v4/#bots for details.`
     this.log(`${transformedData.variables.length} variable${s(transformedData.variables.length)} `)
     this.log(`${transformedData.transferNodes.length} transfer node${s(transformedData.transferNodes.length)}`)
     this.log()
-    this.log('Use this command with the `json` flag to get the complete interface.')
+    this.log("Use this command with the 'json' flag to get the complete interface.")
     this.log('Use the bot-interfaces:export command to export the interface to a JSON file.')
   }
 

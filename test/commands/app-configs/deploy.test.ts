@@ -28,8 +28,9 @@ describe('app-configs:deploy', () => {
     .stdout()
     .command(['app-configs:deploy','-C', config, '--env-geo', envId])
     .it('does deploy to one specified env-geo', ctx => {
-      expect(ctx.stdout).to.contain(`Application configuration ID ${config}`)
-      expect(ctx.stdout).to.contain(`deployment ID ${td.deploy.response.data.deployments[0].id}`)
+      const lines = ctx.stdout.split('\n').map(ln => ln.trim())
+      const headers = lines[0].split(/\s+/)
+      expect(headers).to.deep.equal(['Id', 'ConfigId', 'Approved', 'PromotionFlowStepId', 'Code', 'Comment'])
     })
 
   test
@@ -42,8 +43,9 @@ describe('app-configs:deploy', () => {
     .stdout()
     .command(['app-configs:deploy','-C', config])
     .it('deploys without an env-geo', ctx => {
-      expect(ctx.stdout).to.contain(`Application configuration ID ${config}`)
-      expect(ctx.stdout).to.contain(`deployment ID ${td.deploy.response.data.deployments[0].id}`)
+      const lines = ctx.stdout.split('\n').map(ln => ln.trim())
+      const headers = lines[0].split(/\s+/)
+      expect(headers).to.deep.equal(['Id', 'ConfigId', 'Approved', 'PromotionFlowStepId', 'Code', 'Comment'])
     })
 
   test

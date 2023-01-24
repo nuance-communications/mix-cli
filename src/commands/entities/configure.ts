@@ -36,13 +36,13 @@ are common to all entity types. However, certain attributes apply
 to specific entity types only.
 
 Regex entities make use of regular expressions specific to a single
-locale. The --pattern and --locale flags matter only to entities
+locale. The 'pattern' and 'locale' flags matter only to entities
 of type "regex". It is recommended to surround the pattern
 value with quotes, especially if the escape character "\\" is used
 in the pattern. See examples below.
 
 Relationial entities can have zero or one isA relation and
-zero or many hasA relations. One --is-A or --has-A flag must be
+zero or many hasA relations. One 'is-a' or 'has-a' flag must be
 set at a minimum for an entity of type "relational".
 
 The examples below show how to configure each type of entity.

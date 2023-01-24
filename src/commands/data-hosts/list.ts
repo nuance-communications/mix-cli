@@ -144,8 +144,8 @@ retrieved using the applications:list command.`
   For this comamnd, build type is assumed to be "dialog" as data hosts
   are relevant to dialog builds only.`,
     [
-      'Set --build-label flag OR ...',
-      'Set --project AND -–build-version flags.',
+      "Set 'build-label' flag OR ...",
+      "Set 'project' AND 'build-version' flags.",
     ]))
   }
 }
