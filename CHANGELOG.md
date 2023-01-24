@@ -1,3 +1,31 @@
+# [2.3.0](https://github.com/nuance-communications/mix-cli/compare/v2.2.1...v2.3.0) (2023-01-24)
+
+
+### Bug Fixes
+
+* Add common handling of HTTP 403 errors ([#105](https://github.com/nuance-communications/mix-cli/issues/105)) ([fc965e7](https://github.com/nuance-communications/mix-cli/commit/fc965e781ae14a2ae5fa16357dab36b30f9991ea))
+* add support for flag 'live-only' in applications:list ([#132](https://github.com/nuance-communications/mix-cli/issues/132)) ([791bf6f](https://github.com/nuance-communications/mix-cli/commit/791bf6fed5f0e4178a4a6e208ae0929531f785a5))
+* add support for live-only flag to bots:list ([#127](https://github.com/nuance-communications/mix-cli/issues/127)) ([3065ccf](https://github.com/nuance-communications/mix-cli/commit/3065ccf804d4a198b71e3e7d9fdcd22cce175341))
+* align wording around flag names ([#137](https://github.com/nuance-communications/mix-cli/issues/137)) ([93433e6](https://github.com/nuance-communications/mix-cli/commit/93433e60b27c548f43285bb6c5894199997968cd))
+* app-credentials-list desc ([ea460ef](https://github.com/nuance-communications/mix-cli/commit/ea460efe9cc92387b77e7bb29a00a17b34ff24e8))
+* app-credentials-list desc ([52825e7](https://github.com/nuance-communications/mix-cli/commit/52825e708d3c9f70c5be520d56716b51891d9f98))
+* bot-interfaces:export command output ([#126](https://github.com/nuance-communications/mix-cli/issues/126)) ([6333232](https://github.com/nuance-communications/mix-cli/commit/6333232f8cdf68d71ec175e72c5154ada13d723a))
+* build-label description ([#139](https://github.com/nuance-communications/mix-cli/issues/139)) ([d406119](https://github.com/nuance-communications/mix-cli/commit/d406119435189d50fb9cf1a1e3df5ed42aa57850))
+* correct use of pluralize() in deployment-flows:list ([#130](https://github.com/nuance-communications/mix-cli/issues/130)) ([c15c7f1](https://github.com/nuance-communications/mix-cli/commit/c15c7f113c7266ece24f2409593d585c87247c00))
+* data-types-list unit test ([#120](https://github.com/nuance-communications/mix-cli/issues/120)) ([7fd8087](https://github.com/nuance-communications/mix-cli/commit/7fd8087d36b9d827ebeff55920195b574b9694c8))
+* Handle empty/white space project and channel names ([#107](https://github.com/nuance-communications/mix-cli/issues/107)) ([6742b3c](https://github.com/nuance-communications/mix-cli/commit/6742b3c0b5c9f8240fda167531649b455a87c862))
+* Provide additional info in jobs:get output ([#113](https://github.com/nuance-communications/mix-cli/issues/113)) ([8e9d866](https://github.com/nuance-communications/mix-cli/commit/8e9d8669618e52aae491885ddebae81fc7da2cfc))
+* refresh token when watching job ([#146](https://github.com/nuance-communications/mix-cli/issues/146)) ([eac0291](https://github.com/nuance-communications/mix-cli/commit/eac0291d8aa501e093a22abea6cea73b952a3c92))
+* Show deployment comments in app-configs:deploy command ([#112](https://github.com/nuance-communications/mix-cli/issues/112)) ([315d47c](https://github.com/nuance-communications/mix-cli/commit/315d47ccbc16e41292e94a4c04ea898a92648d74))
+* update documentation links to point to new url ([#138](https://github.com/nuance-communications/mix-cli/issues/138)) ([28b9966](https://github.com/nuance-communications/mix-cli/commit/28b99667b1534e40b504665d73327e50450f8915))
+* Update references to "mix.cli" to "mix-cli" ([#111](https://github.com/nuance-communications/mix-cli/issues/111)) ([19b98cc](https://github.com/nuance-communications/mix-cli/commit/19b98cc4c60ccecf6fbe344958d693aad47f7c3f))
+
+
+### Features
+
+* add applications:get command ([#131](https://github.com/nuance-communications/mix-cli/issues/131)) ([97b48e9](https://github.com/nuance-communications/mix-cli/commit/97b48e91e2730bb842c122e600b299c7afb6a6ed))
+* update applications-list to newer ListApplicationsV2 endpoint ([#129](https://github.com/nuance-communications/mix-cli/issues/129)) ([52c9760](https://github.com/nuance-communications/mix-cli/commit/52c9760874fe5b9d0c2a4b103cc36e0d6a73c6b0))
+
 ## [2.2.1](https://github.com/nuance-communications/mix-cli/compare/v2.2.0...v2.2.1) (2022-11-08)
 
 
