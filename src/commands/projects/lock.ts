@@ -7,7 +7,8 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -31,7 +32,7 @@ A project cannot be edited while it is locked.`
 
   static flags = {
     project: MixFlags.projectWithDefaultFlag,
-    notes: flags.string({
+    notes: Flags.string({
       required: true,
       description: 'project lock notes',
     }),
@@ -43,7 +44,7 @@ A project cannot be edited while it is locked.`
     return ['project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsLockParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ProjectsLockParams> {
     debug('buildRequestParameters()')
     const {
       project: projectId,
