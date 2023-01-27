@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as LiteralsAPI from '../../mix/api/literals'
@@ -55,15 +55,16 @@ It can also be pre-confirmed by using the 'confirm' flag.`
   action = 'import'
   shouldConfirmCommand = true
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<LiteralsImportParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<LiteralsImportParams> {
     debug('buildRequestParameters()')
     const {'entity-name': entityName, filepath: filePath, locale, project: projectId} = options
 
     return {entityName, filePath, locale, projectId}
   }
 
-  captureOptions() {
-    super.captureOptions()
+  async captureOptions() {
+    const {flags} = await this.parse(LiteralsImport)
+    this.options = flags
     this.action = this.options.replace ? 'import by replacing' : 'import by appending'
   }
 
