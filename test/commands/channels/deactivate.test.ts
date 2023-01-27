@@ -7,7 +7,7 @@
   */
 
 import {expect, test} from '@oclif/test'
-import cli from 'cli-ux'
+import {CliUx} from '@oclif/core'
 import strip from 'strip-ansi'
 
 const chai = require('chai')
@@ -35,7 +35,7 @@ describe('channels:deactivate', () => {
     .do(() => {
       promptStub.onFirstCall().resolves(td.request.channel)
     })
-    .stub(cli, 'prompt', () => promptStub)
+    .stub(CliUx.ux, 'prompt', () => promptStub)
     .stdout()
     .stderr()
     .command(['channels:deactivate',
@@ -51,7 +51,7 @@ describe('channels:deactivate', () => {
     .do(() => {
       promptStub.onFirstCall().resolves('no')
     })
-    .stub(cli, 'prompt', () => promptStub)
+    .stub(CliUx.ux, 'prompt', () => promptStub)
     .stdout()
     .stderr()
     .command(['channels:deactivate',

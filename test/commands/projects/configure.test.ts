@@ -38,7 +38,8 @@ describe('projects:configure command', () => {
     .command(['projects:configure'])
     .catch(ctx => {
       const err = ctx as PrettyPrintableError
-        expect(err.message).to.contain('Missing required flag:\n --data-pack DATA-PACK')
+        expect(err.message).to.contain('Missing required flag data-pack')
+        expect(err.message).to.contain('project')
     })
     .it('errors out when no parameters supplied')
 })

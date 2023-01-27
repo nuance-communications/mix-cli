@@ -7,7 +7,7 @@
  */
 
 import {expect, test} from '@oclif/test'
-import {PrettyPrintableError} from '@oclif/errors'
+import {PrettyPrintableError} from '@oclif/core/lib/errors'
 
 import {defaultLimit} from '../../../src/utils/constants'
 

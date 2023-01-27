@@ -7,7 +7,7 @@
  */
 
 import {expect, test} from '@oclif/test'
-import {PrettyPrintableError} from '@oclif/errors'
+import {PrettyPrintableError} from '@oclif/core/lib/errors'
 
 const td = require('./jobs-test-data')
 
@@ -59,7 +59,7 @@ describe('jobs:get command', () => {
       `-P=${td.request.projectId}`])
     .catch(ctx => {
       expect(ctx.message).to.contain('Missing required flag')
-      expect(ctx.message).to.contain('-J, --job JOB')
+      expect(ctx.message).to.contain('job')
     })
     .it('gives an error when only project ID is given')
 

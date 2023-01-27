@@ -174,7 +174,7 @@ describe('data-hosts:list command', () => {
       .stderr()
       .command(['data-hosts:list', '--build-version', buildVersion])
       .catch(ctx => {
-        expect(ctx.message).to.contain('--project= must also be provided')
+        expect(ctx.message).to.contain('--project')
       })
     .it('data-hosts:list errors out when no Mix applicationId and projectId supplied')
 
