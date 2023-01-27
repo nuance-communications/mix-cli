@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -62,15 +62,16 @@ on the Mix platform.`
     return ['locale[]', 'project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<OntologyExportParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<OntologyExportParams> {
     debug('buildRequestParameters(')
     const {locale, project: projectId} = options
 
     return {locales: asArray(locale), projectId}
   }
 
-  captureOptions() {
-    super.captureOptions()
+  async captureOptions() {
+    const {flags} = await this.parse(OntologyExport)
+    this.options = flags
     this.options.locale = asArray(this.options.locale)
   }
 
