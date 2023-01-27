@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as AppConfigsAPI from '../../mix/api/app-configs'
@@ -63,7 +63,7 @@ on the Mix platform.`
     return ['config']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<AppConfigsExportParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<AppConfigsExportParams> {
     debug('buildRequestParameters()')
     const {config: configId, 'runtime-app': appId} = options
 

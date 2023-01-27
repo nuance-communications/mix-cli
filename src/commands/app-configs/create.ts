@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as AppConfigsAPI from '../../mix/api/app-configs'
@@ -54,7 +54,7 @@ should be unique.`
     return ['deployment-flow', 'mix-app', 'project', 'with-locale']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<AppConfigsCreateParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<AppConfigsCreateParams> {
     debug('buildRequestParameters()')
     const {
       'deployment-flow': deploymentFlowId,
@@ -80,10 +80,6 @@ should be unique.`
       useLatestFromProject,
       useProjectDefault,
     }
-  }
-
-  captureOptions() {
-    super.captureOptions()
   }
 
   doRequest(client: MixClient, params: AppConfigsCreateParams): Promise<MixResponse> {

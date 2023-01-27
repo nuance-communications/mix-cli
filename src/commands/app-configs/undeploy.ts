@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as AppConfigsAPI from '../../mix/api/app-configs'
@@ -46,7 +46,7 @@ found in the JSON output of the app-configs:get command.`
   }
 
   // Uses same params as deploy
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<AppConfigsDeployParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<AppConfigsDeployParams> {
     debug('buildRequestParameters()')
     const {config: configId, 'env-geo': environmentGeographyIds} = options
 
