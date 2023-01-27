@@ -6,7 +6,8 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as BuildsAPI from '../../mix/api/builds'
@@ -31,23 +32,23 @@ and build version.`
   ]
 
   static flags = {
-    'build-label': flags.string({
+    'build-label': Flags.string({
       description: MixFlags.buildLabelDesc,
       exclusive: ['build-type', 'project', 'build-version'],
     }),
-    'build-type': flags.string({
+    'build-type': Flags.string({
       description: MixFlags.buildTypeDesc,
       dependsOn: ['build-version', 'project'],
       exclusive: ['build-label'],
       options: MixFlags.buildTypeOptions,
     }),
-    'build-version': flags.integer({
+    'build-version': Flags.integer({
       dependsOn: ['build-type', 'project'],
       description: MixFlags.buildVersionDesc,
       exclusive: ['build-label'],
     }),
     json: MixFlags.jsonFlag,
-    project: flags.integer({
+    project: Flags.integer({
       char: MixFlags.projectShortcut,
       dependsOn: ['build-version', 'build-type'],
       description: MixFlags.projectDesc,
@@ -88,7 +89,7 @@ and build version.`
     return ['build-label', 'build-version', 'project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<BuildsGetParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<BuildsGetParams> {
     debug('buildRequestParameters()')
     const {
       'build-type': buildType,
@@ -131,7 +132,7 @@ and build version.`
 
   // There is the possibility that users provide no flags at all
   // as no single flag is actually marked 'required'
-  tryDomainOptionsValidation(options: Partial<flags.Output>, domainOptions: DomainOption[]) {
+  tryDomainOptionsValidation(options: Partial<FlagOutput>, domainOptions: DomainOption[]) {
     debug('tryDomainOptionsValidation()')
     super.tryDomainOptionsValidation(options, domainOptions)
 
