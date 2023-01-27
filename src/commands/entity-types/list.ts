@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as EntityTypesAPI from '../../mix/api/ontology'
@@ -48,7 +48,7 @@ Use this command to list the available entity types.`
     return []
   }
 
-  async buildRequestParameters(_options: Partial<flags.Output>): Promise<EntityTypesListParams> {
+  async buildRequestParameters(_options: Partial<FlagOutput>): Promise<EntityTypesListParams> {
     debug('buildRequestParameters()')
 
     return {
