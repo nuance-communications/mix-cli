@@ -435,7 +435,7 @@ that configuration file swiftly.`)
   }
 
   explainAbsenceOfResult(options: Partial<flags.Output>) {
-    debug('explainAbsenceofResult()')
+    debug('explainAbsenceOfResult()')
 
     if (options.offset && this.context.get('offset') >=  this.context.get('totalSize')) {
       this.log()
