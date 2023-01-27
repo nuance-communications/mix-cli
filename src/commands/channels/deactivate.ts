@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import chalk from 'chalk'
 import makeDebug from 'debug'
 
@@ -47,7 +47,7 @@ export default class ChannelsDeactivate extends MixCommand {
     return ['project', 'channel']
   }
 
-  async buildRequestParameters(options: flags.Output): Promise<ChannelsDeactivateParams> {
+  async buildRequestParameters(options: FlagOutput): Promise<ChannelsDeactivateParams> {
     debug('buildRequestParameters()')
     const {project: projectId, channel: channelId} = options
 
