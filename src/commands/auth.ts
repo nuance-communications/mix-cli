@@ -7,8 +7,8 @@
  */
 
 import chalk from 'chalk'
-import cli from 'cli-ux'
-import {flags} from '@oclif/command'
+import {CliUx, Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import {AuthServerAndCreds, oAuth} from '../utils/auth'
@@ -33,13 +33,13 @@ access token, it takes care of refreshing it automatically.`
   static examples = ['mix auth']
 
   static flags = {
-    help: flags.help({char: 'h'}),
+    help: Flags.help({char: 'h'}),
   }
 
   mixCLIConfig?: MixCLIConfig
 
   private authError: {message: string; code: string; suggestions?: string[]} | undefined
-  options: Partial<flags.Output> = {}
+  options: Partial<FlagOutput> = {}
 
   async init() {
     debug('init()')
@@ -52,7 +52,7 @@ access token, it takes care of refreshing it automatically.`
     debug('runWithClientCredentialsGrant()')
     const {authServer, clientId, clientSecret, scope} = this.mixCLIConfig!
 
-    cli.action.start('Retrieving access token using Client Credentials Grant')
+    CliUx.ux.action.start('Retrieving access token using Client Credentials Grant')
 
     const authServerAndCreds: AuthServerAndCreds = {
       authServerHost: authServer,
@@ -72,7 +72,7 @@ access token, it takes care of refreshing it automatically.`
           'Verify the values provided for the authentication and API servers in your configuration.'],
       }
 
-      cli.action.stop(chalk.red('failed'))
+      CliUx.ux.action.stop(chalk.red('failed'))
       return
     }
 
@@ -86,9 +86,9 @@ access token, it takes care of refreshing it automatically.`
         suggestions: ['Verify permissions on your working directory.',
           'Verify permissions on file .mix-token in your working directory.'],
       }
-      cli.action.stop(chalk.red('failed'))
+      CliUx.ux.action.stop(chalk.red('failed'))
     } else {
-      cli.action.stop(chalk.green('done'))
+      CliUx.ux.action.stop(chalk.green('done'))
     }
   }
 
