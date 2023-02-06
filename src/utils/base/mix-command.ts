@@ -52,6 +52,7 @@ import {saveFile} from '../save-file'
 export type Columns = table.Columns<Record<string, unknown>>
 
 const DEFAULT_FILEPATH = 'outputfile'
+const WATCH_JOB_WAIT_TIME_MS = 10 * 1000
 
 const debug = makeDebug.debug('mix:base:mix-command')
 
@@ -493,7 +494,7 @@ that configuration file swiftly.`)
   async watchJob(jobId: string, projectId: string) {
     debug('watchJob()')
 
-    await CliUx.ux.wait(2 * 1000)
+    await CliUx.ux.wait(WATCH_JOB_WAIT_TIME_MS)
     await this.doAuth()
     const response = await this.doSafeRequest(this.client, {jobId, projectId}, JobsAPI.getJob)
     const result = response as MixResult
@@ -528,7 +529,7 @@ that configuration file swiftly.`)
       default:
         // mixFailure, connectionFailure and unexpected states are treated the same
         debug('applying default for status %s', status)
-        CliUx.ux.action.stop(chalk.red('Failed to retrieve job details'))
+        CliUx.ux.action.stop(chalk.red('Failed to retrieve job details. Please try again.'))
         this.shouldWatchJob = false
         break
     }
