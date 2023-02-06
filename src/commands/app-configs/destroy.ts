@@ -25,6 +25,10 @@ Use this command to permanently delete an application configuration.
 The deletion needs to be confirmed by re-typing the application configuration
 ID when prompted. It can also be pre-confirmed by using the 'confirm' flag.`
 
+  static examples = [
+    '$ mix app-configs:destroy -C 3404',
+  ]
+
   static flags = {
     config: MixFlags.appConfigurationFlag,
     confirm: MixFlags.confirmFlag,

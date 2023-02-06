@@ -12,7 +12,7 @@ import makeDebug from 'debug'
 import * as AppConfigsAPI from '../../mix/api/app-configs'
 import * as MixFlags from '../../utils/flags'
 import MixCommand from '../../utils/base/mix-command'
-import {AppConfigsDeployParams, MixClient, MixResponse} from '../../mix/types'
+import {AppConfigsDeployParams, MixClient, MixResponse, MixResult} from '../../mix/types'
 import {DomainOption} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:app-configs:undeploy')
@@ -39,6 +39,17 @@ found in the JSON output of the app-configs:get command.`
     ...MixFlags.machineOutputFlags,
   }
 
+  get columns() {
+    debug('get columns()')
+
+    return {
+      configId: {header: 'ConfigId'},
+      applicationConfigDeploymentId: {header: 'ConfigDeploymentId'},
+      environmentGeographyId: {header: 'EnvironmentGeographyId'},
+      message: {header: 'Message'},
+    }
+  }
+
   get domainOptions(): DomainOption[] {
     debug('get domainOptions()')
     return ['config', 'env-geo[]']
@@ -62,19 +73,24 @@ found in the JSON output of the app-configs:get command.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const {undeployments} = transformedData
+    if (transformedData.length === 0) {
+      this.log('No application configurations found to undeploy.')
 
-    for (const undeployment of undeployments) {
-      const {
-        message,
-      } = undeployment
-
-      this.log(message)
+      return
     }
+
+    this.outputCLITable(transformedData, this.columns)
   }
 
-  setRequestActionMessage(_options: any) {
+  setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = 'Undeploying application configuration ID from environmentGeography ID with deployment ID '
+    const optionalEnvGeoInfo = options['env-geo'] ? ` from environmentGeography ID ${options['env-geo']}` : ''
+    this.requestActionMessage = `Undeploying application configuration ${options.config}` + optionalEnvGeoInfo
+  }
+
+  transformResponse(result: MixResult) {
+    debug('transformResponse()')
+    const data = result.data as any
+    return data.undeployments
   }
 }
