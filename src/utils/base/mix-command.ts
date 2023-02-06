@@ -496,9 +496,10 @@ that configuration file swiftly.`)
 
     await CliUx.ux.wait(WATCH_JOB_WAIT_TIME_MS)
     await this.doAuth()
+    this.client?.setToken(this.accessToken?.access_token)
     const response = await this.doSafeRequest(this.client, {jobId, projectId}, JobsAPI.getJob)
     const result = response as MixResult
-    const resultData: any = result?.data
+    const resultData: any = result?.data ?? {}
     debug('resultData: %O', resultData)
     const {status} = resultData
 
