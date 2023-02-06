@@ -28,7 +28,9 @@ describe('app-configs:undeploy', () => {
     .stdout()
     .command(['app-configs:undeploy','-C', config, '--env-geo', envId])
     .it('undeploys to one specified env-geo', ctx => {
-      expect(ctx.stdout).to.contain('undeployed')
+      const lines = ctx.stdout.split('\n').map(ln => ln.trim())
+      const headers = lines[0].split(/\s+/)
+      expect(headers).to.deep.equal(['ConfigId', 'ConfigDeploymentId', 'EnvironmentGeographyId', 'Message'])
     })
 
   test
@@ -41,7 +43,9 @@ describe('app-configs:undeploy', () => {
     .stdout()
     .command(['app-configs:undeploy','-C', config])
     .it('undeploys without an env-geo', ctx => {
-      expect(ctx.stdout).to.contain('undeployed')
+      const lines = ctx.stdout.split('\n').map(ln => ln.trim())
+      const headers = lines[0].split(/\s+/)
+      expect(headers).to.deep.equal(['ConfigId', 'ConfigDeploymentId', 'EnvironmentGeographyId', 'Message'])
     })
 
   test
