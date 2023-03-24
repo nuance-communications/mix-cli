@@ -63,8 +63,7 @@ It can also be pre-confirmed by using the 'confirm' flag.`
   }
 
   async captureOptions() {
-    const {flags} = await this.parse(LiteralsImport)
-    this.options = flags
+    await super.captureOptions()
     this.action = this.options.replace ? 'import by replacing' : 'import by appending'
   }
 

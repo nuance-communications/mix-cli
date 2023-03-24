@@ -70,8 +70,7 @@ on the Mix platform.`
   }
 
   async captureOptions() {
-    const {flags} = await this.parse(OntologyExport)
-    this.options = flags
+    await super.captureOptions()
     this.options.locale = asArray(this.options.locale)
   }
 

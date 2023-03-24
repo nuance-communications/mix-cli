@@ -10,7 +10,7 @@ import makeDebug from 'debug'
 import chalk from 'chalk'
 import {CliUx} from '@oclif/core'
 import {FlagOutput} from '@oclif/core/lib/interfaces'
-import {Input} from '@oclif/core/lib/interfaces/parser'
+import {Input} from '@oclif/core/lib/interfaces'
 import {table} from '@oclif/core/lib/cli-ux/styled/table'
 import YAML from 'yaml'
 

@@ -70,8 +70,7 @@ Use this command to build a project.`
   }
 
   async captureOptions() {
-    const {flags} = await this.parse(ProjectsBuild)
-    this.options = flags
+    await super.captureOptions()
     this.options.locale = asArray(this.options.locale)
   }
 

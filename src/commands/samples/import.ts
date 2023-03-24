@@ -69,8 +69,7 @@ a project backup before using this command.`
   }
 
   async captureOptions() {
-    const {flags} = await this.parse(SamplesImport)
-    this.options = flags
+    await super.captureOptions()
     this.action = this.options.replace ? 'import by replacing' : 'import by appending'
   }
 

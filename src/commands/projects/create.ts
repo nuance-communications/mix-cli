@@ -118,8 +118,7 @@ provide a description of your project using the 'description' flag.`
   }
 
   async captureOptions() {
-    const {flags} = await this.parse(ProjectsCreate)
-    this.options = flags
+    await super.captureOptions()
     this.options.locale = asArray(this.options.locale)
   }
 
