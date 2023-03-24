@@ -7,7 +7,7 @@
  */
 
 import {expect, test} from "@oclif/test"
-import {PrettyPrintableError} from "@oclif/errors"
+import {PrettyPrintableError} from "@oclif/core/lib/errors"
 
 const testData = require("../../test-data")
 const serverURL = `https://${testData.server}`
