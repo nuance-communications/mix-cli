@@ -6,7 +6,8 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as DataHostsAPI from '../../mix/api/data-hosts'
@@ -31,11 +32,11 @@ retrieved using the applications:list command.`
   ]
 
   static flags = {
-    'build-label': flags.string({
+    'build-label': Flags.string({
       description: MixFlags.buildLabelDesc,
       exclusive: ['project', 'build-version'],
     }),
-    'build-version': flags.integer({
+    'build-version': Flags.integer({
       dependsOn: ['project'],
       description: MixFlags.buildVersionDesc,
       exclusive: ['build-label'],
@@ -43,7 +44,7 @@ retrieved using the applications:list command.`
     'deployment-flow': MixFlags.withDeploymentFlowFlag,
     json: MixFlags.jsonFlag,
     'mix-app': MixFlags.mixApplicationFlag,
-    project: flags.integer({
+    project: Flags.integer({
       char: MixFlags.projectShortcut,
       dependsOn: ['build-version'],
       description: MixFlags.projectDesc,
@@ -70,7 +71,7 @@ retrieved using the applications:list command.`
     return ['build-label', 'build-version', 'deployment-flow', 'mix-app', 'project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<DataHostsListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<DataHostsListParams> {
     debug('buildRequestParameters()')
     const {
       'build-label': buildLabel,
@@ -129,7 +130,7 @@ retrieved using the applications:list command.`
 
   // There is the possibility that users provide no flags at all
   // as no single flag is actually marked 'required'
-  tryDomainOptionsValidation(options: Partial<flags.Output>, domainOptions: DomainOption[]) {
+  tryDomainOptionsValidation(options: Partial<FlagOutput>, domainOptions: DomainOption[]) {
     debug('tryDomainOptionsValidation()')
     super.tryDomainOptionsValidation(options, domainOptions)
 

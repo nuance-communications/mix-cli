@@ -7,7 +7,7 @@
  */
 
 import {expect, test} from '@oclif/test'
-import cli from "cli-ux"
+import {CliUx} from '@oclif/core'
 
 const chai = require("chai")
 const sinon = require("sinon")
@@ -34,7 +34,7 @@ describe('builds:destroy', () => {
     .do(() => {
       promptStub.onFirstCall().resolves(td.request.buildLabel)
     })
-    .stub(cli, 'prompt', () => promptStub)
+    .stub(CliUx.ux, 'prompt', () => promptStub)
     .nock(serverURL, api => api
       .delete(`/v4/builds/${td.request.buildLabel}`)
       .reply(200, td.getBuildResponse)
@@ -54,7 +54,7 @@ describe('builds:destroy', () => {
     .do(() => {
       promptStub.onFirstCall().resolves('no')
     })
-    .stub(cli, 'prompt', () => promptStub)
+    .stub(CliUx.ux, 'prompt', () => promptStub)
     .stdout()
     .stderr()
     .command(['builds:destroy',
@@ -84,7 +84,7 @@ describe('builds:destroy', () => {
     .do(() => {
       promptStub.onFirstCall().resolves(td.request.buildLabel)
     })
-    .stub(cli, 'prompt', () => promptStub)
+    .stub(CliUx.ux, 'prompt', () => promptStub)
     .nock(serverURL, api => api
       .delete(`/v4/builds/${td.request.buildLabel}`)
       .reply(200, td.getBuildResponse)

@@ -7,7 +7,8 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -69,11 +70,10 @@ provide a description of your project using the 'description' flag.`
 
   static flags = {
     channel: MixFlags.channelMultipleFlag,
-    'child-data-compliant': flags.boolean({
+    'child-data-compliant': Flags.boolean({
       description: MixFlags.childDataCompliantDesc,
-      default: false,
     }),
-    description: flags.string({
+    description: Flags.string({
       description: MixFlags.projectDescriptionDesc,
     }),
     'engine-pack': MixFlags.enginePackFlag,
@@ -90,7 +90,7 @@ provide a description of your project using the 'description' flag.`
     return ['locale[]', 'name', 'organization']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsCreateParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ProjectsCreateParams> {
     debug('buildRequestParameters()')
     const {
       channel: channels,
@@ -117,8 +117,8 @@ provide a description of your project using the 'description' flag.`
     }
   }
 
-  captureOptions() {
-    super.captureOptions()
+  async captureOptions() {
+    await super.captureOptions()
     this.options.locale = asArray(this.options.locale)
   }
 
@@ -145,7 +145,7 @@ provide a description of your project using the 'description' flag.`
     return data.project
   }
 
-  tryDomainOptionsValidation(options: Partial<flags.Output>, domainOptions: DomainOption[]) {
+  tryDomainOptionsValidation(options: Partial<FlagOutput>, domainOptions: DomainOption[]) {
     debug('tryDomainOptionsValidation()')
     super.tryDomainOptionsValidation(options, domainOptions)
 

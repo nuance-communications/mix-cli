@@ -6,7 +6,8 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as EntitiesAPI from '../../mix/api/entities'
@@ -30,7 +31,7 @@ Use this command to rename an entity in a project.`
   static flags = {
     entity: MixFlags.entityFlag,
     json: MixFlags.jsonFlag,
-    'new-name': flags.string({
+    'new-name': Flags.string({
       required: true,
       description: 'new entity name',
     }),
@@ -43,7 +44,7 @@ Use this command to rename an entity in a project.`
     return ['project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<EntitiesRenameParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<EntitiesRenameParams> {
     debug('buildRequestParameters()')
     const {
       entity: entityName,

@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as AppConfigsAPI from '../../mix/api/app-configs'
@@ -43,7 +43,7 @@ versions. The configuration ID can be retrieved using the app-configs:list comma
     return ['config']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<AppConfigsUpgradeParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<AppConfigsUpgradeParams> {
     debug('buildRequestParameters()')
     const {
       config: configId,

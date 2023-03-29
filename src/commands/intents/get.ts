@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as IntentsAPI from '../../mix/api/intents'
@@ -54,7 +54,7 @@ Use this command to get details about a particular intent in a project.`
     return ['project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<IntentsGetParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<IntentsGetParams> {
     debug('buildRequestParameters()')
     const {
       intent: intentName,

@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -44,7 +44,7 @@ Use this command to permanently delete an intent from a project.`
     return ['project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<IntentsDeleteParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<IntentsDeleteParams> {
     debug('buildRequestParameters()')
     const {
       intent: intentName,

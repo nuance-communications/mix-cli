@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {cli} from "cli-ux"
+import {CliUx} from "@oclif/core"
 import sinon from "sinon"
 
 import {oAuth} from '../src/utils/auth'
@@ -14,7 +14,7 @@ import {Config} from '../src/utils/config'
 import {getMixCLIConfigMock, oAuthMock} from "./mocks"
 
 before(() => {
-  sinon.stub(cli.action, 'start')
+  sinon.stub(CliUx.ux.action, 'start')
   sinon.stub(oAuth, 'getOAuthAPI').returns(oAuthMock as any)
   sinon.stub(Config, 'getMixCLIConfig').returns(getMixCLIConfigMock)
 })

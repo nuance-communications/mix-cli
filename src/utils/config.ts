@@ -10,7 +10,7 @@
 import * as fs from 'fs'
 import dotenv from 'dotenv'
 import {format} from 'date-fns'
-import {IConfig} from '@oclif/config'
+import {Config as IConfig} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 import path from 'path'
 

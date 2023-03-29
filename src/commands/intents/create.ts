@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as IntentsAPI from '../../mix/api/intents'
@@ -40,7 +40,7 @@ Use this command to create a new intent in a project.`
     return ['project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<IntentsCreateParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<IntentsCreateParams> {
     debug('buildRequestParameters()')
     const {
       name: intentName,

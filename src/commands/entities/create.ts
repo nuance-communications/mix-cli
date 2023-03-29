@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as EntitiesAPI from '../../mix/api/entities'
@@ -97,7 +97,7 @@ explicitly provided.
     return ['locale', 'project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<EntitiesCreateParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<EntitiesCreateParams> {
     debug('buildRequestParameters()')
     const {
       'anaphora-type': anaphora,
@@ -163,7 +163,7 @@ explicitly provided.
     }
   }
 
-  tryDomainOptionsValidation(options: Partial<flags.Output>, domainOptions: DomainOption[]) {
+  tryDomainOptionsValidation(options: Partial<FlagOutput>, domainOptions: DomainOption[]) {
     debug('tryDomainOptionsValidation()')
     super.tryDomainOptionsValidation(options, domainOptions)
 

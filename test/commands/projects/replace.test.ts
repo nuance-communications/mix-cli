@@ -6,8 +6,8 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import cli from 'cli-ux'
-import {PrettyPrintableError} from '@oclif/errors'
+import {CliUx} from '@oclif/core'
+import {PrettyPrintableError} from '@oclif/core/lib/errors'
 import {expect, test} from '@oclif/test'
 
 import * as CreateFormModule from '../../../src/mix/api/utils/create-form'
@@ -43,7 +43,7 @@ describe('projects:replace', () => {
     .do(() => {
       promptStub.onFirstCall().resolves(td.replace.flags.confirm)
     })
-    .stub(cli, 'prompt', () => promptStub)
+    .stub(CliUx.ux, 'prompt', () => promptStub)
     .nock(serverURL, api => api
       .post(`/v4/projects/${td.replace.flags.project}/.replace`)
       .reply(200, td.replace.response.data)
@@ -66,7 +66,7 @@ describe('projects:replace', () => {
     .do(() => {
       promptStub.onFirstCall().resolves('no')
     })
-    .stub(cli, 'prompt', () => promptStub)
+    .stub(CliUx.ux, 'prompt', () => promptStub)
     .stdout()
     .stderr()
     .command(['projects:replace',
@@ -104,7 +104,7 @@ describe('projects:replace', () => {
     ])
     .catch(ctx => {
       const err = ctx as PrettyPrintableError
-      expect(err.message).to.contain(`Missing required flag:\n -f, --filepath FILEPATH`)
+      expect(err.message).to.contain(`Missing required flag filepath`)
     })
     .it('errors out when no parameters are supplied')
 
@@ -116,7 +116,7 @@ describe('projects:replace', () => {
     ])
     .catch(ctx => {
       const err = ctx as PrettyPrintableError
-      expect(err.message).to.contain(`Missing required flag:\n -P, --project PROJECT`)
+      expect(err.message).to.contain(`Missing required flag project`)
     })
     .it('errors out when project ID is not supplied')
 })

@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import {defaultLimit} from '../../utils/constants'
@@ -76,7 +76,7 @@ A project cannot be edited while it is locked.`
     return ['limit', 'offset', 'organization', 'project', 'user']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsLocksListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ProjectsLocksListParams> {
     debug('buildRequestParameters()')
     const {limit = defaultLimit, offset, organization: orgId, project: projectId, user: userId, sort: sortBy} = options
 

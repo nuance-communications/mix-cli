@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -56,7 +56,7 @@ a project backup before using this command.`
   action = 'import'
   shouldConfirmCommand = true
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<SamplesImportParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<SamplesImportParams> {
     debug('buildRequestParams()')
     const {
       filepath: filePath,
@@ -68,8 +68,8 @@ a project backup before using this command.`
     return {filePath, intentName, locale, projectId}
   }
 
-  captureOptions() {
-    super.captureOptions()
+  async captureOptions() {
+    await super.captureOptions()
     this.action = this.options.replace ? 'import by replacing' : 'import by appending'
   }
 
