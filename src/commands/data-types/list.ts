@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as DataTypesAPI from '../../mix/api/data-types'
@@ -50,7 +50,7 @@ Use this command to list the available data types.`
     return []
   }
 
-  async buildRequestParameters(_options: Partial<flags.Output>): Promise<DataTypesListParams> {
+  async buildRequestParameters(_options: Partial<FlagOutput>): Promise<DataTypesListParams> {
     debug('buildRequestParameters()')
 
     return {

@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as GeographiesAPI from '../../mix/api/geographies'
@@ -45,7 +45,7 @@ Use this command to list the geographies available on the platform.`
     return ['limit', 'offset']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<GeographiesListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<GeographiesListParams> {
     debug('buildRequestParameters()')
     const {limit = defaultLimit, offset, sort: sortBy} = options
 

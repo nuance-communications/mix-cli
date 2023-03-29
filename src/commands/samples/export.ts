@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -60,15 +60,15 @@ Use this command to export samples for an intent in the project.`
     return ['locale[]', 'project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<SamplesExportParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<SamplesExportParams> {
     debug('buildRequestParameters()')
     const {'intent-name': intentName, locale, project: projectId} = options
 
     return {intentName, locales: asArray(locale), projectId}
   }
 
-  captureOptions() {
-    super.captureOptions()
+  async captureOptions() {
+    await super.captureOptions()
     this.options.locale = asArray(this.options.locale)
   }
 

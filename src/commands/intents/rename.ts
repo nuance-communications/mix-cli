@@ -6,7 +6,8 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as IntentsAPI from '../../mix/api/intents'
@@ -29,7 +30,7 @@ Use this command to rename an intent in a project.`
 
   static flags = {
     intent: MixFlags.intentFlag,
-    'new-name': flags.string({
+    'new-name': Flags.string({
       required: true,
       description: 'new intent name',
     }),
@@ -44,7 +45,7 @@ Use this command to rename an intent in a project.`
     return ['project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<IntentsRenameParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<IntentsRenameParams> {
     debug('buildRequestParameters()')
     const {
       intent: intentName,

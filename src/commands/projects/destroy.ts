@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -50,7 +50,7 @@ It can also be pre-confirmed by using the 'confirm' flag.`
     return ['project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsGetParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ProjectsGetParams> {
     debug('buildRequestParameters()')
     const {project: projectId} = options
 

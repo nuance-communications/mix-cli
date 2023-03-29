@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as EnvironmentsAPI from '../../mix/api/environments'
@@ -54,7 +54,7 @@ Use this command to list all environments available to a specific organization.`
     return ['limit', 'offset', 'organization']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<EnvironmentsListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<EnvironmentsListParams> {
     debug('buildRequestParameters()')
     const {limit = defaultLimit, offset, organization: orgId, sort: sortBy} = options
 

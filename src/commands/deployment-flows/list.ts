@@ -7,8 +7,8 @@
  */
 
 import chalk from 'chalk'
-import {cli} from 'cli-ux'
-import {flags} from '@oclif/command'
+import {CliUx} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as DeploymentFlowsAPI from '../../mix/api/deployment-flows'
@@ -68,7 +68,7 @@ The organization ID can be retrieved by using the organizations:list command.`
     return ['limit', 'offset', 'organization']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<DeploymentFlowsListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<DeploymentFlowsListParams> {
     debug('buildRequestParameters()')
     const {limit = defaultLimit, offset, organization: orgId, sort: sortBy} = options
 
@@ -127,7 +127,7 @@ The organization ID can be retrieved by using the organizations:list command.`
     if (size > 0) {
       for (const [idx, flow] of flows.entries()) {
         this.log(chalk.cyan.bold(`Steps for flow ${chalk.cyan(flow.displayName)} (ID: ${chalk.cyan(flow.id)})`))
-        cli.table(flow.steps, columns, options)
+        CliUx.ux.table(flow.steps, columns, options)
         if (idx !== flows.length - 1) {
           this.log()
         }

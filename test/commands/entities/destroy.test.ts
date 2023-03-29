@@ -7,7 +7,7 @@
  */
 
 import {expect, test} from '@oclif/test'
-import cli from 'cli-ux'
+import {CliUx} from '@oclif/core'
 
 const chai = require('chai')
 const sinon = require('sinon')
@@ -87,7 +87,7 @@ describe('entities:destroy', () => {
     .do(() => {
         promptStub.onFirstCall().resolves('no')
       })
-    .stub(cli, 'prompt', () => promptStub)
+    .stub(CliUx.ux, 'prompt', () => promptStub)
     .stdout()
     .stderr()
     .command(['entities:destroy',

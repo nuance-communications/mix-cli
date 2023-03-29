@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import MixCommand from '../../utils/base/mix-command'
@@ -44,7 +44,7 @@ project.`
     }
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<BuildsLatestParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<BuildsLatestParams> {
     debug('buildRequestParams()')
     const {project} = options
     return {projectId: project}

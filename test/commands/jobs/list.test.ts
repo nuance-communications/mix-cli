@@ -7,7 +7,7 @@
  */
 
 import {expect, test} from '@oclif/test'
-import {PrettyPrintableError} from '@oclif/errors'
+import {PrettyPrintableError} from '@oclif/core/lib/errors'
 
 import {defaultLimit} from '../../../src/utils/constants'
 
@@ -106,7 +106,7 @@ describe('jobs:list command', () => {
     .command(['jobs:list'])
     .catch(ctx => {
       expect(ctx.message).to.contain('Missing required flag')
-      expect(ctx.message).to.contain('-P, --project PROJECT')
+      expect(ctx.message).to.contain('project')
     })
     .it('gives an error when project is missing')
 })

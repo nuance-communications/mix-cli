@@ -7,7 +7,8 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as ApplicationsAPI from '../../mix/api/applications'
@@ -43,12 +44,12 @@ A number of flags can be used to constrain the returned results.`
       required: false,
     },
     ...MixFlags.tableFlags({except: ['extended']}),
-    'live-only': flags.boolean({
+    'live-only': Flags.boolean({
       description: MixFlags.liveOnlyFlag.description,
       dependsOn: ['full'],
       exclusive: ['omit-overridden'],
     }),
-    'omit-overridden': flags.boolean({
+    'omit-overridden': Flags.boolean({
       description: MixFlags.omitOverriddenDesc,
       dependsOn: ['full'],
       exclusive: ['live-only'],
@@ -109,7 +110,7 @@ A number of flags can be used to constrain the returned results.`
     return 'AV_FULL'
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ApplicationsListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ApplicationsListParams> {
     debug('buildRequestParameters()')
     const {limit = defaultLimit, offset, organization: orgId, 'with-name': filter, 'with-runtime-app': appId} = options
 
