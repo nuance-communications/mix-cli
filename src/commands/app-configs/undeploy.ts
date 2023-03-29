@@ -6,7 +6,8 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import chalk from 'chalk'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as AppConfigsAPI from '../../mix/api/app-configs'
@@ -56,7 +57,7 @@ found in the JSON output of the app-configs:get command.`
   }
 
   // Uses same params as deploy
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<AppConfigsDeployParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<AppConfigsDeployParams> {
     debug('buildRequestParameters()')
     const {config: configId, 'env-geo': environmentGeographyIds} = options
 
@@ -84,8 +85,8 @@ found in the JSON output of the app-configs:get command.`
 
   setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    const optionalEnvGeoInfo = options['env-geo'] ? ` from environmentGeography ID ${options['env-geo']}` : ''
-    this.requestActionMessage = `Undeploying application configuration ${options.config}` + optionalEnvGeoInfo
+    const optionalEnvGeoInfo = options['env-geo'] ? ` from environmentGeography ID ${chalk.cyan(options['env-geo'])}` : ''
+    this.requestActionMessage = `Undeploying application configuration ${chalk.cyan(options.config)}` + optionalEnvGeoInfo
   }
 
   transformResponse(result: MixResult) {

@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as AppConfigsAPI from '../../mix/api/app-configs'
@@ -61,7 +61,7 @@ the application configuration was created.
     return ['config', 'env-geo[]']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<AppConfigsDeployParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<AppConfigsDeployParams> {
     debug('buildRequestParameters()')
     const {config: configId, 'env-geo': environmentGeographyIds} = options
 

@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -46,7 +46,7 @@ export default class SystemVersion extends MixCommand {
     return []
   }
 
-  async buildRequestParameters(_options: Partial<flags.Output>): Promise<SystemVersionParams> {
+  async buildRequestParameters(_options: Partial<FlagOutput>): Promise<SystemVersionParams> {
     debug('buildRequestParameters()')
     return {}
   }

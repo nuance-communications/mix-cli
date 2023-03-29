@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -60,7 +60,7 @@ and not available to all users.`
     return ['project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<EntitiesGetParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<EntitiesGetParams> {
     debug('buildRequestParams()')
     const {
       entity: entityName,
@@ -78,7 +78,7 @@ and not available to all users.`
     return EntitiesAPI.exportGrammars(client, params)
   }
 
-  outputHumanReadable(_transformedData: any, options: Partial<flags.Output>) {
+  outputHumanReadable(_transformedData: any, options: Partial<FlagOutput>) {
     debug('outputHumanReadable()')
     this.log(`Grammars exported to file ${options.filepath ? chalk.cyan(options.filepath) : chalk.cyan(this.defaultFilepath)}`)
   }

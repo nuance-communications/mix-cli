@@ -7,9 +7,9 @@
  */
 
 import {expect, test} from '@oclif/test'
-import cli from 'cli-ux'
+import {CliUx} from '@oclif/core'
 
-import {PrettyPrintableError} from "@oclif/errors"
+import {PrettyPrintableError} from '@oclif/core/lib/errors'
 
 const chai = require('chai')
 const sinon = require('sinon')
@@ -49,7 +49,7 @@ describe('projects:destroy command', () => {
     .command(['projects:destroy'])
     .catch(ctx => {
       const err = ctx as PrettyPrintableError
-      expect(err.message).to.contain('Missing required flag:\n -P, --project PROJECT')
+      expect(err.message).to.contain('Missing required flag project')
     })
     .it('errors out when no parameters supplied')
 
@@ -58,7 +58,7 @@ describe('projects:destroy command', () => {
     .do(() => {
         promptStub.onFirstCall().resolves('no')
       })
-    .stub(cli, 'prompt', () => promptStub)
+    .stub(CliUx.ux, 'prompt', () => promptStub)
     .stdout()
     .stderr()
     .command(['projects:destroy',

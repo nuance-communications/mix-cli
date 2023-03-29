@@ -7,7 +7,8 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as BotsAPI from '../../mix/api/bots'
@@ -37,14 +38,14 @@ Flags 'live-only' and 'omit-overridden' can only be used with flag 'full'.`
   static flags = {
     full: MixFlags.showFullBotDetailsFlag,
     json: MixFlags.jsonFlag,
-    'live-only': flags.boolean({
+    'live-only': Flags.boolean({
       description: MixFlags.liveOnlyFlag.description,
       dependsOn: ['full'],
       exclusive: ['omit-overridden'],
     }),
     organization: MixFlags.organizationFlag,
     ...MixFlags.tableFlags({except: ['extended']}),
-    'omit-overridden': flags.boolean({
+    'omit-overridden': Flags.boolean({
       description: MixFlags.omitOverriddenDesc,
       dependsOn: ['full'],
       exclusive: ['live-only'],
@@ -103,7 +104,7 @@ Flags 'live-only' and 'omit-overridden' can only be used with flag 'full'.`
     return 'BV_FULL'
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<BotsListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<BotsListParams> {
     debug('buildRequestParameters()')
     const {organization: orgId} = options
 

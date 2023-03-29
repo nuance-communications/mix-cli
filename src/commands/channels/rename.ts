@@ -6,11 +6,11 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import chalk from 'chalk'
 import makeDebug from 'debug'
 
-import {Output} from '@oclif/parser/lib/flags'
 import * as ChannelsAPI from '../../mix/api/channels'
 import {ChannelsRenameParams} from '../../mix/api/channels-types'
 import {MixClient, MixResponse} from '../../mix/types'
@@ -34,7 +34,7 @@ Use this command to change the name of a channel in a project.`
   static flags = {
     project: MixFlags.projectWithDefaultFlag,
     channel: MixFlags.required(MixFlags.channelFlag),
-    'new-name': flags.string({
+    'new-name': Flags.string({
       required: true,
       description: 'new channel name',
     }),
@@ -54,7 +54,7 @@ Use this command to change the name of a channel in a project.`
     validateChannelName(options['new-name'], 'new-name')
   }
 
-  async buildRequestParameters(options: Partial<Output>): Promise<ChannelsRenameParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ChannelsRenameParams> {
     debug('buildRequestParameters()')
     const {'new-name': newName, project: projectId, channel: channelId} = options
 

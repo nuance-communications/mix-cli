@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -45,7 +45,7 @@ users and not available to all users.`
   action = 'replace'
   shouldConfirmCommand = true
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<EntitiesGrammarsReplaceParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<EntitiesGrammarsReplaceParams> {
     debug('buildRequestParameters()')
     const {entity: entityName, filepath: filePath, project: projectId} = options
 

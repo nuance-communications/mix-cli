@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as DataHostsAPI from '../../mix/api/data-hosts'
@@ -54,7 +54,7 @@ associated with the last generated dialog build.`
     return ['deployment-flow', 'mix-app', 'project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<DataHostsLatestParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<DataHostsLatestParams> {
     debug('buildRequestParameters()')
     const {
       'deployment-flow': deploymentFlowId,

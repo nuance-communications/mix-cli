@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as AppCredentialsAPI from '../../mix/api/app-credentials'
@@ -45,7 +45,7 @@ commands.`
     return ['mix-app']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<AppCredentialsListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<AppCredentialsListParams> {
     debug('buildRequestParameters()')
     const {'with-geo-name': envGeographyName, full, 'mix-app': applicationId} = options
 
@@ -79,7 +79,7 @@ commands.`
     }
   }
 
-  outputHumanReadable(credentials: any, options: Partial<flags.Output>) {
+  outputHumanReadable(credentials: any, options: Partial<FlagOutput>) {
     debug('outputHumanReadable()')
     const {'with-geo-name': geographyName, full, 'mix-app': applicationId} = options
 

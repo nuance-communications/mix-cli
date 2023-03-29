@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as BotCredentialsAPI from '../../mix/api/bot-credentials'
@@ -50,7 +50,7 @@ See https://docs.nuance.com/mix/apis/mix-api/v4/reference/bots/ for details.`
     return ['bot']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<BotCredentialsParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<BotCredentialsParams> {
     debug('buildRequestParameters()')
     const {'with-geo-name': envGeographyName, full, bot: botId} = options
 
@@ -84,7 +84,7 @@ See https://docs.nuance.com/mix/apis/mix-api/v4/reference/bots/ for details.`
     }
   }
 
-  outputHumanReadable(credentials: any, options: Partial<flags.Output>) {
+  outputHumanReadable(credentials: any, options: Partial<FlagOutput>) {
     debug('outputHumanReadable()')
     const {'with-geo-name': geographyName, full, bot: botId} = options
 

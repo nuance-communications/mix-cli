@@ -6,7 +6,8 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import chalk from 'chalk'
 import makeDebug from 'debug'
 
@@ -65,7 +66,7 @@ the command currently requires that both the
   static flags = {
     color: MixFlags.required(MixFlags.channelColorFlag),
     mode: MixFlags.modesFlag,
-    name: flags.string({
+    name: Flags.string({
       description: 'channel name',
       required: true,
     }),
@@ -94,7 +95,7 @@ the command currently requires that both the
     }
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ChannelsCreateParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ChannelsCreateParams> {
     debug('buildRequestParameters()')
 
     const {

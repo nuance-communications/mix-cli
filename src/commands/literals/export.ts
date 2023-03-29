@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as LiteralsAPI from '../../mix/api/literals'
@@ -64,15 +64,15 @@ on the Mix platform.`
     return ['locale[]', 'project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<LiteralsExportParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<LiteralsExportParams> {
     debug('buildRequestParameters()')
     const {'entity-name': entityName, locale, project: projectId} = options
 
     return {entityName, locales: asArray(locale), projectId}
   }
 
-  captureOptions() {
-    super.captureOptions()
+  async captureOptions() {
+    await super.captureOptions()
     this.options.locale = asArray(this.options.locale)
   }
 
