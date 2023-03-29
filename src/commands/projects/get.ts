@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -59,7 +59,7 @@ export default class ProjectGet extends MixCommand {
 Use this command to get details about a particular project.
 
 CSV output is available for this command but only for one section of project
-information at a time. The chosen section is specifed using the --table flag.`
+information at a time. The chosen section is specifed using the 'table' flag.`
 
   static examples = ['mix projects:get -P 1922']
 
@@ -77,7 +77,7 @@ information at a time. The chosen section is specifed using the --table flag.`
     return ['project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsGetParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ProjectsGetParams> {
     debug('buildRequestParameters()')
     const {project: projectId} = options
 

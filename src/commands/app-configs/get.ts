@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as AppConfigsAPI from '../../mix/api/app-configs'
@@ -22,7 +22,7 @@ export default class AppConfigsGet extends MixCommand {
   
 Use this command to get details about a particular application configuration.
 The configuration ID can be retrieved using the app-configs:list command.
-Use the --json or --yaml flag to get the full details as the human-readable
+Use the 'json' or 'yaml' flag to get the full details as the human-readable
 output is brief.`
 
   static examples = [
@@ -54,7 +54,11 @@ output is brief.`
     return ['config']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<AppConfigsGetParams> {
+  async captureOptions() {
+    super.captureOptions()
+  }
+
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<AppConfigsGetParams> {
     debug('buildRequestParameters()')
     const {config: configId} = options
 

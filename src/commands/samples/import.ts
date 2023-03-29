@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -23,10 +23,10 @@ export default class SamplesImport extends MixCommand {
 Use this command sample sentences into a project.  By default, the samples
 sentences are appended to the project in the specified locale. It is also
 possible to completely replace sample sentences for the specified locale
-by using the --replace flag.
+by using the 'replace' flag.
 
 The import needs to be confirmed by re-typing the intent name when prompted.
-It can also be pre-confirmed by using the --confirm flag. Consider making
+It can also be pre-confirmed by using the 'confirm' flag. Consider making
 a project backup before using this command.`
 
   static examples = [
@@ -56,7 +56,7 @@ a project backup before using this command.`
   action = 'import'
   shouldConfirmCommand = true
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<SamplesImportParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<SamplesImportParams> {
     debug('buildRequestParams()')
     const {
       filepath: filePath,
@@ -68,8 +68,8 @@ a project backup before using this command.`
     return {filePath, intentName, locale, projectId}
   }
 
-  captureOptions() {
-    super.captureOptions()
+  async captureOptions() {
+    await super.captureOptions()
     this.action = this.options.replace ? 'import by replacing' : 'import by appending'
   }
 

@@ -7,7 +7,7 @@
  */
 
 import {expect, test} from '@oclif/test'
-import {PrettyPrintableError} from '@oclif/errors'
+import {PrettyPrintableError} from '@oclif/core/lib/errors'
 
 import {defaultLimit} from '../../../src/utils/constants'
 
@@ -64,7 +64,7 @@ describe('builds:list', () => {
 
       expect(firstRow).to.deep.equal(['3266', 'ASR_1922_5', '5', 'ASR', 'BST_COMPLETED', 'gen', 'en-US@4.4.0', 'FAST', '2021-09-01T03:29:26Z', 'nuance_custom_data', 'Testing1'])
       expect(ctx.stdout).to.contain("Items 3-6 of 6 shown.")
-      expect(ctx.stdout).to.contain("Use the --limit and --offset flags to view other parts of the list.")
+      expect(ctx.stdout).to.contain("Use the 'limit' and 'offset' flags to view other parts of the list.")
     })
 
   test
@@ -156,7 +156,7 @@ describe('builds:list', () => {
       const err: PrettyPrintableError = ctx
       expect(err.message).to.contain(' is not valid column name')
       expect(err.suggestions).to.have.lengthOf(1)
-      expect(err.suggestions).to.deep.equal(['verify the values passed to the --columns flag.'])
+      expect(err.suggestions).to.deep.equal(["verify the values passed to the 'columns' flag."])
     })
     .it('gives an error when project does not exist')
 
@@ -180,7 +180,7 @@ describe('builds:list', () => {
       const err: PrettyPrintableError = ctx
       expect(err.message).to.contain(' is not valid column name')
       expect(err.suggestions).to.have.lengthOf(1)
-      expect(err.suggestions).to.deep.equal(['verify the values passed to the --columns flag.'])
+      expect(err.suggestions).to.deep.equal(["verify the values passed to the 'columns' flag."])
     })
     .it('lists builds with invalid column header', ctx => {
       //TODO: why is this empty?

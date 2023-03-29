@@ -6,4 +6,4 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-export {run} from '@oclif/command'
+export {run} from '@oclif/core'

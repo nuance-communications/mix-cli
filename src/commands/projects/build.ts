@@ -7,7 +7,8 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -31,9 +32,9 @@ Use this command to build a project.`
   ]
 
   static flags = {
-    'build-type': flags.string({
+    'build-type': Flags.string({
       description: MixFlags.buildTypeDesc,
-      default: 'nlu',
+      default: ['nlu'],
       multiple: true,
       options: MixFlags.buildTypeOptions,
     }),
@@ -49,7 +50,7 @@ Use this command to build a project.`
     return ['locale[]', 'project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsBuildParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ProjectsBuildParams> {
     debug('buildRequestParameters()')
     const {
       'build-type': buildType,
@@ -68,8 +69,8 @@ Use this command to build a project.`
     }
   }
 
-  captureOptions() {
-    super.captureOptions()
+  async captureOptions() {
+    await super.captureOptions()
     this.options.locale = asArray(this.options.locale)
   }
 

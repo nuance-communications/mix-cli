@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -24,7 +24,7 @@ Use this command to import an ontology into a specific project. The provided
 ontology can only be appended to the existing ontology.
 
 The import needs to be confirmed by re-typing the project ID when prompted.
-It can also be pre-confirmed by using the --confirm flag.`
+It can also be pre-confirmed by using the 'confirm' flag.`
 
   static examples = [
     'Import an ontology',
@@ -44,7 +44,7 @@ It can also be pre-confirmed by using the --confirm flag.`
   action = 'import by appending'
   shouldConfirmCommand = true
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<OntologyImportParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<OntologyImportParams> {
     debug('buildRequestParameters()')
     const {filepath: filePath, project: projectId} = options
 

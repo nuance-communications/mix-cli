@@ -6,7 +6,8 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import chalk from 'chalk'
 import makeDebug from 'debug'
 
@@ -34,7 +35,7 @@ richtext
 tts
 
 Note that, for your convenience, this command will automatically convert
-inputs to the --mode flag as close to the format of the above modes as possible,
+inputs to the 'mode' flag as close to the format of the above modes as possible,
 by converting upper-case letters to lower-case and removing deliminating punctuation
 ('-' and '_'). So, the modes 'audioscript', 'AUDIO-SCRIPT', and 'a_u-d_i-o----scriPT'
 are all equivalent to the server-side value of 'AUDIO_SCRIPT'. 
@@ -55,7 +56,7 @@ teal          yellow
 
 ${chalk.bold('IMPORTANT:')} Due to a current server-side limitation,
 the command currently requires that both the 
---mode and --color flags are set.`
+'mode' and 'color' flags are set.`
 
   static examples = [
     `mix channels:create -P 1922 --name "New IVR channel" \\
@@ -65,7 +66,7 @@ the command currently requires that both the
   static flags = {
     color: MixFlags.required(MixFlags.channelColorFlag),
     mode: MixFlags.modesFlag,
-    name: flags.string({
+    name: Flags.string({
       description: 'channel name',
       required: true,
     }),
@@ -94,7 +95,7 @@ the command currently requires that both the
     }
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ChannelsCreateParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ChannelsCreateParams> {
     debug('buildRequestParameters()')
 
     const {

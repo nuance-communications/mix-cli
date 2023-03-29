@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import chalk from 'chalk'
 import makeDebug from 'debug'
 
@@ -38,7 +38,7 @@ Use this command to list the engine packs available to a specific organization.`
     return ['organization']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<EnginePacksListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<EnginePacksListParams> {
     debug('buildRequestParameters()')
     const {organization: orgId} = options
     return {orgId}

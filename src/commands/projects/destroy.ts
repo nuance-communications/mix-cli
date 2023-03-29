@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -26,7 +26,7 @@ Unless a backup exists, there is no way to restore a project that
 has been destroyed.
 
 The deletion needs to be confirmed by re-typing the project ID when prompted.
-It can also be pre-confirmed by using the --confirm flag.`
+It can also be pre-confirmed by using the 'confirm' flag.`
 
   static examples = [
     'Destroy a project',
@@ -50,7 +50,7 @@ It can also be pre-confirmed by using the --confirm flag.`
     return ['project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsGetParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ProjectsGetParams> {
     debug('buildRequestParameters()')
     const {project: projectId} = options
 

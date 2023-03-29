@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as AppConfigsAPI from '../../mix/api/app-configs'
@@ -23,7 +23,7 @@ export default class AppConfigsDeploy extends MixCommand {
 Use this command to deploy an application configuration. The configuration ID
 can be retrieved using the app-configs:list command.
 
-A specific environment-geography can be specified using the --env-geo flag.
+A specific environment-geography can be specified using the 'env-geo' flag.
 If none is specified, the application configuration will get deployed to the
 next environment-geography defined in the deployment flow specified when
 the application configuration was created.
@@ -61,7 +61,7 @@ the application configuration was created.
     return ['config', 'env-geo[]']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<AppConfigsDeployParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<AppConfigsDeployParams> {
     debug('buildRequestParameters()')
     const {config: configId, 'env-geo': environmentGeographyIds} = options
 

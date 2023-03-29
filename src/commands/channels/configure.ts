@@ -6,7 +6,8 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import chalk from 'chalk'
 import makeDebug from 'debug'
 
@@ -51,7 +52,7 @@ teal          yellow
 
 ${chalk.bold('IMPORTANT:')} Due to a current server-side limitation,
 the command currently requires that both the 
---mode and --color flags are set.`
+'mode' and 'color' flags are set.`
 
   static examples = [
     'mix channels:configure -P 1922  \\',
@@ -64,7 +65,7 @@ the command currently requires that both the
     project: MixFlags.projectWithDefaultFlag,
     channel: MixFlags.required(MixFlags.channelFlag),
     mode: MixFlags.modesFlag,
-    color: flags.string({
+    color: Flags.string({
       description: 'channel color',
       required: true,
     }),
@@ -83,7 +84,7 @@ the command currently requires that both the
 
     // At least one flag must be set
     if (options.mode === undefined && options.color === undefined) {
-      this.error('At least one of --mode and --color must be set.')
+      this.error("At least one of flag 'mode' and flag 'color' must be set.")
     }
 
     if (options.color !== undefined) {
@@ -95,7 +96,7 @@ the command currently requires that both the
     }
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ChannelsConfigParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ChannelsConfigParams> {
     debug('buildRequestParameters()')
 
     const {

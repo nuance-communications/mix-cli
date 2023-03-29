@@ -1,28 +1,6 @@
 #!/usr/bin/env node
 
-/*
- * Copyright 2022, Nuance, Inc. and its contributors.
- * All rights reserved.
- *
- * This source code is licensed under the Apache-2.0 license found in
- * the LICENSE file in the root directory of this source tree.
- */
+const oclif = require('@oclif/core')
 
-const MIN_NODE_VERSION = 14
-
-if (process && process.versions && process.versions.node) {
-  const nodeVersion = process.versions.node
-  const nodeMajorVersion = Number.parseInt(nodeVersion.split('.'), 10)
-
-  if (nodeMajorVersion < MIN_NODE_VERSION) {
-    console.error(`Your system is running Node.js version ${nodeVersion}`)
-    console.error(`mix-cli requires version ${MIN_NODE_VERSION} of Node.js at a minimum.`)
-    console.error('Please upgrade your version of Node.js.')
-    process.exitCode = 1
-    return
-  }
-
-  require('@oclif/command').run()
-  .then(require('@oclif/command/flush'))
-  .catch(require('@oclif/errors/handle'))
-}
+// Start the CLI
+oclif.run().then(oclif.flush).catch(oclif.Errors.handle)

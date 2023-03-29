@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as EntitiesAPI from '../../mix/api/entities'
@@ -15,7 +15,6 @@ import * as MixFlags from '../../utils/flags'
 import MixCommand, {Columns} from '../../utils/base/mix-command'
 import {EntitiesListParams, Entity, MixClient, MixResponse, MixResult} from '../../mix/types'
 import {DomainOption} from '../../utils/validations'
-import {Output} from '@oclif/parser/lib/flags'
 
 const debug = makeDebug('mix:commands:entities:list')
 
@@ -54,7 +53,7 @@ Use this command to list all entities available in a specific project.`
     return ['project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<EntitiesListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<EntitiesListParams> {
     debug('buildRequestParameters()')
     const {project: projectId} = options
     const type = (options['with-entity-type']?.toUpperCase().replace('-', '_') ??
@@ -68,7 +67,7 @@ Use this command to list all entities available in a specific project.`
     return EntitiesAPI.listEntities(client, params)
   }
 
-  outputHumanReadable(transformedData: any, _options: Partial<Output>): void {
+  outputHumanReadable(transformedData: any, _options: Partial<FlagOutput>): void {
     if (Array.isArray(transformedData) && transformedData.length === 0) {
       this.log('No entities found.')
       return

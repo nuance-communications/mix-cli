@@ -7,8 +7,7 @@
  */
 
 import chalk from 'chalk'
-import cli from 'cli-ux'
-import Command from '@oclif/command'
+import {CliUx, Command} from '@oclif/core'
 import makeDebug from 'debug'
 
 import {AuthServerAndCreds, oAuth} from '../../utils/auth'
@@ -52,17 +51,17 @@ export default abstract class BaseCommand extends Command {
     const {scope} = this.mixCLIConfig!
     if (this.oAuthClient.isAccessTokenExpired(this.accessToken)) {
       debug('access token is expired or close to expiring')
-      cli.action.start('Renewing access token')
+      CliUx.ux.action.start('Renewing access token')
       const {renewedToken, error} = await this.renewAccessToken(scope)
       if (error) {
         debug('access token renewal failed')
         this.error(error.message, error.options)
-        cli.action.stop(chalk.red('failed'))
+        CliUx.ux.action.stop(chalk.red('failed'))
       }
 
       debug('access token successfully renewed')
       this.accessToken = renewedToken
-      cli.action.stop(chalk.green('OK'))
+      CliUx.ux.action.stop(chalk.green('OK'))
     }
   }
 

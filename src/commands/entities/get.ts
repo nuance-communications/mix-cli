@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as EntitiesAPI from '../../mix/api/entities'
@@ -27,7 +27,7 @@ varies with the type of the entity queried. However, the CSV output provides a
 column for each of the properties present in the superset of all entity type
 properties. This way, a consistent set of columns is always presented.
 
-Use the --json or --yaml flag to see the original data returned by the
+Use the 'json' or 'yaml' flag to see the original data returned by the
 server.
 `
 
@@ -72,7 +72,7 @@ server.
     return ['project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<EntitiesGetParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<EntitiesGetParams> {
     debug('buildRequestParameters()')
     const {
       entity: entityName,

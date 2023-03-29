@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as BotInterfacesGetAPI from '../../mix/api/bot-interfaces'
@@ -47,7 +47,7 @@ See https://docs.nuance.com/mix/apis/mix-api/v4/reference/bots/ for details.`
     return ['bot', 'config']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<BotInterfacesGetParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<BotInterfacesGetParams> {
     debug('buildRequestParameters()')
     const {bot: botId, config: configId} = options
 
@@ -77,7 +77,7 @@ See https://docs.nuance.com/mix/apis/mix-api/v4/reference/bots/ for details.`
     this.log(`${transformedData.variables.length} variable${s(transformedData.variables.length)} `)
     this.log(`${transformedData.transferNodes.length} transfer node${s(transformedData.transferNodes.length)}`)
     this.log()
-    this.log('Use this command with the `json` flag to get the complete interface.')
+    this.log("Use this command with the 'json' flag to get the complete interface.")
     this.log('Use the bot-interfaces:export command to export the interface to a JSON file.')
   }
 

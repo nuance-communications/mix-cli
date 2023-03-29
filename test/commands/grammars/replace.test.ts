@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import cli from 'cli-ux'
+import {CliUx} from '@oclif/core'
 import {expect, test} from '@oclif/test'
 import {mixAPIServerURL} from '../../mocks'
 import testData from './grammars-test-data'
@@ -51,7 +51,7 @@ describe('grammars:replace command', () => {
         .do(() => {
           promptStub.onFirstCall().resolves(entityName)
         })
-        .stub(cli, 'prompt', () => promptStub)
+        .stub(CliUx.ux, 'prompt', () => promptStub)
         .nock(mixAPIServerURL, (api) =>
           api
             .post(endpoint)
@@ -72,7 +72,7 @@ describe('grammars:replace command', () => {
         .do(() => {
           promptStub.onFirstCall().resolves('no')
         })
-        .stub(cli, 'prompt', () => promptStub)
+        .stub(CliUx.ux, 'prompt', () => promptStub)
         .stdout()
         .stderr()
         .command(['grammars:replace', '-P', projectId, '-E', entityName, '-f', filepath])
@@ -114,9 +114,9 @@ describe('grammars:replace command', () => {
           `-c=${wrongEntity}`
          ])
         .catch(ctx => {
-          expect(ctx.message).to.contain('--confirm flag does not match expected value')
+          expect(ctx.message).to.contain("'confirm' flag does not match expected value")
         })
-      .it('grammars:replace errors out when --confirm flag does not match expected value')
+      .it("grammars:replace errors out when 'confirm' flag does not match expected value")
     })
   }),
   

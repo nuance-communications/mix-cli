@@ -7,7 +7,8 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -24,12 +25,12 @@ export default class ProjectsCreate extends MixCommand {
   static description = `create a new project
 
 Use this command to create a new project. Many parameters are needed to
-create a project. In particular, channels and modes go hand in hand. A --channel
-flag must be matched by a --modes flag. Use a comma-separated list (no spaces)
+create a project. In particular, channels and modes go hand in hand. A 'channel'
+flag must be matched by a 'modes' flag. Use a comma-separated list (no spaces)
 of mode names to specify multiple modes for a channel.
 
 Given the right user permissions, it is possible to specify an engine pack using
-the --engine-pack flag.
+the 'engine-pack' flag.
 
 ${chalk.bold('Nuance’s Child Data Policy')}
 Nuance’s Child Data Policy is related to online services that are subject to
@@ -46,8 +47,8 @@ or product that is primarily directed to children under 16.
 This acknowledgement must be completed for any projects that are intended
 for use in the Nuance SaaS cloud.
 
-To acknowledge such a project, use the --child-data-compliant flag and also
-provide a description of your project using the --description flag.`
+To acknowledge such a project, use the 'child-data-compliant' flag and also
+provide a description of your project using the 'description' flag.`
 
   static examples = [
     'Create a project with one channel and two modes',
@@ -69,11 +70,10 @@ provide a description of your project using the --description flag.`
 
   static flags = {
     channel: MixFlags.channelMultipleFlag,
-    'child-data-compliant': flags.boolean({
+    'child-data-compliant': Flags.boolean({
       description: MixFlags.childDataCompliantDesc,
-      default: false,
     }),
-    description: flags.string({
+    description: Flags.string({
       description: MixFlags.projectDescriptionDesc,
     }),
     'engine-pack': MixFlags.enginePackFlag,
@@ -90,7 +90,7 @@ provide a description of your project using the --description flag.`
     return ['locale[]', 'name', 'organization']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsCreateParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ProjectsCreateParams> {
     debug('buildRequestParameters()')
     const {
       channel: channels,
@@ -117,8 +117,8 @@ provide a description of your project using the --description flag.`
     }
   }
 
-  captureOptions() {
-    super.captureOptions()
+  async captureOptions() {
+    await super.captureOptions()
     this.options.locale = asArray(this.options.locale)
   }
 
@@ -145,7 +145,7 @@ provide a description of your project using the --description flag.`
     return data.project
   }
 
-  tryDomainOptionsValidation(options: Partial<flags.Output>, domainOptions: DomainOption[]) {
+  tryDomainOptionsValidation(options: Partial<FlagOutput>, domainOptions: DomainOption[]) {
     debug('tryDomainOptionsValidation()')
     super.tryDomainOptionsValidation(options, domainOptions)
 

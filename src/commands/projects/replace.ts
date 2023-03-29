@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -49,7 +49,7 @@ in an incomplete project.`
   action = 'replace'
   shouldConfirmCommand = true
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsReplaceParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ProjectsReplaceParams> {
     debug('buildRequestParameters()')
     const {filepath: filePath, project: projectId} = options
 

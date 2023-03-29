@@ -7,7 +7,7 @@
  */
 
 import {expect, test} from "@oclif/test"
-import {PrettyPrintableError} from "@oclif/errors"
+import {PrettyPrintableError} from "@oclif/core/lib/errors"
 
 const testData = require("../../test-data")
 const serverURL = `https://${testData.server}`
@@ -58,7 +58,7 @@ describe("projects:get command", () => {
     .command(['projects:get'])
     .catch(ctx => {
       const err: PrettyPrintableError = ctx
-      expect(err.message).to.contain('Missing required flag:\n -P, --project PROJECT')
+      expect(err.message).to.contain('Missing required flag project')
     })
     .it('provides an error message when no project ID supplied')
 
@@ -67,7 +67,7 @@ describe("projects:get command", () => {
     .command(['projects:get','-P','1234','--table','channels'])
     .catch(ctx => {
       const err: PrettyPrintableError = ctx
-      expect(err.message).to.contain('--csv= must also be provided when using --table=')
+      expect(err.message).to.contain('--csv')
     })
     .it('provides an error message when table flag is supplied without csv')
 
@@ -76,7 +76,7 @@ describe("projects:get command", () => {
     .command(['projects:get','-P','1234','--csv'])
     .catch(ctx => {
       const err: PrettyPrintableError = ctx
-      expect(err.message).to.contain('--table= must also be provided when using --csv=')
+      expect(err.message).to.contain('--table')
     })
     .it('provides an error message when csv flag is supplied without table')
 })

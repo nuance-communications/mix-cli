@@ -7,7 +7,8 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -25,7 +26,7 @@ Use this command to rename a project.`
   static examples = ['$ mix projects:rename -P 1922 --new-name ACME']
 
   static flags = {
-    'new-name': flags.string({
+    'new-name': Flags.string({
       required: true,
       description: 'new project name',
     }),
@@ -38,7 +39,7 @@ Use this command to rename a project.`
     return ['project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsRenameParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ProjectsRenameParams> {
     debug('buildRequestParameters()')
     const {
       'new-name': displayName,

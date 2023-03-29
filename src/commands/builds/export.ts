@@ -7,7 +7,8 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as BuildsAPI from '../../mix/api/builds'
@@ -37,16 +38,16 @@ on the Mix platform.`
   ]
 
   static flags = {
-    'build-label': flags.string({
+    'build-label': Flags.string({
       description: MixFlags.buildLabelDesc,
       exclusive: ['build-type', 'project', 'build-version'],
     }),
-    'build-version': flags.integer({
+    'build-version': Flags.integer({
       description: MixFlags.buildVersionDesc,
       exclusive: ['build-label'],
       dependsOn: ['build-type', 'project'],
     }),
-    'build-type': flags.string({
+    'build-type': Flags.string({
       dependsOn: ['build-version', 'project'],
       description: MixFlags.buildTypeDesc,
       exclusive: ['build-label'],
@@ -58,7 +59,7 @@ on the Mix platform.`
       required: false,
     },
     overwrite: MixFlags.overwriteFileFlag,
-    project: flags.integer({
+    project: Flags.integer({
       char: MixFlags.projectShortcut,
       dependsOn: ['build-version', 'build-type'],
       description: MixFlags.projectDesc,
@@ -94,7 +95,7 @@ on the Mix platform.`
     return ['build-label', 'build-version', 'project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<BuildsGetParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<BuildsGetParams> {
     debug('buildRequestParameters()')
     const {
       'build-type': buildType,
@@ -131,7 +132,7 @@ on the Mix platform.`
 
   // There is the possibility that users provide no flags at all
   // as no single flag is actually marked 'required'
-  tryDomainOptionsValidation(options: Partial<flags.Output>, domainOptions: DomainOption[]) {
+  tryDomainOptionsValidation(options: Partial<FlagOutput>, domainOptions: DomainOption[]) {
     debug('tryDomainOptionsValidation()')
     super.tryDomainOptionsValidation(options, domainOptions)
 

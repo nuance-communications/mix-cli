@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -25,7 +25,7 @@ export default class ProjectsConfigure extends MixCommand {
 Use this command to update the data pack for a locale used in a project.
 The operation is not carried out immediately. Instead, the Mix backend returns
 a job ID that can be used to monitor progress. mix-cli outputs detailed
-information on the created job when the --json flag is provided.
+information on the created job when the 'json' flag is provided.
 
 Note that you cannot add a new locale with this command.
 `
@@ -45,7 +45,7 @@ Note that you cannot add a new locale with this command.
     return ['data-pack', 'project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsConfigureParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ProjectsConfigureParams> {
     debug('buildRequestParameters()')
     const dataPack = options['data-pack'] ?? ''
     const [locale, version] = dataPack.split('@')

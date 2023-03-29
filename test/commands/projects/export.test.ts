@@ -7,7 +7,7 @@
  */
 
 import {expect, test} from '@oclif/test'
-import {PrettyPrintableError} from "@oclif/errors"
+import {PrettyPrintableError} from '@oclif/core/lib/errors'
 
 import * as DownloadFileModule from '../../../src/utils/download-file'
 
@@ -75,7 +75,7 @@ describe('projects:export command', () => {
     )
     .catch(ctx => {
       const err = ctx as PrettyPrintableError
-      expect(err.message).to.contain('Missing required flag:\n -P, --project PROJECT')
+      expect(err.message).to.contain('Missing required flag project')
     })
     .it('errors out when project ID is not specified')
  })

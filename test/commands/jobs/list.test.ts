@@ -7,7 +7,7 @@
  */
 
 import {expect, test} from '@oclif/test'
-import {PrettyPrintableError} from '@oclif/errors'
+import {PrettyPrintableError} from '@oclif/core/lib/errors'
 
 import {defaultLimit} from '../../../src/utils/constants'
 
@@ -48,8 +48,9 @@ describe('jobs:list command', () => {
     .command(['jobs:list',
       `-P=${td.request.projectId}`])
     .it('indicates there are more samples to see ', ctx => {
-      expect(ctx.stdout).to.contain('Use the --limit and --offset flags to view other parts of the list')
+      expect(ctx.stdout).to.contain("Use the 'limit' and 'offset' flags to view other parts of the list")
       expect(ctx.stdout).to.contain(`Items 1-2 of 5 shown.`)
+      expect(ctx.stdout).to.contain("Use the 'limit' and 'offset' flags to view other parts of the list.")
   })
 
   test
@@ -105,7 +106,7 @@ describe('jobs:list command', () => {
     .command(['jobs:list'])
     .catch(ctx => {
       expect(ctx.message).to.contain('Missing required flag')
-      expect(ctx.message).to.contain('-P, --project PROJECT')
+      expect(ctx.message).to.contain('project')
     })
     .it('gives an error when project is missing')
 })

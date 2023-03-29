@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as JobsAPI from '../../mix/api/jobs'
@@ -74,7 +74,7 @@ Use this command to get details about a particular job.`
     return ['job', 'project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<JobsGetParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<JobsGetParams> {
     debug('buildRequestParameters()')
     const {job: jobId, project: projectId} = options
 
@@ -133,7 +133,8 @@ Use this command to get details about a particular job.`
 
     if (isSomeFailed) {
       this.outputCLITable(reportsData, {...this.reportsColumns, ...this.reportsErrorsColumn})
-      this.log('\nRun the command again with the --json flag to see error details for reported failures.')
+      this.log()
+      this.log("Run the command again with the 'json' flag to see error details for reported failures.")
     }
   }
 

@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as LiteralsAPI from '../../mix/api/literals'
@@ -23,10 +23,10 @@ export default class LiteralsImport extends MixCommand {
 Use this command to import literal-value pairs into a project. By default, the
 literal-value pairs are appended to the project in the specified locale. It is
 also possible to completely replace literal-value pairs for the specified locale
-by using the --replace flag.
+by using the 'replace' flag.
 
 The import needs to be confirmed by re-typing the entity name when prompted.
-It can also be pre-confirmed by using the --confirm flag.`
+It can also be pre-confirmed by using the 'confirm' flag.`
 
   static examples = [
     'Import entity literals by appending',
@@ -55,15 +55,15 @@ It can also be pre-confirmed by using the --confirm flag.`
   action = 'import'
   shouldConfirmCommand = true
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<LiteralsImportParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<LiteralsImportParams> {
     debug('buildRequestParameters()')
     const {'entity-name': entityName, filepath: filePath, locale, project: projectId} = options
 
     return {entityName, filePath, locale, projectId}
   }
 
-  captureOptions() {
-    super.captureOptions()
+  async captureOptions() {
+    await super.captureOptions()
     this.action = this.options.replace ? 'import by replacing' : 'import by appending'
   }
 

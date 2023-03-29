@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -87,7 +87,7 @@ A number of flags can be used to constrain the returned results.`
     return ['organization']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ProjectsListParams> {
     debug('buildRequestParameters()')
     const {
       'exclude-channels': excludeChannels,

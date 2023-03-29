@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as LanguageTopicsAPI from '../../mix/api/language-topics'
@@ -55,7 +55,7 @@ Use this command to list language topics available to a specific organization.`
     return ['organization']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<LanguageTopicsListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<LanguageTopicsListParams> {
     debug('buildRequestParameters()')
     const {organization: orgId} = options
 

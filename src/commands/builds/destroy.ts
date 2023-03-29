@@ -7,7 +7,8 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {Flags} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as BuildsAPI from '../../mix/api/builds'
@@ -26,7 +27,7 @@ using the build label or the combination of project ID, build type and build
 version.
 
 The deletion needs to be confirmed by re-typing the build label when prompted.
-It can also be pre-confirmed by using the --confirm flag.`
+It can also be pre-confirmed by using the 'confirm' flag.`
 
   static examples = [
     'Destroy a build',
@@ -42,24 +43,24 @@ It can also be pre-confirmed by using the --confirm flag.`
   static flags = {
     // keep build-label first in the flags list so that the relevant error
     // message is given to user when mixing build-label with other flags.
-    'build-label': flags.string({
+    'build-label': Flags.string({
       description: MixFlags.buildLabelDesc,
       exclusive: ['build-type', 'project', 'build-version'],
     }),
-    'build-type': flags.string({
+    'build-type': Flags.string({
       dependsOn: ['build-version', 'project'],
       description: MixFlags.buildTypeDesc,
       exclusive: ['build-label'],
       options: MixFlags.buildTypeOptions,
     }),
-    'build-version': flags.integer({
+    'build-version': Flags.integer({
       dependsOn: ['build-type', 'project'],
       description: MixFlags.buildVersionDesc,
       exclusive: ['build-label'],
     }),
     confirm: MixFlags.confirmFlag,
     ...MixFlags.machineOutputFlags,
-    project: flags.integer({
+    project: Flags.integer({
       char: MixFlags.projectShortcut,
       description: MixFlags.projectDesc,
       dependsOn: ['build-version', 'build-type'],
@@ -75,7 +76,7 @@ It can also be pre-confirmed by using the --confirm flag.`
     return ['build-label', 'build-version', 'project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<BuildsGetParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<BuildsGetParams> {
     debug('buildRequestParameters()')
     const {
       'build-type': buildType,
@@ -96,8 +97,8 @@ It can also be pre-confirmed by using the --confirm flag.`
   OR by the combination of its build type, project ID and build version.`,
       {
         suggestions: [
-          'Set --build-label flag OR ...',
-          'Set --project, --build-type AND -–build-version flags.',
+          "Set 'build-label' flag OR ...",
+          "Set 'project', 'build-type' AND 'build-version' flags.",
         ],
       })
     }

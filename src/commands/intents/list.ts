@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as IntentsAPI from '../../mix/api/intents'
@@ -57,7 +57,7 @@ Use this command to list all intents available in a specific project.`
     return ['project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<IntentsListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<IntentsListParams> {
     debug('buildRequestParameters()')
     const {project: projectId} = options
 

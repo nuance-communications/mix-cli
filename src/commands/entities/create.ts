@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as EntitiesAPI from '../../mix/api/entities'
@@ -31,16 +31,16 @@ these attributes are common to all entity types. However, certain
 attributes are mandatory and apply to specific entity types only.
 
 Regex entities make use of regular expressions specific to a single
-locale. The --pattern and --locale flags must be set when creating
+locale. The 'pattern' and 'locale' flags must be set when creating
 an entity of type "regex". It is recommended to surround the pattern
 value with quotes, especially if the escape character "\\" is used
 in the pattern. See examples below.
 
 Relationial entities can have zero or one isA relation and
-zero or many hasA relations. One --is-A or --has-A flag must be
+zero or many hasA relations. One 'is-a' or 'has-a' flag must be
 set at a minimum when creating an entity of type "relational".
 
-The --entity-type, --name and --project flags are mandatory for
+The 'entity-type', 'name' and 'project' flags are mandatory for
 the creation of any entity type.
 
 The examples below show how to create each type of entity.
@@ -97,7 +97,7 @@ explicitly provided.
     return ['locale', 'project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<EntitiesCreateParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<EntitiesCreateParams> {
     debug('buildRequestParameters()')
     const {
       'anaphora-type': anaphora,
@@ -163,7 +163,7 @@ explicitly provided.
     }
   }
 
-  tryDomainOptionsValidation(options: Partial<flags.Output>, domainOptions: DomainOption[]) {
+  tryDomainOptionsValidation(options: Partial<FlagOutput>, domainOptions: DomainOption[]) {
     debug('tryDomainOptionsValidation()')
     super.tryDomainOptionsValidation(options, domainOptions)
 
