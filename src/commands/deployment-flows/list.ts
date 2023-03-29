@@ -85,7 +85,7 @@ The organization ID can be retrieved by using the organizations:list command.`
     return DeploymentFlowsAPI.listDeploymentFlows(client, params)
   }
 
-  explainAbsenceOfResult(options: Partial<flags.Output>) {
+  explainAbsenceOfResult(options: Partial<FlagOutput>) {
     debug('explainAbsenceofResult()')
 
     if (options.offset && this.context.get('offset') >=  this.context.get('totalSize')) {
