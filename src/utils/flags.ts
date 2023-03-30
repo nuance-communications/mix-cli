@@ -17,7 +17,7 @@ import {
 } from '../mix/types'
 
 // We keep all flag descriptions in a single place to encourage consistency of
-// Flags across commands.
+// flags across commands.
 // Readability in the commands code is not affected if Flags are named properly.
 
 // Flag shortcuts that should not be reused
@@ -178,6 +178,11 @@ export const entityNameFlag = Flags.string({
   required: true,
 })
 
+export const excludeChannelsFlag = Flags.boolean({
+  description: 'exclude project channels from the list',
+  default: false,
+})
+
 export const excludeOverridesFlag = Flags.boolean({
   description: 'exclude application configurations that are overridden',
   default: false,
@@ -190,6 +195,11 @@ export const geoNameFlag = Flags.string({
 export const hasAFlag = Flags.string({
   description: 'define hasA relationship for relational entity',
   multiple: true,
+})
+
+export const includeFeaturesFlag = Flags.boolean({
+  description: "include the list of features supported by project's engine pack",
+  default: false,
 })
 
 export const inputFilePathFlag = Flags.string({
@@ -512,6 +522,10 @@ export const withLocaleMultipleFlag = Flags.string({
 export const withOrganizationTypeFlag = Flags.string({
   description: 'organization type',
   options: ['personal', 'standard'],
+})
+
+export const withProjectName = Flags.string({
+  description: 'filter results by project name (case sensitive)',
 })
 
 export const withRuntimeApp = Flags.string({

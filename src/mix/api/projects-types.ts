@@ -111,13 +111,34 @@ export type ProjectsCreateBodyParams = {
 export type ProjectsCreateParams = Expand<ProjectsCreatePathParams & ProjectsCreateBodyParams>
 
 /** @hidden */
-export type ProjectsListPathParams = {
+export type ProjectsListBodyParams = {
+  /** When set to true, the project channels are excluded from the list. This will boost API performance. */
+  excludeChannels?: boolean
+
+  /** When set to true, includes the list of features supported by this project's engine pack. */
+  includeFeatures?: boolean
+
+  /** Filter results parameter: project display name. The search is case sensitive. */
+  filter?: string
+
+  /** The maximum number of items to be returned in the response. */
+  limit?: number
+
+  /** The offset from which elements will get included in the response. */
+  offset?: number
+
   /** ID of the organization for which to get the list of projects. */
-  orgId: string
+  orgId?: string
+
+  /**
+  * Comma-separated properties to sort by.
+  * Prepend with +/- for ascending/descending.
+  */
+  sortBy?: string
 }
 
 /** @hidden */
-export type ProjectsListParams = Expand<ProjectsListPathParams>
+export type ProjectsListParams = Expand<ProjectsListBodyParams>
 
 /** @hidden */
 export type ProjectsLockPathParams = {

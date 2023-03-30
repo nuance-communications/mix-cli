@@ -12,9 +12,7 @@ const td = require('./projects-test-data')
 const testData = require('../../test-data')
 const serverURL = `https://${testData.server}`
 
-const {orgId} = td.request.params
-
-const endpoint = `/v4/organizations/${orgId}/projects`
+const endpoint = '/v4/projects'
 
 describe('projects:list command', () => {
   test
@@ -22,10 +20,15 @@ describe('projects:list command', () => {
     .nock(serverURL, api => 
         api
         .get(endpoint)
+        .query({
+          excludeChannels: false,
+          includeFeatures: false,
+          limit: 25,
+        })
         .reply(200, td.response)
       )
     .stdout()
-    .command(['projects:list', '-O', orgId.toString()])
+    .command(['projects:list'])
     .it('lists basic data for all projects', ctx => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
       const headers = lines[0].split(/\s+/)
@@ -38,10 +41,16 @@ describe('projects:list command', () => {
     .nock(serverURL, api => 
         api
         .get(endpoint)
+        .query({
+          excludeChannels: false,
+          includeFeatures: false,
+          limit: 25,
+          sortBy: '-displayName',
+        })
         .reply(200, td.response)
       )
     .stdout()
-    .command(['projects:list', '-O', orgId.toString(), '--sort=-displayName'])
+    .command(['projects:list', '--sort=-displayName'])
     .it('responds correctly to tabular formatting flags', ctx => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
       const headers = lines[0].split(/\s+/)
