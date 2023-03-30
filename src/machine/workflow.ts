@@ -36,9 +36,9 @@ async function getFlagsToPass(context: any, command: string) {
       // [--flagName, flagValue]
       const [cmd,, flagName] = captureFlag
       // eslint-disable-next-line dot-notation
-      return [`--${key}`, context['flagsByCommand'][captureFlag[0]]['captures'][captureFlag[2]]]
+      // return [`--${key}`, context['flagsByCommand'][captureFlag[0]]['captures'][captureFlag[2]]]
       // eslint-disable-next-line dot-notation
-      // return [`--${key}`, context['flagsByCommand'][cmd]['captures'][flagName]]
+      return [`--${key}`, context['flagsByCommand'][cmd]['captures'][flagName]]
     // eslint-disable-next-line no-else-return
     } else {
       // [--flagName, flagValue]
@@ -46,6 +46,7 @@ async function getFlagsToPass(context: any, command: string) {
     }
   })
   // Create string of passed options
+  // eslint-disable-next-line unicorn/require-array-join-separator
   const flagsToPass: Array<string> = flags.join().split(',')
   flagsToPass.push('--json')
   // eslint-disable-next-line no-return-await
