@@ -440,7 +440,7 @@ that configuration file swiftly.`)
 
     if (options.offset && this.context.get('offset') >=  this.context.get('totalSize')) {
       this.log()
-      this.log(`No result to display as value ${this.context.get('offset')} for offset is larger than the total number of results (${this.context.get('totalSize')}).`)
+      this.log(`No result to display as value ${this.context.get('offset')} for offset lies outside the range of the list of items.`)
       this.log(`Use a value lower than ${this.context.get('totalSize')} for offset.`)
     } else {
       this.log(`No ${this.context?.get('topic')} found.`)
