@@ -123,6 +123,7 @@ that configuration file swiftly.`)
 
     const response = await this.doSafeRequest(this.client, requestParams)
     await this.handleResponse(response)
+    return response as MixResult
   }
 
   // ------------------------------------------------------------------------

@@ -34,10 +34,11 @@ async function getFlagsToPass(context: any, command: string) {
       // context['flags'][captureFlag[0]]['captures'][captureFlag[2]] - e.g., applications:list.captures.flagName
       // console.log(`Captured Flag: ${context['flags'][captureFlag[0]]['captures'][captureFlag[2]]}`)
       // [--flagName, flagValue]
-      const [cmd, , flagName] = captureFlag
-      // return [`--${key}`, context['flagsByCommand'][captureFlag[0]]['captures'][captureFlag[2]]]
+      const [cmd,, flagName] = captureFlag
       // eslint-disable-next-line dot-notation
-      return [`--${key}`, context['flagsByCommand'][cmd]['captures'][flagName]]
+      return [`--${key}`, context['flagsByCommand'][captureFlag[0]]['captures'][captureFlag[2]]]
+      // eslint-disable-next-line dot-notation
+      // return [`--${key}`, context['flagsByCommand'][cmd]['captures'][flagName]]
     // eslint-disable-next-line no-else-return
     } else {
       // [--flagName, flagValue]
@@ -45,7 +46,7 @@ async function getFlagsToPass(context: any, command: string) {
     }
   })
   // Create string of passed options
-  const flagsToPass: Array<string> = flags.join('').split(',')
+  const flagsToPass: Array<string> = flags.join().split(',')
   flagsToPass.push('--json')
   // eslint-disable-next-line no-return-await
   return await flagsToPass
@@ -57,7 +58,7 @@ async function listApplications(context: any, event: any) {
   // Check if there is any flags to capture for given command
   if (Object.prototype.hasOwnProperty.call(context.flagsByCommand['applications:list'], 'captures')) {
     context.flagsByCommand['applications:list'].captures = await capturesFlags(context.flagsByCommand['applications:list'].captures, response)
-    // console.log(`Req. Flags: ${JSON.stringify(context.flags['applications:list'].captures, null, 2)}`)
+    console.log(`Req. Flags: ${JSON.stringify(context.flagsByCommand['applications:list'].captures, null, 2)}`)
   }
 }
 
@@ -65,11 +66,12 @@ async function listAppConfigs(context: any, event: any) {
   const response = await AppConfigsList.run(await getFlagsToPass(context, 'app-configs:list'))
   if (Object.prototype.hasOwnProperty.call(context.flagsByCommand['app-configs:list'], 'captures')) {
     context.flagsByCommand['app-configs:list'].captures = await capturesFlags(context.flagsByCommand['app-configs:list'].captures, response)
-    // console.log(`Req. Flags: ${JSON.stringify(context.flags['app-configs:list'].captures, null, 2)}`)
+    console.log(`Req. Flags: ${JSON.stringify(context.flagsByCommand['app-configs:list'].captures, null, 2)}`)
   }
 }
 
 async function getAppConfigs(context: any, event: any) {
+  console.log(`FTP: ${await getFlagsToPass(context, 'app-configs:get')}`)
   const response = await AppConfigsGet.run(await getFlagsToPass(context, 'app-configs:get'))
   if (Object.prototype.hasOwnProperty.call(context.flagsByCommand['app-configs:get'], 'captures')) {
     context.flagsByCommand['app-configs:get'].captures = await capturesFlags(context.flagsByCommand['app-configs:get'].captures, response)
