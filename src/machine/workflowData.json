@@ -1,0 +1,26 @@
+{
+  "commands": {
+    "applications:list": {
+      "flags": {
+        "organization": "3347"
+      },
+      "captures": {
+        "mix-app": ".applications[0].id"
+      }
+    },
+    "app-configs:list": {
+      "flags": {
+        "mix-app": "${applications:list.captures.mix-app}",
+        "with-tag":"A3552_C1"
+      },
+      "captures": {
+        "config": ".configs[0].id"
+      }
+    },
+    "app-configs:get": {
+      "flags": {
+        "config": "${app-configs:list.captures.config}"
+      }
+    }
+  }
+}
