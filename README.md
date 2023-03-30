@@ -148,8 +148,8 @@ Please consult the [Mix V4 API documentation](https://mix.api.nuance.com/v4/swag
 for additional information.
 
 # Learning more about Mix
-Please visit the [Mix Documentation site](https://docs.nuance.com/mix/?src=ghmixcli)
-to learn more about Mix.
+Please visit the [Mix product page](https://www.nuance.com/omni-channel-customer-engagement/ai-for-developers/nuance-mix.html)
+and [Mix documentation site](https://docs.nuance.com/mix/) to learn more about Mix.
 
 # Contributing
 See our [Contribution Guidelines](CONTRIBUTING.md).

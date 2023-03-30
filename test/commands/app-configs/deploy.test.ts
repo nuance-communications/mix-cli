@@ -30,7 +30,7 @@ describe('app-configs:deploy', () => {
     .it('does deploy to one specified env-geo', ctx => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
       const headers = lines[0].split(/\s+/)
-      expect(headers).to.deep.equal(['Id', 'ConfigId', 'Approved', 'PromotionFlowStepId', 'Code', 'Comment'])
+      expect(headers).to.deep.equal(['Id', 'ConfigId', 'Approved', 'PromotionFlowStepId', 'Code', 'Message'])
     })
 
   test
@@ -45,7 +45,7 @@ describe('app-configs:deploy', () => {
     .it('deploys without an env-geo', ctx => {
       const lines = ctx.stdout.split('\n').map(ln => ln.trim())
       const headers = lines[0].split(/\s+/)
-      expect(headers).to.deep.equal(['Id', 'ConfigId', 'Approved', 'PromotionFlowStepId', 'Code', 'Comment'])
+      expect(headers).to.deep.equal(['Id', 'ConfigId', 'Approved', 'PromotionFlowStepId', 'Code', 'Message'])
     })
 
   test

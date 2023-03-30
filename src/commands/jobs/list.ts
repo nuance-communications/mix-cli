@@ -71,12 +71,7 @@ Use this command to list all jobs related to a particular project.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const {context, options} = this
-    const count: number = context.get('count')
-
-    if (count === 0) {
-      return this.log('No jobs found.')
-    }
+    const {options} = this
 
     super.outputHumanReadable(transformedData, options)
   }
@@ -94,6 +89,7 @@ Use this command to list all jobs related to a particular project.`
     this.context.set('offset', offset)
     this.context.set('limit', limit)
     this.context.set('totalSize', totalSize)
+    this.context.set('topic', 'jobs')
 
     return jobs
   }

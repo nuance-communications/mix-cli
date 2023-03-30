@@ -52,7 +52,7 @@ the application configuration was created.
       approved: {header: 'Approved'},
       promotionFlowStepId: {header: 'PromotionFlowStepId'},
       code: {header: 'Code'},
-      comment: {header: 'Comment'},
+      comment: {header: 'Message'},
     }
   }
 

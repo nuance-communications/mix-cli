@@ -435,6 +435,18 @@ that configuration file swiftly.`)
     CliUx.ux.table(result, columns, this.options)
   }
 
+  explainAbsenceOfResult(options: Partial<FlagOutput>) {
+    debug('explainAbsenceOfResult()')
+
+    if (options.offset && this.context.get('offset') >=  this.context.get('totalSize')) {
+      this.log()
+      this.log(`No result to display as value ${this.context.get('offset')} for offset is larger than the total number of results (${this.context.get('totalSize')}).`)
+      this.log(`Use a value lower than ${this.context.get('totalSize')} for offset.`)
+    } else {
+      this.log(`No ${this.context?.get('topic')} found.`)
+    }
+  }
+
   outputPartialListCount() {
     debug('outputPartialListCount()')
 
@@ -448,11 +460,12 @@ that configuration file swiftly.`)
       `${chalk.cyan(offset + 1)}-${chalk.cyan(offset + count)}` :
       chalk.cyan(count + offset)
 
-    this.log()
-    this.log(`Item${s(count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
-
-    if ((this.context?.get('totalSize') ?? 0) > (this.context?.get('count') ?? 1)) {
-      this.log(`Use the ${chalk.cyan("'limit'")} and ${chalk.cyan("'offset'")} flags to view other parts of the list.`)
+    if (count > 0) {
+      this.log()
+      this.log(`Item${s(count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
+      if ((this.context?.get('totalSize') ?? 0) >= (this.context?.get('count') ?? 1)) {
+        this.log(`Use the ${chalk.cyan("'limit'")} and ${chalk.cyan("'offset'")} flags to view other parts of the list.`)
+      }
     }
   }
 
@@ -463,17 +476,17 @@ that configuration file swiftly.`)
   }
 
   // Every command offers human-readable output
-  outputHumanReadable(transformedData: any, _options: Partial<FlagOutput>) {
+  outputHumanReadable(transformedData: any, options: Partial<FlagOutput>) {
     debug('outputHumanReadable()')
-    if (this.context.get('offset') >=  this.context.get('totalSize')) {
-      this.log(`\nNo result to display as value ${this.context.get('offset')} for offset is larger than the total number of results (${this.context.get('totalSize')}).` +
-      `\nUse a value lower than ${this.context.get('totalSize')} for offset.`)
-    } else {
-      this.outputCLITable(transformedData, this.columns)
 
-      if (this.context.has('totalSize') && this.context.has('offset') && this.context.has('count')) {
-        this.outputPartialListCount()
-      }
+    if (this.context.get('count') > 0) {
+      this.outputCLITable(transformedData, this.columns)
+    } else {
+      this.explainAbsenceOfResult(options)
+    }
+
+    if (this.context.has('totalSize') && this.context.has('offset') && this.context.has('count')) {
+      this.outputPartialListCount()
     }
   }
 

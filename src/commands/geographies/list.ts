@@ -63,13 +63,8 @@ Use this command to list the geographies available on the platform.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    if (transformedData.length === 0) {
-      this.log('No geographies found.')
 
-      return
-    }
-
-    this.outputCLITable(transformedData, this.columns)
+    super.outputHumanReadable(transformedData, this.options)
   }
 
   setRequestActionMessage(_options: any) {
@@ -85,6 +80,8 @@ Use this command to list the geographies available on the platform.`
     this.context.set('offset', offset)
     this.context.set('limit', limit)
     this.context.set('totalSize', totalSize)
+    this.context.set('topic', 'geographies')
+
     return geographies
   }
 }
