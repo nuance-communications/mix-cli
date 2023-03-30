@@ -87,13 +87,8 @@ Use this command to list the organizations you are part of.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    if (transformedData.length === 0) {
-      this.log('No organizations found.')
 
-      return
-    }
-
-    this.outputCLITable(transformedData, this.columns)
+    super.outputHumanReadable(transformedData, this.options)
   }
 
   setRequestActionMessage(_options: any) {
@@ -109,6 +104,8 @@ Use this command to list the organizations you are part of.`
     this.context.set('offset', offset)
     this.context.set('limit', limit)
     this.context.set('totalSize', totalSize)
+    this.context.set('topic', 'organizations')
+
     return organizations
   }
 }

@@ -97,15 +97,8 @@ A project cannot be edited while it is locked.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const {columns} = this
 
-    if (transformedData.length === 0) {
-      this.log('No locks found.')
-
-      return
-    }
-
-    super.outputCLITable(transformedData, columns)
+    super.outputHumanReadable(transformedData, this.options)
   }
 
   setRequestActionMessage(options: any) {
@@ -132,6 +125,7 @@ A project cannot be edited while it is locked.`
     this.context.set('offset', offset)
     this.context.set('limit', limit)
     this.context.set('totalSize', totalSize)
+    this.context.set('topic', 'locks')
 
     return locks
   }
