@@ -120,12 +120,6 @@ A number of flags can be used to constrain the returned results.`
     const {options} = this
     const shouldIncludeFeatures = options['include-features']
 
-    if (transformedData.length === 0) {
-      this.log('No projects found.')
-
-      return
-    }
-
     super.outputHumanReadable(transformedData, options)
 
     if (shouldIncludeFeatures) {
