@@ -10,3 +10,4 @@ node_modules
 /.vscode
 /.prettierrc
 TODO
+**/.DS_Store
