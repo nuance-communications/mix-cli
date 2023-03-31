@@ -54,10 +54,6 @@ output is brief.`
     return ['config']
   }
 
-  async captureOptions() {
-    super.captureOptions()
-  }
-
   async buildRequestParameters(options: Partial<FlagOutput>): Promise<AppConfigsGetParams> {
     debug('buildRequestParameters()')
     const {config: configId} = options
