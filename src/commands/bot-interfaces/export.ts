@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as BotInterfacesAPI from '../../mix/api/bot-interfaces'
@@ -63,7 +63,7 @@ See https://docs.nuance.com/mix/apis/mix-api/v4/reference/bots/ for details.`
     return ['bot', 'config']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<BotInterfacesExportParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<BotInterfacesExportParams> {
     debug('buildRequestParameters()')
     const {bot: botId, config: configId} = options
 

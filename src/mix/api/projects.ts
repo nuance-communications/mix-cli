@@ -182,11 +182,10 @@ export async function getProjectLock(client: MixClient, params: ProjectsLockGetP
  */
 export async function listProjects(client: MixClient, params: ProjectsListParams): Promise<MixResponse> {
   debug('listProjects()')
-  const {orgId} = params
 
   return client.request({
     method: 'get',
-    url: buildURL(client.getServer(), `/v4/organizations/${orgId}/projects`),
+    url: buildURL(client.getServer(), '/v4/projects', params),
   })
 }
 

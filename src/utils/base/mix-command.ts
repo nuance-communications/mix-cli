@@ -8,10 +8,10 @@
 
 import makeDebug from 'debug'
 import chalk from 'chalk'
-import {cli} from 'cli-ux'
-import {flags} from '@oclif/command'
-import Parser from '@oclif/parser'
-import {table} from 'cli-ux/lib/styled/table'
+import {CliUx} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
+import {Input} from '@oclif/core/lib/interfaces'
+import {table} from '@oclif/core/lib/cli-ux/styled/table'
 import YAML from 'yaml'
 
 import * as JobsAPI from '../../mix/api/jobs'
@@ -49,7 +49,7 @@ import {createMixClient} from '../../mix/client'
 import {OutputFormat} from '../types'
 import {saveFile} from '../save-file'
 
-export type Columns = table.Columns<object>
+export type Columns = table.Columns<Record<string, unknown>>
 
 const DEFAULT_FILEPATH = 'outputfile'
 const WATCH_JOB_WAIT_TIME_MS = 10 * 1000
@@ -62,7 +62,7 @@ export default abstract class MixCommand extends BaseCommand {
   action = ''
   client: MixClient | undefined
   context = new Map()
-  options: Partial<flags.Output> = {}
+  options: Partial<FlagOutput> = {}
   requestActionMessage = 'Fetching'
   requestCompleteMessage = chalk.green('OK')
   selectedFormat: OutputFormat = 'human-readable'
@@ -88,7 +88,7 @@ that configuration file swiftly.`)
       return
     }
 
-    this.captureOptions()
+    await this.captureOptions()
     debug('this.options: %O', this.options)
 
     const options = {
@@ -119,7 +119,7 @@ that configuration file swiftly.`)
       debug(`Confirmation acquired. Starting import from ${this.constructor.name}`)
     }
 
-    cli.action.start(this.requestActionMessage)
+    CliUx.ux.action.start(this.requestActionMessage)
 
     const response = await this.doSafeRequest(this.client, requestParams)
     await this.handleResponse(response)
@@ -139,15 +139,15 @@ that configuration file swiftly.`)
    * guaranteed on all non-null objects.
    */
 
-  captureOptions(): void {
+  async captureOptions(): Promise<void> {
     debug('captureOptions()')
-    const options = this.constructor as Parser.Input<MixCommand>
-    const {flags} = this.parse(options)
+    const options = this.constructor as Input<MixCommand, MixCommand>
+    const {flags} = await this.parse(options)
 
     this.options = flags
   }
 
-  captureOutputFormat(options: Partial<flags.Output>): void {
+  captureOutputFormat(options: Partial<FlagOutput>): void {
     debug('captureOutputFormat()')
     const {csv, json, output = 'human-readable', yaml} = options
     if (csv) {
@@ -197,7 +197,7 @@ that configuration file swiftly.`)
   // ------------------------------------------------------------------------
   // Endpoint request setup
   //
-  abstract buildRequestParameters(options: Partial<flags.Output>): Promise<MixRequestParams>
+  abstract buildRequestParameters(options: Partial<FlagOutput>): Promise<MixRequestParams>
 
   get headers() {
     debug('get headers()')
@@ -228,7 +228,7 @@ that configuration file swiftly.`)
     this.log()
     this.warnBeforeConfirmation()
     this.log()
-    const answer = await cli.prompt(`Confirm ${action} action by typing ${chalk.red(expectedConfirmationValue)} ('no' to abort)`)
+    const answer = await CliUx.ux.prompt(`Confirm ${action} action by typing ${chalk.red(expectedConfirmationValue)} ('no' to abort)`)
 
     // Treat 'no' answer first as to not confuse it with, say, a project named 'no'
     if (answer === 'no') {
@@ -316,7 +316,7 @@ that configuration file swiftly.`)
           !['COMPLETED', 'PARTIALLY_COMPLETED'].includes(status)) {
           await this.watchJob(jobId, projectId)
         } else {
-          cli.action.stop(this.requestCompleteMessage)
+          CliUx.ux.action.stop(this.requestCompleteMessage)
           await this.handleSuccess(response)
         }
 
@@ -344,7 +344,7 @@ that configuration file swiftly.`)
         throw eDownloadFailed(error instanceof Error ? error.message : '')
       }
 
-      cli.action.stop(this.requestCompleteMessage)
+      CliUx.ux.action.stop(this.requestCompleteMessage)
     } else if (this.shouldSaveBody) {
       try {
         await saveFile(result, this.filepath, this.options.overwrite)
@@ -352,7 +352,7 @@ that configuration file swiftly.`)
         throw eDownloadFailed(error instanceof Error ? error.message : '')
       }
 
-      cli.action.stop(this.requestCompleteMessage)
+      CliUx.ux.action.stop(this.requestCompleteMessage)
     }
 
     this.output(result as MixResult, this.options)
@@ -374,7 +374,7 @@ that configuration file swiftly.`)
   // ------------------------------------------------------------------------
   // Output to user
   //
-  output(result: MixResult, options: Partial<flags.Output>) {
+  output(result: MixResult, options: Partial<FlagOutput>) {
     debug('output() with format %s', this.selectedFormat)
     switch (this.selectedFormat) {
       case 'csv':
@@ -429,10 +429,22 @@ that configuration file swiftly.`)
       return
     }
 
-    // cli.table() expects an array so turn transformedData into array
+    // CliUx.ux.table() expects an array so turn transformedData into array
     // if passed a standalone record
     const result = Array.isArray(transformedData) ? transformedData : [transformedData]
-    cli.table(result, columns, this.options)
+    CliUx.ux.table(result, columns, this.options)
+  }
+
+  explainAbsenceOfResult(options: Partial<FlagOutput>) {
+    debug('explainAbsenceOfResult()')
+
+    if (options.offset && this.context.get('offset') >=  this.context.get('totalSize')) {
+      this.log()
+      this.log(`No result to display as value ${this.context.get('offset')} for offset lies outside the range of the list of items.`)
+      this.log(`Use a value lower than ${this.context.get('totalSize')} for offset.`)
+    } else {
+      this.log(`No ${this.context?.get('topic')} found.`)
+    }
   }
 
   outputPartialListCount() {
@@ -448,11 +460,12 @@ that configuration file swiftly.`)
       `${chalk.cyan(offset + 1)}-${chalk.cyan(offset + count)}` :
       chalk.cyan(count + offset)
 
-    this.log()
-    this.log(`Item${s(count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
-
-    if ((this.context?.get('totalSize') ?? 0) > (this.context?.get('count') ?? 1)) {
-      this.log(`Use the ${chalk.cyan("'limit'")} and ${chalk.cyan("'offset'")} flags to view other parts of the list.`)
+    if (count > 0) {
+      this.log()
+      this.log(`Item${s(count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
+      if ((this.context?.get('totalSize') ?? 0) >= (this.context?.get('count') ?? 1)) {
+        this.log(`Use the ${chalk.cyan("'limit'")} and ${chalk.cyan("'offset'")} flags to view other parts of the list.`)
+      }
     }
   }
 
@@ -463,17 +476,17 @@ that configuration file swiftly.`)
   }
 
   // Every command offers human-readable output
-  outputHumanReadable(transformedData: any, _options: Partial<flags.Output>) {
+  outputHumanReadable(transformedData: any, options: Partial<FlagOutput>) {
     debug('outputHumanReadable()')
-    if (this.context.get('offset') >=  this.context.get('totalSize')) {
-      this.log(`\nNo result to display as value ${this.context.get('offset')} for offset is larger than the total number of results (${this.context.get('totalSize')}).` +
-      `\nUse a value lower than ${this.context.get('totalSize')} for offset.`)
-    } else {
-      this.outputCLITable(transformedData, this.columns)
 
-      if (this.context.has('totalSize') && this.context.has('offset') && this.context.has('count')) {
-        this.outputPartialListCount()
-      }
+    if (this.context.get('count') > 0) {
+      this.outputCLITable(transformedData, this.columns)
+    } else {
+      this.explainAbsenceOfResult(options)
+    }
+
+    if (this.context.has('totalSize') && this.context.has('offset') && this.context.has('count')) {
+      this.outputPartialListCount()
     }
   }
 
@@ -494,7 +507,7 @@ that configuration file swiftly.`)
   async watchJob(jobId: string, projectId: string) {
     debug('watchJob()')
 
-    await cli.wait(WATCH_JOB_WAIT_TIME_MS)
+    await CliUx.ux.wait(WATCH_JOB_WAIT_TIME_MS)
     await this.doAuth()
     this.client?.setToken(this.accessToken?.access_token)
     const response = await this.doSafeRequest(this.client, {jobId, projectId}, JobsAPI.getJob)
@@ -506,19 +519,19 @@ that configuration file swiftly.`)
     switch (status) {
       case 'COMPLETED':
         debug('status COMPLETED')
-        cli.action.stop(chalk.green(status))
+        CliUx.ux.action.stop(chalk.green(status))
         this.shouldWatchJob = false
         break
 
       case 'PARTIALLY_COMPLETED':
         debug('status PARTIALLY_COMPLETED')
-        cli.action.stop(chalk.green(status))
+        CliUx.ux.action.stop(chalk.green(status))
         this.shouldWatchJob = false
         break
 
       case 'RUNNING':
         debug('status RUNNING')
-        cli.action.status = status
+        CliUx.ux.action.status = status
         this.shouldWatchJob = true
         break
 
@@ -530,7 +543,7 @@ that configuration file swiftly.`)
       default:
         // mixFailure, connectionFailure and unexpected states are treated the same
         debug('applying default for status %s', status)
-        cli.action.stop(chalk.red('Failed to retrieve job details. Please try again.'))
+        CliUx.ux.action.stop(chalk.red('Failed to retrieve job details. Please try again.'))
         this.shouldWatchJob = false
         break
     }

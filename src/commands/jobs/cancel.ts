@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as JobsAPI from '../../mix/api/jobs'
@@ -37,7 +37,7 @@ of the original one.`
   action = 'cancel'
   shouldConfirmCommand = true
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<JobsGetParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<JobsGetParams> {
     debug('buildRequestParameters()')
     const {job: jobId, project: projectId} = options
 

@@ -7,13 +7,13 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as AppConfigsAPI from '../../mix/api/app-configs'
 import * as MixFlags from '../../utils/flags'
 import MixCommand from '../../utils/base/mix-command'
-import {AppConfigsDeployParams, MixClient, MixResponse} from '../../mix/types'
+import {AppConfigsDeployParams, MixClient, MixResponse, MixResult} from '../../mix/types'
 import {DomainOption} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:app-configs:undeploy')
@@ -40,13 +40,24 @@ found in the JSON output of the app-configs:get command.`
     ...MixFlags.machineOutputFlags,
   }
 
+  get columns() {
+    debug('get columns()')
+
+    return {
+      configId: {header: 'ConfigId'},
+      applicationConfigDeploymentId: {header: 'ConfigDeploymentId'},
+      environmentGeographyId: {header: 'EnvironmentGeographyId'},
+      message: {header: 'Message'},
+    }
+  }
+
   get domainOptions(): DomainOption[] {
     debug('get domainOptions()')
     return ['config', 'env-geo[]']
   }
 
   // Uses same params as deploy
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<AppConfigsDeployParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<AppConfigsDeployParams> {
     debug('buildRequestParameters()')
     const {config: configId, 'env-geo': environmentGeographyIds} = options
 
@@ -63,23 +74,24 @@ found in the JSON output of the app-configs:get command.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const {undeployments} = transformedData
+    if (transformedData.length === 0) {
+      this.log('No application configurations found to undeploy.')
 
-    for (const undeployment of undeployments) {
-      const {
-        applicationConfigDeploymentId: deploymentId,
-        configId,
-        environmentGeographyId,
-      } = undeployment
-
-      this.log(`Application configuration ID ${chalk.cyan(configId)} undeployed from ` +
-        `environmentGeography ID ${chalk.cyan(environmentGeographyId)} ` +
-        `with deployment ID ${chalk.cyan(deploymentId)}.`)
+      return
     }
+
+    this.outputCLITable(transformedData, this.columns)
   }
 
-  setRequestActionMessage(_options: any) {
+  setRequestActionMessage(options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = 'Undeploying application configuration'
+    const optionalEnvGeoInfo = options['env-geo'] ? ` from environmentGeography ID ${chalk.cyan(options['env-geo'])}` : ''
+    this.requestActionMessage = `Undeploying application configuration ${chalk.cyan(options.config)}` + optionalEnvGeoInfo
+  }
+
+  transformResponse(result: MixResult) {
+    debug('transformResponse()')
+    const data = result.data as any
+    return data.undeployments
   }
 }

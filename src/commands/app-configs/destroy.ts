@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as AppConfigsAPI from '../../mix/api/app-configs'
@@ -25,6 +25,10 @@ Use this command to permanently delete an application configuration.
 The deletion needs to be confirmed by re-typing the application configuration
 ID when prompted. It can also be pre-confirmed by using the 'confirm' flag.`
 
+  static examples = [
+    '$ mix app-configs:destroy -C 3404',
+  ]
+
   static flags = {
     config: MixFlags.appConfigurationFlag,
     confirm: MixFlags.confirmFlag,
@@ -39,7 +43,7 @@ ID when prompted. It can also be pre-confirmed by using the 'confirm' flag.`
   action = 'destroy'
   shouldConfirmCommand = true
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<AppConfigsDeleteParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<AppConfigsDeleteParams> {
     debug('buildRequestParameters()')
     const {config} = options
 

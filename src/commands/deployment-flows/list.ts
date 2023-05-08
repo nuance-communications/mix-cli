@@ -7,8 +7,8 @@
  */
 
 import chalk from 'chalk'
-import {cli} from 'cli-ux'
-import {flags} from '@oclif/command'
+import {CliUx} from '@oclif/core'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as DeploymentFlowsAPI from '../../mix/api/deployment-flows'
@@ -68,7 +68,7 @@ The organization ID can be retrieved by using the organizations:list command.`
     return ['limit', 'offset', 'organization']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<DeploymentFlowsListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<DeploymentFlowsListParams> {
     debug('buildRequestParameters()')
     const {limit = defaultLimit, offset, organization: orgId, sort: sortBy} = options
 
@@ -85,31 +85,57 @@ The organization ID can be retrieved by using the organizations:list command.`
     return DeploymentFlowsAPI.listDeploymentFlows(client, params)
   }
 
+  explainAbsenceOfResult(options: Partial<FlagOutput>) {
+    debug('explainAbsenceofResult()')
+
+    if (options.offset && this.context.get('offset') >=  this.context.get('totalSize')) {
+      this.log()
+      this.log(`No result to display as value ${this.context.get('offset')} for offset lies outside the range of the list of items.`)
+      this.log(`Use a value lower than ${this.context.get('totalSize')} for offset.`)
+    } else {
+      this.log(`No deployment flows found for organization ${chalk.cyan(options.organization)}.`)
+    }
+  }
+
+  outputPartialListCount() {
+    debug('outputPartialListCount()')
+
+    if (this.options.filter) return
+
+    const count = this.context.get('count')
+    const offset = this.context.get('offset')
+    const totalSize = this.context.get('totalSize')
+
+    const resultInformation = count > 1 ?
+      `${chalk.cyan(offset + 1)}-${chalk.cyan(offset + count)}` :
+      chalk.cyan(count + offset)
+
+    this.log()
+    this.log(`Deployment flow${s(count)} ${resultInformation} of ${chalk.cyan(totalSize)} shown.`)
+    if ((this.context?.get('totalSize') ?? 0) >= (this.context?.get('count') ?? 1)) {
+      this.log(`Use the ${chalk.cyan("'limit'")} and ${chalk.cyan("'offset'")} flags to view other parts of the list.`)
+    }
+  }
+
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
 
-    const {columns, context,  options} = this
-    const count: number = context.get('count')
-    const totalSize: number = context.get('totalSize')
+    const {columns, options} = this
     const flows = transformedData
 
     const size = flows.length
     if (size > 0) {
       for (const [idx, flow] of flows.entries()) {
         this.log(chalk.cyan.bold(`Steps for flow ${chalk.cyan(flow.displayName)} (ID: ${chalk.cyan(flow.id)})`))
-        cli.table(flow.steps, columns, options)
+        CliUx.ux.table(flow.steps, columns, options)
         if (idx !== flows.length - 1) {
           this.log()
         }
       }
 
-      if (totalSize > count) {
-        this.log()
-        this.log(`Showing ${chalk.cyan(count)} of ${totalSize} deployment flow${s(totalSize)}.`)
-        this.log()
-      }
+      this.outputPartialListCount()
     } else {
-      this.log(`No deployment flows found for organization ${chalk.cyan(options.organization)}`)
+      this.explainAbsenceOfResult(options)
     }
   }
 

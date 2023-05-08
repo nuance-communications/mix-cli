@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as EnvironmentsAPI from '../../mix/api/environments'
@@ -54,7 +54,7 @@ Use this command to list all environments available to a specific organization.`
     return ['limit', 'offset', 'organization']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<EnvironmentsListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<EnvironmentsListParams> {
     debug('buildRequestParameters()')
     const {limit = defaultLimit, offset, organization: orgId, sort: sortBy} = options
 
@@ -73,13 +73,8 @@ Use this command to list all environments available to a specific organization.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    if (transformedData.length === 0) {
-      this.log('No environments found.')
 
-      return
-    }
-
-    this.outputCLITable(transformedData, this.columns)
+    super.outputHumanReadable(transformedData, this.options)
   }
 
   setRequestActionMessage(options: any) {
@@ -96,6 +91,8 @@ Use this command to list all environments available to a specific organization.`
     this.context.set('offset', offset)
     this.context.set('limit', limit)
     this.context.set('totalSize', totalSize)
+    this.context.set('topic', 'environments')
+
     return environments
   }
 }

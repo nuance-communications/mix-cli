@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -45,7 +45,7 @@ Note that you cannot add a new locale with this command.
     return ['data-pack', 'project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<ProjectsConfigureParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<ProjectsConfigureParams> {
     debug('buildRequestParameters()')
     const dataPack = options['data-pack'] ?? ''
     const [locale, version] = dataPack.split('@')

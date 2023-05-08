@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import cli from "cli-ux"
+import {CliUx} from '@oclif/core'
 import {expect, test} from '@oclif/test'
 
 import * as CreateFormModule from '../../../src/mix/api/utils/create-form'
@@ -45,7 +45,7 @@ describe('ontology:import command', () => {
     .do(() => {
       promptStub.onFirstCall().resolves(td.import.flags.project.toString())
     })
-    .stub(cli, 'prompt', () => promptStub)
+    .stub(CliUx.ux, 'prompt', () => promptStub)
     .stderr()
     .stdout()
     .nock(serverURL, api => api

@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as AppConfigsAPI from '../../mix/api/app-configs'
@@ -54,7 +54,7 @@ output is brief.`
     return ['config']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<AppConfigsGetParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<AppConfigsGetParams> {
     debug('buildRequestParameters()')
     const {config: configId} = options
 

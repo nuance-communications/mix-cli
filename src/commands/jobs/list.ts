@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as JobsAPI from '../../mix/api/jobs'
@@ -52,7 +52,7 @@ Use this command to list all jobs related to a particular project.`
     return ['limit', 'offset', 'project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<JobsListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<JobsListParams> {
     debug('buildRequestParameters()')
     const {limit = defaultLimit, offset, project: projectId, sort: sortBy} = options
 
@@ -71,12 +71,7 @@ Use this command to list all jobs related to a particular project.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const {context, options} = this
-    const count: number = context.get('count')
-
-    if (count === 0) {
-      return this.log('No jobs found.')
-    }
+    const {options} = this
 
     super.outputHumanReadable(transformedData, options)
   }
@@ -94,6 +89,7 @@ Use this command to list all jobs related to a particular project.`
     this.context.set('offset', offset)
     this.context.set('limit', limit)
     this.context.set('totalSize', totalSize)
+    this.context.set('topic', 'jobs')
 
     return jobs
   }

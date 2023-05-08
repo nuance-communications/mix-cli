@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as MixFlags from '../../utils/flags'
@@ -64,7 +64,7 @@ Use this command to list the organizations you are part of.`
     return ['limit', 'offset']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<OrganizationsListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<OrganizationsListParams> {
     debug('buildRequestParameters()')
     const {all: showAll, full, limit = defaultLimit, offset, sort: sortBy} = options
     const type = (options['with-organization-type']?.toUpperCase() ?? 'TYPE_UNSPECIFIED') as Organization
@@ -80,12 +80,6 @@ Use this command to list the organizations you are part of.`
     }
   }
 
-  captureOptions() {
-    debug('captureOptions()')
-    const {flags} = this.parse(OrganizationsList)
-    this.options = flags
-  }
-
   doRequest(client: MixClient, params: OrganizationsListParams): Promise<MixResponse> {
     debug('doRequest()')
     return OrganizationsAPI.listOrganizations(client, params)
@@ -93,13 +87,8 @@ Use this command to list the organizations you are part of.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    if (transformedData.length === 0) {
-      this.log('No organizations found.')
 
-      return
-    }
-
-    this.outputCLITable(transformedData, this.columns)
+    super.outputHumanReadable(transformedData, this.options)
   }
 
   setRequestActionMessage(_options: any) {
@@ -115,6 +104,8 @@ Use this command to list the organizations you are part of.`
     this.context.set('offset', offset)
     this.context.set('limit', limit)
     this.context.set('totalSize', totalSize)
+    this.context.set('topic', 'organizations')
+
     return organizations
   }
 }

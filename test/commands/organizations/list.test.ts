@@ -7,7 +7,7 @@
  */
 
 import {expect, test} from "@oclif/test"
-import {PrettyPrintableError} from "@oclif/errors"
+import {PrettyPrintableError} from '@oclif/core/lib/errors'
 
 const strip = require("strip-ansi")
 

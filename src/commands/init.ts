@@ -8,8 +8,7 @@
 
 /* eslint-disable unicorn/prefer-node-protocol */
 import chalk from 'chalk'
-import cli from 'cli-ux'
-import {Command} from '@oclif/command'
+import {CliUx, Command} from '@oclif/core'
 import makeDebug from 'debug'
 import path from 'path'
 
@@ -102,17 +101,17 @@ configuration can also be overridden using environment variables.`
   async askConfigurationValues() {
     debug('askConfigurationValues()')
     this.log() // intentional blank line
-    const authServer = await cli.prompt('Mix authentication server fully-qualified hostname?',
+    const authServer = await CliUx.ux.prompt('Mix authentication server fully-qualified hostname?',
       {default: 'auth.crt.nuance.com'})
-    const apiServer = await cli.prompt('Mix API server fully-qualified hostname?',
+    const apiServer = await CliUx.ux.prompt('Mix API server fully-qualified hostname?',
       {default: 'mix.api.nuance.com'})
-    const scope = await cli.prompt('Mix OAuth scope?',
+    const scope = await CliUx.ux.prompt('Mix OAuth scope?',
       {default: 'mix-api'})
-    const tenant = await cli.prompt('Mix tenant?',
+    const tenant = await CliUx.ux.prompt('Mix tenant?',
       {default: 'mix'})
-    const clientId = await cli.prompt('Your client ID?',
+    const clientId = await CliUx.ux.prompt('Your client ID?',
       {type: 'mask'})
-    const clientSecret = await cli.prompt('Your client secret?',
+    const clientSecret = await CliUx.ux.prompt('Your client secret?',
       {type: 'hide'})
 
     const mixCLIConfig = {authServer, apiServer, scope, tenant, clientId, clientSecret}
@@ -122,17 +121,17 @@ configuration can also be overridden using environment variables.`
 
   async collectAnswers() {
     debug('collectAnswers()')
-    const authServer = await cli.prompt('Mix authentication server fully-qualified hostname?',
+    const authServer = await CliUx.ux.prompt('Mix authentication server fully-qualified hostname?',
       {default: 'auth.crt.nuance.com'})
-    const apiServer = await cli.prompt('Mix API server fully-qualified hostname?',
+    const apiServer = await CliUx.ux.prompt('Mix API server fully-qualified hostname?',
       {default: 'mix.api.nuance.com'})
-    const scope = await cli.prompt('Mix OAuth scope?',
+    const scope = await CliUx.ux.prompt('Mix OAuth scope?',
       {default: 'mix-api'})
-    const tenant = await cli.prompt('Mix tenant?',
+    const tenant = await CliUx.ux.prompt('Mix tenant?',
       {default: 'mix'})
-    const clientId = await cli.prompt('Your client ID?',
+    const clientId = await CliUx.ux.prompt('Your client ID?',
       {type: 'mask'})
-    const clientSecret = await cli.prompt('Your client secret?',
+    const clientSecret = await CliUx.ux.prompt('Your client secret?',
       {type: 'hide'})
 
     const mixCLIConfig = {authServer, apiServer, scope, tenant, clientId, clientSecret}
@@ -141,7 +140,7 @@ configuration can also be overridden using environment variables.`
 
   async confirmUseOfEnvironmentVariables(): Promise<MixCLIConfig> {
     debug('confirmUseOfEnvironmentVariables()')
-    const useMixCLIEnvVars = await cli.prompt('\nCreate the new configuration file using your Mix environment variables?',
+    const useMixCLIEnvVars = await CliUx.ux.prompt('\nCreate the new configuration file using your Mix environment variables?',
       {default: 'Y', type: 'single'})
 
     if (useMixCLIEnvVars.toUpperCase() !== 'Y') {

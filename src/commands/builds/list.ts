@@ -7,7 +7,7 @@
  */
 
 import chalk from 'chalk'
-import {flags} from '@oclif/command'
+import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
 
 import * as BuildsAPI from '../../mix/api/builds'
@@ -81,7 +81,7 @@ Use this command to list all versions of a build type for a particular project.`
     return ['limit', 'offset', 'project']
   }
 
-  async buildRequestParameters(options: Partial<flags.Output>): Promise<BuildsListParams> {
+  async buildRequestParameters(options: Partial<FlagOutput>): Promise<BuildsListParams> {
     debug('buildRequestParameters()')
     const {'build-type': type, limit = defaultLimit, offset, project, sort: sortBy} = options
 
@@ -101,12 +101,6 @@ Use this command to list all versions of a build type for a particular project.`
 
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
-    const count: number = this.context.get('count')
-
-    if (count === 0) {
-      this.log('No builds found.')
-      return
-    }
 
     super.outputHumanReadable(transformedData, this.options)
   }
@@ -124,6 +118,7 @@ Use this command to list all versions of a build type for a particular project.`
     this.context.set('offset', offset)
     this.context.set('limit', limit)
     this.context.set('totalSize', totalSize)
+    this.context.set('topic', 'builds')
 
     return builds
   }
