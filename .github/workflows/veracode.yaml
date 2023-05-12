@@ -28,7 +28,7 @@ jobs:
 
         
       - name: Generate scan zip
-        run: zip targetUpload.zip `find ./ -name "*.js" -o -name "*.json" -o -name "*.ts"`
+        run: zip targetUpload.zip `find . -path ./node_modules -prune -o -name "*.js" -o -name "*.json" -o -name "*.ts"`
           
       - name: Veracode Upload And Scan
         uses: veracode/veracode-uploadandscan-action@0.2.1
