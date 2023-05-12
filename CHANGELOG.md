@@ -1,3 +1,20 @@
+# [2.4.0](https://github.com/nuance-communications/mix-cli/compare/v2.3.0...v2.4.0) (2023-05-12)
+
+
+### Bug Fixes
+
+* add oclif (for cli) and update to latest semantic-release ([#159](https://github.com/nuance-communications/mix-cli/issues/159)) ([4d48558](https://github.com/nuance-communications/mix-cli/commit/4d4855846dd5850f04cd60e42744cc5f611e2e53))
+* app-configs-get undefined options error ([#156](https://github.com/nuance-communications/mix-cli/issues/156)) ([82f0316](https://github.com/nuance-communications/mix-cli/commit/82f03169ead5655f2352f63ee0603b2d1c07a45a))
+* display info from endpoint response property "message" in app-configs-undeploy ([#141](https://github.com/nuance-communications/mix-cli/issues/141)) ([5e62bf0](https://github.com/nuance-communications/mix-cli/commit/5e62bf0922a48144b389a710fde509a662be9cf8))
+* exclude node_modules from zip packged for Veracode ([5a66061](https://github.com/nuance-communications/mix-cli/commit/5a66061a7a1286e527b2b054259fd95beb481d59))
+* migrating from oclif v1 to v2 ([#152](https://github.com/nuance-communications/mix-cli/issues/152)) ([cbcb6c4](https://github.com/nuance-communications/mix-cli/commit/cbcb6c4947fb63b710a437d374b3c15a733f2632))
+* standardize output of offset-limited list commands ([#140](https://github.com/nuance-communications/mix-cli/issues/140)) ([47e6bb9](https://github.com/nuance-communications/mix-cli/commit/47e6bb9b36fe1e79e0e113f1b0df07c75ca692f0))
+
+
+### Features
+
+* upgrade projects:list command to use ListExtendedProjects endpoint ([#128](https://github.com/nuance-communications/mix-cli/issues/128)) ([0baeab8](https://github.com/nuance-communications/mix-cli/commit/0baeab8dcd4dcbb1c8425b2684c85cf627e1d52a))
+
 ## [2.2.1](https://github.com/nuance-communications/mix-cli/compare/v2.2.0...v2.2.1) (2022-11-08)
 
 
