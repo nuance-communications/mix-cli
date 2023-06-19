@@ -14,6 +14,9 @@ import * as MixFlags from '../../utils/flags'
 import MixCommand from '../../utils/base/mix-command'
 import {AppConfigsDeployParams, MixClient, MixResponse, MixResult} from '../../mix/types'
 import {DomainOption} from '../../utils/validations'
+import {MixError} from '../../mix/types'
+import {CliUx} from '@oclif/core'
+import chalk from 'chalk'
 
 const debug = makeDebug('mix:commands:app-configs:deploy')
 
@@ -96,5 +99,18 @@ the application configuration was created.
     debug('transformResponse()')
     const data = result.data as any
     return data.deployments
+  }
+
+  // Show a warning if a user tries to deploy an app-config when it is already deployed
+  handleError(error: MixError) {
+    debug('handleError() error.statusCode: %d', error.statusCode)
+
+    if (error.statusCode === 400 && error.message.toLocaleLowerCase().includes('deployment already completed')) {
+      CliUx.ux.action.stop(chalk.yellow('Aborted'))
+      this.warn(`Application configuration was already deployed. 
+It is not possible to re-deploy an already deployed application configuration.`)
+    } else {
+      super.handleError(error)
+    }
   }
 }

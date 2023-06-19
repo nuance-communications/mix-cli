@@ -55,11 +55,10 @@ describe('app-configs:deploy', () => {
           .put(endpoint)
           .reply(400, td.deploy.response400)
         )
-    .stdout()
+    .stderr()
     .command(['app-configs:deploy','-C', config])
-    .catch(ctx => {
-      expect(ctx.message).to.contain('Deployment already completed')
-      })
-    .it('fails if app config is already deployed', ctx => {
+    .it('fails if app config is already deployed and shows warning', ctx => {
+      const [firstLine] = ctx.stderr.split('\n')
+      expect(firstLine).to.contain('configuration was already deployed')
     })
 })
