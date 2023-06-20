@@ -18,7 +18,7 @@ describe('Help message handling', () => {
   test
     .stdout()
     .command(['help', 'projects:list'])
-  .it('provides help for a specific subcommand', (ctx)=>{
+  .it('provides help for a specific command', (ctx)=>{
     expect(ctx.stdout).to.include('--json')
     expect(ctx.stdout).to.include('list projects')
     expect(ctx.stdout).to.include('exclude project channels from the list')
@@ -27,7 +27,7 @@ describe('Help message handling', () => {
   test
     .stdout()
     .command(['help', 'projects'])
-  .it('provides help for a specific command', (ctx)=>{
+  .it('provides help for a specific topic', (ctx)=>{
     expect(ctx.stdout).to.include('manage projects')
     expect(ctx.stdout).to.include('projects:list')
     expect(ctx.stdout).to.include('list projects')
