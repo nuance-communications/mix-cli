@@ -132,6 +132,9 @@
       "app-configs": {
         "description": "manage application configurations"
       },
+      "env-configs":{
+        "description": "manage environment configurations"
+      },
       "builds": {
         "description": "manage builds"
       },
