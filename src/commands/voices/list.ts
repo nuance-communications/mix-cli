@@ -14,7 +14,6 @@ import * as VoicesAPI from '../../mix/api/voices'
 import * as MixFlags from '../../utils/flags'
 import MixCommand from '../../utils/base/mix-command'
 import {VoicesListParams, MixClient, MixResponse, MixResult} from '../../mix/types'
-// import {DomainOption} from '../../utils/validations'
 
 const debug = makeDebug('mix:commands:voices:list')
 
@@ -46,9 +45,18 @@ A number of flags can be used to constrain the returned results.`
       gender: {header: 'Gender'},
       model: {header: 'Model'},
       locale: {header: 'Locale'},
-      sampleRateHz: {header: 'SampleRateHz'},
-      foreignLanguages: {header: 'ForeignLanguages'},
-      styles: {header: 'Styles'},
+      sampleRateHz: {
+        header: 'SampleRateHz',
+        get: ({sampleRateHz}: any) => sampleRateHz.length === 0 ? 'n/a' : sampleRateHz.join(','),
+      },
+      foreignLanguages: {
+        header: 'ForeignLanguages',
+        get: ({foreignLanguages}: any) => foreignLanguages.length === 0 ? 'n/a' : foreignLanguages.join(','),
+      },
+      styles: {
+        header: 'Styles',
+        get: ({styles}: any) => styles.length === 0 ? 'n/a' : styles.join(','),
+      },
     }
   }
 
