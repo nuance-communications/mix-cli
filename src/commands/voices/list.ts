@@ -46,8 +46,8 @@ A number of flags can be used to constrain the returned results.`
       gender: {header: 'Gender'},
       model: {header: 'Model'},
       locale: {header: 'Locale'},
-      sampleRateHz: {header: 'Sample Hz'},
-      foreignLanguages: {header: 'Foreign Languages'},
+      sampleRateHz: {header: 'SampleRateHz'},
+      foreignLanguages: {header: 'ForeignLanguages'},
       styles: {header: 'Styles'},
     }
   }
@@ -58,6 +58,7 @@ A number of flags can be used to constrain the returned results.`
     const {
       organization: orgId,
     } = options
+
     return {
       orgId,
     }
@@ -72,7 +73,7 @@ A number of flags can be used to constrain the returned results.`
     debug('outputHumanReadable()')
 
     if (transformedData.length === 0) {
-      this.log('No application configurations found.')
+      this.log('No voices found.')
       return
     }
 
