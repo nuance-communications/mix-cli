@@ -12,7 +12,7 @@ import makeDebug from 'debug'
 import * as MixFlags from '../../utils/flags'
 import MixCommand from '../../utils/base/mix-command'
 import {MixClient, MixResponse, MixResult} from '../../mix/types'
-import {EnvConfigsListParams} from '../../mix/api/env-configs-types'
+import {EnvConfigListResponse, EnvConfigListTransformedData, EnvConfigsListParams} from '../../mix/api/env-configs-types'
 import {listEnvConfigs} from '../../mix/api/env-configs'
 
 const debug = makeDebug('mix:commands:env-configs:list')
@@ -29,6 +29,7 @@ export default class EnvConfigsList extends MixCommand {
 
   static flags = {
     json: MixFlags.jsonFlag,
+    ...MixFlags.tableFlags({except: ['extended', 'sort']}),
     project: MixFlags.projectWithDefaultFlag,
     yaml: MixFlags.yamlFlag,
   }
@@ -43,13 +44,25 @@ export default class EnvConfigsList extends MixCommand {
     return listEnvConfigs(client, params)
   }
 
-  outputHumanReadable(transformedData: any) {
+  get columns() {
+    return  {
+      envId: {header: 'EnvId'},
+      envName: {header: 'EnvName'},
+      envGeoID: {header: 'EnvGeoID'},
+      envGeoName: {header: 'EnvGeoName'},
+      label: {header: 'Label'},
+      value: {header: 'Value'},
+      defaultValue: {header: 'Default Value'},
+    }
+  }
+
+  outputHumanReadable(transformedData: EnvConfigListTransformedData) {
     debug('outputHumanReadable()')
     if (transformedData.length === 0) {
       this.log('No environment configurations found.')
     }
 
-    // this.outputCLITable(transformedData, this.columns)
+    this.outputCLITable(transformedData, this.columns)
   }
 
   setRequestActionMessage(_options: any) {
@@ -57,8 +70,77 @@ export default class EnvConfigsList extends MixCommand {
     this.requestActionMessage = 'Retrieving environment configurations'
   }
 
-  transformResponse(result: MixResult) {
+  transformResponse(result: MixResult): EnvConfigListTransformedData {
     debug('transformResponse()')
-    return result.data
+    const transformedData = []
+    const data = result.data as EnvConfigListResponse
+
+    const {projectDefaults, environments} = data
+    const projectsDefaultsMap: Record<string, string> = {}
+
+    // map each project default's label to its value
+    for (const projectDefault of projectDefaults) {
+      projectsDefaultsMap[projectDefault.label] =  projectDefault.value
+    }
+
+    for (const environment of environments) {
+      for (const envGeography of environment.environmentGeographies) {
+        const item = {
+          envId: environment.id,
+          envName: environment.name,
+          envGeoID: envGeography.id,
+          envGeoName: envGeography.name,
+        }
+        // if there are no environment geography defaults
+        if (envGeography.environmentGeographyDefaults.length === 0) {
+          // and there are no project defaults, add a single row with empty values
+          if (projectDefaults.length === 0) {
+            transformedData.push({
+              ...item,
+              label: '',
+              value: '',
+              defaultValue: '',
+            })
+          }
+
+          // if however, there are project defaults, add a row for each project default
+          for (const {label, value} of projectDefaults) {
+            transformedData.push({
+              ...item,
+              label,
+              value: '',
+              defaultValue: value,
+            })
+          }
+        }
+
+        // if there are environment geography defaults, add a row for each one
+        // also keep track of which project defaults have already been added
+        const addedProjectDefaults = new Set<string>()
+        for (const envGeoDefault of envGeography.environmentGeographyDefaults) {
+          transformedData.push({
+            ...item,
+            label: envGeoDefault.label,
+            value: envGeoDefault.value,
+            defaultValue: projectsDefaultsMap[envGeoDefault.label] || '',
+          })
+          addedProjectDefaults.add(envGeoDefault.label)
+        }
+
+        // now add any project defaults that haven't already been added
+        for (const projectDefault of projectDefaults) {
+          if (!addedProjectDefaults.has(projectDefault.label)) {
+            transformedData.push({
+              ...item,
+              label: projectDefault.label,
+              value: '',
+              defaultValue: projectDefault.value,
+            })
+          }
+        }
+      }
+    }
+
+    return transformedData
   }
 }
