@@ -16,13 +16,14 @@ import {EnvConfigsListParams} from '../../mix/api/env-configs-types'
 import {listEnvConfigs} from '../../mix/api/env-configs'
 
 const debug = makeDebug('mix:commands:env-configs:list')
+
 export default class EnvConfigsList extends MixCommand {
   static description = `list environment configurations
   
   Use this command to list all environment configurations for a specific project.`
 
   static examples = [
-    'List environment configurations for the project with ID 29050',
+    'List environment configurations for project ID 29050',
     'mix projects:list -P 29050',
   ]
 
@@ -45,7 +46,7 @@ export default class EnvConfigsList extends MixCommand {
   outputHumanReadable(transformedData: any) {
     debug('outputHumanReadable()')
     if (transformedData.length === 0) {
-      this.log('No application configurations found.')
+      this.log('No environment configurations found.')
     }
 
     // this.outputCLITable(transformedData, this.columns)
