@@ -12,7 +12,11 @@ import makeDebug from 'debug'
 import * as MixFlags from '../../utils/flags'
 import MixCommand from '../../utils/base/mix-command'
 import {MixClient, MixResponse, MixResult} from '../../mix/types'
-import {EnvConfigListResponse, EnvConfigListTransformedData, EnvConfigsListParams} from '../../mix/api/env-configs-types'
+import {
+  EnvConfigListResponse,
+  EnvConfigListTransformedData,
+  EnvConfigsListParams,
+} from '../../mix/api/env-configs-types'
 import {listEnvConfigs} from '../../mix/api/env-configs'
 
 const debug = makeDebug('mix:commands:env-configs:list')
@@ -20,39 +24,44 @@ const debug = makeDebug('mix:commands:env-configs:list')
 export default class EnvConfigsList extends MixCommand {
   static description = `list environment configurations
   
-  Use this command to list all environment configurations for a specific project.`
+  Use this command to list all environment configurations for a specific project.`;
 
   static examples = [
     'List environment configurations for project ID 29050',
     'mix projects:list -P 29050',
-  ]
+  ];
 
   static flags = {
     json: MixFlags.jsonFlag,
     ...MixFlags.tableFlags({except: ['extended', 'sort']}),
     project: MixFlags.projectWithDefaultFlag,
     yaml: MixFlags.yamlFlag,
-  }
+  };
 
-  async buildRequestParameters(options: Partial<FlagOutput>): Promise<EnvConfigsListParams> {
+  async buildRequestParameters(
+    options: Partial<FlagOutput>,
+  ): Promise<EnvConfigsListParams> {
     debug('buildRequestParameters()')
     return {projectId: options.project}
   }
 
-  doRequest(client: MixClient, params: EnvConfigsListParams): Promise<MixResponse> {
+  doRequest(
+    client: MixClient,
+    params: EnvConfigsListParams,
+  ): Promise<MixResponse> {
     debug('doRequest()')
     return listEnvConfigs(client, params)
   }
 
   get columns() {
-    return  {
+    return {
       envId: {header: 'EnvId'},
       envName: {header: 'EnvName'},
-      envGeoID: {header: 'EnvGeoID'},
+      envGeoID: {header: 'EnvGeoId'},
       envGeoName: {header: 'EnvGeoName'},
       label: {header: 'Label'},
       value: {header: 'Value'},
-      defaultValue: {header: 'Default Value'},
+      defaultValue: {header: 'DefaultValue'},
     }
   }
 
@@ -80,7 +89,7 @@ export default class EnvConfigsList extends MixCommand {
 
     // map each project default's label to its value
     for (const projectDefault of projectDefaults) {
-      projectsDefaultsMap[projectDefault.label] =  projectDefault.value
+      projectsDefaultsMap[projectDefault.label] = projectDefault.value
     }
 
     for (const environment of environments) {
@@ -112,30 +121,31 @@ export default class EnvConfigsList extends MixCommand {
               defaultValue: value,
             })
           }
-        }
-
-        // if there are environment geography defaults, add a row for each one
-        // also keep track of which project defaults have already been added
-        const addedProjectDefaults = new Set<string>()
-        for (const envGeoDefault of envGeography.environmentGeographyDefaults) {
-          transformedData.push({
-            ...item,
-            label: envGeoDefault.label,
-            value: envGeoDefault.value,
-            defaultValue: projectsDefaultsMap[envGeoDefault.label] || '',
-          })
-          addedProjectDefaults.add(envGeoDefault.label)
-        }
-
-        // now add any project defaults that haven't already been added
-        for (const projectDefault of projectDefaults) {
-          if (!addedProjectDefaults.has(projectDefault.label)) {
+        } else {
+          // if there are environment geography defaults, add a row for each one
+          // also keep track of which project defaults have already been added
+          const addedProjectDefaults = new Set<string>()
+          for (const envGeoDefault of envGeography.environmentGeographyDefaults) {
             transformedData.push({
               ...item,
-              label: projectDefault.label,
-              value: '',
-              defaultValue: projectDefault.value,
+              label: envGeoDefault.label,
+              value: envGeoDefault.value,
+              defaultValue: projectsDefaultsMap[envGeoDefault.label] || '',
             })
+            addedProjectDefaults.add(envGeoDefault.label)
+          }
+
+          // now add any project defaults that haven't already been added
+          for (const projectDefault of projectDefaults) {
+            // eslint-disable-next-line max-depth
+            if (!addedProjectDefaults.has(projectDefault.label)) {
+              transformedData.push({
+                ...item,
+                label: projectDefault.label,
+                value: '',
+                defaultValue: projectDefault.value,
+              })
+            }
           }
         }
       }
