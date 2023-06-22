@@ -47,15 +47,19 @@ A number of flags can be used to constrain the returned results.`
       locale: {header: 'Locale'},
       sampleRateHz: {
         header: 'SampleRateHz',
-        get: ({sampleRateHz}: any) => sampleRateHz.length === 0 ? 'n/a' : sampleRateHz.join(','),
+        get: ({sampleRateHz}: any) => sampleRateHz.length === 0 ? 'n/a' :
+          sampleRateHz
+            .map((s: string) => Number(s))
+            .sort((a: number, b: number) => a - b)
+            .join(','),
       },
       foreignLanguages: {
         header: 'ForeignLanguages',
-        get: ({foreignLanguages}: any) => foreignLanguages.length === 0 ? 'n/a' : foreignLanguages.join(','),
+        get: ({foreignLanguages}: any) => foreignLanguages.length === 0 ? 'n/a' : foreignLanguages.sort().join(','),
       },
       styles: {
         header: 'Styles',
-        get: ({styles}: any) => styles.length === 0 ? 'n/a' : styles.join(','),
+        get: ({styles}: any) => styles.length === 0 ? 'n/a' : styles.sort().join(','),
       },
     }
   }
