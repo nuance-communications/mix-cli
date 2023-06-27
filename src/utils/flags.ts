@@ -158,6 +158,10 @@ export const entityTypeFlag = Flags.string({
   required: true,
 })
 
+export const envIDFlag = Flags.integer({
+  description: 'environment ID',
+})
+
 export const envGeoIDFlag = Flags.integer({
   description: envGeoIDDesc,
 })
@@ -233,6 +237,10 @@ export const jsonFlag = Flags.boolean({
   default: false,
   description: 'output raw data in JSON format',
   exclusive: ['csv', 'yaml'],
+})
+
+export const labelFlag = Flags.string({
+  description: 'environment configuration name',
 })
 
 export const limitFlag = Flags.integer({
@@ -487,6 +495,10 @@ export const toEntityTypeFlag = Flags.string({
   description: 'new entity type',
   options: ['base', 'freeform', 'list', 'regex', 'relational', 'rule-based'],
   required: true,
+})
+
+export const valueFlag = Flags.string({
+  description: 'environment configration value',
 })
 
 export const watchFlag = Flags.boolean({
