@@ -179,6 +179,9 @@
       },
       "environments": {
         "description": "manage environments"
+      },
+      "voices": {
+        "description": "list voices"
       }
     }
   },

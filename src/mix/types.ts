@@ -59,6 +59,7 @@ export * from './api/organizations-types'
 export * from './api/projects-types'
 export * from './api/samples-types'
 export * from './api/system-types'
+export * from './api/voices-types'
 
 /** @hidden */
 export type MixRequestParams =
