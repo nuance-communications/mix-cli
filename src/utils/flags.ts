@@ -498,7 +498,7 @@ export const toEntityTypeFlag = Flags.string({
 })
 
 export const valueFlag = Flags.string({
-  description: 'environment configration value',
+  description: 'environment configuration value',
 })
 
 export const watchFlag = Flags.boolean({

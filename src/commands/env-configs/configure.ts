@@ -8,6 +8,7 @@
 
 import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
+import chalk from 'chalk'
 
 import * as MixFlags from '../../utils/flags'
 import MixCommand from '../../utils/base/mix-command'
@@ -32,7 +33,9 @@ export default class EnvConfigsList extends MixCommand {
 
   static examples = [
     '# Configure an environment configuration project default',
-    'mix env-configs:configure -P 1922 --label GRAMMAR_BASE_PATH --value https://www.example.com/grammars',
+    'mix env-configs:configure -P 1922 --label=GRAMMAR_BASE_PATH --value=https://www.example.com/grammars',
+    'Configure an environment configuration for a specific environment geography',
+    'mix env-configs:configure -P 1922 --env=1923 --env-geo=9 --label=GRAMMAR_BASE_PATH --value=https://www.example.com/grammars',
   ]
 
   static flags = {
@@ -52,17 +55,18 @@ export default class EnvConfigsList extends MixCommand {
   async buildRequestParameters(options: Partial<FlagOutput>): Promise<EnvConfigsConfigureParams> {
     debug('buildRequestParameters()')
     const {
-      project,
       env,
       'env-geo': envGeoId,
       label,
+      project,
       value,
     } = options
+
     return {
-      projectId: project,
       envId: env,
       envGeoId,
       label,
+      projectId: project,
       value,
     }
   }
@@ -70,6 +74,7 @@ export default class EnvConfigsList extends MixCommand {
   doRequest(client: MixClient, params: EnvConfigsConfigureParams): Promise<MixResponse> {
     debug('doRequest()')
     const {envId} = params
+
     if (envId) {
       return configureEnvConfigWithGeo(client, params)
     }
@@ -79,11 +84,24 @@ export default class EnvConfigsList extends MixCommand {
 
   outputHumanReadable() {
     debug('outputHumanReadable()')
-    this.log('\nEnvironment configurations configured successfully\n')
+
+    this.log()
+    if (this.options.env) {
+      this.log(`Environment configuration ${this.options.label} configured successfully for project ${chalk.cyan(this.options.project)}`)
+      this.log(`In environment geography ${chalk.cyan(this.options['env-geo'])} of environment ${chalk.cyan(this.options.env)}`)
+    } else {
+      this.log(`Environment configuration ${this.options.label} default configured successfully for project ${chalk.cyan(this.options.project)}`)
+    }
+
+    this.log()
   }
 
   setRequestActionMessage(_options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = 'Configuring environment configurations'
+
+    this.requestActionMessage = `Configuring environment configuration ${this.options.label} for project ${this.options.project}`
+    if (this.options.env) {
+      this.requestActionMessage += ` in environment geography ${this.options['env-geo']} of environment ${this.options.env}`
+    }
   }
 }

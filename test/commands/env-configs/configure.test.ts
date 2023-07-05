@@ -7,6 +7,7 @@
  */
 
 import { expect, test } from "@oclif/test";
+import { log } from "console";
 
 const testData = require("../../test-data");
 const serverURL = `https://${testData.server}`;
@@ -97,4 +98,35 @@ describe("env-configs:configure command", () => {
       );
     })
     .it("fails to configure environment configuration with env-geo but no env");
+
+  test
+    .env(testData.env)
+    .stderr()
+    .command([
+      "env-configs:configure",
+      `--label=${label}`,
+      `--value=${value}`,
+    ])
+    .catch((ctx) => {
+      expect(ctx.message).to.contain(
+        `Missing required flag project`
+      );
+    })
+    .it("fails to configure environment configuration with no project ID");
+
+  test
+    .env(testData.env)
+    .stderr()
+    .command([
+      "env-configs:configure",
+      `--project=ok123`,
+      `--label=${label}`,
+      `--value=${value}`,
+    ])
+    .catch((ctx) => {
+      expect(ctx.message).to.contain(
+        'Expected an integer'
+      );
+    })
+    .it("fails to configure environment configuration with invalid project ID");
 });
