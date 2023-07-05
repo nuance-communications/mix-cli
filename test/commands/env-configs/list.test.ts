@@ -158,23 +158,24 @@ describe("env-configs:list command", () => {
     );
 
     test
-    .env(testData.env)
-    .stdout()
-    .command(["env-configs:list"])
-    .catch((ctx) => {
-      expect(ctx.message).to.contain(
-        `Missing required flag project`
-      );
-    })
-    .it("fails to list environment configurations without --project");
+      .env(testData.env)
+      .stdout()
+      .command(["env-configs:list"])
+      .catch((ctx) => {
+        expect(ctx.message).to.contain(
+          `Missing required flag project`
+        );
+      })
+      .it("fails to list environment configurations without --project");
+
     test
-    .env(testData.env)
-    .stdout()
-    .command(["env-configs:list", "--project=abc"])
-    .catch((ctx) => {
-      expect(ctx.message).to.contain(
-        `Expected an integer`
-      );
-    })
-    .it("fails when provided invalid value for project");
+      .env(testData.env)
+      .stdout()
+      .command(["env-configs:list", "--project=abc"])
+      .catch((ctx) => {
+        expect(ctx.message).to.contain(
+          `Expected an integer`
+        );
+      })
+      .it("fails when provided invalid value for project");
 });
