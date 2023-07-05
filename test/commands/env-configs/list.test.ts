@@ -22,7 +22,9 @@ describe("env-configs:list command", () => {
       noEnvironmentDefaultsData,
     },
   } = EnvConfigListTestData;
+  
   const endpoint = `/v4/projects/${project}/env-configs`;
+
   test
     .env(testData.env)
     .nock(serverURL, (api) =>
@@ -132,7 +134,7 @@ describe("env-configs:list command", () => {
     .stdout()
     .command(["env-configs:list", `--project=${project}`])
     .it(
-      "lists out environment configurations for project with one project default and no environment geographic defaults",
+      "lists out environment configurations for project with one project default and no environment geography defaults",
       (ctx) => {
         expect(ctx.stdout.match(/GRAMMAR_BASE_PATH/g)).to.have.lengthOf(4);
 
@@ -154,4 +156,25 @@ describe("env-configs:list command", () => {
         expect(ctx.stdout.split("\n").filter(Boolean)).to.have.lengthOf(6);
       }
     );
+
+    test
+    .env(testData.env)
+    .stdout()
+    .command(["env-configs:list"])
+    .catch((ctx) => {
+      expect(ctx.message).to.contain(
+        `Missing required flag project`
+      );
+    })
+    .it("fails to list environment configurations without --project");
+    test
+    .env(testData.env)
+    .stdout()
+    .command(["env-configs:list", "--project=abc"])
+    .catch((ctx) => {
+      expect(ctx.message).to.contain(
+        `Expected an integer`
+      );
+    })
+    .it("fails when provided invalid value for project");
 });
