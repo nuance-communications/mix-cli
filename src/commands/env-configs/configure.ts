@@ -32,7 +32,7 @@ export default class EnvConfigsList extends MixCommand {
   `
 
   static examples = [
-    '# Configure an environment configuration project default',
+    'Configure an environment configuration project default',
     'mix env-configs:configure -P 1922 --label=GRAMMAR_BASE_PATH --value=https://www.example.com/grammars',
     'Configure an environment configuration for a specific environment geography',
     'mix env-configs:configure -P 1922 --env=1923 --env-geo=9 --label=GRAMMAR_BASE_PATH --value=https://www.example.com/grammars',
