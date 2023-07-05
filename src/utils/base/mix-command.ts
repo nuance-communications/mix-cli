@@ -294,6 +294,7 @@ that configuration file swiftly.`)
   handleError(error: MixError) {
     debug('handleError() error.statusCode: %d', error.statusCode)
 
+    CliUx.ux.action.stop(chalk.red('Failed'))
     switch (error.statusCode) {
       case 400: throw eInvalidValue(error.message)
       case 401: throw eUnauthorized(error.message)
