@@ -7,7 +7,6 @@
  */
 
 import { expect, test } from "@oclif/test";
-import { log } from "console";
 
 const testData = require("../../test-data");
 const serverURL = `https://${testData.server}`;
