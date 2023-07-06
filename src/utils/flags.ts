@@ -507,7 +507,7 @@ export const watchFlag = Flags.boolean({
 })
 
 export const withApplicationName = Flags.string({
-  description: 'filter results by Mix application name',
+  description: 'filter results by Mix application name (case-sensitive)',
 })
 
 export const withBuildTypeMultipleFlag = Flags.string({

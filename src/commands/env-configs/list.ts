@@ -18,25 +18,26 @@ import {
   EnvConfigsListParams,
 } from '../../mix/api/env-configs-types'
 import {listEnvConfigs} from '../../mix/api/env-configs'
+import chalk from 'chalk'
 
 const debug = makeDebug('mix:commands:env-configs:list')
 
 export default class EnvConfigsList extends MixCommand {
   static description = `list environment configurations
   
-  Use this command to list all environment configurations for a specific project.`;
+  Use this command to list all environment configurations for a specific project.`
 
   static examples = [
     'List environment configurations for project ID 29050',
     'mix projects:list -P 29050',
-  ];
+  ]
 
   static flags = {
     json: MixFlags.jsonFlag,
     ...MixFlags.tableFlags({except: ['extended', 'sort']}),
     project: MixFlags.projectWithDefaultFlag,
     yaml: MixFlags.yamlFlag,
-  };
+  }
 
   async buildRequestParameters(
     options: Partial<FlagOutput>,
@@ -76,7 +77,7 @@ export default class EnvConfigsList extends MixCommand {
 
   setRequestActionMessage(_options: any) {
     debug('setRequestActionMessage()')
-    this.requestActionMessage = 'Retrieving environment configurations'
+    this.requestActionMessage = `Retrieving environment configurations for project ID ${chalk.cyan(_options.project)}`
   }
 
   transformResponse(result: MixResult): EnvConfigListTransformedData {

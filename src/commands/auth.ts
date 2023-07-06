@@ -67,9 +67,11 @@ access token, it takes care of refreshing it automatically.`
       this.authError = {
         code: 'EAUTHFAILURE',
         message: `Failed to obtain access token: ${errorMessage}`,
-        suggestions: ['Verify your client credentials.',
+        suggestions: [
+          'Make sure you are using valid service credentials; default credentials will not work.',
           'Verify your network connectivity.',
-          'Verify the values provided for the authentication and API servers in your configuration.'],
+          'Verify the values provided for the authentication and API servers in your configuration.',
+        ],
       }
 
       CliUx.ux.action.stop(chalk.red('failed'))

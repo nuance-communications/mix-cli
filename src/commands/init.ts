@@ -199,13 +199,13 @@ and consistent set of configuration values.`)
 
   outputMixCLIConfigurationBackedUp(backupPathName: string) {
     debug('outputMixCLIConfigurationBackedUp()')
-    this.log(`\nPrevious configuration file backed up in ${chalk.yellow(backupPathName)}.`)
+    this.log(`\nPrevious configuration file backed up in ${chalk.yellow(backupPathName)}`)
   }
 
   outputMixCLIConfigurationSaved(configDir: string) {
     debug('outputMixCLIConfigurationSaved()')
     const filePath = path.join(configDir, 'config.json')
-    this.log(`\nNew configuration file created in ${chalk.cyan(filePath)}.`)
+    this.log(`\nNew configuration file created in ${chalk.cyan(filePath)}`)
   }
 
   outputUserIsAllSet() {
@@ -226,7 +226,7 @@ Verify them as they take precedence over the central configuration file.`)
     debug('warnAboutOverwritingConfiguration(')
     this.log(`
 ${chalk.yellow('Note')}: A configuration file already exists in:
-${mixCLIConfigFilePath}.
+${mixCLIConfigFilePath}
 
 It will be backed up before the new configuration file gets created, after you answer the
 question(s) that follow. You can use ${chalk.cyan('CTRL-C')} to exit the 'init' command.`)
