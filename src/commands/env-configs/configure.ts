@@ -19,7 +19,7 @@ import {configureEnvConfigWithGeo, configureEnvConfigWithoutGeo} from '../../mix
 const debug = makeDebug('mix:commands:env-configs:configure')
 
 export default class EnvConfigsList extends MixCommand {
-  static description = `Configure an environment configuration
+  static description = `configure an environment configuration
 
   Environment configurations provide default values either for the project as a whole
   or for a specific environment geography. If an environment geography doest not have
