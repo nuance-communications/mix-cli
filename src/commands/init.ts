@@ -119,7 +119,7 @@ configuration can also be overridden using environment variables.`
     const clientSecret = await CliUx.ux.prompt('Your client secret?',
       {type: 'hide'})
     const suggestedSystem = Config.getSystemFromApiServer(apiServer)
-    const system = await CliUx.ux.prompt('System name?',
+    const system = await CliUx.ux.prompt('Mix system name?',
       {default: suggestedSystem})
 
     const values = {
@@ -186,7 +186,7 @@ configuration can also be overridden using environment variables.`
     debug('outputAnswerSomeQuestions()')
     this.log(`
 Answer the few questions below to configure mix-cli.
-Simply accept defaults if you plan on using the Production US environment.`)
+Simply accept defaults if you plan on using the Production US Mix system ("us").`)
   }
 
   outputCanUseEnvironmentVariables() {
@@ -219,7 +219,7 @@ and consistent set of configuration values.`)
 
   outputLetsCreateNewConfig() {
     debug('outputLetsCreateNewConfig()')
-    this.log('Let\'s create a new configuration file for mix-cli.')
+    this.log('Let\'s configure a Mix system for mix-cli to use.')
   }
 
   outputMixCLIConfigurationBackedUp(backupPathName: string) {
@@ -235,9 +235,12 @@ and consistent set of configuration values.`)
 
   outputUserIsAllSet() {
     debug('outputUserIsAllSet()')
-    this.log(`\nYour mix-cli configuration is ready! Next, get authenticated by typing:
-
-mix auth`)
+    this.log()
+    this.log('Your mix-cli configuration is ready!')
+    this.log()
+    this.log('Next, you can:')
+    this.log(`  - get authenticated by typing: ${chalk.cyan('mix auth')}`)
+    this.log(`  - get the list of configured Mix systems by typing: ${chalk.cyan('mix system:list')}`)
   }
 
   outputVerifyEnvironmentVariables() {
