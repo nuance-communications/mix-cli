@@ -88,7 +88,7 @@ export default class EnvConfigsList extends MixCommand {
     this.log()
     if (this.options.env) {
       this.log(`Environment configuration ${this.options.label} configured successfully for project ${chalk.cyan(this.options.project)}`)
-      this.log(`In environment geography ${chalk.cyan(this.options['env-geo'])} of environment ${chalk.cyan(this.options.env)}`)
+      this.log(`in environment geography ${chalk.cyan(this.options['env-geo'])} of environment ${chalk.cyan(this.options.env)}`)
     } else {
       this.log(`Environment configuration ${this.options.label} default configured successfully for project ${chalk.cyan(this.options.project)}`)
     }

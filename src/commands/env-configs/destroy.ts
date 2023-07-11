@@ -95,7 +95,7 @@ export default class EnvConfigsDestroy extends MixCommand {
 
     if (this.options.env) {
       this.log(`Environment configuration ${this.options.label} destroyed successfully for project ${chalk.cyan(this.options.project)}`)
-      this.log(`In environment geography ${chalk.cyan(this.options['env-geo'])} of environment ${chalk.cyan(this.options.env)}`)
+      this.log(`in environment geography ${chalk.cyan(this.options['env-geo'])} of environment ${chalk.cyan(this.options.env)}`)
     } else {
       this.log(`Default environment configuration ${this.options.label} destroyed successfully for project ${chalk.cyan(this.options.project)}`)
     }
