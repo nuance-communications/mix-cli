@@ -38,3 +38,10 @@ export type EnvConfigListTransformedData = {
   value: string
   defaultValue: string
 }[]
+
+export type EnvConfigsDestroyParams = {
+  projectId: string,
+  envId: string | undefined,
+  envGeoId: string | undefined,
+  label: string,
+}
