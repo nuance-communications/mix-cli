@@ -135,9 +135,9 @@ that configuration file swiftly.`)
         }
       }
     } else if (this.mixCLIConfig.currentSystem) {
-      this.log(`Authenticating with Mix system: ${chalk.green(this.mixCLIConfig.currentSystem)}`)
+      this.log(`Authenticating with ${chalk.green(this.mixCLIConfig.currentSystem)} Mix system`)
     } else {
-      this.log('Authenticating with last used Mix system')
+      this.log(`Authenticating with authServer: ${chalk.green(this.mixCLIConfig.authServer)}`)
     }
 
     await this.runWithClientCredentialsGrant()
