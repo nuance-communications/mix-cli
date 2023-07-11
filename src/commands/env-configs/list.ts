@@ -61,8 +61,8 @@ export default class EnvConfigsList extends MixCommand {
       envGeoID: {header: 'EnvGeoId'},
       envGeoName: {header: 'EnvGeoName'},
       label: {header: 'Label'},
-      value: {header: 'Value'},
-      defaultValue: {header: 'DefaultValue'},
+      value: {header: 'EnvGeoDefault'},
+      defaultValue: {header: 'ProjectDefault'},
     }
   }
 
