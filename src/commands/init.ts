@@ -47,7 +47,7 @@ configuration can also be overridden using environment variables.`
 
     // Do we already have a central configuration file?
     if (isMixCLIConfigPresent) {
-      this.warnAboutOverwritingConfiguration(mixCLIConfigFilePath)
+      // this.warnAboutOverwritingConfiguration(mixCLIConfigFilePath)
       this.outputAnswerSomeQuestions()
     } else if (isAnyMixCLIEnvVariablePresent) { // Do we have environment variables to worry about?
       if (isMixCLIEnvVariableSetComplete) {
@@ -76,14 +76,19 @@ configuration can also be overridden using environment variables.`
       this.log() // intentional blank line
     }
 
+    let oldConfig : MixCLIConfig | undefined
     // Do we have a previous configuration to back up?
     if (isMixCLIConfigPresent) {
+      const config = Config.getMixCLIConfig(this.config)
+      oldConfig = Config.isOldConfig(config) ? Config.convertOldConfigToNew(config) : config
+
       const backupPathName = Config.moveMixCLIConfigToBackup(configDir)
       this.outputMixCLIConfigurationBackedUp(backupPathName)
     }
 
     // Store new configuration to file
-    const configStoreErrorMessage = Config.storeMixCLIConfig(configDir, mixCLIConfig)
+    const combinedConfig = Config.combineConfigs(mixCLIConfig, oldConfig)
+    const configStoreErrorMessage = Config.storeMixCLIConfig(configDir, combinedConfig)
     if (configStoreErrorMessage) {
       this.error(configStoreErrorMessage)
     }
@@ -98,7 +103,7 @@ configuration can also be overridden using environment variables.`
     this.outputUserIsAllSet()
   }
 
-  async askConfigurationValues() {
+  async askConfigurationValues(): Promise<MixCLIConfig> {
     debug('askConfigurationValues()')
     this.log() // intentional blank line
     const authServer = await CliUx.ux.prompt('Mix authentication server fully-qualified hostname?',
@@ -113,8 +118,28 @@ configuration can also be overridden using environment variables.`
       {type: 'mask'})
     const clientSecret = await CliUx.ux.prompt('Your client secret?',
       {type: 'hide'})
+    const suggestedSystem = Config.getSystemFromApiServer(apiServer)
+    const system = await CliUx.ux.prompt('System name?',
+      {default: suggestedSystem})
 
-    const mixCLIConfig = {authServer, apiServer, scope, tenant, clientId, clientSecret}
+    const values = {
+      authServer,
+      apiServer,
+      scope,
+      tenant,
+      clientId,
+      clientSecret,
+    }
+
+    const mixCLIConfig = {
+      ...values,
+      currentSystem: system.toLowerCase(),
+      systems: {
+        [system]: {
+          ...values,
+        },
+      },
+    }
 
     return mixCLIConfig
   }

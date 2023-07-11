@@ -9,7 +9,7 @@ describe('Help message handling', () => {
     expect(ctx.stdout).to.include('projects')
     expect(ctx.stdout).to.include('manage projects')
     expect(ctx.stdout).to.include('auth')
-    expect(ctx.stdout).to.include('obtain Mix access token')
+    expect(ctx.stdout).to.include('obtain a Mix access token')
   })
 
   // we use the help subcommand instead of passing in --help to the projects:list command

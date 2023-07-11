@@ -58,7 +58,8 @@ describe("env-configs:list command", () => {
 
         // this is no project default, and 4 environments in total, so 4 rows.
         // add in the headers and the separator => 2 rows.
-        expect(ctx.stdout.split("\n").filter(Boolean)).to.have.lengthOf(6);
+        // and the current mix system => 1 row.
+        expect(ctx.stdout.split("\n").filter(Boolean)).to.have.lengthOf(7);
       }
     );
 
@@ -88,7 +89,8 @@ describe("env-configs:list command", () => {
 
         // this has one project default and one geography default with the same label => 1 * 4 => 4 rows.
         // add in the headers and the separator => 2 rows.
-        expect(ctx.stdout.split("\n").filter(Boolean)).to.have.lengthOf(6);
+        // and the current mix system => 1 row.
+        expect(ctx.stdout.split("\n").filter(Boolean)).to.have.lengthOf(7);
       }
     );
 
@@ -122,7 +124,8 @@ describe("env-configs:list command", () => {
         // there is one project default so that's 1 * 4 => 4 rows.
         // there is one geography default for a different label so that's 1 row.
         // add in the headers and the separator => 2 rows.
-        expect(ctx.stdout.split("\n").filter(Boolean)).to.have.lengthOf(7);
+        // and the current mix system => 1 row.
+        expect(ctx.stdout.split("\n").filter(Boolean)).to.have.lengthOf(8);
       }
     );
 
@@ -153,7 +156,8 @@ describe("env-configs:list command", () => {
 
         // there's one project default for 4 environments => 4 rows.
         // add in the headers and the separator => 2 rows.
-        expect(ctx.stdout.split("\n").filter(Boolean)).to.have.lengthOf(6);
+        // and the current mix system => 1 row.
+        expect(ctx.stdout.split("\n").filter(Boolean)).to.have.lengthOf(7);
       }
     );
 

@@ -424,6 +424,11 @@ export const sortFlag = Flags.string({
     'comma-separated properties to sort by (prepend \'+\'/\'-\' for ascending/descending)',
 })
 
+export const systemFlag = Flags.string({
+  char: 'S',
+  description: 'Mix system',
+})
+
 export const userFlag = Flags.integer({
   char: userShortcut,
   description: userDesc,

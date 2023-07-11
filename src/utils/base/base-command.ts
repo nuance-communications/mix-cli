@@ -11,7 +11,7 @@ import {CliUx, Command} from '@oclif/core'
 import makeDebug from 'debug'
 
 import {AuthServerAndCreds, oAuth} from '../../utils/auth'
-import {MixCLIConfig} from '../config'
+import {Config, MixCLIConfig} from '../config'
 import {tokenFileName} from '../constants'
 
 const debug = makeDebug('mix:base:base-command')
@@ -27,6 +27,13 @@ export default abstract class BaseCommand extends Command {
     debug('doAuth()')
     const {clientId, clientSecret, ...safeToPrintConfig} = this.mixCLIConfig!
     debug('mix-cli configuration: %O', safeToPrintConfig)
+    if (Config.isOldConfig(this.mixCLIConfig!)) {
+      this.log(chalk.yellow('Old configuration file detected'))
+      CliUx.ux.action.start('Upgrading configuration file')
+      this.mixCLIConfig = Config.convertOldConfigToNew(this.mixCLIConfig!)
+      this.writeConfigToDisk()
+      CliUx.ux.action.stop(chalk.green('done'))
+    }
 
     const authServerAndCreds: AuthServerAndCreds = {
       authServerHost: this.mixCLIConfig!.authServer,
@@ -91,5 +98,15 @@ export default abstract class BaseCommand extends Command {
     debug('storeAccessToken()')
     const tokenDir = process.env.MIX_CONFIG_DIR || this.config.configDir
     return this.oAuthClient.storeAccessToken(token, tokenDir, tokenFileName)
+  }
+
+  writeConfigToDisk() {
+    const {configDir} = this.config
+    const configStoreErrorMessage = Config.storeMixCLIConfig(configDir, this.mixCLIConfig!)
+
+    if (configStoreErrorMessage) {
+      this.log('Failed to write to configuration file. Exiting.')
+      this.error(configStoreErrorMessage)
+    }
   }
 }

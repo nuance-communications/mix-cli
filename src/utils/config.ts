@@ -28,6 +28,15 @@ const evNames = [
   'MIX_TENANT',
 ]
 
+export interface Details {
+  apiServer: string
+  authServer: string
+  clientId: string
+  clientSecret: string
+  scope: string
+  tenant: string
+}
+
 export interface MixCLIConfig {
   apiServer: string
   authServer: string
@@ -35,6 +44,9 @@ export interface MixCLIConfig {
   clientSecret: string
   scope: string
   tenant: string
+  configVersion?: number
+  currentSystem?: string
+  systems?: {[key: string]: Details}
 }
 
 export const Config = {
@@ -126,6 +138,79 @@ export const Config = {
 
     return errorMessage
   },
+
+  isOldConfig(config: MixCLIConfig): boolean {
+    debug('isOldConfig()')
+    return config.systems === undefined
+  },
+
+  convertOldConfigToNew(config: MixCLIConfig): MixCLIConfig {
+    debug('convertOldConfigToNew()')
+    const systemName = this.getSystemFromApiServer(config.apiServer)
+    const newConfig = {
+      ...config,
+      configVersion: 2,
+      systems: {
+        [systemName]: {
+          apiServer: config.apiServer,
+          authServer: config.authServer,
+          clientId: config.clientId,
+          clientSecret: config.clientSecret,
+          scope: config.scope,
+          tenant: config.tenant,
+        },
+      },
+      currentSystem: Config.getSystemFromApiServer(config.apiServer),
+    }
+    return newConfig
+  },
+
+  combineConfigs(newConfig: MixCLIConfig, oldConfig: MixCLIConfig | undefined): MixCLIConfig {
+    debug('combineConfigs()')
+    if (!oldConfig) {
+      return newConfig
+    }
+
+    const combinedConfig = {
+      ...newConfig,
+      systems: {
+        ...oldConfig.systems,
+        ...newConfig.systems,
+      },
+    }
+    return combinedConfig
+  },
+
+  getSystemFromApiServer(apiUrl: string) : string {
+    // prod URL
+    const words = apiUrl.split('.')
+    if (apiUrl.startsWith('mix.api.nuance')) {
+      switch (words.at(-1)) {
+        case 'com': return 'us'
+        default: return words.at(-1)!
+      }
+    }
+
+    // non prod URL
+    return words[1] === 'mix' ? 'pre-prod' : words[1] ?? apiUrl
+  },
+
+  switchConfiguration(config: MixCLIConfig, system: string): MixCLIConfig {
+    const {systems} = config
+    if (!systems) {
+      return config
+    }
+
+    if (systems[system.toLowerCase()]) {
+      return {
+        ...config,
+        currentSystem: system.toLowerCase(),
+        ...systems[system.toLowerCase()],
+      }
+    }
+
+    throw new Error(`System "${system}" does not exist. Use "mix init" to add a new system to your configuration.`)
+  },
 }
 
 function loadMixCLIConfig(configDir: string) {
@@ -170,3 +255,4 @@ function overrideConfigUsingEnvVars(config: MixCLIConfig): MixCLIConfig {
 
   return envOverriddenConfig
 }
+

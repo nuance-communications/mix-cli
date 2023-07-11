@@ -12,13 +12,23 @@ const mixAPIServer = 'mix-api.example.com'
 
 export const mixAPIServerURL = `https://${mixAPIServer}`
 
-export const getMixCLIConfigMock = {
+const currentConfig = {
   authServer: 'auth.example.com',
   clientId: crypto.randomUUID(),
   clientSecret: crypto.randomUUID(),
   apiServer: mixAPIServer, 
   scope: 'mix-api',
   tenant: 'mix'
+}
+
+export const getMixCLIConfigMock = {
+  ...currentConfig,
+  currentSystem: 'test',
+  systems: {
+    test: {
+      ...currentConfig
+    }
+  }
 }
 
 export const oAuthMock = {
