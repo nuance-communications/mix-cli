@@ -18,8 +18,9 @@ import {Config, MixCLIConfig} from '../utils/config'
 import {configurationProblemExitCode, tokenFileName} from '../utils/constants'
 
 const SUCCESS = 'Token was retrieved and stored successfully.\n' +
-  'You are now ready to use mix-cli! 🚀\n\n' +
-  'If you are a first time user, you can start by looking\n' +
+  'You are now ready to use mix-cli! 🚀'
+
+const SUCCESS_NEW_USER = 'If you are a first time user, you can start by looking\n' +
   'at the organizations you are part of by typing:\n\n' +
   'mix organizations:list\n\n' +
   'Your organization ID is needed for a number of mix commands.'
@@ -32,8 +33,9 @@ Use this command to retrieve an access token. Once mix-cli has acquired the
 access token, it takes care of refreshing it automatically.
 
 Use the 'system' flag to authenticate with a specific Mix system. mix-cli executes
-commands against the last Mix system it successfully authenticated against.
-Run the 'auth' command again to switch to a different Mix system.`
+commands against the last Mix system it successfully authenticated with.
+
+Run the 'system:list' command to see your list of configured Mix systems.`
 
   static examples = [
     'Authenticate with last Mix system used',
@@ -150,6 +152,11 @@ that configuration file swiftly.`)
       })
     } else {
       this.log(SUCCESS)
+
+      if (!this.mixCLIConfig.systems) {
+        this.log()
+        this.log(SUCCESS_NEW_USER)
+      }
     }
   }
 }
