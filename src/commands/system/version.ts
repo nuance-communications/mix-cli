@@ -62,11 +62,11 @@ export default class SystemVersion extends MixCommand {
     const mixCLIConfig = Config.getMixCLIConfig()
     const mixAPIServer = mixCLIConfig.apiServer
 
-    return this.log(
-      `Mix API server ${chalk.cyan(mixAPIServer)}` +
-        `\nrunning API version ${chalk.cyan(apiVersion)}` +
-        `\nin environment ${chalk.cyan(mixEnvironment)}` +
-        ` on Mix version ${chalk.cyan(mixVersion)}`)
+    this.log()
+    this.log(`Mix API server ${chalk.cyan(mixAPIServer)}`)
+    this.log(`running API version ${chalk.cyan(apiVersion)}`)
+    this.log(`in environment ${chalk.cyan(mixEnvironment)}`)
+    this.log(`on Mix version ${chalk.cyan(mixVersion)}`)
   }
 
   outputCSV(transformedData: any) {
