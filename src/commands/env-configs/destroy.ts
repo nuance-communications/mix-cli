@@ -85,7 +85,7 @@ export default class EnvConfigsDestroy extends MixCommand {
 
   get expectedConfirmationValue() {
     debug('get expectedConfirmationValue()')
-    return this.options.project.toString()
+    return this.options.label
   }
 
   outputHumanReadable() {

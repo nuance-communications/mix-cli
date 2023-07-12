@@ -241,6 +241,7 @@ export const jsonFlag = Flags.boolean({
 
 export const labelFlag = Flags.string({
   description: 'environment configuration name',
+  required: true,
 })
 
 export const limitFlag = Flags.integer({

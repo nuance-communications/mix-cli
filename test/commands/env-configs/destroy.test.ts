@@ -36,7 +36,7 @@ describe("env-configs:destroy command", () => {
   test
     .env(testData.env)
     .do(() => {
-      promptStub.onFirstCall().resolves(project.toString())
+      promptStub.onFirstCall().resolves(label)
     })
     .stub(CliUx.ux, 'prompt', () => promptStub)
     .nock(serverURL, (api) =>
@@ -57,7 +57,7 @@ describe("env-configs:destroy command", () => {
   test
     .env(testData.env)
     .do(() => {
-      promptStub.onFirstCall().resolves(project.toString())
+      promptStub.onFirstCall().resolves(label)
     })
     .stub(CliUx.ux, 'prompt', () => promptStub)
     .nock(serverURL, (api) =>
@@ -127,6 +127,20 @@ describe("env-configs:destroy command", () => {
       );
     })
     .it("fails to destroy environment configuration with no project ID");
+    
+    test
+    .env(testData.env)
+    .stderr()
+    .command([
+      "env-configs:destroy",
+      `--project=${project}`,
+    ])
+    .catch((ctx) => {
+      expect(ctx.message).to.contain(
+        `Missing required flag label`
+      );
+    })
+    .it("fails to destroy environment configuration with no label");
 
   test
     .env(testData.env)
