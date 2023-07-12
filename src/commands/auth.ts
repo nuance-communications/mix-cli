@@ -66,6 +66,9 @@ Run the 'system:list' command to see your list of configured Mix systems.`
     const {authServer, clientId, clientSecret, scope} = this.mixCLIConfig!
 
     CliUx.ux.action.start('Retrieving access token using Client Credentials Grant')
+    if (this.authError) {
+      CliUx.ux.action.stop(chalk.red('failed'))
+    }
 
     const authServerAndCreds: AuthServerAndCreds = {
       authServerHost: authServer,
@@ -133,6 +136,7 @@ that configuration file swiftly.`)
           message: `Failed to switch to Mix system: ${error.message}`,
           suggestions: [
             'Verify the value provided for system.',
+            'Use "mix init" to add a new system to your configuration.',
           ],
         }
       }

@@ -209,7 +209,7 @@ export const Config = {
       }
     }
 
-    throw new Error(`System "${system}" does not exist. Use "mix init" to add a new system to your configuration.`)
+    throw new Error(`System "${system}" does not exist.`)
   },
 }
 

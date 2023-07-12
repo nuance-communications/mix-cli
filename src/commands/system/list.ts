@@ -9,11 +9,12 @@
 import chalk from 'chalk'
 import makeDebug from 'debug'
 import {Config} from '../../utils/config'
-import {CliUx, Command} from '@oclif/core'
+import {CliUx} from '@oclif/core'
 
 const debug = makeDebug('mix:commands:system:list')
+import BaseCommand from '../../utils/base/base-command'
 
-export default class SystemVersionList extends Command {
+export default class SystemVersionList extends BaseCommand {
   static description = `list configured Mix systems
   
   Use this command to list the Mix systems you have configured
@@ -40,9 +41,24 @@ export default class SystemVersionList extends Command {
 
   async run() {
     debug('run()')
+    const config = Config.getMixCLIConfig(this.config)
+    if (!config) {
+      this.log('No Mix systems configured. Run "mix init" to add a Mix system to your configuration.')
+      return
+    }
+
+    this.mixCLIConfig = config
+    if (!config.systems) {
+      this.log(chalk.yellow('Old configuration file detected'))
+      CliUx.ux.action.start('Upgrading configuration file')
+      this.mixCLIConfig = Config.convertOldConfigToNew(this.mixCLIConfig!)
+      this.writeConfigToDisk()
+      CliUx.ux.action.stop(chalk.green('done'))
+    }
+
     this.log(chalk.bold('Configured Mix systems:'))
     this.log()
-    const {systems} = Config.getMixCLIConfig(this.config)
+    const {systems} = this.mixCLIConfig
     const systemsTable = []
     for (const [name, config] of Object.entries(systems!)) {
       systemsTable.push({
