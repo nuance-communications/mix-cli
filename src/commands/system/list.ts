@@ -19,9 +19,15 @@ export default class SystemVersionList extends Command {
   Use this command to list the Mix systems you have configured
   to use with mix-cli.`
 
-  static examples = ['mix system:list']
+  static examples = [
+    'list configured Mix systens',
+    'mix system:list',
+    'Equivalent command',
+    'mix systems:list',
+  ]
 
-  static aliases = ['systems:list']
+  static aliases = ['systems:list', 'system:list']
+
   get columns() {
     return {
       systemName: {header: 'System'},
