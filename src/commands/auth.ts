@@ -40,7 +40,6 @@ Run the 'system:list' command to see your list of configured Mix systems.`
   static examples = [
     'Authenticate with last Mix system used',
     '$ mix auth',
-    '',
     'Authenticate with and switch to the "us" Mix system',
     '$ mix auth --system us',
   ]
