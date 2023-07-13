@@ -29,6 +29,8 @@ export default class EnvConfigsList extends MixCommand {
   for the given configuration label. Using this command with the 'env' and 'env-geo' flags
   in addition to the 'project' flag configures the default value for the given configuration
   label targeting the specified environment geography.
+
+  Passing an empty string as the value will unset the configuration.
   `
 
   static examples = [
@@ -36,6 +38,8 @@ export default class EnvConfigsList extends MixCommand {
     'mix env-configs:configure -P 1922 --label=GRAMMAR_BASE_PATH --value=https://www.example.com/grammars',
     'Configure an environment configuration for a specific environment geography',
     'mix env-configs:configure -P 1922 --env=1923 --env-geo=9 --label=GRAMMAR_BASE_PATH --value=https://www.example.com/grammars',
+    'Unset an environment configuration project default',
+    'mix env-configs:configure -P 1922 --label=GRAMMAR_BASE_PATH --value=""',
   ]
 
   static flags = {

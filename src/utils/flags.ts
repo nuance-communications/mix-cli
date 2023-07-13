@@ -500,6 +500,7 @@ export const toEntityTypeFlag = Flags.string({
 
 export const valueFlag = Flags.string({
   description: 'environment configuration value',
+  required: true,
 })
 
 export const watchFlag = Flags.boolean({
