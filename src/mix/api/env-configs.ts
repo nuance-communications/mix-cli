@@ -10,7 +10,7 @@ import makeDebug from 'debug'
 
 import buildURL from './utils/build-url'
 import {MixClient, MixResponse} from '../types'
-import {EnvConfigsListParams, EnvConfigsConfigureParams} from './env-configs-types'
+import {EnvConfigsListParams, EnvConfigsConfigureParams, EnvConfigsDestroyParams} from './env-configs-types'
 
 const debug = makeDebug('mix:api:env-configs')
 
@@ -49,5 +49,28 @@ export async function configureEnvConfigWithoutGeo(client: MixClient, params: En
     method: 'put',
     url: buildURL(client.getServer(), `/v4/projects/${projectId}/env-configs/${label}`),
     data: `"${value}"`,
+  })
+}
+
+export async function destroyEnvConfigWithGeo(client: MixClient, params: EnvConfigsDestroyParams): Promise<MixResponse> {
+  debug('configureEnvConfigWithGeo()')
+  const {projectId, envId, envGeoId, label} = params
+  return client.request({
+    method: 'delete',
+    url: buildURL(client.getServer(), `/v4/environments/${envId}/geographies/${envGeoId}/configs/${label}`),
+    options: {
+      params: {
+        projectId,
+      },
+    },
+  })
+}
+
+export async function destroyEnvConfigWithoutGeo(client: MixClient, params: EnvConfigsDestroyParams): Promise<MixResponse> {
+  debug('configureEnvConfigWithoutGeo()')
+  const {projectId, label} = params
+  return client.request({
+    method: 'delete',
+    url: buildURL(client.getServer(), `/v4/projects/${projectId}/env-configs/${label}`),
   })
 }

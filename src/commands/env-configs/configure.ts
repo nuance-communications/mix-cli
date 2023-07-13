@@ -19,7 +19,7 @@ import {configureEnvConfigWithGeo, configureEnvConfigWithoutGeo} from '../../mix
 const debug = makeDebug('mix:commands:env-configs:configure')
 
 export default class EnvConfigsList extends MixCommand {
-  static description = `Configure an environment configuration
+  static description = `configure an environment configuration
 
   Environment configurations provide default values either for the project as a whole
   or for a specific environment geography. If an environment geography doest not have
@@ -29,6 +29,8 @@ export default class EnvConfigsList extends MixCommand {
   for the given configuration label. Using this command with the 'env' and 'env-geo' flags
   in addition to the 'project' flag configures the default value for the given configuration
   label targeting the specified environment geography.
+
+  Passing an empty string as the value will unset the configuration.
   `
 
   static examples = [
@@ -36,6 +38,8 @@ export default class EnvConfigsList extends MixCommand {
     'mix env-configs:configure -P 1922 --label=GRAMMAR_BASE_PATH --value=https://www.example.com/grammars',
     'Configure an environment configuration for a specific environment geography',
     'mix env-configs:configure -P 1922 --env=1923 --env-geo=9 --label=GRAMMAR_BASE_PATH --value=https://www.example.com/grammars',
+    'Unset an environment configuration project default',
+    'mix env-configs:configure -P 1922 --label=GRAMMAR_BASE_PATH --value=""',
   ]
 
   static flags = {
@@ -88,18 +92,16 @@ export default class EnvConfigsList extends MixCommand {
     this.log()
     if (this.options.env) {
       this.log(`Environment configuration ${this.options.label} configured successfully for project ${chalk.cyan(this.options.project)}`)
-      this.log(`In environment geography ${chalk.cyan(this.options['env-geo'])} of environment ${chalk.cyan(this.options.env)}`)
+      this.log(`in environment geography ${chalk.cyan(this.options['env-geo'])} of environment ${chalk.cyan(this.options.env)}`)
     } else {
       this.log(`Environment configuration ${this.options.label} default configured successfully for project ${chalk.cyan(this.options.project)}`)
     }
-
-    this.log()
   }
 
   setRequestActionMessage(_options: any) {
     debug('setRequestActionMessage()')
 
-    this.requestActionMessage = `Configuring environment configuration ${this.options.label} for project ${this.options.project}`
+    this.requestActionMessage = `Configuring environment configuration ${chalk.cyan(this.options.label)} for project ${this.options.project}`
     if (this.options.env) {
       this.requestActionMessage += ` in environment geography ${this.options['env-geo']} of environment ${this.options.env}`
     }

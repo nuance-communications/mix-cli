@@ -29,7 +29,7 @@ export default class EnvConfigsList extends MixCommand {
 
   static examples = [
     'List environment configurations for project ID 29050',
-    'mix projects:list -P 29050',
+    'mix env-configs:list -P 29050',
   ]
 
   static flags = {
@@ -61,8 +61,8 @@ export default class EnvConfigsList extends MixCommand {
       envGeoID: {header: 'EnvGeoId'},
       envGeoName: {header: 'EnvGeoName'},
       label: {header: 'Label'},
-      value: {header: 'Value'},
-      defaultValue: {header: 'DefaultValue'},
+      value: {header: 'EnvGeoDefault'},
+      defaultValue: {header: 'ProjectDefault'},
     }
   }
 

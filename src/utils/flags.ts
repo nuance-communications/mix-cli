@@ -241,6 +241,7 @@ export const jsonFlag = Flags.boolean({
 
 export const labelFlag = Flags.string({
   description: 'environment configuration name',
+  required: true,
 })
 
 export const limitFlag = Flags.integer({
@@ -499,6 +500,7 @@ export const toEntityTypeFlag = Flags.string({
 
 export const valueFlag = Flags.string({
   description: 'environment configuration value',
+  required: true,
 })
 
 export const watchFlag = Flags.boolean({
