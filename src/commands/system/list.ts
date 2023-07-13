@@ -48,12 +48,8 @@ export default class SystemVersionList extends BaseCommand {
     }
 
     this.mixCLIConfig = config
-    if (!config.systems) {
-      this.log(chalk.yellow('Old configuration file detected'))
-      CliUx.ux.action.start('Upgrading configuration file')
-      this.mixCLIConfig = Config.convertOldConfigToNew(this.mixCLIConfig!)
-      this.writeConfigToDisk()
-      CliUx.ux.action.stop(chalk.green('done'))
+    if (Config.isOldConfig(config)) {
+      this.handleOldConfig()
     }
 
     this.log(chalk.bold('Configured Mix systems:'))

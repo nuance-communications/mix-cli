@@ -198,6 +198,7 @@ export const Config = {
   switchConfiguration(config: MixCLIConfig, system: string): MixCLIConfig {
     const {systems} = config
     if (!systems) {
+      // should never happen
       return config
     }
 

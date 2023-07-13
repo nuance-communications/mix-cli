@@ -114,6 +114,9 @@ Run the 'system:list' command to see your list of configured Mix systems.`
     debug('run()')
     try {
       this.mixCLIConfig = Config.getMixCLIConfig(this.config)
+      if (Config.isOldConfig(this.mixCLIConfig)) {
+        this.handleOldConfig()
+      }
     } catch {
       this.log(`
 mix-cli now requires a central configuration file.
@@ -139,10 +142,8 @@ that configuration file swiftly.`)
           ],
         }
       }
-    } else if (this.mixCLIConfig.currentSystem) {
-      this.log(`Authenticating with ${chalk.green(this.mixCLIConfig.currentSystem)} Mix system`)
     } else {
-      this.log(`Authenticating with authServer: ${chalk.green(this.mixCLIConfig.authServer)}`)
+      this.log(`Authenticating with ${chalk.green(this.mixCLIConfig.currentSystem)} Mix system`)
     }
 
     await this.runWithClientCredentialsGrant()

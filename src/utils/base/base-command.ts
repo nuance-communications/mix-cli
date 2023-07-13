@@ -28,11 +28,7 @@ export default abstract class BaseCommand extends Command {
     const {clientId, clientSecret, ...safeToPrintConfig} = this.mixCLIConfig!
     debug('mix-cli configuration: %O', safeToPrintConfig)
     if (Config.isOldConfig(this.mixCLIConfig!)) {
-      this.log(chalk.yellow('Old configuration file detected'))
-      CliUx.ux.action.start('Upgrading configuration file')
-      this.mixCLIConfig = Config.convertOldConfigToNew(this.mixCLIConfig!)
-      this.writeConfigToDisk()
-      CliUx.ux.action.stop(chalk.green('done'))
+      this.handleOldConfig()
     }
 
     const authServerAndCreds: AuthServerAndCreds = {
@@ -108,5 +104,13 @@ export default abstract class BaseCommand extends Command {
       this.log('Failed to write to configuration file. Exiting.')
       this.error(configStoreErrorMessage)
     }
+  }
+
+  handleOldConfig() {
+    this.log(chalk.yellow('Old configuration file detected'))
+    CliUx.ux.action.start('Upgrading configuration file')
+    this.mixCLIConfig = Config.convertOldConfigToNew(this.mixCLIConfig!)
+    this.writeConfigToDisk()
+    CliUx.ux.action.stop(chalk.green('done'))
   }
 }
