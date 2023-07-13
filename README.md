@@ -56,6 +56,23 @@ macOS systems and under `%LOCALAPPDATA%\@nuance-mix\mix-cli\` on Windows systems
 configuration is stored in a file named "config.json" that is accessible only to
 the user who executed the `init` command.
 
+## Using mix-cli with multiple Mix systems
+When you run the `init` command, `mix-cli` detects the name of the Mix system by parsing
+the hostname provided for the Mix API server. It suggests this name as an answer
+when it prompts you for the "Mix system name".
+
+Say you have initially run the `init` command to configure mix-cli for the "us" Mix system.
+You can run the `init` command a second time to configure the "eu" system using the relevant
+hostnames. `mix-cli` stores the configuration of both systems.
+
+You can then type `mix auth --system us` to switch to and authenticate with the "us" Mix
+system. Similarly, typing `mix auth --system eu` does the same but with the "eu" Mix system.
+`mix-cli` remembers the last Mix system it authenticated with so using `mix auth` with the
+`system` flag is only needed when switching to a different Mix system.
+
+Finally, all `mix-cli` commands complete their human-readable output by reporting
+which Mix system the command was executed against.
+
 ## Overriding the central configuration
 Configuration elements can be overriden by using the following environment
 variables:
