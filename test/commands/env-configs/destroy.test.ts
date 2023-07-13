@@ -82,6 +82,33 @@ describe("env-configs:destroy command", () => {
       expect(ctx.stdout).to.contain(`destroyed successfully`);
     });
 
+    test
+      .env(testData.env)
+      .nock(serverURL, (api) =>
+      api
+        .delete(
+          `/v4/environments/${envId}/geographies/${envGeoId}/configs/${label}`,
+        )
+        .query({
+          projectId: project,
+        })
+        .reply(200)
+    )
+      .stdout()
+      .command([
+        "env-configs:destroy",
+        `--project=${project}`,
+        `--env=${envId}`,
+        `--env-geo=${envGeoId}`,
+        `--label=${label}`,
+        `-c=${label}`
+      ])
+      .it('proceeds with environment configuration deletion without warning when pre-confirmed by user', ctx => {
+        expect(ctx.stdout).to.not.contain(`Consider making a backup of your project first.`)
+        expect(ctx.stdout).to.contain(`destroyed successfully`);
+        promptStub.should.not.have.been.called
+      })
+
   test
     .env(testData.env)
     .stderr()

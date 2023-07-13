@@ -50,6 +50,7 @@ export default class EnvConfigsDestroy extends MixCommand {
       dependsOn: ['env'],
     },
     label: MixFlags.labelFlag,
+    confirm: MixFlags.confirmFlag,
   }
 
   action = 'destroy'
