@@ -47,7 +47,6 @@ configuration can also be overridden using environment variables.`
 
     // Do we already have a central configuration file?
     if (isMixCLIConfigPresent) {
-      // this.warnAboutOverwritingConfiguration(mixCLIConfigFilePath)
       this.outputAnswerSomeQuestions()
     } else if (isAnyMixCLIEnvVariablePresent) { // Do we have environment variables to worry about?
       if (isMixCLIEnvVariableSetComplete) {
@@ -252,15 +251,5 @@ and consistent set of configuration values.`)
     this.log(`
 ${chalk.yellow('Note')}: You have Mix environment variables set currently.
 Verify them as they take precedence over the central configuration file.`)
-  }
-
-  warnAboutOverwritingConfiguration(mixCLIConfigFilePath: string) {
-    debug('warnAboutOverwritingConfiguration(')
-    this.log(`
-${chalk.yellow('Note')}: A configuration file already exists in:
-${mixCLIConfigFilePath}
-
-It will be backed up before the new configuration file gets created, after you answer the
-question(s) that follow. You can use ${chalk.cyan('CTRL-C')} to exit the 'init' command.`)
   }
 }
