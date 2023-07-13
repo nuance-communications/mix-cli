@@ -99,8 +99,6 @@ export default class EnvConfigsDestroy extends MixCommand {
     } else {
       this.log(`Default environment configuration ${this.options.label} destroyed successfully for project ${chalk.cyan(this.options.project)}`)
     }
-
-    this.log()
   }
 
   setRequestActionMessage(_options: any) {
