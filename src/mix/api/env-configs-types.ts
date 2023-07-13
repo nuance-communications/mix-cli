@@ -2,6 +2,14 @@ export type EnvConfigsListParams = {
   projectId: string
 }
 
+export type EnvConfigsConfigureParams = {
+  projectId: string,
+  envId: string | undefined,
+  envGeoId: string | undefined,
+  label: string,
+  value: string,
+}
+
 export type EnvConfigListResponse = {
   projectDefaults: {
     label: string,
@@ -30,3 +38,10 @@ export type EnvConfigListTransformedData = {
   value: string
   defaultValue: string
 }[]
+
+export type EnvConfigsDestroyParams = {
+  projectId: string,
+  envId: string | undefined,
+  envGeoId: string | undefined,
+  label: string,
+}

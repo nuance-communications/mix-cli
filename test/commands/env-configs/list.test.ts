@@ -43,8 +43,8 @@ describe("env-configs:list command", () => {
           "EnvGeoId",
           "EnvGeoName",
           "Label",
-          "Value",
-          "DefaultValue",
+          "EnvGeoDefault",
+          "ProjectDefault",
         ]);
 
         expect(ctx.stdout.match(/GRAMMAR_BASE_PATH/g)).to.have.lengthOf(1);
