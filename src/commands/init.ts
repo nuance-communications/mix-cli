@@ -240,7 +240,8 @@ and consistent set of configuration values.`)
     this.log()
     this.log('Next, you can:')
     this.log(`  - get authenticated by typing: ${chalk.cyan('mix auth')}`)
-    this.log(`  - get the list of configured Mix systems by typing: ${chalk.cyan('mix system:list')}`)
+    this.log(`  - see your list of configured Mix systems by typing: ${chalk.cyan('mix system:list')}`)
+    this.log(`  - switch to a different Mix system by typing: ${chalk.cyan('mix auth --system <system name>')}`)
   }
 
   outputVerifyEnvironmentVariables() {
