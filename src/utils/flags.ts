@@ -33,6 +33,7 @@ export const mixApplicationShortcut = 'M'
 export const organizationIDShortcut = 'O'
 export const projectShortcut = 'P'
 export const runtimeApplicationIDShortcut = 'R'
+export const systemShortcut = 'S'
 export const userShortcut = 'U'
 export const tagShortcut = 'T'
 
@@ -431,6 +432,11 @@ export const showFullBotCredentialsDetailsFlag = Flags.boolean({
 export const sortFlag = Flags.string({
   description:
     'comma-separated properties to sort by (prepend \'+\'/\'-\' for ascending/descending)',
+})
+
+export const systemFlag = Flags.string({
+  char: systemShortcut,
+  description: 'Mix system',
 })
 
 export const userFlag = Flags.integer({

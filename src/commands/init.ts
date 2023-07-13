@@ -47,7 +47,6 @@ configuration can also be overridden using environment variables.`
 
     // Do we already have a central configuration file?
     if (isMixCLIConfigPresent) {
-      this.warnAboutOverwritingConfiguration(mixCLIConfigFilePath)
       this.outputAnswerSomeQuestions()
     } else if (isAnyMixCLIEnvVariablePresent) { // Do we have environment variables to worry about?
       if (isMixCLIEnvVariableSetComplete) {
@@ -76,14 +75,22 @@ configuration can also be overridden using environment variables.`
       this.log() // intentional blank line
     }
 
+    let currentConfig : MixCLIConfig | undefined
     // Do we have a previous configuration to back up?
     if (isMixCLIConfigPresent) {
+      const config = Config.getMixCLIConfig(this.config)
+      currentConfig = Config.isOldConfig(config) ? Config.convertOldConfigToNew(config) : config
+
       const backupPathName = Config.moveMixCLIConfigToBackup(configDir)
       this.outputMixCLIConfigurationBackedUp(backupPathName)
     }
 
     // Store new configuration to file
-    const configStoreErrorMessage = Config.storeMixCLIConfig(configDir, mixCLIConfig)
+    const combinedConfig = Config.combineConfigSystems({
+      newConfig: mixCLIConfig,
+      oldConfig: currentConfig,
+    })
+    const configStoreErrorMessage = Config.storeMixCLIConfig(configDir, combinedConfig)
     if (configStoreErrorMessage) {
       this.error(configStoreErrorMessage)
     }
@@ -98,7 +105,7 @@ configuration can also be overridden using environment variables.`
     this.outputUserIsAllSet()
   }
 
-  async askConfigurationValues() {
+  async askConfigurationValues(): Promise<MixCLIConfig> {
     debug('askConfigurationValues()')
     this.log() // intentional blank line
     const authServer = await CliUx.ux.prompt('Mix authentication server fully-qualified hostname?',
@@ -113,8 +120,28 @@ configuration can also be overridden using environment variables.`
       {type: 'mask'})
     const clientSecret = await CliUx.ux.prompt('Your client secret?',
       {type: 'hide'})
+    const suggestedSystem = Config.getSystemFromApiServer(apiServer)
+    const system = await CliUx.ux.prompt('Mix system name?',
+      {default: suggestedSystem})
 
-    const mixCLIConfig = {authServer, apiServer, scope, tenant, clientId, clientSecret}
+    const values = {
+      authServer,
+      apiServer,
+      scope,
+      tenant,
+      clientId,
+      clientSecret,
+    }
+
+    const mixCLIConfig = {
+      ...values,
+      currentSystem: system.toLowerCase(),
+      systems: {
+        [system]: {
+          ...values,
+        },
+      },
+    }
 
     return mixCLIConfig
   }
@@ -161,7 +188,7 @@ configuration can also be overridden using environment variables.`
     debug('outputAnswerSomeQuestions()')
     this.log(`
 Answer the few questions below to configure mix-cli.
-Simply accept defaults if you plan on using the Production US environment.`)
+Simply accept defaults if you plan on using the Production US Mix system ("us").`)
   }
 
   outputCanUseEnvironmentVariables() {
@@ -194,7 +221,7 @@ and consistent set of configuration values.`)
 
   outputLetsCreateNewConfig() {
     debug('outputLetsCreateNewConfig()')
-    this.log('Let\'s create a new configuration file for mix-cli.')
+    this.log('Let\'s configure a Mix system for mix-cli to use.')
   }
 
   outputMixCLIConfigurationBackedUp(backupPathName: string) {
@@ -210,9 +237,13 @@ and consistent set of configuration values.`)
 
   outputUserIsAllSet() {
     debug('outputUserIsAllSet()')
-    this.log(`\nYour mix-cli configuration is ready! Next, get authenticated by typing:
-
-mix auth`)
+    this.log()
+    this.log('Your mix-cli configuration is ready!')
+    this.log()
+    this.log('Next, you can:')
+    this.log(`  - get authenticated by typing: ${chalk.cyan('mix auth')}`)
+    this.log(`  - see your list of configured Mix systems by typing: ${chalk.cyan('mix system:list')}`)
+    this.log(`  - switch to a different Mix system by typing: ${chalk.cyan('mix auth --system <system name>')}`)
   }
 
   outputVerifyEnvironmentVariables() {
@@ -220,15 +251,5 @@ mix auth`)
     this.log(`
 ${chalk.yellow('Note')}: You have Mix environment variables set currently.
 Verify them as they take precedence over the central configuration file.`)
-  }
-
-  warnAboutOverwritingConfiguration(mixCLIConfigFilePath: string) {
-    debug('warnAboutOverwritingConfiguration(')
-    this.log(`
-${chalk.yellow('Note')}: A configuration file already exists in:
-${mixCLIConfigFilePath}
-
-It will be backed up before the new configuration file gets created, after you answer the
-question(s) that follow. You can use ${chalk.cyan('CTRL-C')} to exit the 'init' command.`)
   }
 }

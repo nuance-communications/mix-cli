@@ -56,6 +56,23 @@ macOS systems and under `%LOCALAPPDATA%\@nuance-mix\mix-cli\` on Windows systems
 configuration is stored in a file named "config.json" that is accessible only to
 the user who executed the `init` command.
 
+## Using mix-cli with multiple Mix systems
+When you run the `init` command, `mix-cli` detects the name of the Mix system by parsing
+the hostname provided for the Mix API server. It suggests this name as an answer
+when it prompts you for the "Mix system name".
+
+Say you have initially run the `init` command to configure mix-cli for the "us" Mix system.
+You can run the `init` command a second time to configure the "eu" system using the relevant
+hostnames. `mix-cli` stores the configuration of both systems.
+
+You can then type `mix auth --system us` to switch to and authenticate with the "us" Mix
+system. Similarly, typing `mix auth --system eu` does the same but with the "eu" Mix system.
+`mix-cli` remembers the last Mix system it authenticated with so using `mix auth` with the
+`system` flag is only needed when switching to a different Mix system.
+
+Finally, all `mix-cli` commands complete their human-readable output by reporting
+which Mix system the command was executed against.
+
 ## Overriding the central configuration
 Configuration elements can be overriden by using the following environment
 variables:
@@ -236,7 +253,9 @@ See our [Contribution Guidelines](CONTRIBUTING.md).
 * [`mix projects:unlock`](#mix-projectsunlock)
 * [`mix samples:export`](#mix-samplesexport)
 * [`mix samples:import`](#mix-samplesimport)
+* [`mix system:list`](#mix-systemlist)
 * [`mix system:version`](#mix-systemversion)
+* [`mix systems:list`](#mix-systemslist)
 * [`mix voices:list`](#mix-voiceslist)
 
 ## `mix app-configs:create`
@@ -648,23 +667,34 @@ _See code: [src/commands/applications/list.ts](https://github.com/nuance-communi
 
 ## `mix auth`
 
-obtain Mix access token
+obtain a Mix access token
 
 ```
 USAGE
-  $ mix auth [-h]
+  $ mix auth [-S <value>]
 
 FLAGS
-  -h, --help  Show CLI help.
+  -S, --system=<value>  Mix system
 
 DESCRIPTION
-  obtain Mix access token
+  obtain a Mix access token
 
   Use this command to retrieve an access token. Once mix-cli has acquired the
   access token, it takes care of refreshing it automatically.
 
+  Use the 'system' flag to authenticate with a specific Mix system. mix-cli executes
+  commands against the last Mix system it successfully authenticated with.
+
+  Run the 'system:list' command to see your list of configured Mix systems.
+
 EXAMPLES
+  Authenticate with last Mix system used
+
   $ mix auth
+
+  Authenticate with and switch to the "us" Mix system
+
+  $ mix auth --system us
 ```
 
 _See code: [src/commands/auth.ts](https://github.com/nuance-communications/mix-cli/blob/v0.0.0-semantically-released/src/commands/auth.ts)_
@@ -3220,6 +3250,36 @@ EXAMPLES
 
 _See code: [src/commands/samples/import.ts](https://github.com/nuance-communications/mix-cli/blob/v0.0.0-semantically-released/src/commands/samples/import.ts)_
 
+## `mix system:list`
+
+list configured Mix systems
+
+```
+USAGE
+  $ mix system:list
+
+DESCRIPTION
+  list configured Mix systems
+
+  Use this command to list the Mix systems you have configured
+  to use with mix-cli.
+
+ALIASES
+  $ mix systems:list
+  $ mix system:list
+
+EXAMPLES
+  list configured Mix systens
+
+  $ mix system:list
+
+  Equivalent command
+
+  $ mix systems:list
+```
+
+_See code: [src/commands/system/list.ts](https://github.com/nuance-communications/mix-cli/blob/v0.0.0-semantically-released/src/commands/system/list.ts)_
+
 ## `mix system:version`
 
 list Mix API version and environment
@@ -3247,6 +3307,34 @@ EXAMPLES
 ```
 
 _See code: [src/commands/system/version.ts](https://github.com/nuance-communications/mix-cli/blob/v0.0.0-semantically-released/src/commands/system/version.ts)_
+
+## `mix systems:list`
+
+list configured Mix systems
+
+```
+USAGE
+  $ mix systems:list
+
+DESCRIPTION
+  list configured Mix systems
+
+  Use this command to list the Mix systems you have configured
+  to use with mix-cli.
+
+ALIASES
+  $ mix systems:list
+  $ mix system:list
+
+EXAMPLES
+  list configured Mix systens
+
+  $ mix system:list
+
+  Equivalent command
+
+  $ mix systems:list
+```
 
 ## `mix voices:list`
 
