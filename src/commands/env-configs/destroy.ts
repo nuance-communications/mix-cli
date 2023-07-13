@@ -37,6 +37,8 @@ export default class EnvConfigsDestroy extends MixCommand {
     'mix env-configs:destroy -P 1922 --label GRAMMAR_BASE_PATH',
     'Destroy an environment configuration for a specific environment geography',
     'mix env-configs:destroy -P 1922 --env=1923 --env-geo=9 --label=GRAMMAR_BASE_PATH',
+    'Destroy an environment configuration project default and provide automatic confirmation',
+    'mix env-configs:destroy -P 1922 --label GRAMMAR_BASE_PATH --confirm GRAMMAR_BASE_PATH',
   ]
 
   static flags = {
