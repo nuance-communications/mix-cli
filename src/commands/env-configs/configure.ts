@@ -92,8 +92,6 @@ export default class EnvConfigsList extends MixCommand {
     } else {
       this.log(`Environment configuration ${this.options.label} default configured successfully for project ${chalk.cyan(this.options.project)}`)
     }
-
-    // this.log()
   }
 
   setRequestActionMessage(_options: any) {
