@@ -215,6 +215,8 @@ See our [Contribution Guidelines](CONTRIBUTING.md).
 * [`mix entities:list`](#mix-entitieslist)
 * [`mix entities:rename`](#mix-entitiesrename)
 * [`mix entity-types:list`](#mix-entity-typeslist)
+* [`mix env-configs:configure`](#mix-env-configsconfigure)
+* [`mix env-configs:destroy`](#mix-env-configsdestroy)
 * [`mix env-configs:list`](#mix-env-configslist)
 * [`mix environments:list`](#mix-environmentslist)
 * [`mix geographies:list`](#mix-geographieslist)
@@ -1927,6 +1929,97 @@ EXAMPLES
 
 _See code: [src/commands/entity-types/list.ts](https://github.com/nuance-communications/mix-cli/blob/v0.0.0-semantically-released/src/commands/entity-types/list.ts)_
 
+## `mix env-configs:configure`
+
+configure an environment configuration
+
+```
+USAGE
+  $ mix env-configs:configure -P <value> --label <value> --value <value> [--env <value> --env-geo <value>]
+
+FLAGS
+  -P, --project=<value>  (required) project ID
+  --env=<value>          environment ID
+  --env-geo=<value>      environment-geography ID
+  --label=<value>        (required) environment configuration name
+  --value=<value>        (required) environment configuration value
+
+DESCRIPTION
+  configure an environment configuration
+
+  Environment configurations provide default values either for the project as a whole
+  or for a specific environment geography. If an environment geography doest not have
+  a default for a specific configuration, then the default for the project is used.
+
+  Using this command with only the 'project' flag configures the project-level default value
+  for the given configuration label. Using this command with the 'env' and 'env-geo' flags
+  in addition to the 'project' flag configures the default value for the given configuration
+  label targeting the specified environment geography.
+
+  Passing an empty string as the value will unset the configuration.
+
+
+EXAMPLES
+  Configure an environment configuration project default
+
+  $ mix env-configs:configure -P 1922 --label=GRAMMAR_BASE_PATH --value=https://www.example.com/grammars
+
+  Configure an environment configuration for a specific environment geography
+
+  $ mix env-configs:configure -P 1922 --env=1923 --env-geo=9 --label=GRAMMAR_BASE_PATH --value=https://www.example.com/grammars
+
+  Unset an environment configuration project default
+
+  $ mix env-configs:configure -P 1922 --label=GRAMMAR_BASE_PATH --value=""
+```
+
+_See code: [src/commands/env-configs/configure.ts](https://github.com/nuance-communications/mix-cli/blob/v0.0.0-semantically-released/src/commands/env-configs/configure.ts)_
+
+## `mix env-configs:destroy`
+
+destroy an environment configuration
+
+```
+USAGE
+  $ mix env-configs:destroy -P <value> --label <value> [--env <value> --env-geo <value>] [-c <value>]
+
+FLAGS
+  -P, --project=<value>  (required) project ID
+  -c, --confirm=<value>  skip confirmation prompt by pre-supplying value
+  --env=<value>          environment ID
+  --env-geo=<value>      environment-geography ID
+  --label=<value>        (required) environment configuration name
+
+DESCRIPTION
+  destroy an environment configuration
+
+  Environment configurations provide default values either for the project as a whole
+  or for a specific environment geography. If an environment geography doest not have
+  a default for a specific configuration, then the default for the project is used.
+
+  Using this command with only the 'project' flag deletes the project-level default value
+  for the given configuration label. Using this command with the 'env' and 'env-geo' flags
+  in addition to the 'project' flag deletes the default value for the given configuration
+  label targeting the specified environment geography.
+
+
+
+EXAMPLES
+  Destroy an environment configuration project default
+
+  $ mix env-configs:destroy -P 1922 --label GRAMMAR_BASE_PATH
+
+  Destroy an environment configuration for a specific environment geography
+
+  $ mix env-configs:destroy -P 1922 --env=1923 --env-geo=9 --label=GRAMMAR_BASE_PATH
+
+  Destroy an environment configuration project default and provide automatic confirmation
+
+  $ mix env-configs:destroy -P 1922 --label GRAMMAR_BASE_PATH --confirm GRAMMAR_BASE_PATH
+```
+
+_See code: [src/commands/env-configs/destroy.ts](https://github.com/nuance-communications/mix-cli/blob/v0.0.0-semantically-released/src/commands/env-configs/destroy.ts)_
+
 ## `mix env-configs:list`
 
 list environment configurations
@@ -1954,7 +2047,7 @@ DESCRIPTION
 EXAMPLES
   List environment configurations for project ID 29050
 
-  $ mix projects:list -P 29050
+  $ mix env-configs:list -P 29050
 ```
 
 _See code: [src/commands/env-configs/list.ts](https://github.com/nuance-communications/mix-cli/blob/v0.0.0-semantically-released/src/commands/env-configs/list.ts)_
