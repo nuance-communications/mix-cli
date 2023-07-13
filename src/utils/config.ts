@@ -193,10 +193,10 @@ export const Config = {
     return combinedConfig
   },
 
-  getSystemFromApiServer(apiUrl: string): string {
+  getSystemFromApiServer(apiURL: string): string {
     // prod URL
-    const words = apiUrl.split('.')
-    if (apiUrl.startsWith('mix.api.nuance')) {
+    const words = apiURL.split('.')
+    if (apiURL.startsWith('mix.api.nuance')) {
       switch (words.at(-1)) {
         case 'com':
           return 'us'
@@ -206,7 +206,7 @@ export const Config = {
     }
 
     // non prod URL
-    return words[1] === 'mix' ? 'pre-prod' : words[1] ?? apiUrl
+    return words[1] === 'mix' ? 'pre-prod' : words[1] ?? apiURL
   },
 
   switchConfiguration(config: MixCLIConfig, system: string): MixCLIConfig {
