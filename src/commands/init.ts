@@ -76,18 +76,21 @@ configuration can also be overridden using environment variables.`
       this.log() // intentional blank line
     }
 
-    let oldConfig : MixCLIConfig | undefined
+    let currentConfig : MixCLIConfig | undefined
     // Do we have a previous configuration to back up?
     if (isMixCLIConfigPresent) {
       const config = Config.getMixCLIConfig(this.config)
-      oldConfig = Config.isOldConfig(config) ? Config.convertOldConfigToNew(config) : config
+      currentConfig = Config.isOldConfig(config) ? Config.convertOldConfigToNew(config) : config
 
       const backupPathName = Config.moveMixCLIConfigToBackup(configDir)
       this.outputMixCLIConfigurationBackedUp(backupPathName)
     }
 
     // Store new configuration to file
-    const combinedConfig = Config.combineConfigs(mixCLIConfig, oldConfig)
+    const combinedConfig = Config.combineConfigSystems({
+      newConfig: mixCLIConfig,
+      oldConfig: currentConfig,
+    })
     const configStoreErrorMessage = Config.storeMixCLIConfig(configDir, combinedConfig)
     if (configStoreErrorMessage) {
       this.error(configStoreErrorMessage)

@@ -61,7 +61,8 @@ export const Config = {
     }
 
     const fileConfig = config ?
-      loadMixCLIConfig(process.env.MIX_CONFIG_DIR || config.configDir) : {}
+      loadMixCLIConfig(process.env.MIX_CONFIG_DIR || config.configDir) :
+      {}
     mixCLIConfig = overrideConfigUsingEnvVars(fileConfig)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {clientId, clientSecret, ...safeToShow} = mixCLIConfig
@@ -72,7 +73,9 @@ export const Config = {
 
   getMissingEnvironmentVariables(): string[] {
     debug('getMissingEnvironmentVariables()')
-    const missingEnvVars = evNames.filter(evName => process.env[evName] === undefined)
+    const missingEnvVars = evNames.filter(
+      evName => process.env[evName] === undefined,
+    )
     return missingEnvVars
   },
 
@@ -165,14 +168,23 @@ export const Config = {
     return newConfig
   },
 
-  combineConfigs(newConfig: MixCLIConfig, oldConfig: MixCLIConfig | undefined): MixCLIConfig {
+  combineConfigSystems(payload: {
+    newConfig: MixCLIConfig | undefined;
+    oldConfig: MixCLIConfig | undefined;
+  }): MixCLIConfig {
     debug('combineConfigs()')
+    const {newConfig, oldConfig} = payload
+
+    if (!newConfig) {
+      return oldConfig!
+    }
+
     if (!oldConfig) {
       return newConfig
     }
 
     const combinedConfig = {
-      ...newConfig,
+      ...oldConfig,
       systems: {
         ...oldConfig.systems,
         ...newConfig.systems,
@@ -181,13 +193,15 @@ export const Config = {
     return combinedConfig
   },
 
-  getSystemFromApiServer(apiUrl: string) : string {
+  getSystemFromApiServer(apiUrl: string): string {
     // prod URL
     const words = apiUrl.split('.')
     if (apiUrl.startsWith('mix.api.nuance')) {
       switch (words.at(-1)) {
-        case 'com': return 'us'
-        default: return words.at(-1)!
+        case 'com':
+          return 'us'
+        default:
+          return words.at(-1)!
       }
     }
 
