@@ -33,6 +33,7 @@ export const mixApplicationShortcut = 'M'
 export const organizationIDShortcut = 'O'
 export const projectShortcut = 'P'
 export const runtimeApplicationIDShortcut = 'R'
+export const systemShortcut = 'S'
 export const userShortcut = 'U'
 export const tagShortcut = 'T'
 
@@ -425,7 +426,7 @@ export const sortFlag = Flags.string({
 })
 
 export const systemFlag = Flags.string({
-  char: 'S',
+  char: systemShortcut,
   description: 'Mix system',
 })
 
