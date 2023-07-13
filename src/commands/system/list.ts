@@ -68,7 +68,11 @@ export default class SystemVersionList extends BaseCommand {
 
     CliUx.ux.table(systemsTable, this.columns, {})
     this.log()
-    this.log(`To switch to a different Mix system, run: ${chalk.cyan('mix auth --system <system>')}`)
+
+    if (Object.keys(systems!).length > 1) {
+      this.log(`To switch to a different Mix system, run: ${chalk.cyan('mix auth --system <system>')}`)
+    }
+
     this.log(`To add a new Mix system to your configuration, run: ${chalk.cyan('mix init')}`)
   }
 }
