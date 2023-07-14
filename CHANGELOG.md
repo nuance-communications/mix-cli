@@ -1,3 +1,23 @@
+# [2.5.0](https://github.com/nuance-communications/mix-cli/compare/v2.4.0...v2.5.0) (2023-07-14)
+
+
+### Bug Fixes
+
+* add case sensitive to with-name flag ([#169](https://github.com/nuance-communications/mix-cli/issues/169)) ([cc1ee19](https://github.com/nuance-communications/mix-cli/commit/cc1ee193bdeaa5b7dd7b05b4f86a8342db8c9964))
+* add failed message on error requests ([#184](https://github.com/nuance-communications/mix-cli/issues/184)) ([02cf308](https://github.com/nuance-communications/mix-cli/commit/02cf308eb3347d7035f8ef5575762bca5b50af29))
+* add warning instead of error message on redeploying an app-config ([#174](https://github.com/nuance-communications/mix-cli/issues/174)) ([ac6983f](https://github.com/nuance-communications/mix-cli/commit/ac6983f5d87d0b59ce8f22a4e131facb1dc39ab4))
+* correct help for subcommands ([#173](https://github.com/nuance-communications/mix-cli/issues/173)) ([08f8c18](https://github.com/nuance-communications/mix-cli/commit/08f8c18b47b9ad0bc99b6df86626e5191de218bb))
+* improve suggestion on auth failure ([#167](https://github.com/nuance-communications/mix-cli/issues/167)) ([9c51bc3](https://github.com/nuance-communications/mix-cli/commit/9c51bc372c3977da07d1ada6b234ebc5fdd9e837))
+
+
+### Features
+
+* add env-configs:configure command ([#183](https://github.com/nuance-communications/mix-cli/issues/183)) ([66b0330](https://github.com/nuance-communications/mix-cli/commit/66b0330ffcc3bf0fae899c02b22c49c801c70f02))
+* add env-configs:destroy command ([#186](https://github.com/nuance-communications/mix-cli/issues/186)) ([fceee8b](https://github.com/nuance-communications/mix-cli/commit/fceee8bbcb33e031522a49b00ce4d310a92114f6))
+* add env-configs:list command ([#177](https://github.com/nuance-communications/mix-cli/issues/177)) ([44b602e](https://github.com/nuance-communications/mix-cli/commit/44b602efd2db04c7cf503ac9c49c5db91891021c))
+* add support for multiple configs ([#185](https://github.com/nuance-communications/mix-cli/issues/185)) ([08323da](https://github.com/nuance-communications/mix-cli/commit/08323da4acd80a94cae77bbb5ac7b135a1c01f58))
+* add voices:list command ([#179](https://github.com/nuance-communications/mix-cli/issues/179)) ([9721a08](https://github.com/nuance-communications/mix-cli/commit/9721a08dc0dab02784dec1be56854f98a6144e3a))
+
 # [2.4.0](https://github.com/nuance-communications/mix-cli/compare/v2.3.0...v2.4.0) (2023-05-12)
 
 
