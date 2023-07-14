@@ -38,7 +38,7 @@
     "uuid": "8.3.2",
     "yaml": "1.10.2",
     "zod": "3.11.6",
-    "@fonoster/plugin-warn-if-update-available": "github:fonoster/plugin-warn-if-update-available"
+    "@fonoster/plugin-warn-if-update-available": "https://github.com/fonoster/plugin-warn-if-update-available"
   },
   "devDependencies": {
     "@commitlint/cli": "16.2.3",
