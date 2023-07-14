@@ -72,7 +72,7 @@ export default abstract class MixCommand extends BaseCommand {
   shouldWatchJob = false
   tries = 0
 
-  abstract doRequest(client: MixClient, params: MixRequestParams): Promise<MixResponse>
+  abstract doRequest(client: MixClient, params: MixRequestParams): Promise<MixResponse> | void
 
   async run() {
     debug('run()')
@@ -123,6 +123,10 @@ that configuration file swiftly.`)
 
     const response = await this.doSafeRequest(this.client, requestParams)
     await this.handleResponse(response)
+
+    if (!this.options.json && !this.options.csv && !this.options.yaml) {
+      this.log(`Command executed against ${chalk.green(this.mixCLIConfig?.currentSystem)} Mix system.`)
+    }
   }
 
   // ------------------------------------------------------------------------
@@ -294,6 +298,7 @@ that configuration file swiftly.`)
   handleError(error: MixError) {
     debug('handleError() error.statusCode: %d', error.statusCode)
 
+    CliUx.ux.action.stop(chalk.red('Failed'))
     switch (error.statusCode) {
       case 400: throw eInvalidValue(error.message)
       case 401: throw eUnauthorized(error.message)

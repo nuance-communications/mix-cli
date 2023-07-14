@@ -28,6 +28,15 @@ const evNames = [
   'MIX_TENANT',
 ]
 
+export interface Details {
+  apiServer: string
+  authServer: string
+  clientId: string
+  clientSecret: string
+  scope: string
+  tenant: string
+}
+
 export interface MixCLIConfig {
   apiServer: string
   authServer: string
@@ -35,6 +44,9 @@ export interface MixCLIConfig {
   clientSecret: string
   scope: string
   tenant: string
+  configVersion?: number
+  currentSystem?: string
+  systems?: {[key: string]: Details}
 }
 
 export const Config = {
@@ -49,7 +61,8 @@ export const Config = {
     }
 
     const fileConfig = config ?
-      loadMixCLIConfig(process.env.MIX_CONFIG_DIR || config.configDir) : {}
+      loadMixCLIConfig(process.env.MIX_CONFIG_DIR || config.configDir) :
+      {}
     mixCLIConfig = overrideConfigUsingEnvVars(fileConfig)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {clientId, clientSecret, ...safeToShow} = mixCLIConfig
@@ -60,7 +73,9 @@ export const Config = {
 
   getMissingEnvironmentVariables(): string[] {
     debug('getMissingEnvironmentVariables()')
-    const missingEnvVars = evNames.filter(evName => process.env[evName] === undefined)
+    const missingEnvVars = evNames.filter(
+      evName => process.env[evName] === undefined,
+    )
     return missingEnvVars
   },
 
@@ -126,6 +141,91 @@ export const Config = {
 
     return errorMessage
   },
+
+  isOldConfig(config: MixCLIConfig): boolean {
+    debug('isOldConfig()')
+    return config.systems === undefined
+  },
+
+  convertOldConfigToNew(config: MixCLIConfig): MixCLIConfig {
+    debug('convertOldConfigToNew()')
+    const systemName = this.getSystemFromApiServer(config.apiServer)
+    const newConfig = {
+      ...config,
+      configVersion: 2,
+      systems: {
+        [systemName]: {
+          apiServer: config.apiServer,
+          authServer: config.authServer,
+          clientId: config.clientId,
+          clientSecret: config.clientSecret,
+          scope: config.scope,
+          tenant: config.tenant,
+        },
+      },
+      currentSystem: Config.getSystemFromApiServer(config.apiServer),
+    }
+    return newConfig
+  },
+
+  combineConfigSystems(payload: {
+    newConfig: MixCLIConfig | undefined;
+    oldConfig: MixCLIConfig | undefined;
+  }): MixCLIConfig {
+    debug('combineConfigs()')
+    const {newConfig, oldConfig} = payload
+
+    if (!newConfig) {
+      return oldConfig!
+    }
+
+    if (!oldConfig) {
+      return newConfig
+    }
+
+    const combinedConfig = {
+      ...oldConfig,
+      systems: {
+        ...oldConfig.systems,
+        ...newConfig.systems,
+      },
+    }
+    return combinedConfig
+  },
+
+  getSystemFromApiServer(apiURL: string): string {
+    // prod URL
+    const words = apiURL.split('.')
+    if (apiURL.startsWith('mix.api.nuance')) {
+      switch (words.at(-1)) {
+        case 'com':
+          return 'us'
+        default:
+          return words.at(-1)!
+      }
+    }
+
+    // non prod URL
+    return words[1] === 'mix' ? 'pre-prod' : words[1] ?? apiURL
+  },
+
+  switchConfiguration(config: MixCLIConfig, system: string): MixCLIConfig {
+    const {systems} = config
+    if (!systems) {
+      // should never happen
+      return config
+    }
+
+    if (systems[system.toLowerCase()]) {
+      return {
+        ...config,
+        currentSystem: system.toLowerCase(),
+        ...systems[system.toLowerCase()],
+      }
+    }
+
+    throw new Error(`System "${system}" does not exist.`)
+  },
 }
 
 function loadMixCLIConfig(configDir: string) {
@@ -170,3 +270,4 @@ function overrideConfigUsingEnvVars(config: MixCLIConfig): MixCLIConfig {
 
   return envOverriddenConfig
 }
+

@@ -33,6 +33,7 @@ export const mixApplicationShortcut = 'M'
 export const organizationIDShortcut = 'O'
 export const projectShortcut = 'P'
 export const runtimeApplicationIDShortcut = 'R'
+export const systemShortcut = 'S'
 export const userShortcut = 'U'
 export const tagShortcut = 'T'
 
@@ -158,6 +159,10 @@ export const entityTypeFlag = Flags.string({
   required: true,
 })
 
+export const envIDFlag = Flags.integer({
+  description: 'environment ID',
+})
+
 export const envGeoIDFlag = Flags.integer({
   description: envGeoIDDesc,
 })
@@ -233,6 +238,11 @@ export const jsonFlag = Flags.boolean({
   default: false,
   description: 'output raw data in JSON format',
   exclusive: ['csv', 'yaml'],
+})
+
+export const labelFlag = Flags.string({
+  description: 'environment configuration name',
+  required: true,
 })
 
 export const limitFlag = Flags.integer({
@@ -424,6 +434,11 @@ export const sortFlag = Flags.string({
     'comma-separated properties to sort by (prepend \'+\'/\'-\' for ascending/descending)',
 })
 
+export const systemFlag = Flags.string({
+  char: systemShortcut,
+  description: 'Mix system',
+})
+
 export const userFlag = Flags.integer({
   char: userShortcut,
   description: userDesc,
@@ -489,13 +504,18 @@ export const toEntityTypeFlag = Flags.string({
   required: true,
 })
 
+export const valueFlag = Flags.string({
+  description: 'environment configuration value',
+  required: true,
+})
+
 export const watchFlag = Flags.boolean({
   default: false,
   description: 'poll status of job every minute',
 })
 
 export const withApplicationName = Flags.string({
-  description: 'filter results by Mix application name',
+  description: 'filter results by Mix application name (case-sensitive)',
 })
 
 export const withBuildTypeMultipleFlag = Flags.string({

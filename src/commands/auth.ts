@@ -7,9 +7,10 @@
  */
 
 import chalk from 'chalk'
-import {CliUx, Flags} from '@oclif/core'
+import {CliUx} from '@oclif/core'
 import {FlagOutput} from '@oclif/core/lib/interfaces'
 import makeDebug from 'debug'
+import * as MixFlags from '../utils/flags'
 
 import {AuthServerAndCreds, oAuth} from '../utils/auth'
 import Command from '../utils/base/base-command'
@@ -17,23 +18,34 @@ import {Config, MixCLIConfig} from '../utils/config'
 import {configurationProblemExitCode, tokenFileName} from '../utils/constants'
 
 const SUCCESS = 'Token was retrieved and stored successfully.\n' +
-  'You are now ready to use mix-cli! 🚀\n\n' +
-  'If you are a first time user, you can start by looking\n' +
+  'You are now ready to use mix-cli! 🚀'
+
+const SUCCESS_NEW_USER = 'If you are a first time user, you can start by looking\n' +
   'at the organizations you are part of by typing:\n\n' +
   'mix organizations:list\n\n' +
   'Your organization ID is needed for a number of mix commands.'
 
 const debug = makeDebug('mix:commands:auth')
 export default class Auth extends Command {
-  static description = `obtain Mix access token
+  static description = `obtain a Mix access token
   
 Use this command to retrieve an access token. Once mix-cli has acquired the
-access token, it takes care of refreshing it automatically.`
+access token, it takes care of refreshing it automatically.
 
-  static examples = ['mix auth']
+Use the 'system' flag to authenticate with a specific Mix system. mix-cli executes
+commands against the last Mix system it successfully authenticated with.
+
+Run the 'system:list' command to see your list of configured Mix systems.`
+
+  static examples = [
+    'Authenticate with last Mix system used',
+    '$ mix auth',
+    'Authenticate with and switch to the "us" Mix system',
+    '$ mix auth --system us',
+  ]
 
   static flags = {
-    help: Flags.help({char: 'h'}),
+    system: MixFlags.systemFlag,
   }
 
   mixCLIConfig?: MixCLIConfig
@@ -53,6 +65,9 @@ access token, it takes care of refreshing it automatically.`
     const {authServer, clientId, clientSecret, scope} = this.mixCLIConfig!
 
     CliUx.ux.action.start('Retrieving access token using Client Credentials Grant')
+    if (this.authError) {
+      CliUx.ux.action.stop(chalk.red('failed'))
+    }
 
     const authServerAndCreds: AuthServerAndCreds = {
       authServerHost: authServer,
@@ -67,9 +82,11 @@ access token, it takes care of refreshing it automatically.`
       this.authError = {
         code: 'EAUTHFAILURE',
         message: `Failed to obtain access token: ${errorMessage}`,
-        suggestions: ['Verify your client credentials.',
+        suggestions: [
+          'Make sure you are using valid service credentials; default credentials will not work.',
           'Verify your network connectivity.',
-          'Verify the values provided for the authentication and API servers in your configuration.'],
+          'Verify the values provided for the authentication and API servers in your configuration.',
+        ],
       }
 
       CliUx.ux.action.stop(chalk.red('failed'))
@@ -93,9 +110,13 @@ access token, it takes care of refreshing it automatically.`
   }
 
   async run() {
+    const {flags: {system}} = await this.parse(Auth)
     debug('run()')
     try {
       this.mixCLIConfig = Config.getMixCLIConfig(this.config)
+      if (Config.isOldConfig(this.mixCLIConfig)) {
+        this.handleOldConfig()
+      }
     } catch {
       this.log(`
 mix-cli now requires a central configuration file.
@@ -103,6 +124,26 @@ Please run the "mix init" command and mix-cli will help you create
 that configuration file swiftly.`)
       process.exitCode = configurationProblemExitCode
       return
+    }
+
+    if (system) {
+      try {
+        this.mixCLIConfig = Config.switchConfiguration(this.mixCLIConfig, system)
+        this.writeConfigToDisk()
+        this.log(`Switched to Mix system: ${chalk.green(system.toLowerCase())}`)
+        this.log()
+      } catch (error) {
+        this.authError = {
+          code: 'EINVALIDMIXSYSTEM',
+          message: `Failed to switch to Mix system: ${error.message}`,
+          suggestions: [
+            'Verify the value provided for system.',
+            'Use "mix init" to add a new system to your configuration.',
+          ],
+        }
+      }
+    } else {
+      this.log(`Authenticating with ${chalk.green(this.mixCLIConfig.currentSystem)} Mix system`)
     }
 
     await this.runWithClientCredentialsGrant()
@@ -115,6 +156,11 @@ that configuration file swiftly.`)
       })
     } else {
       this.log(SUCCESS)
+
+      if (!this.mixCLIConfig.systems) {
+        this.log()
+        this.log(SUCCESS_NEW_USER)
+      }
     }
   }
 }
