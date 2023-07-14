@@ -37,7 +37,8 @@
     "tslib": "2.3.1",
     "uuid": "8.3.2",
     "yaml": "1.10.2",
-    "zod": "3.11.6"
+    "zod": "3.11.6",
+    "@fonoster/plugin-warn-if-update-available": "github:fonoster/plugin-warn-if-update-available"
   },
   "devDependencies": {
     "@commitlint/cli": "16.2.3",
@@ -122,8 +123,14 @@
     },
     "plugins": [
       "@oclif/plugin-help",
-      "@oclif/plugin-autocomplete"
+      "@oclif/plugin-autocomplete",
+      "@fonoster/plugin-warn-if-update-available"
     ],
+    "warn-if-update-available": {
+      "timeoutInDays": 1,
+      "nagTimeoutInDays": 1,
+      "message": "\n<%= chalk.yellow('Warning: ') %><%= config.name %> update available from <%= chalk.greenBright(config.version) %> to <%= chalk.greenBright(latest) %>."
+    },
     "topics": {
       "applications": {
         "description": "manage applications"
