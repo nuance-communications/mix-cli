@@ -190,6 +190,9 @@
       }
     }
   },
+  "overrides": {
+    "semver": "7.5.4"
+  },
   "pkg": {
     "scripts": "./lib/**/*.js",
     "assets": [
