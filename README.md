@@ -175,7 +175,7 @@ See our [Contribution Guidelines](CONTRIBUTING.md).
 # Commands
 <!-- commands -->
 * [`mix autocomplete [SHELL]`](#mix-autocomplete-shell)
-* [`mix help [COMMAND]`](#mix-help-command)
+* [`mix help [COMMANDS]`](#mix-help-commands)
 
 ## `mix autocomplete [SHELL]`
 
@@ -204,18 +204,18 @@ EXAMPLES
   $ mix autocomplete --refresh-cache
 ```
 
-_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v1.3.10/src/commands/autocomplete/index.ts)_
+_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v1.4.6/src/commands/autocomplete/index.ts)_
 
-## `mix help [COMMAND]`
+## `mix help [COMMANDS]`
 
 Display help for mix.
 
 ```
 USAGE
-  $ mix help [COMMAND] [-n]
+  $ mix help [COMMANDS] [-n]
 
 ARGUMENTS
-  COMMAND  Command to show help for.
+  COMMANDS  Command to show help for.
 
 FLAGS
   -n, --nested-commands  Include all nested commands in the output.
@@ -224,5 +224,5 @@ DESCRIPTION
   Display help for mix.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.22/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.14/src/commands/help.ts)_
 <!-- commandsstop -->

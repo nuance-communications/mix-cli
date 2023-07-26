@@ -1,3 +1,10 @@
+## [2.5.1](https://github.com/nuance-communications/mix-cli/compare/v2.5.0...v2.5.1) (2023-07-26)
+
+
+### Bug Fixes
+
+* upgrade semver package ([#194](https://github.com/nuance-communications/mix-cli/issues/194)) ([22d893f](https://github.com/nuance-communications/mix-cli/commit/22d893f1f788ef00cbbb2587b309cf7033caf46a))
+
 # [2.5.0](https://github.com/nuance-communications/mix-cli/compare/v2.4.0...v2.5.0) (2023-07-14)
 
 
