@@ -37,7 +37,7 @@
     "tslib": "2.3.1",
     "uuid": "8.3.2",
     "yaml": "1.10.2",
-    "zod": "3.11.6"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@commitlint/cli": "16.2.3",
@@ -134,7 +134,7 @@
       "app-configs": {
         "description": "manage application configurations"
       },
-      "env-configs":{
+      "env-configs": {
         "description": "manage environment configurations"
       },
       "builds": {
