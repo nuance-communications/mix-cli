@@ -1,3 +1,10 @@
+## [2.5.2](https://github.com/nuance-communications/mix-cli/compare/v2.5.1...v2.5.2) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade zod to 3.22.4 ([#198](https://github.com/nuance-communications/mix-cli/issues/198)) ([e873a04](https://github.com/nuance-communications/mix-cli/commit/e873a04fcf6bb65b96df4b53d8b74be3196d5ef4))
+
 ## [2.5.1](https://github.com/nuance-communications/mix-cli/compare/v2.5.0...v2.5.1) (2023-07-26)
 
 
