@@ -24,19 +24,17 @@ const td = require('./projects-test-data')
 const testEnvData = require('../../test-data')
 const serverURL = `https://${testEnvData.server}`
 
-const getHeaders = () => ({
-  'Content-Type': 'multipart/form-data; boundary=--------------------------461709635804907982362641'
-})
+const form = new FormData() as any
+form.append('file', Buffer.alloc(10))
+form.getHeaders = () => {}
 
 describe('projects:replace', () => {
   const promptStub = sinon.stub()
-  const createFormStub = sinon.stub().returns({getHeaders})
+  const createFormStub = sinon.stub().returns(form)
 
   afterEach(() => {
     promptStub.reset()
   })
-
-  after(() => {createFormStub.reset()})
 
   test
     .env(testEnvData.env)
