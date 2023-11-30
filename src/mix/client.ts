@@ -6,7 +6,7 @@
  * the LICENSE file in the root directory of this source tree.
  */
 
-import axios, {AxiosRequestHeaders} from 'axios'
+import axios, {RawAxiosRequestHeaders} from 'axios'
 import makeDebug from 'debug'
 
 import {
@@ -52,7 +52,7 @@ export function createMixClient(options: MixClientOptions) {
         debug(`request method: ${method}`)
         debug(`request url: ${url}`)
         debug('request body: %O', data)
-        const augmentedHeaders: AxiosRequestHeaders = {
+        const augmentedHeaders: RawAxiosRequestHeaders = {
           Authorization: bearerToken,
           'User-Agent': userAgent,
           ...headers}
