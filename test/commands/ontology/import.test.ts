@@ -24,20 +24,17 @@ const serverURL = `https://${testData.server}`
 
 const endpoint = `/v4/projects/1922/ontology/.append`
 
-const getHeaders = () => ({
-  'Content-Type': 'multipart/form-data; boundary=--------------------------461709635804907982362641'
-})
-
 describe('ontology:import command', () => {
   const promptStub = sinon.stub()
-  const createFormStub = sinon.stub().returns({getHeaders})
+
+  const form = new FormData() as any
+  form.append('file', Buffer.alloc(10))
+  form.getHeaders = () => {}
+
+  const createFormStub = sinon.stub().returns(form)
 
   afterEach(() => {
     promptStub.reset()
-  })
-
-  after(() => {
-    createFormStub.reset()
   })
 
   test

@@ -11,7 +11,7 @@ import {expect, test} from '@oclif/test'
 import {mixAPIServerURL} from '../../mocks'
 import testData from './grammars-test-data'
 
-import * as createFormModule from '../../../src/mix/api/utils/create-form'
+import * as CreateFormModule from '../../../src/mix/api/utils/create-form'
 
 const chai = require('chai')
 const sinon = require('sinon')
@@ -25,9 +25,9 @@ const {
   grammarsReplaceResponse,
 } = testData
 
-const getHeaders = () => ({
-  'Content-Type': 'multipart/form-data; boundary=--------------------------461709635804907982362641'
-})
+const form = new FormData() as any
+form.append('file', Buffer.alloc(10))
+form.getHeaders = () => {}
 
 describe('grammars:replace command', () => {
   const projectId = '254'
@@ -35,14 +35,11 @@ describe('grammars:replace command', () => {
   const filepath = `./grammars.grxml`
   const endpoint = `/v4/projects/${projectId}/entities/${entityName}/grammars/.replace`
   const promptStub = sinon.stub()
-  const createFormStub = sinon.stub().returns({getHeaders})
+
+  const createFormStub = sinon.stub().returns(form)
 
   afterEach(() => {
     promptStub.reset()
-  })
-
-  after(() => {
-    createFormStub.reset()
   })
 
   describe('grammars:replace command with valid projectId, entityName and filepath', () => {
@@ -57,7 +54,7 @@ describe('grammars:replace command', () => {
             .post(endpoint)
             .reply(200, grammarsReplaceResponse)
         )
-        .stub(createFormModule, 'createForm', () => createFormStub(filepath))
+        .stub(CreateFormModule, 'createForm', createFormStub)
         .stdout()
         .stderr()
         .command(['grammars:replace', '-P', projectId, '-E', entityName, '-f', filepath])
@@ -88,7 +85,7 @@ describe('grammars:replace command', () => {
             .post(endpoint)
             .reply(200, grammarsReplaceResponse)
         )
-        .stub(createFormModule, 'createForm', () => createFormStub(filepath))
+        .stub(CreateFormModule, 'createForm', createFormStub)
         .stdout()
         .command(['grammars:replace',
           `-P=${projectId}`,
@@ -105,7 +102,7 @@ describe('grammars:replace command', () => {
 
       const wrongEntity = 'Drnk'
       test
-        .stub(createFormModule, 'createForm', createFormStub)
+        .stub(CreateFormModule, 'createForm', createFormStub)
         .stdout()
         .command(['grammars:replace',
           `-P=${projectId}`,
