@@ -1,3 +1,10 @@
+## [2.5.4](https://github.com/nuance-communications/mix-cli/compare/v2.5.3...v2.5.4) (2024-01-24)
+
+
+### Bug Fixes
+
+* address security issue with follow-redirects ([0a3eb6e](https://github.com/nuance-communications/mix-cli/commit/0a3eb6e11da0115c3383963821cdc55265553f47))
+
 ## [2.5.3](https://github.com/nuance-communications/mix-cli/compare/v2.5.2...v2.5.3) (2023-11-30)
 
 
