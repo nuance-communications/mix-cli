@@ -13,6 +13,12 @@ import makeDebug from 'debug'
 import {AuthServerAndCreds, oAuth} from '../../utils/auth'
 import {Config, MixCLIConfig} from '../config'
 import {tokenFileName} from '../constants'
+import {eUnauthorizedMSAL} from '../errors'
+import {
+  getMSALClient,
+  getMSALTokenDeviceCode,
+  getMSALTokenSilent,
+} from '../msal-auth'
 
 const debug = makeDebug('mix:base:base-command')
 
@@ -23,14 +29,51 @@ export default abstract class BaseCommand extends Command {
   mixCLIConfig?: MixCLIConfig
   oAuthClient: any = null
 
-  async doAuth() {
-    debug('doAuth()')
-    const {clientId, clientSecret, ...safeToPrintConfig} = this.mixCLIConfig!
-    debug('mix-cli configuration: %O', safeToPrintConfig)
-    if (Config.isOldConfig(this.mixCLIConfig!)) {
-      this.handleOldConfig()
-    }
+  deviceCodeCallback(response: {message: string}) {
+    this.log(response.message)
+    CliUx.ux.action.start('Authenticating using device code')
+  }
 
+  async doMSALAuth() {
+    debug('doMSALAuth()')
+
+    try {
+      const pca = getMSALClient({
+        authority: this.mixCLIConfig!.authServer,
+        configDir: process.env.MIX_CONFIG_DIR || this.config.configDir,
+        clientId: this.mixCLIConfig!.clientId,
+      })
+
+      const authenticationOptions = {
+        pca,
+        scope: this.mixCLIConfig!.scope,
+        callback: this.deviceCodeCallback.bind(this),
+      }
+
+      let acquiredToken = await getMSALTokenSilent(authenticationOptions)
+
+      if (acquiredToken === null) {
+        acquiredToken = await getMSALTokenDeviceCode(authenticationOptions)
+        if (acquiredToken === null) {
+          CliUx.ux.action.stop(chalk.red('failed'))
+          this.error(eUnauthorizedMSAL('Failed to authenticate using device code'))
+        }
+      }
+
+      CliUx.ux.action.stop(chalk.green('OK'))
+      this.log()
+
+      this.accessToken = {
+        // eslint-disable-next-line camelcase
+        access_token: acquiredToken.accessToken,
+      }
+    } catch (error) {
+      debug('failed to perform authentication using device code')
+      this.error(eUnauthorizedMSAL(error.message))
+    }
+  }
+
+  async doOriginalAuth(clientId: string, clientSecret: string) {
     const authServerAndCreds: AuthServerAndCreds = {
       authServerHost: this.mixCLIConfig!.authServer,
       id: clientId,
@@ -56,6 +99,7 @@ export default abstract class BaseCommand extends Command {
       debug('access token is expired or close to expiring')
       CliUx.ux.action.start('Renewing access token')
       const {renewedToken, error} = await this.renewAccessToken(scope)
+
       if (error) {
         debug('access token renewal failed')
         this.error(error.message, error.options)
@@ -65,6 +109,28 @@ export default abstract class BaseCommand extends Command {
       debug('access token successfully renewed')
       this.accessToken = renewedToken
       CliUx.ux.action.stop(chalk.green('OK'))
+    }
+  }
+
+  async doAuth() {
+    debug('doAuth()')
+    const {clientId, clientSecret, ...safeToPrintConfig} = this.mixCLIConfig!
+    debug('mix-cli configuration: %O', safeToPrintConfig)
+
+    if (Config.isOldConfig(this.mixCLIConfig!)) {
+      this.handleOldConfig()
+    }
+
+    switch (this.mixCLIConfig!.authFlow) {
+      case 'device':
+        await this.doMSALAuth()
+        break
+
+      case 'credentials':
+      default:
+        // using as default to provide backward compatibility
+        await this.doOriginalAuth(clientId, clientSecret)
+        break
     }
   }
 

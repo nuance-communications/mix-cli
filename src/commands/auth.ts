@@ -16,9 +16,11 @@ import {AuthServerAndCreds, oAuth} from '../utils/auth'
 import Command from '../utils/base/base-command'
 import {Config, MixCLIConfig} from '../utils/config'
 import {configurationProblemExitCode, tokenFileName} from '../utils/constants'
+import {Codes, eUnauthorizedMSAL} from '../utils/errors'
+import {getMSALClient, getMSALTokenDeviceCode} from '../utils/msal-auth'
 
-const SUCCESS = 'Token was retrieved and stored successfully.\n' +
-  'You are now ready to use mix-cli! 🚀'
+const getSuccessMessage = (system = '') => 'Token was retrieved and stored successfully.\n' +
+  `You are now ready to use mix-cli with the Mix ${chalk.cyan(system)} system! 🚀`
 
 const SUCCESS_NEW_USER = 'If you are a first time user, you can start by looking\n' +
   'at the organizations you are part of by typing:\n\n' +
@@ -109,12 +111,57 @@ Run the 'system:list' command to see your list of configured Mix systems.`
     }
   }
 
+  async runWithMSALTokenDeviceCode() {
+    debug('runWithMSALTokenDeviceCode()')
+
+    try {
+      const pca = getMSALClient({
+        authority: this.mixCLIConfig!.authServer,
+        configDir: process.env.MIX_CONFIG_DIR || this.config.configDir,
+        clientId: this.mixCLIConfig!.clientId,
+      })
+
+      const authenticationOptions = {
+        pca,
+        scope: this.mixCLIConfig!.scope,
+        callback: this.deviceCodeCallback.bind(this),
+      }
+
+      const acquiredToken = await getMSALTokenDeviceCode(authenticationOptions)
+      if (acquiredToken === null) {
+        CliUx.ux.action.stop(chalk.red('failed'))
+        this.error(eUnauthorizedMSAL('Failed to authenticate using MSAL'))
+      }
+
+      CliUx.ux.action.stop(chalk.green('OK'))
+      this.log()
+
+      this.accessToken = {
+        // eslint-disable-next-line camelcase
+        access_token: acquiredToken.accessToken,
+      }
+    } catch (error) {
+      debug('failed to perform MSAL authentication')
+      this.authError = {
+        code: Codes.Unauthorized,
+        message: error.message,
+        suggestions: [
+          'You may have exceeded the time allowed to authenticate with the device code provided. Try again.',
+          'You may not have access to this system. Verify you have the right credentials.',
+        ],
+      }
+    }
+  }
+
   async run() {
-    const {flags: {system}} = await this.parse(Auth)
     debug('run()')
+    const {flags: {system}} = await this.parse(Auth)
+
     try {
       this.mixCLIConfig = Config.getMixCLIConfig(this.config)
+
       if (Config.isOldConfig(this.mixCLIConfig)) {
+        debug('old configuration file found')
         this.handleOldConfig()
       }
     } catch {
@@ -127,26 +174,41 @@ that configuration file swiftly.`)
     }
 
     if (system) {
+      debug('switching to system:', system)
+
       try {
         this.mixCLIConfig = Config.switchConfiguration(this.mixCLIConfig, system)
         this.writeConfigToDisk()
         this.log(`Switched to Mix system: ${chalk.green(system.toLowerCase())}`)
         this.log()
       } catch (error) {
-        this.authError = {
-          code: 'EINVALIDMIXSYSTEM',
-          message: `Failed to switch to Mix system: ${error.message}`,
+        debug('error: %s', error.message)
+
+        this.error(error.message, {
+          code: Codes.InvalidValue,
+          exit: 1,
           suggestions: [
             'Verify the value provided for system.',
+            'Use "mix system:list" to see a list of configured systems.',
             'Use "mix init" to add a new system to your configuration.',
           ],
-        }
+        })
       }
     } else {
       this.log(`Authenticating with ${chalk.green(this.mixCLIConfig.currentSystem)} Mix system`)
     }
 
-    await this.runWithClientCredentialsGrant()
+    switch (this.mixCLIConfig.authFlow) {
+      case 'device':
+        await this.runWithMSALTokenDeviceCode()
+        break
+
+      case 'credentials':
+      default:
+        // Using this as default to maintain backward compatibility with old config files
+        await this.runWithClientCredentialsGrant()
+        break
+    }
 
     if (this.authError) {
       this.error(this.authError.message, {
@@ -155,7 +217,7 @@ that configuration file swiftly.`)
         suggestions: this.authError.suggestions,
       })
     } else {
-      this.log(SUCCESS)
+      this.log(getSuccessMessage(this.mixCLIConfig.currentSystem))
 
       if (!this.mixCLIConfig.systems) {
         this.log()
