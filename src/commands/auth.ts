@@ -86,7 +86,7 @@ Run the 'system:list' command to see your list of configured Mix systems.`
         message: `Failed to obtain access token: ${errorMessage}`,
         suggestions: [
           'Make sure you are using valid service credentials; default credentials will not work.',
-          'Verify your network connectivity.',
+          'Verify your network connectivity and/or VPN connection.',
           'Verify the values provided for the authentication and API servers in your configuration.',
         ],
       }
