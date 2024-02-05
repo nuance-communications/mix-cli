@@ -113,16 +113,6 @@ export const eForbidden = (message: string) => {
     })
 }
 
-export const eInvalidValue = (message?: string, suggestions?: string[]) => {
-  return new MixCLIError(
-    message ?? 'One or more flags have invalid values.',
-    {
-      code: Codes.InvalidValue,
-      exit: 1,
-      suggestions: suggestions ?? ['verify the values passed to the command flags.'], // default
-    })
-}
-
 export const eInvalidColumn = (message?: string, suggestions?: string[]) => {
   return new MixCLIError(
     message ?? 'Invalid column name provided.',
@@ -130,6 +120,16 @@ export const eInvalidColumn = (message?: string, suggestions?: string[]) => {
       code: Codes.InvalidColumnError,
       exit: 1,
       suggestions: suggestions ? suggestions : ["verify the values passed to the 'columns' flag."],
+    })
+}
+
+export const eInvalidValue = (message?: string, suggestions?: string[]) => {
+  return new MixCLIError(
+    message ?? 'One or more flags have invalid values.',
+    {
+      code: Codes.InvalidValue,
+      exit: 1,
+      suggestions: suggestions ?? ['verify the values passed to the command flags.'], // default
     })
 }
 
@@ -221,6 +221,19 @@ export const eUnauthorized = (message?: string | null) => {
         'Your access token may have expired; renew it and retry.',
         `You may be trying to access data you do not have access to
   so verify the values you passed to the command flags.`,
+      ],
+    })
+}
+
+export const eUnauthorizedMSAL = (message?: string | null) => {
+  return new MixCLIError(
+    message ?? 'Unauthorized request.',
+    {
+      code: Codes.Unauthorized,
+      exit: authProblemExitCode,
+      suggestions: [
+        'You may have exceeded the time allowed to authenticate with the device code provided. Try again.',
+        'You may not have access to this system. Verify you have the right credentials.',
       ],
     })
 }

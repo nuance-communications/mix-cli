@@ -130,9 +130,15 @@ export interface MixHeaders {
    * */
   'User-Agent': string;
 }
+
+export type ServerInfo = {
+  server: string;
+  pathPrefix: string;
+}
+
 export interface MixClient {
   /** Returns the fully-qualified domain name of the Mix V4 API server */
-  getServer: () => string
+  getServer: () => ServerInfo
 
   /** Sets the bearer token used for OAuth */
   setToken: (token: string) => void
@@ -142,6 +148,9 @@ export interface MixClient {
 }
 
 export interface MixClientOptions {
+  /** Authentication flow */
+  authFlow?: string
+
   /** Fully-qualified domain name of the Mix V4 API server */
   server: string;
 

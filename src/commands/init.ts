@@ -64,8 +64,8 @@ configuration can also be overridden using environment variables.`
     try {
       mixCLIConfig = await ((isMixCLIEnvVariableSetComplete && !isMixCLIConfigPresent) ?
         this.confirmUseOfEnvironmentVariables() : this.askConfigurationValues())
-    } catch {
-      this.outputExitInit()
+    } catch (error) {
+      this.outputExitInit(error.message)
 
       process.exitCode = configurationProblemExitCode
       return
@@ -105,17 +105,13 @@ configuration can also be overridden using environment variables.`
     this.outputUserIsAllSet()
   }
 
-  async askConfigurationValues(): Promise<MixCLIConfig> {
-    debug('askConfigurationValues()')
-    this.log() // intentional blank line
+  async askClientCredentialsConfigurationValues(): Promise<any> {
     const authServer = await CliUx.ux.prompt('Mix authentication server fully-qualified hostname?',
       {default: 'auth.crt.nuance.com'})
     const apiServer = await CliUx.ux.prompt('Mix API server fully-qualified hostname?',
       {default: 'mix.api.nuance.com'})
     const scope = await CliUx.ux.prompt('Mix OAuth scope?',
       {default: 'mix-api'})
-    const tenant = await CliUx.ux.prompt('Mix tenant?',
-      {default: 'mix'})
     const clientId = await CliUx.ux.prompt('Your client ID?',
       {type: 'mask'})
     const clientSecret = await CliUx.ux.prompt('Your client secret?',
@@ -125,12 +121,65 @@ configuration can also be overridden using environment variables.`
       {default: suggestedSystem})
 
     const values = {
+      authFlow: 'credentials',
       authServer,
       apiServer,
       scope,
-      tenant,
       clientId,
       clientSecret,
+      tenant: 'mix',
+    }
+
+    return [values, system]
+  }
+
+  async askDeviceCodeConfigurationValues(): Promise<any> {
+    const authServer = await CliUx.ux.prompt('Authority URL?')
+
+    if (!authServer.startsWith('https://')) {
+      throw new Error(`Authority URL must start with ${chalk.green('https://')}.`)
+    }
+
+    const apiServer = await CliUx.ux.prompt('Mix API server fully-qualified hostname?')
+    const scope = await CliUx.ux.prompt('Scope?')
+    const clientId = await CliUx.ux.prompt('Your client ID?',
+      {type: 'mask'})
+    const suggestedSystem = Config.getSystemFromApiServer(apiServer)
+    const system = await CliUx.ux.prompt('Mix system name?',
+      {default: suggestedSystem})
+
+    const values = {
+      authFlow: 'device',
+      authServer, // used to hold authority URL with Client Credentials flow
+      apiServer,
+      scope,
+      clientId,
+      clientSecret: '', // not used with Client Credentials flow
+      tenant: '', // not used with Device Code flow
+    }
+
+    return [values, system]
+  }
+
+  async askConfigurationValues(): Promise<MixCLIConfig> {
+    debug('askConfigurationValues()')
+    this.log() // intentional blank line
+
+    const authFlow = await CliUx.ux.prompt('Authentication flow (credentials, device)?',
+      {default: 'credentials'})
+
+    let values
+    let system
+
+    switch (authFlow) {
+      case 'credentials':
+        [values, system] = await this.askClientCredentialsConfigurationValues()
+        break
+      case 'device':
+        [values, system] = await this.askDeviceCodeConfigurationValues()
+        break
+      default:
+        throw new Error(`${chalk.red(authFlow)} is not a valid or supported flow.`)
     }
 
     const mixCLIConfig = {
@@ -143,25 +192,6 @@ configuration can also be overridden using environment variables.`
       },
     }
 
-    return mixCLIConfig
-  }
-
-  async collectAnswers() {
-    debug('collectAnswers()')
-    const authServer = await CliUx.ux.prompt('Mix authentication server fully-qualified hostname?',
-      {default: 'auth.crt.nuance.com'})
-    const apiServer = await CliUx.ux.prompt('Mix API server fully-qualified hostname?',
-      {default: 'mix.api.nuance.com'})
-    const scope = await CliUx.ux.prompt('Mix OAuth scope?',
-      {default: 'mix-api'})
-    const tenant = await CliUx.ux.prompt('Mix tenant?',
-      {default: 'mix'})
-    const clientId = await CliUx.ux.prompt('Your client ID?',
-      {type: 'mask'})
-    const clientSecret = await CliUx.ux.prompt('Your client secret?',
-      {type: 'hide'})
-
-    const mixCLIConfig = {authServer, apiServer, scope, tenant, clientId, clientSecret}
     return mixCLIConfig
   }
 
@@ -187,8 +217,7 @@ configuration can also be overridden using environment variables.`
   outputAnswerSomeQuestions() {
     debug('outputAnswerSomeQuestions()')
     this.log(`
-Answer the few questions below to configure mix-cli.
-Simply accept defaults if you plan on using the Production US Mix system ("us").`)
+Answer the few questions below to configure mix-cli.`)
   }
 
   outputCanUseEnvironmentVariables() {
@@ -198,9 +227,14 @@ You can use environment variables or a .env file in the current working
 directory to override values from the central configuration.`)
   }
 
-  outputExitInit() {
+  outputExitInit(errorMessage: string) {
     debug('outputExitInit()')
-    this.log('\n\n\'init\' command aborted. You can run the command later.')
+    if (errorMessage) {
+      this.log(errorMessage)
+    }
+
+    this.log()
+    this.log('\'init\' command aborted. Verify your configuration values and run the command again.')
   }
 
   outputHaveCompleteEnvVarSet() {
@@ -241,9 +275,10 @@ and consistent set of configuration values.`)
     this.log('Your mix-cli configuration is ready!')
     this.log()
     this.log('Next, you can:')
-    this.log(`  - get authenticated by typing: ${chalk.cyan('mix auth')}`)
+    this.log(`  - get authenticated to the newly added Mix system by typing: ${chalk.cyan('mix auth')}`)
     this.log(`  - see your list of configured Mix systems by typing: ${chalk.cyan('mix system:list')}`)
     this.log(`  - switch to a different Mix system by typing: ${chalk.cyan('mix auth --system <system name>')}`)
+    this.log()
   }
 
   outputVerifyEnvironmentVariables() {

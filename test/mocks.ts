@@ -13,6 +13,7 @@ const mixAPIServer = 'mix-api.example.com'
 export const mixAPIServerURL = `https://${mixAPIServer}`
 
 const currentConfig = {
+  authFlow: 'credentials',
   authServer: 'auth.example.com',
   clientId: crypto.randomUUID(),
   clientSecret: crypto.randomUUID(),
