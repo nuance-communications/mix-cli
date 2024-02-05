@@ -30,6 +30,7 @@ const evNames = [
 
 export interface Details {
   apiServer: string
+  authFlow: string
   authServer: string
   clientId: string
   clientSecret: string
@@ -44,6 +45,7 @@ export interface MixCLIConfig {
   clientSecret: string
   scope: string
   tenant: string
+  authFlow?: string
   configVersion?: number
   currentSystem?: string
   systems?: {[key: string]: Details}
@@ -63,6 +65,7 @@ export const Config = {
     const fileConfig = config ?
       loadMixCLIConfig(process.env.MIX_CONFIG_DIR || config.configDir) :
       {}
+
     mixCLIConfig = overrideConfigUsingEnvVars(fileConfig)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {clientId, clientSecret, ...safeToShow} = mixCLIConfig
@@ -149,13 +152,18 @@ export const Config = {
 
   convertOldConfigToNew(config: MixCLIConfig): MixCLIConfig {
     debug('convertOldConfigToNew()')
+
     const systemName = this.getSystemFromApiServer(config.apiServer)
+
+    // the old configuration only supported the client credentials flow
     const newConfig = {
       ...config,
+      authFlow: 'credentials',
       configVersion: 2,
       systems: {
         [systemName]: {
           apiServer: config.apiServer,
+          authFlow: 'credentials',
           authServer: config.authServer,
           clientId: config.clientId,
           clientSecret: config.clientSecret,
@@ -184,7 +192,7 @@ export const Config = {
     }
 
     const combinedConfig = {
-      ...oldConfig,
+      ...newConfig,
       systems: {
         ...oldConfig.systems,
         ...newConfig.systems,
@@ -194,8 +202,8 @@ export const Config = {
   },
 
   getSystemFromApiServer(apiURL: string): string {
-    // prod URL
     const words = apiURL.split('.')
+
     if (apiURL.startsWith('mix.api.nuance')) {
       switch (words.at(-1)) {
         case 'com':
@@ -205,26 +213,33 @@ export const Config = {
       }
     }
 
-    // non prod URL
-    return words[1] === 'mix' ? 'pre-prod' : words[1] ?? apiURL
+    if (words[1] === 'mix') {
+      return 'pre-prod'
+    }
+
+    return words.length >= 2 ? `${words[0]}.${words[1]}` : apiURL
   },
 
   switchConfiguration(config: MixCLIConfig, system: string): MixCLIConfig {
+    debug('switchConfiguration()')
     const {systems} = config
+
     if (!systems) {
       // should never happen
       return config
     }
 
     if (systems[system.toLowerCase()]) {
+      const authFlow = systems[system.toLowerCase()].authFlow ?? 'credentials' // for backward compatibility
       return {
         ...config,
         currentSystem: system.toLowerCase(),
         ...systems[system.toLowerCase()],
+        authFlow,
       }
     }
 
-    throw new Error(`System "${system}" does not exist.`)
+    throw new Error(`System "${system}" was not found in your configuration file.`)
   },
 }
 

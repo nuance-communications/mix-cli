@@ -13,7 +13,8 @@ import {
   MixClient,
   MixClientOptions,
   RequestArgs,
-  MixResponse} from './types'
+  MixResponse,
+  ServerInfo} from './types'
 
 const debug = makeDebug('mix:client')
 
@@ -22,9 +23,11 @@ const debug = makeDebug('mix:client')
  */
 export function createMixClient(options: MixClientOptions) {
   debug('createMixClient()')
+
   const {
-    userAgent = 'mix-js-client',
+    authFlow,
     server,
+    userAgent = 'mix-js-client',
   } = options
 
   let bearerToken = ''
@@ -40,9 +43,19 @@ export function createMixClient(options: MixClientOptions) {
 
   const client: MixClient = ({
     /** Returns the fully-qualified domain name of the Mix V4 API server */
-    getServer: () => {
+    getServer: (): ServerInfo => {
       debug('getServer()')
-      return server
+
+      // this is a hack to support systems that run with device code authentication
+      const pathPrefix = authFlow === 'device' ? '/v3/api' : ''
+
+      debug('server: %s', server)
+      debug('pathPrefix: %s', pathPrefix)
+
+      return {
+        server,
+        pathPrefix,
+      }
     },
 
     request: async (params: RequestArgs): Promise<MixResponse> => {

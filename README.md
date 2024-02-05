@@ -96,6 +96,11 @@ assignment wins:
  * `.env` file in current working directory
  * environment variables already set in the execution environment 
 
+## Experimental support for Device Code authentication flow
+Experimental support for the Device Code authorization flow has been added to `mix-cli`.
+You can configure a Mix system for this authorization flow by answering "device" to the
+"Authentication flow?" question that now comes first when running the `init` command.
+
 # Retrieving the access token
 With the relevant configuration in place, you first need to retrieve an access
 token before using any of the other cli commands. Simply type:

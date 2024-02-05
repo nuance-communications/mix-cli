@@ -9,9 +9,9 @@
 /* eslint-disable unicorn/prefer-node-protocol */
 import {URL} from 'url'
 
-import {MixRequestSearchParams} from '../../types'
+import {MixRequestSearchParams, ServerInfo} from '../../types'
 
-export default function buildURL(server: string, path: string, params?: MixRequestSearchParams): URL {
+export default function buildURL(serverInfo: ServerInfo, path: string, params?: MixRequestSearchParams): URL {
   const paramsList = []
   const safeParams = typeof params === 'undefined' ? {} : params
 
@@ -28,7 +28,9 @@ export default function buildURL(server: string, path: string, params?: MixReque
   let url
   try {
     const searchParams = new URLSearchParams(paramsList)
-    url = new URL(path, `https://${server}`)
+
+    // Adjust path based on tenant
+    url = new URL(`${serverInfo.pathPrefix}${path}`, `https://${serverInfo.server}`)
     url.search = searchParams.toString()
   } catch {
     throw new Error('invalid server URL; verify the value for apiServer in your configuration file.')

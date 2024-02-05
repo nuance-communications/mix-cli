@@ -21,7 +21,7 @@ export default class SystemVersionList extends BaseCommand {
   to use with mix-cli.`
 
   static examples = [
-    'list configured Mix systens',
+    'list configured Mix systems',
     'mix system:list',
     'Equivalent command',
     'mix systems:list',
@@ -33,7 +33,7 @@ export default class SystemVersionList extends BaseCommand {
     return {
       systemName: {header: 'System'},
       apiServer: {header: 'APIServer'},
-      authServer: {header: 'AuthServer'},
+      authServer: {header: 'AuthServer/AuthorityURL'},
       scope: {header: 'Scope'},
       tenant: {header: 'Tenant'},
     }
@@ -68,6 +68,10 @@ export default class SystemVersionList extends BaseCommand {
 
     CliUx.ux.table(systemsTable, this.columns, {})
     this.log()
+
+    if (config.currentSystem) {
+      this.log(`Current Mix system: ${chalk.cyan(config.currentSystem)}`)
+    }
 
     if (Object.keys(systems!).length > 1) {
       this.log(`To switch to a different Mix system, run: ${chalk.cyan('mix auth --system <system>')}`)

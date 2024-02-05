@@ -21,6 +21,7 @@ const debug = makeDebug('mix:api:system')
  */
 export async function getSystemVersion(client: MixClient, _requestParams: SystemVersionParams = {}): Promise<MixResponse> {
   debug('getSystemVersion()')
+
   return client.request({
     method: 'get',
     url: buildURL(client.getServer(), '/v4/version'),

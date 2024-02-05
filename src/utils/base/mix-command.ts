@@ -92,6 +92,7 @@ that configuration file swiftly.`)
     debug('this.options: %O', this.options)
 
     const options = {
+      authFlow: this.mixCLIConfig?.authFlow ?? '',
       userAgent: this.config.userAgent,
       server: this.mixCLIConfig?.apiServer ?? '',
     }
