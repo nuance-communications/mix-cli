@@ -1,3 +1,11 @@
+# [2.6.0](https://github.com/nuance-communications/mix-cli/compare/v2.5.4...v2.6.0) (2024-02-05)
+
+
+### Features
+
+* add experimental support for device code authentication flow ([e5561ad](https://github.com/nuance-communications/mix-cli/commit/e5561ad3c00c2e12cecb73b167e5603a7721fffb))
+* correct error message ([73c2918](https://github.com/nuance-communications/mix-cli/commit/73c29189aafab8c94b46427fcd2c53a173b503f3))
+
 ## [2.5.4](https://github.com/nuance-communications/mix-cli/compare/v2.5.3...v2.5.4) (2024-01-24)
 
 
