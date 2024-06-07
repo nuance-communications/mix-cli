@@ -1,3 +1,10 @@
+## [2.6.1](https://github.com/nuance-communications/mix-cli/compare/v2.6.0...v2.6.1) (2024-06-07)
+
+
+### Bug Fixes
+
+* upgrade axis (follow-redirects), braces, ejs and micromatch ([53c6f0e](https://github.com/nuance-communications/mix-cli/commit/53c6f0e5e7e6c2d73e38810b1a6373655e2ee252))
+
 # [2.6.0](https://github.com/nuance-communications/mix-cli/compare/v2.5.4...v2.6.0) (2024-02-05)
 
 
