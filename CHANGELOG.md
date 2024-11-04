@@ -1,3 +1,10 @@
+## [2.6.2](https://github.com/nuance-communications/mix-cli/compare/v2.6.1...v2.6.2) (2024-11-04)
+
+
+### Bug Fixes
+
+* upgrade async and axios ([#223](https://github.com/nuance-communications/mix-cli/issues/223)) ([54b1c95](https://github.com/nuance-communications/mix-cli/commit/54b1c9578bfc1a976de4fcd7c4db6393bcf2cefd))
+
 ## [2.6.1](https://github.com/nuance-communications/mix-cli/compare/v2.6.0...v2.6.1) (2024-06-07)
 
 
